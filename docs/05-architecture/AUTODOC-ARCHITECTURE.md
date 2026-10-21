@@ -60,7 +60,7 @@ Authoritative catalogs / source files / Markdown metadata
 - **Additional bounded extractors:** `engine/extractors/facts.py` parses Python AST declarations
   and tests, ATX Markdown headings and PEP 621 manifests. It does not infer behavior, installed
   dependencies or parse arbitrary TypeScript/OpenAPI. The three catalog views are derived from
-  the original 260 stable IDs, not a duplicated catalog. The task route/SQLite/config
+  the original 260 stable IDs (265 today; the five additions kept their IDs), not a duplicated catalog. The task route/SQLite/config
   renderers reject unsupported records rather than producing a deceptively complete reference.
 - **Evidence and release:** CI runs tests and uploads an unsigned, hash-verifiable pack to a run
   artifact. No pack or timestamps are committed. The release-tag snapshot workflow fails closed

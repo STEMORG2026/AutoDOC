@@ -5,14 +5,12 @@ open sessions; every plan archived; no claim is held)
 
 ## Active — work in flight, or landed and awaiting the owner
 
-**None.** No session is in flight and none awaits the owner: the eight sessions that were open were
-closed on the owner's instruction of 2026-10-21 (`"continue from this here and also close the
-session"`), executed by `Abb7f` in session `20261021-1257-Abb7f`. Register yourself here (Step 8)
-before starting work.
+One session in flight: `A90c` (debt D-001). The eight sessions closed on the owner's instruction of
+2026-10-21 remain closed; their plans are archived.
 
 | Agent ID | Model / type | Branch | Task (one line) | Started (UTC) | Claimed paths | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| — | — | — | No active session | — | — | — |
+| `A90c` | Arena.ai Agent Mode | `arena/44b2fb68-autodoc` | Debt D-001: repair the catalog-count drift (prose 260 / 45+194 vs indexes 265, 49+192) and add a check that makes the numbers fail loudly when they drift again | 2026-10-21T13:18Z | `state/**`, `NEXT-ACTION.md`, `README.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `QUICK-START.md`, `IMPLEMENTATION-GUIDE.md`, `RECENT-CHANGES.md`, `docs/00-governance/{ADOPTION,ENGINE-COVERAGE,LIMITATIONS}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `tests/**` | **IN PROGRESS** — registration write (Step 8); coordination files frozen until shutdown reconcile |
 
 ## Closed by the owner
 

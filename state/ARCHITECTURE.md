@@ -36,7 +36,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 ## Audit facts (Section 7 Step 1, 2026-10-01)
 
 - **Runtime:** Python 3.11.2, **zero runtime dependencies** (stdlib only); dev extras `pytest>=8,<10` and `pre-commit>=3,<5`; build `setuptools>=77`.
-- **Scale:** 1015 tracked files = 64 `.py`, 361 `.md`, and 265 catalog types × 3 template variants; 68 controlled docs (24 generated, 44 human-owned).
+- **Scale:** 1015 tracked files = 64 `.py`, 361 `.md`, and 265 catalog types × 3 template variants; 68 controlled docs (24 generated, 44 human-owned). **Refreshed 2026-10-21:** 1039 tracked files = 65 `.py`, 384 `.md`; 70 controlled instances (28 generated targets, 42 human-owned) — the counts a reader should cite today.
 - **Demo surface:** SQLite (`EXAMPLE-PROJECT/db/schema.sql`, single `tasks` table, no migrations) and a stdlib threaded HTTP server with three routes (`GET/POST /tasks`, `GET /health`), **no auth**, 1–4096-byte body cap, JSON 400/404 errors.
 - **Readers:** Python only (exact, in-process). No reader for JavaScript/TypeScript, Rust or Go (L0, reported as such).
 - **Gates:** pytest (242 tests), catalog check, guards, drift, drift-impact, evidence hashing; required CI check `AutoDOC guard / check`; nightly freshness warn-only.

@@ -22,7 +22,7 @@ auto_generated: false
 # Current state
 
 AutoDOC has a working sync map, standard-library runtime, three authoritative catalog indices,
-260 template triples, a task API demo and two local tool-policy demonstrations without an LLM or web calls.
+265 template triples, a task API demo and two local tool-policy demonstrations without an LLM or web calls.
 Its checks validate controlled-document metadata, generated drift, age and source-to-human-review impact.
 A catalog entry represents a possible document, not a completed compliance obligation.
 
@@ -48,9 +48,9 @@ The catalog is generated from `CONTROL/metadata/CATALOG-RULES.json` and validate
 reviewer can diff. `priority` is gone: it came from three domain prefixes and classified UAT as
 core for every project. It is replaced by 24 hand-picked core types (three of them gated by
 declared traits) — including `README`, which
-was missing from all 260 — each with a recorded reason, a detectable `applies_when` predicate
+was missing from all 260 types that existed then — each with a recorded reason, a detectable `applies_when` predicate
 and an authored `severity_by_phase` (the phases it is off in; `phase_min` is derived, never a
-second source), over 45 extended and 194 contextual types.
+second source), over 49 extended and 192 contextual types.
 
 Which of those types count as core is now a profile, not a constant: `CONTROL/metadata/PROFILES.json`
 holds `default`, `startup`, `oss-library`, `internal-service` and `regulated` as small deltas of

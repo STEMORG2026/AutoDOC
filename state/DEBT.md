@@ -1,13 +1,13 @@
 # DEBT — technical debt worth acting on
 
-**Last reconciled:** 2026-10-01T11:29Z (audit-complete)
+**Last reconciled:** 2026-10-21T13:20Z (D-001 fixed — counts now derived and guarded by a test)
 
 Only debt the maintainers would actually fix; a wish list belongs elsewhere. Statuses: `open`,
 `queued (<decision>)`, `accepted (by design)`, `fixed (<commit>)`.
 
 | ID | What | Impact | Where | Fix | Status |
 | --- | --- | --- | --- | --- | --- |
-| D-001 | Catalog count drift: prose says "260 types" while the indexes hold 265 (209 A + 56 B) | Credibility; every number in this repo is supposed to be checkable | `README.md`, `CURRENT-STATE.md`, `QUICK-START.md`, `CONTEXT-SNAPSHOT.md`, `IMPLEMENTATION-GUIDE.md`, `docs/META/CODE-INVENTORY.md`, ~15 more | Regenerate the numbers from `CATALOG-*/INDEX.yaml`, or make the count a generated fact | open |
+| D-001 | Catalog count drift: prose said "260 types" while the indexes hold 265 (209 A + 56 B), and `CURRENT-STATE.md` carried a third total (24 + 45 extended + 194 contextual = 263 instead of 265) | Credibility; every number in this repo is supposed to be checkable | `README.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `QUICK-START.md`, `IMPLEMENTATION-GUIDE.md`, `ADOPTION.md`, `ENGINE-COVERAGE.md`, `LIMITATIONS.md`, `AUTODOC-ARCHITECTURE.md`, `RECENT-CHANGES.md` | Two parts: correct each claim, and make the numbers derivable — `tests/test_catalog_counts.py` reads the counts from `CATALOG-*/INDEX.yaml` + `CATALOG-RULES.json` and fails on a claim that disagrees (a sentence that describes an earlier catalog keeps its number only with the word **then** on the same line). It reads numbers next to the words that name them, not semantics, and a bare "N core" is deliberately unchecked (24 default vs 26 for the `oss-library` profile) | fixed (this commit) — 11 stale claims corrected; `make ci` green; the guard failed on all 11 before the fix and on none after |
 | D-002 | JavaScript/TypeScript and Rust toolchains are not integrated; those languages run at L0 | Readers are unimplemented for two of the languages this repo touches | `scripts/doc-sync/languages.py` | Wire canonical tools behind the existing probe | queued (decision 7) |
 | D-003 | 780 template variants (260 types × canonical/blank/example) are committed rather than rendered on demand | Repository weight; drift risk between variants | `TEMPLATES/**` | Render on demand into `build/`; keep one source per type | queued (decision 7) |
 | D-004 | `audience` is declared and displayed but no predicate consumes it | Vocabulary carried without a consumer — the project's own rule says every fact needs one | `CONTROL/metadata/CONTEXT-MODEL.json`, `recommend.py` | Either wire it or mark it explicitly as display-only | queued (decision 7) |

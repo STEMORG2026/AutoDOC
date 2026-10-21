@@ -132,7 +132,7 @@ when there is no staged change (CI supplies the PR base SHA). It uses pytest; no
 line-coverage plugin/percentage is configured.
 
 ## Mapped but template-only
-The 260 types have canonical/blank/synthetic-example templates, but a type is **not** an
+The 265 types have canonical/blank/synthetic-example templates, but a type is **not** an
 instantiated document. A human-authored instance is checked for ownership/freshness only once
 created under a controlled path; source-change review requires an explicit map rule. There is
 no deterministic extractor for ADR rationale, risk acceptance, user guides, incident analysis,

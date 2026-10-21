@@ -45,7 +45,10 @@ housekeeping that remained — closing the sessions (ADR-009) — is done: the o
 on 2026-10-21 ("continue from this here and also close the session"), their plans are archived
 under `state/archive/plans/2026-10/`, and their closing entries quote the instruction. **Nothing
 is pending on this thread**; the optional P-006 follow-ups listed in `state/DEBT.md` are the only
-open ideas, and promotion to `beta` stays a deliberate event (cliff 2).
+open ideas, and promotion to `beta` stays a deliberate event (cliff 2). One debt item closed on
+2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
+and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
+ci`; the only `open` debt left is D-010 (vulnerability scanning, low, needs a network scanner).
 
 ## Shrink before detection (owner decision, 2026-10-01)
 1. Done. The approved-stub check failed on 28 title-only placeholders and they were retired;
