@@ -5,8 +5,8 @@ One policy, one gate:
 
   requirements (recommend)      required / recommended documents that are missing
   drift                         generated targets out of step with their sources
-  stubs                         approved documents with no content beyond the title
-  placeholders                  drafts that are still placeholders
+  stubs                         approved title-only documents and unfilled migration sections/prompts
+  placeholders                  draft placeholders, including unfilled migration sections/prompts
   links.local                   relative links and paths that do not resolve
   secrets.inline                private key markers committed into text
   tribal                        instructions that depend on private knowledge

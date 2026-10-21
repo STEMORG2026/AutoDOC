@@ -122,10 +122,14 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/doc-control/require-docs-check.py` | 18 | function | `gh` | `(*args, **kwargs)` | — |
 | `scripts/doc-control/require-docs-check.py` | 22 | function | `payload` | `(check=CHECK_NAME)` | The classic required-status-checks payload; one required check, no push restrictions. |
 | `scripts/doc-control/require-docs-check.py` | 27 | function | `main` | `()` | — |
-| `scripts/doc-control/stub_check.py` | 24 | function | `substance` | `(text)` | Return (section headings, content words) for a controlled Markdown body. |
-| `scripts/doc-control/stub_check.py` | 48 | function | `scan` | `()` | Return (approved_stubs, draft_stubs) as sorted relative path lists. |
-| `scripts/doc-control/stub_check.py` | 63 | function | `collect` | `()` | Return placeholder findings as dicts: an approved stub and a draft placeholder differ. |
-| `scripts/doc-control/stub_check.py` | 79 | function | `check` | `()` | — |
+| `scripts/doc-control/stub_check.py` | 52 | function | `substance` | `(text)` | Return (section headings, content words) for a controlled Markdown body. |
+| `scripts/doc-control/stub_check.py` | 76 | function | `normalize` | `(text)` | Remove simple Markdown emphasis, then collapse whitespace and case. |
+| `scripts/doc-control/stub_check.py` | 82 | function | `migration_section_content` | `(text)` | Return required section bodies and headings found in a migration document. |
+| `scripts/doc-control/stub_check.py` | 133 | function | `migration_findings_for` | `(path, fields, text)` | Return `stubs`/`placeholders` findings for one migration-document instance. |
+| `scripts/doc-control/stub_check.py` | 169 | function | `migration_findings` | `()` | Collect migration-specific structural findings from controlled documents. |
+| `scripts/doc-control/stub_check.py` | 180 | function | `scan` | `()` | Return (approved_stubs, draft_stubs) as sorted relative path lists. |
+| `scripts/doc-control/stub_check.py` | 195 | function | `collect` | `()` | Return structural findings as dicts using the existing policy families. |
+| `scripts/doc-control/stub_check.py` | 212 | function | `check` | `()` | — |
 | `scripts/doc-control/test_evidence.py` | 18 | function | `junit_counts` | `(path)` | Use actual JUnit attributes; never infer a count from a console progress bar. |
 | `scripts/doc-control/test_evidence.py` | 32 | function | `main` | `()` | — |
 | `scripts/doc-sync/engine.py` | 22 | function | `safe_path` | `(value)` | — |

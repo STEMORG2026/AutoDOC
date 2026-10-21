@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Extended the structural document check to validate required sections and unchanged prompts for
+  the four canonical migration document titles. Draft findings use the existing `placeholders`
+  family, approved findings use `stubs`; the check makes no semantic or reversibility claim.
 - Selected **Apache-2.0** as the license (owner decision, 2026-10-01): added the canonical
   `LICENSE` text, declared `license = "Apache-2.0"` with `license-files = ["LICENSE"]` in
   `pyproject.toml` (built with setuptools ≥ 77 so the metadata carries

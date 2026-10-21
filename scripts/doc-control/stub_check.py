@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Reject approved human documents with no section or content beyond their title.
+"""Reject approved stubs and check instantiated migration-document structure.
 
 An index placeholder is not a document. Generated targets are excluded because byte
 drift, not prose volume, is what validates them; a short generated table can be correct.
-Draft stubs warn instead of failing, because a draft scaffold is an honest intermediate state.
+The direct check warns on drafts and fails approved migration scaffolds; phase enforcement
+applies the existing family severity. Migration prose checks only sections and unchanged template
+prompts; it cannot judge correctness, adequacy or reversibility.
 """
 import argparse
 import re
@@ -19,6 +21,32 @@ SECTION = re.compile(r'^#{2,6}\s')
 BOILER = re.compile(r'^\*\*(?:Purpose|Automation Rule):?\*\*')
 PLACEHOLDER = re.compile(r'\[Fill in|<!-- Fill in|REPLACE-WITH|@assign-')
 SKIP_PREFIX = ('#', '<!--', '>', '|', '```', '~~~', '---')
+MIGRATION_TEMPLATES = {
+    'Migration design': 'TEMPLATES/ARCHITECTURE/DOC-A04-012.md',
+    'Migration plan': 'TEMPLATES/SPECIFICATIONS/DEV-B06-004.md',
+    'Migration test plan': 'TEMPLATES/SPECIFICATIONS/DOC-A11-011.md',
+    'Migration guide': 'TEMPLATES/SPECIFICATIONS/DOC-A23-003.md',
+}
+MIGRATION_SECTIONS = (
+    'Purpose and scope',
+    'Details and decisions',
+    'Verification and references',
+)
+MIGRATION_PROMPTS = {
+    'Purpose and scope': 'State why {title} applies, who uses it and what is out of scope.',
+    'Details and decisions': (
+        'Describe the project-specific {title} facts, assumptions, alternatives, failure modes '
+        'and responsible people.'
+    ),
+    'Verification and references': (
+        'Link the authoritative code, policy, test or human approval; explain how to check the '
+        'claims and when they must be reviewed.'
+    ),
+}
+MIGRATION_HEADING = re.compile(r'^\s*(#{1,6})\s+(.+?)\s*#*\s*$')
+MIGRATION_FENCE = re.compile(r'^\s*(`{3,}|~{3,})')
+HTML_COMMENT = re.compile(r'<!--.*?-->', re.DOTALL)
+HORIZONTAL_RULE = re.compile(r'^(?:\*\s*){3,}$|^(?:-\s*){3,}$|^(?:_\s*){3,}$')
 
 
 def substance(text):
@@ -45,6 +73,110 @@ def substance(text):
     return sections, len(' '.join(lines).split())
 
 
+def normalize(text):
+    """Remove simple Markdown emphasis, then collapse whitespace and case."""
+    text = re.sub(r'[*_`]', '', text)
+    return re.sub(r'\s+', ' ', text.strip()).casefold()
+
+
+def migration_section_content(text):
+    """Return required section bodies and headings found in a migration document.
+
+    Frontmatter, HTML comments, fenced code, and blockquotes are not authored prose.
+    Nested headings stay within their parent section; an unrelated heading at the same
+    level or higher closes the active section.
+    """
+    if text.startswith(GENERATED_MARKER):
+        text = text.split('\n', 1)[1]
+    body = text.split('\n---\n', 1)[1] if text.startswith('---\n') else text
+    body = HTML_COMMENT.sub('', body)
+    contents = {section: [] for section in MIGRATION_SECTIONS}
+    seen = set()
+    active = None
+    active_level = None
+    fence_char = None
+    fence_size = 0
+
+    for raw in body.splitlines():
+        fence = MIGRATION_FENCE.match(raw)
+        if fence_char is not None:
+            if fence and fence.group(1)[0] == fence_char and len(fence.group(1)) >= fence_size:
+                fence_char = None
+                fence_size = 0
+            continue
+        if fence:
+            fence_char = fence.group(1)[0]
+            fence_size = len(fence.group(1))
+            continue
+
+        heading = MIGRATION_HEADING.match(raw)
+        if heading:
+            level = len(heading.group(1))
+            title = normalize(heading.group(2))
+            if active is not None and level <= active_level:
+                active = None
+                active_level = None
+            matching = next((section for section in MIGRATION_SECTIONS
+                             if level >= 2 and normalize(section) == title), None)
+            if matching:
+                seen.add(matching)
+                active = matching
+                active_level = level
+            continue
+
+        line = raw.strip()
+        if active and line and not HORIZONTAL_RULE.fullmatch(line) and not line.startswith('>'):
+            contents[active].append(line)
+    return contents, seen
+
+
+def migration_findings_for(path, fields, text):
+    """Return `stubs`/`placeholders` findings for one migration-document instance."""
+    title = fields.get('title', '')
+    if (fields.get('auto_generated') == 'true' or text.startswith(GENERATED_MARKER)
+            or title not in MIGRATION_TEMPLATES):
+        return []
+
+    contents, seen = migration_section_content(text)
+    rule = 'stubs' if fields.get('status') == 'approved' else 'placeholders'
+    try:
+        location = str(Path(path).relative_to(ROOT))
+    except ValueError:
+        location = str(path)
+
+    findings = []
+    for section in MIGRATION_SECTIONS:
+        if section not in seen:
+            detail = f"missing required section '{section}'"
+        else:
+            content = normalize(' '.join(contents[section]))
+            if not content:
+                detail = f"section '{section}' has no authored prose"
+            else:
+                prompt = normalize(MIGRATION_PROMPTS[section].format(title=title.casefold()))
+                if prompt not in content:
+                    continue
+                detail = f"section '{section}' still contains the canonical template prompt"
+        findings.append({
+            'rule': rule,
+            'location': location,
+            'detail': detail,
+            'fix': 'write project-specific content in each required section before approval',
+        })
+    return findings
+
+
+def migration_findings():
+    """Collect migration-specific structural findings from controlled documents."""
+    findings = []
+    for path in controlled():
+        fields = parse_frontmatter(path)
+        if fields.get('auto_generated') == 'true' or fields.get('title') not in MIGRATION_TEMPLATES:
+            continue
+        findings.extend(migration_findings_for(path, fields, path.read_text(encoding='utf-8')))
+    return findings
+
+
 def scan():
     """Return (approved_stubs, draft_stubs) as sorted relative path lists."""
     approved, draft = [], []
@@ -61,10 +193,10 @@ def scan():
 
 
 def collect():
-    """Return placeholder findings as dicts: an approved stub and a draft placeholder differ.
+    """Return structural findings as dicts using the existing policy families.
 
-    An approved document with no content is a broken promise (`stubs`); a draft that is still a
-    placeholder is unfilled scaffold (`placeholders`). The phase decides how hard each fails.
+    Approved title-only or migration-template stubs use `stubs`; draft placeholders use
+    `placeholders`. The enforcement policy decides the severity for each family.
     """
     approved, draft = scan()
     findings = [{'rule': 'placeholders', 'location': path,
@@ -73,6 +205,7 @@ def collect():
     findings += [{'rule': 'stubs', 'location': path,
                   'detail': 'approved document has no content beyond its title',
                   'fix': 'write it, return it to draft, or remove it'} for path in approved]
+    findings.extend(migration_findings())
     return findings
 
 
@@ -87,7 +220,16 @@ def check():
     if approved:
         print(f'Approved stub documents: {len(approved)} (a placeholder index is not a document)',
               file=sys.stderr)
-    return not approved
+
+    migration = migration_findings()
+    for finding in migration:
+        if finding['rule'] == 'stubs':
+            print(f"{finding['location']}: approved migration document: {finding['detail']}; "
+                  f"{finding['fix']}", file=sys.stderr)
+        else:
+            print(f"WARNING: {finding['location']}: draft migration document: "
+                  f"{finding['detail']}; {finding['fix']}", file=sys.stderr)
+    return not approved and not any(finding['rule'] == 'stubs' for finding in migration)
 
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Close D-001 by repairing the drifted catalog numbers in the prose **and** adding a check that fails when a human-owned document restates a catalog count that disagrees with the indexes |
 | Owner of the work | `A90c` (session `20261021-1318-A90c`) |
-| Status | **PAUSED (awaiting owner)** — work landed; a session closes only on the owner's word (ADR-009) |
+| Status | **CLOSED (owner's word, 2026-10-21)** — closed by the owner (ADR-009) |
 | Opened (UTC) | 2026-10-21T13:18Z |
 
 ## Scope

@@ -6,7 +6,8 @@ title, files touched, status, branch.
 
 | Session (file) | ID | Agent | Date (UTC) | Title | Files touched | Status | Branch |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `state/sessions/20261021-1318-A90c-debt-d001.md` | `20261021-1318-A90c` | A90c | 2026-10-21 | Debt D-001: 11 stale catalog-count claims corrected (260 → 265; 45/194 → 49/192) and a derived-count guard added (`tests/test_catalog_counts.py`) so the numbers fail `make ci` when they drift | `README.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `QUICK-START.md`, `IMPLEMENTATION-GUIDE.md`, `RECENT-CHANGES.md`, `docs/00-governance/{ADOPTION,ENGINE-COVERAGE,LIMITATIONS}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `tests/**`, `state/**` | PAUSED (awaiting owner) | `arena/44b2fb68-autodoc` |
+| `state/sessions/20261021-1459-B71a-migration-prose-validation.md` | `20261021-1459-B71a` | B71a | 2026-10-21 | Migration prose validation integrated into `stub_check.py`; canonical sections/prompts route to existing policy families; PR #11 (`0d51069`) open | `scripts/doc-control/stub_check.py`, `scripts/intelligence/enforce.py`, `CONTROL/metadata/CONTEXT-MODEL.json`, `autodoc.toml`, `tests/test_migration_prose.py`, `Makefile`, `CHANGELOG.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, `docs/**`, `state/**` | PAUSED (awaiting owner) | `arena/48a62791-autodoc` |
+| `state/sessions/20261021-1318-A90c-debt-d001.md` | `20261021-1318-A90c` | A90c | 2026-10-21 | Debt D-001: 11 stale catalog-count claims corrected (260 → 265; 45/194 → 49/192) and a derived-count guard added (`tests/test_catalog_counts.py`) so the numbers fail `make ci` when they drift | `README.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `QUICK-START.md`, `IMPLEMENTATION-GUIDE.md`, `RECENT-CHANGES.md`, `docs/00-governance/{ADOPTION,ENGINE-COVERAGE,LIMITATIONS}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `tests/**`, `state/**` | CLOSED (owner's word, 2026-10-21) | `arena/44b2fb68-autodoc` |
 | `state/sessions/20261021-1257-Abb7f-session-close.md` | `20261021-1257-Abb7f` | Abb7f | 2026-10-21 | Close the eight open sessions on the owner's word (ADR-009); plans archived; `REGISTRY`/`INDEX`/`DASHBOARD`/`NEXT-ACTION.md` reconciled | `state/**`, `NEXT-ACTION.md` | CLOSED (owner's word, 2026-10-21) | `arena/83bebb7f-autodoc` |
 | `state/sessions/20261021-1138-A52ab-protection-review.md` | `20261021-1138-A52ab` | A52ab | 2026-10-21 | Branch-protection review: ruleset `main` diagnosed (B-003); P-007 decided and applied (option A); PR #3 + PR #4 merged; post-merge test passed; B-003 cleared | `state/**`; `NEXT-ACTION.md` | CLOSED (owner's word, 2026-10-21) | `arena/d2fb52ab-autodoc` |
 | `state/sessions/20261001-1408-A476-post-merge-test.md` | `20261001-1408-A476` | A476 | 2026-10-01 | Post-merge continuity test: PR #2 merged to `master` (`4d0c50f`); cold clone passes (state read, cold numbers, `make ci` exit 0, guard green); protection apply owner-run | `state/**` only | CLOSED (owner's word, 2026-10-21) | `arena/01a0f476-autodoc` |
@@ -30,7 +31,9 @@ Work before 2026-10-01 was recorded only in git history, `RECENT-CHANGES.md` and
 ## Archive
 
 Sessions older than the current month are compressed into `state/archive/<YYYY-MM>/` and removed
-from this table's live rows (the row stays, the file moves). No session is archived yet (all eight live files are still under `state/sessions/`); the **plans** of the closed sessions are archived under `state/archive/plans/2026-10/`.
+from this table's live rows (the row stays, the file moves). No session file has been archived yet;
+the ten prior session files remain under `state/sessions/`, and their closed plans are archived
+under `state/archive/plans/2026-10/`. B71a's session is indexed above and paused awaiting owner review.
 
 ## Keywords
 

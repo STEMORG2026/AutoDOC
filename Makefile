@@ -41,7 +41,7 @@ docs-sync: ## Validate mapped source paths, targets, generators and review rules
 docs-health: ## Measure health and template coverage without claiming semantic correctness
 	$(PYTHON) scripts/doc-control/health.py
 
-docs-stubs: ## Fail approved human docs with no section or content beyond the title
+docs-stubs: ## Check approved stubs and migration sections against canonical prose prompts
 	$(PYTHON) scripts/doc-control/stub_check.py
 
 docs-catalog: ## Validate catalog schema, rules, index and declared context

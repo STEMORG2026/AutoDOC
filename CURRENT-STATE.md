@@ -16,15 +16,17 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-09-26
+last_updated: 2026-10-21
 auto_generated: false
 ---
 # Current state
 
 AutoDOC has a working sync map, standard-library runtime, three authoritative catalog indices,
 265 template triples, a task API demo and two local tool-policy demonstrations without an LLM or web calls.
-Its checks validate controlled-document metadata, generated drift, age and source-to-human-review impact.
-A catalog entry represents a possible document, not a completed compliance obligation.
+Its checks validate controlled-document metadata, generated drift, age, source-to-human-review impact,
+and the structure of instantiated migration documents (required sections and unfilled template prompts,
+not semantic correctness). A catalog entry represents a possible document, not a completed compliance
+obligation.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 

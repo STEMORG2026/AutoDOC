@@ -9,6 +9,7 @@ created and deleted between commits and has no git history — see `20261001-122
 
 | Plan | Session it belongs to | Session status |
 | --- | --- | --- |
+| `agent-A90c-debt-d001.md` | `20261021-1318-A90c` | CLOSED (owner's word, 2026-10-21) |
 | `agent-A476-macp-adoption.md` | `20261001-1110-A476` | CLOSED (owner's word, 2026-10-21) |
 | `agent-A476-decision-3.md` | `20261001-1130-A476` | CLOSED (owner's word, 2026-10-21) |
 | `agent-A476-cold-clone-test.md` | `20261001-1219-A476` | CLOSED (owner's word, 2026-10-21) |
