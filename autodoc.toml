@@ -121,8 +121,9 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 # phase (the report lists pins, and the phase block is stated in the same report).
 #
 # `stubs` and `tribal` are stricter than the build default on purpose: an approved document
-# with no content is a broken promise, and an instruction nobody outside can follow should not
-# pass review. `freshness.*` is off under build, but this repository keeps review dates and an
+# with no authored content (including a migration doc left on its canonical prompts) is a broken
+# promise, and an instruction nobody outside can follow should not pass review. `freshness.*` is
+# off under build, but this repository keeps review dates and an
 # SLA policy, so overdue reviews are enforced here. `recommend.*` is deliberately not pinned:
 # every core decision is now recorded (owner decision 4, 2026-10-01), so the phase default is
 # what applies and a pin would only duplicate it.

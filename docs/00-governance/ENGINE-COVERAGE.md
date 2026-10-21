@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-01
+last_updated: 2026-10-21
 auto_generated: false
 ---
 # Engine coverage and honest limits
@@ -68,6 +68,7 @@ All outputs below have concrete sources in `docs/.doc-sync-map.yaml`; `make gene
 | Declared toolchain (`go doc -all .`) | On-demand language reference (`make docs-languages SHOW=go`) | Runs the language's own tool inside the repository, offline and with a timeout; an absent tool is reported, never replaced | `test_languages.py` |
 | `CONTROL/metadata/TRIGGERS.json` + workflows | Trigger reference (`docs/generated/TRIGGER-REFERENCE.md`), `make docs-triggers` | Workflow names, trigger keys, filters and job names only; a job produced by a reusable workflow is unverified | `test_triggers.py` |
 | Controlled Markdown | Scheduled external link triage, `make docs-links-external` | Line-based extraction; fenced code skipped, local and example hosts skipped as documented-not-deployed, one request per host per second, capped, warn-only | `test_external_links.py` |
+| Controlled migration docs | Structural prose check via `stub_check.py` and `make docs-stubs` | Four canonical migration titles; required headings and retained prompts only. The direct check warns on drafts/fails approved docs; CI applies existing phase and pin severity to `placeholders`/`stubs` | `test_migration_prose.py` |
 | Catalog rules file | `CATALOG-A/B/INDEX.yaml` | Seeds names; derives type, tier, `phase_min`, `applies_when`, maturity | `test_catalog.py` |
 | Repository files | `profile.json` three-valued facts | File presence only; `unknown` when nothing could be read | `test_profile.py` |
 | `autodoc.toml` `[facts]` traits | declared personal-data / payments / safety values | Declaration only; no detector exists, and unanswered is `unknown`, never false | `test_profile.py`, `test_resolver.py` |
@@ -119,8 +120,12 @@ ownership path authority, critical-date freshness, source/target mapping integri
 byte drift, path-based human review impact, offline local links, key markers and tribal phrases.
 `stub_check.py` also fails **approved** human documents with no section and no content beyond
 their title, so a placeholder index cannot inflate the inventory or the health counts; drafts
-warn instead. Generated targets are excluded because byte drift validates them, not prose volume.
-The catalog index is validated against `CATALOG-SCHEMA.json` plus rule cross-checks (unknown
+warn instead. For the four canonical migration-document titles it also checks for the template's
+three required sections and unchanged prompt sentences, routing drafts to `placeholders` and
+approved documents to `stubs`. The direct checker warns on drafts and fails approved documents;
+`make ci` applies the existing phase and pin severity to those families. This is structural only:
+no truth, adequacy, completeness or reversibility is inferred. Generated targets are excluded because byte drift validates them, not
+prose volume. The catalog index is validated against `CATALOG-SCHEMA.json` plus rule cross-checks (unknown
 flags, mixed sentinels, core types without a reason or with an undetectable predicate, duplicate
 ids, missing templates, and a vocabulary that no profiler detector backs). Predicate tokens are
 checked against their own vocabularies too: `kind:<id>` must be a declared kind, `phase>=<id>` a

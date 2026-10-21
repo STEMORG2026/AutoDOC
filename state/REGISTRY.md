@@ -1,26 +1,25 @@
 # REGISTRY — who is working here and what they own
 
-**Last reconciled:** 2026-10-21T13:38Z (session `20261021-1318-A90c` — D-001 fixed and merged; that session
-is PAUSED awaiting the owner, so it holds its claim until then)
+**Last reconciled:** 2026-10-21T15:34Z (migration-prose check integrated; `make ci` green; B71a paused awaiting owner)
 
 ## Active — work in flight, or landed and awaiting the owner
 
-One session holds a claim: `A90c` (debt D-001, landed and merged as `5bbd7d8`) — **PAUSED (awaiting owner
-close)**. The eight sessions closed on the owner's instruction of 2026-10-21 remain closed; their plans
-are archived.
+One session holds a claim: `B71a` (migration prose validation), paused for owner review on `arena/48a62791-autodoc`.
 
 | Agent ID | Model / type | Branch | Task (one line) | Started (UTC) | Claimed paths | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `A90c` | Arena.ai Agent Mode | `arena/44b2fb68-autodoc` | Debt D-001: repair the catalog-count drift (prose 260 / 45+194 vs indexes 265, 49+192) and add a check that makes the numbers fail loudly when they drift again | 2026-10-21T13:18Z | `state/**`, `NEXT-ACTION.md`, `README.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `QUICK-START.md`, `IMPLEMENTATION-GUIDE.md`, `RECENT-CHANGES.md`, `docs/00-governance/{ADOPTION,ENGINE-COVERAGE,LIMITATIONS}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `tests/**` | **PAUSED** (awaiting owner close) — D-001 fixed and merged (`5bbd7d8`); plan kept until the owner's word (rule 8) |
+| `B71a` | Arena.ai Agent Mode | `arena/48a62791-autodoc` | Integrate structural checks for four canonical migration titles into `stub_check`; findings route through existing `placeholders`/`stubs` families | 2026-10-21T14:59Z | `state/**`, `scripts/doc-control/stub_check.py`, `scripts/intelligence/enforce.py`, `CONTROL/metadata/CONTEXT-MODEL.json`, `autodoc.toml`, `tests/test_migration_prose.py`, `Makefile`, `NEXT-ACTION.md`, `CHANGELOG.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `RECENT-CHANGES.md`, `docs/00-governance/ENGINE-COVERAGE.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `docs/META/**` | **PAUSED (awaiting owner)** |
 
 ## Closed by the owner
 
-Only the owner's word moves a row here (MACP local rule 8, ADR-009). All nine rows below were
-closed by the same instruction, on 2026-10-21; each session file carries the closing entry with the
-instruction quoted, and its plan is archived under `state/archive/plans/2026-10/`.
+Only the owner's word moves a row here (MACP local rule 8, ADR-009). The nine prior rows were
+closed by the owner's 2026-10-21 instruction; A90c was closed separately at 14:59Z by the owner's
+“Close A90c, then proceed” instruction. Each session file carries its closing entry, and plans are
+archived under `state/archive/plans/2026-10/` when one existed.
 
 | Agent ID | Session | Branch | Task | Closed (UTC) | Plan |
 | --- | --- | --- | --- | --- | --- |
+| `A90c` | `sessions/20261021-1318-A90c-debt-d001.md` | `arena/44b2fb68-autodoc` | Debt D-001: repair catalog-count drift and add a derived-count guard | 2026-10-21T14:59Z | `agent-A90c-debt-d001.md` |
 | `Abb7f` | `sessions/20261021-1257-Abb7f-session-close.md` | `arena/83bebb7f-autodoc` | Close the eight open sessions, archive plans, reconcile `state/` + `NEXT-ACTION.md` | 2026-10-21T13:05Z | `agent-Abb7f-session-close.md` |
 | `A52ab` | `sessions/20261021-1138-A52ab-protection-review.md` | `arena/d2fb52ab-autodoc` | Branch-protection review: B-003, P-007 executed, PR #3 + PR #4 merged, post-merge test, B-003 struck | 2026-10-21T13:00Z | `agent-A52ab-protection-review.md` |
 | `A476` | `sessions/20261001-1408-A476-post-merge-test.md` | `arena/01a0f476-autodoc` | Post-merge continuity test of PR #2 (`04f7386`); protection apply owner-run | 2026-10-21T13:00Z | `agent-A476-post-merge-test.md` |

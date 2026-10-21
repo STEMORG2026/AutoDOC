@@ -170,18 +170,18 @@
     {
       "id": "stubs",
       "honored": true,
-      "description": "Approved document with no content beyond its title.",
-      "purpose": "approved documents with no content beyond the title",
+      "description": "Approved document with no content beyond its title, or a migration document with missing sections or unchanged template prompts.",
+      "purpose": "approved title-only documents and migration documents with unfilled structural prose",
       "exactness": "exact",
-      "limits": "Counts headings and words; a document full of filler still passes."
+      "limits": "Counts headings and words for general documents; for four migration titles, checks the three canonical sections and exact prompt text. It cannot judge truth, adequacy, completeness or reversibility; other filler still passes."
     },
     {
       "id": "placeholders",
       "honored": true,
-      "description": "Draft document that is still a placeholder.",
-      "purpose": "draft documents that are still placeholders",
+      "description": "Draft document that is still a placeholder, including migration docs with missing sections or unchanged template prompts.",
+      "purpose": "draft title-only documents and migration documents with unfilled structural prose",
       "exactness": "heuristic",
-      "limits": "Detects boilerplate/placeholder markers and emptiness, not a document that looks complete and says nothing."
+      "limits": "Detects boilerplate/placeholder markers and emptiness, and checks canonical migration prompts; it cannot judge truth, adequacy, completeness or reversibility, nor catch a document that looks complete and says nothing."
     },
     {
       "id": "links.local",

@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-01
+last_updated: 2026-10-21
 auto_generated: false
 ---
 # AutoDOC architecture
@@ -71,7 +71,9 @@ Authoritative catalogs / source files / Markdown metadata
   The Mermaid reference adds concrete source-to-target and catalog-to-template edges.
   Template examples are synthetic. The agent working-state helper only changes observable blocks.
   Approved human documents must carry a section and content beyond their title; `stub_check.py`
-  fails title-only index placeholders, while draft placeholders only warn.
+  fails title-only index placeholders, while draft placeholders only warn. For four migration
+  titles it also requires the canonical sections and removal of template prompt prose; this is
+  structural only, not a judgment of correctness, completeness or reversibility.
 - **Trust boundaries:** a sync map changed in a PR is code-like input. `safe_path` constrains
   generator targets to the checkout. Running user-supplied generator code in CI still executes
   untrusted PR code; use least-privilege `contents: read` and do not provide production secrets.
@@ -219,7 +221,7 @@ is not a guarantee, and a change that widens one of them is an architecture chan
 | --- | --- | --- |
 | `engine/`, `engine/extractors/` | Deterministic parsing of the documented source subsets (routes JSON, config JSON/schema, simple SQLite DDL, alert YAML subset, PEP 621 manifests, Python AST, ATX headings); no network, no writes; an unsupported construct fails loudly instead of being skipped | Validating your SQL beyond the documented subset; understanding prose; resolving transitive dependencies |
 | `scripts/doc-sync/` (`engine.py`, `generate-all.py`, `check-doc-drift.py`, `languages.py`, `update-doc-state.py`) | For every entry in `docs/.doc-sync-map.yaml`: regenerate the target from its sources in memory and fail when the committed target differs; every generator is labeled `exact` or `heuristic`; state blocks update only between their auto markers | Semantic accuracy of generated text (it restates its sources exactly); reading files the map does not name |
-| `scripts/doc-control/` (validators, catalog build/check, guards, health, evidence, release snapshot) | One specific class of finding each (catalog consistency, links, stubs, placeholders, key markers, health, hashes), a documented exit code, and no writes unless a `--write`/`--output` flag says so | Proving content is true or adequate; certifying compliance; signing evidence (hashes only) |
+| `scripts/doc-control/` (validators, catalog build/check, guards, health, evidence, release snapshot) | One specific class of finding each (catalog consistency, links, stubs including migration section prompts, placeholders, key markers, health, hashes), a documented exit code, and no writes unless a `--write`/`--output` flag says so | Proving content is true or adequate; certifying compliance; signing evidence (hashes only) |
 | `scripts/intelligence/` (`profile.py` → `context.py` → `recommend.py` → `enforce.py` → `triggers.py`) | Declarations beat detection; facts are three-valued (`unknown` is a value, never silently false); every skip has a reason; enforcement severity comes from the declared phase and the resolver explains its derivation | Inferring phase, kinds, obligations or sensitive-data traits; judging a project that has not declared them; applying findings to files it cannot read |
 | `scripts/validate/frontmatter_validator.py` | The controlled Markdown set carries valid, schema-conformant frontmatter — in the index for staged runs, on disk otherwise | Metadata of files outside the controlled set; blocking a merge by itself (that is the workflow's check) |
 

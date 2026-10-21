@@ -1,15 +1,14 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-21T13:38Z · **Reconciled by:** A90c (session `20261021-1318-A90c`,
-PAUSED awaiting owner close) · **Tip at reconciliation:** `5bbd7d8` on `master` (PR #8 merged;
-PR #6 `f0aa0e3` and PR #7 `9e5155d` before it, every `master` run green)
+**Last reconciled:** 2026-10-21T15:34Z · **Reconciled by:** B71a (session `20261021-1459-B71a`,
+PAUSED awaiting owner) · **Base tip:** `c4a9d43` on `master` (PR #10 merged; required check green); B71a changes remain uncommitted on its assigned branch.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `5bbd7d8`; one session branch open (`arena/44b2fb68-autodoc`, PAUSED awaiting owner) |
+| Branch | `master` at `c4a9d43`; B71a's assigned branch `arena/48a62791-autodoc` has the uncommitted validation change set |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -17,17 +16,19 @@ PR #6 `f0aa0e3` and PR #7 `9e5155d` before it, every `master` run green)
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
 | Stack | Python 3.11, **zero runtime dependencies**; pytest + pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
 | Docs | 70 controlled instances (28 generated targets, 42 human-owned, `make docs-health` 2026-10-21) · 384 Markdown files tracked |
-| Tests | 247 passed + 182 subtests, ~26 s (2026-10-21); cold clone of `master` re-verified the same day |
+| Tests | `make ci`: 263 passed + 190 subtests in 24.19 s (2026-10-21) on B71a's working tree; evidence hashes verified (not signatures) |
 | CI | 5 workflows; required check `AutoDOC guard / check` — **required in GitHub**: ruleset `main` (P-007-A, applied by the owner 2026-10-21, verified live: `deletion`, `non_fast_forward`, `required_status_checks` `AutoDOC guard / check` `strict: true`); nightly freshness warn-only; tag-gated release |
 
 ## Active agents
 
-`A90c` — session `20261021-1318-A90c` (**PAUSED (awaiting owner close)**): debt **D-001** fixed —
-eleven stale catalog-count claims corrected in eight human-owned documents (260 → 265; and
-`CURRENT-STATE.md`'s third total, which summed to 263 instead of 265) — plus
-`tests/test_catalog_counts.py`, which derives the counts from the indexes and the rules and fails
-`make ci` when a document disagrees. Landed as **PR #8 → `5bbd7d8`**. **No other session is open**;
-the eight closed on the owner's word stay closed. Register yourself in `REGISTRY.md` before work.
+`B71a` — session `20261021-1459-B71a` (**PAUSED (awaiting owner)**): implemented conditional
+migration-prose validation inside `stub_check.py`, using the four canonical titles, required
+sections and retained prompts. Draft findings route to `placeholders`, approved findings to `stubs`;
+the direct checker warns/fails respectively, while `make ci` applies existing phase/pin severity.
+This is structural only, and the demo has no migration instances. Full `make ci` passed (263 tests,
+190 subtests); the handoff and test caveats are recorded in the session. No commit or push has been
+made. A90c's D-001 session was closed by the owner at 14:59Z; its plan is archived. The nine earlier
+sessions remain closed.
 
 ## Alerts
 
@@ -37,10 +38,10 @@ the eight closed on the owner's word stay closed. Register yourself in `REGISTRY
    the test docstring (three-digit totals, the word "then" marks history, a bare "N core" is
    ambiguous between the default tier 24 and the `oss-library` profile's 26).
 
-2. **Sessions closed (2026-10-21).** ADR-009's rule (only the owner's word closes a session) was
-   honoured to the end: no agent ever wrote `COMPLETED`, and the close is recorded with the owner's
-   instruction quoted in each of the nine session files. Nothing is open now — a new instruction
-   starts a new session, not a resumption.
+2. **Prior sessions closed (2026-10-21).** The nine sessions closed in the earlier owner round
+   remain closed. A90c was closed by the owner's explicit instruction “Close A90c, then proceed”
+   at 14:59Z; its plan is archived. B71a is a new session, not a resumption, and is paused awaiting
+   owner review.
 
 3. **B-003 cleared (2026-10-21).** The owner applied P-007-A: ruleset `main` (id `25542481`) carries
    exactly `deletion`, `non_fast_forward` and `required_status_checks` → `AutoDOC guard / check`
@@ -68,6 +69,7 @@ the eight closed on the owner's word stay closed. Register yourself in `REGISTRY
 
 | Date | Work | Commits |
 | --- | --- | --- |
+| 2026-10-21 | **D-001 session closed by owner** (“Close A90c, then proceed”); its plan was archived; PR #10 is the current master tip; new session B71a registered for the named migration-prose validation follow-up | PR #10 → `c4a9d43` |
 | 2026-10-21 | **Debt D-001 closed** (owner instruction: "continue"): eleven stale catalog-count claims corrected across eight documents (260 → 265, and one total that summed to 263), a derived-count guard added (`tests/test_catalog_counts.py`, 4 tests), D-001 → fixed, dashboard/architecture/NEXT-ACTION reconciled | `d3ebf4a` — PR #8 merged at `5bbd7d8` |
 | 2026-10-21 | **Closing pass** (owner instruction: "continue from this here and also close the session"): the eight open sessions closed on the owner's word, their plans archived (not deleted), `REGISTRY`/`INDEX`/`DASHBOARD`/`NEXT-ACTION.md` reconciled, rule-10 self-check run on a cold clone | this branch's closing commit + PR |
 | 2026-10-21 | Branch-protection review → fix → test (owner instructions: "Cannot merge the commit…" then "done, test it"): ruleset `main` diagnosed vs ADR-011; **B-003** raised; **P-007** decided (option A) and the owner's edit verified live; PR #3 merged (`04f7386`); PR #4 merged (`87be33b`); post-merge continuity test passed on a cold clone of `master`; **B-003 struck**; closing record in PR #5 (`cffa527`) | `77ca6c6`, `6da01b2`, `a642a31`, `eab749b`, `2976760` |
@@ -85,9 +87,10 @@ the eight closed on the owner's word stay closed. Register yourself in `REGISTRY
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Nothing is pending.** Protection is aligned and verified (ADR-011 recorded), PR #3/#4/#5/#6/#7/#8
-   are merged, the post-merge tests passed, the eight sessions are closed on the owner's word, and
-   D-001 is fixed. One session (`A90c`, D-001) is PAUSED awaiting the owner's close.
+1. **Owner review:** B71a's migration-prose check is implemented on its assigned branch; full `make
+   ci` passed (263 tests, 190 subtests). The session is paused awaiting owner review/closure; no
+   closure has been asserted. Protection remains aligned (ADR-011), D-001 is fixed, and all prior
+   sessions are owner-closed.
 2. Optional follow-ups only, none gating: the P-006 deferrals in `state/DEBT.md` (`audience` consumer
    first if any is picked; JS/TS + Rust toolchains; external dogfood repository; template rendering
    on demand; evidence signing), the one other `open` item (D-010, vulnerability scanning — low,

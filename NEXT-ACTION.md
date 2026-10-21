@@ -22,10 +22,12 @@ auto_generated: false
 # Next action
 
 ## Immediate focus
-Next bounded integrations: add migration prose validation and a real OpenAPI contract only
-when the demo source implements one. Existing env/alert references are example-only; review
-their runbooks and applicability rather than claiming deployed monitoring. The catalog
-applicability review is done — recorded 2026-10-01 (see Owner decisions below).
+Migration prose validation is implemented (2026-10-21): `stub_check.py` checks the canonical
+sections and unchanged prompts of instantiated migration documents, without claiming semantic
+correctness or reversibility. A real OpenAPI contract remains deferred until the demo source
+implements one. Existing env/alert references are example-only; review their runbooks and
+applicability rather than claiming deployed monitoring. The catalog applicability review is done —
+recorded 2026-10-01 (see Owner decisions below).
 
 ## Owner decisions
 Done: the license is Apache-2.0 (owner decision, 2026-10-01): canonical text in `LICENSE`, SPDX
@@ -43,9 +45,11 @@ passed on a cold clone of `master` (B-003 cleared). ADR-011 records the mechanis
 `main`; `APPLY=1 make docs-require-check` is superseded and stays a dry-run reference). The
 housekeeping that remained — closing the sessions (ADR-009) — is done: the owner closed all eight
 on 2026-10-21 ("continue from this here and also close the session"), their plans are archived
-under `state/archive/plans/2026-10/`, and their closing entries quote the instruction. **Nothing
-is pending on this thread**; the optional P-006 follow-ups listed in `state/DEBT.md` are the only
-open ideas, and promotion to `beta` stays a deliberate event (cliff 2). One debt item closed on
+under `state/archive/plans/2026-10/`, and their closing entries quote the instruction. A90c's
+D-001 session was subsequently closed on 2026-10-21 by the owner's explicit instruction
+"Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
+thread**; the optional P-006 follow-ups listed in `state/DEBT.md` are the only deferred ideas, and
+promotion to `beta` stays a deliberate event (cliff 2). One debt item closed on
 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
 ci`; the only `open` debt left is D-010 (vulnerability scanning, low, needs a network scanner).
