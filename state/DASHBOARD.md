@@ -35,9 +35,10 @@ are **PAUSED (awaiting owner)** (`-1228` lifecycle, `-1242` decision round).
    `code_quality`, `required_signatures`, `code_scanning` — and **no** required status check.
    PR #3 is approved and green and still cannot merge ("the base branch policy prohibits the
    merge"): its commits are unsigned and the tree has no CodeQL workflow the two CodeQL rules
-   could read. ADR-011's `AutoDOC guard / check` requirement is absent from the ruleset. The
-   alignment decision is **P-007** (`state/DECISIONS.md` § Pending); the edit is owner-run
-   (agent token: settings write 403; no bypass actor on the ruleset).
+   could read. ADR-011's `AutoDOC guard / check` requirement is absent from the ruleset.
+   **P-007 is decided (option A, 2026-10-21):** the remaining step is the owner-run ruleset edit
+   (checklist in `state/DECISIONS.md`); this session's token writes no repository settings (403,
+   re-verified) and the ruleset has no bypass actor.
 2. **B-001 cleared (2026-10-01)** — the owner confirmed the v1.3 page ("proceed with recomendation")
    and the recording landed: `owner_reviewed` in both machine files, page → `approved`, caveat off
    `NEXT-ACTION.md` + `ADOPTION.md`, D-011 fixed (commit `039e508`).
@@ -81,18 +82,15 @@ are **PAUSED (awaiting owner)** (`-1228` lifecycle, `-1242` decision round).
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Owner: decide P-007 and align ruleset `main`** (GitHub → Settings → Rules → Rulesets →
-   `main`). Recommended (option A): keep *Block deletions* and *Block force pushes*; **remove**
-   *Require signed commits*, *Require code quality* and *Require code scanning*; **add**
+1. **Owner: apply the P-007-A ruleset edit** (GitHub → Settings → Rules → Rulesets → `main`):
+   remove *Require signed commits*, *Require code quality* and *Require code scanning*; **add**
    *Require status checks to pass* → `AutoDOC guard / check`, with *Require branches to be up to
-   date before merging*. Until this lands, **no** PR can merge — PR #3 is the proof. Alternatives
-   B (keep signed commits, squash-only merges) and C (keep the CodeQL rules, land CodeQL first)
-   are dossiers in `state/DECISIONS.md` P-007.
-2. **Owner: merge PR #3** once unblocked — merge commit matches the history — or instruct the
-   agent to merge; then the protection-review PR from `arena/d2fb52ab-autodoc` the same way.
-3. **Owner: close the sessions you consider done** (ADR-009, rule 8) — seven await close across
+   date before merging*; keep *Block deletions* and *Block force pushes*. Then say so — the agent
+   verifies the live rules and merges PR #3 and the protection-review PR (merge commits match the
+   history). Until the edit lands, **no** PR can merge — PR #3 is the proof.
+2. **Owner: close the sessions you consider done** (ADR-009, rule 8) — seven await close across
    the two session branches.
-4. After the ruleset carries the required check, record the applied mechanism in ADR-011
+3. After the ruleset carries the required check, record the applied mechanism in ADR-011
    (ruleset `main`, not the classic payload from `APPLY=1 make docs-require-check` — that PUT
    becomes redundant). Not claimed complete until then.
 

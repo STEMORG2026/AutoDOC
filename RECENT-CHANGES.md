@@ -34,6 +34,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 6da01b2 2026-10-21 chore(state): log the living-state refresh episode (shallow clone)
 - 77ca6c6 2026-10-21 Record the branch-protection review and the P-007 alignment round
 - 4d0c50f 2026-10-01 Merge pull request #2 from STEMORG2026/arena/01a0f476-autodoc
 - 0502447 2026-10-01 Log recovery #20 and raise the recovery count
@@ -53,9 +54,12 @@ auto_generated: false
 - 312b40a 2026-10-01 chore(state): correct the recovery-note timestamps to the real clock
 - 2aefa09 2026-10-01 chore(state): record recovery #15 and reconcile the dashboard tip
 - 407d3d4 2026-10-01 chore(state): record the decision-3 landing and green PR gates
-- f39e20f 2026-10-01 chore(state): reconcile after closing the open core decisions
 
 ## Changed paths at update time
 
+- `state/BLOCKERS.md`
+- `state/DASHBOARD.md`
+- `state/DECISIONS.md`
+- `state/plans/agent-A52ab-protection-review.md`
 - `state/sessions/20261021-1138-A52ab-protection-review.md`
 <!-- auto:end -->

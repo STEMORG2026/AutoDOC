@@ -17,7 +17,7 @@ files is marked **accepted — recording pending**; an agent never marks an owne
 | ADR-006 | Facts are capability-named and three-valued; personal-data, payment and safety traits are **declaration-only, never inferred**; undeclared phase is advisory | Owner | standing | accepted, recorded | `CONTROL/metadata/CONTEXT-MODEL.json`, `PROFILES.json`, `autodoc.toml` |
 | ADR-007 | Documentation is enforced at the declared phase — `build` (warn) for this repository — and the phase ladder is promoted by an explicit event (`promote <phase>`), not by inference | Owner | 2026-09-30 | accepted, recorded | `autodoc.toml` (`phase = "build"`), `docs/00-governance/CORE-LIST-REVIEW.md` Part 0 |
 | ADR-010 | **Decision 4 (P-003) executed**: the demo-only facts are declared **false** with reasons (`has_persistent_state`, `has_env`, `has_ai`), and the `has_network_listener` self-match is fixed at its source — the detector excludes its own module, so no override was needed (a deliberate deviation from the "four overrides" wording, pinned by a regression test). The last open core decision `DOC-A05-001` closes as not applicable: readiness **15/15, 0 open**; beta cliff 4 → 2 | Owner | 2026-10-01 | accepted, recorded | `autodoc.toml`, `scripts/intelligence/profile.py`, `tests/test_profile.py`; commit `c7980f9` |
-| ADR-011 | **Decision 5 (P-004)**: branch protection on `master` carries one required check — payload `{"strict": true, "contexts": ["AutoDOC guard / check"]}`, applied by the owner with `APPLY=1 make docs-require-check`; the check name is verified live on PR #2 | Owner | 2026-10-01 | accepted — application owner-run; **the owner applied protection 2026-10-21 (11:27Z) as ruleset `main`, which deviates from this payload** (no required check; adds `required_signatures` + two CodeQL rules) and currently blocks every merge to `master` — alignment is P-007 below, still unapplied | `Makefile` target `docs-require-check`, `docs/00-governance/BRANCH-PROTECTION.md`; ruleset `main` (id `25542481`) read live 2026-10-21; session `20261021-1138-A52ab` |
+| ADR-011 | **Decision 5 (P-004)**: branch protection on `master` carries one required check — payload `{"strict": true, "contexts": ["AutoDOC guard / check"]}`, applied by the owner with `APPLY=1 make docs-require-check`; the check name is verified live on PR #2 | Owner | 2026-10-01 | accepted — **application owner-run, and P-007-A (decided 2026-10-21) sets the mechanism**: ruleset `main` (applied 2026-10-21 in a deviating form, now blocking all merges) is edited to carry the required check `AutoDOC guard / check` (`strict: true`) and drop `required_signatures` + the two CodeQL rules; the edit itself is the remaining owner-run step — **recording pending** | `Makefile` target `docs-require-check`, `docs/00-governance/BRANCH-PROTECTION.md`; ruleset `main` (id `25542481`) read live 2026-10-21; P-007 below; session `20261021-1138-A52ab` |
 | ADR-012 | **Decision 6 (P-005)**: the declared phase stays `build`; after decision 4 the promotion delta is 2 core rows (License, Changelog), and promotion remains a deliberate event (`autodoc promote`'s delta view is not implemented, so it is a manual edit with those numbers) | Owner | 2026-10-01 | accepted, recorded | `autodoc.toml` (`phase = "build"` unchanged); this file, item P-005 |
 | ADR-013 | **Decision 7 (P-006)**: the five smalls are deferred — `audience` consumer (D-004; first if any is picked), JS/TS + Rust toolchains (D-002), external dogfood repository (D-009), template rendering on demand (D-003), evidence signing (D-007); none gates anything | Owner | 2026-10-01 | accepted, recorded | `state/DEBT.md` |
 ## Pending — owner decisions awaiting a verdict
@@ -27,8 +27,9 @@ recommendations.** Execution is tracked in the table above: P-003 → ADR-010 (e
 ADR-011 (owner-run application; attempted, no admin rights in this session), P-005 → ADR-012,
 P-006 → ADR-013, P-001 → ADR-002 (recorded), P-002 → ADR-008 (acknowledged). **All six are now
 executed or recorded.** The protection apply happened 2026-10-21 — but as ruleset `main`, which
-deviates from ADR-011's payload and blocks every merge; its alignment is the open item **P-007**
-below (blocker B-003). The dossiers below are kept as the record of what was presented.
+deviates from ADR-011's payload and blocks every merge; its alignment was **P-007**, decided
+2026-10-21 in-session (**option A**) with the owner-run ruleset edit as the remaining step
+(blocker B-003). The dossiers below are kept as the record of what was presented.
 
 **Added 2026-10-01 by the cold-clone continuity test** (session `20261001-1219-A476`): the round
 below previously existed only in chat, so a new agent could see *that* decisions were pending but
@@ -96,7 +97,18 @@ is picked now, `audience` first, toolchains second.*
 **Added 2026-10-21 by session `20261021-1138-A52ab`** (protection review, owner instruction
 "Cannot merge the commit, I protected the branch and did some changes, have a look at AutoDOC").
 
-**P-007 — Align the branch protection with ADR-011 (clears B-003).** The owner protected `master`
+**P-007 — Align the branch protection with ADR-011 (clears B-003).** **Decided 2026-10-21 by the
+owner in-session: option A.** Execution checklist (the ruleset edit itself is owner-run — this
+session's token writes no repository settings, 403 re-verified after the verdict; the ruleset has
+no bypass actor): GitHub → Settings → Rules → Rulesets → `main` → Edit —
+(1) remove `required_signatures`; (2) remove `code_quality`; (3) remove `code_scanning`;
+(4) add required status check `AutoDOC guard / check` with "require branches to be up to date
+before merging" (`strict: true`); (5) keep `deletion` + `non_fast_forward`; save. Then strike
+B-003, merge PR #3 and the protection-review PR (merge commits match the history), and record
+the applied mechanism in ADR-011 (ruleset `main`, superseding the classic payload from
+`APPLY=1 make docs-require-check`). The dossier below is kept as the record of what was presented.
+
+**P-007 — dossier as presented (2026-10-21).** The owner protected `master`
 on 2026-10-21 (11:27Z) with **ruleset `main`** (id `25542481`, `active` on the default branch).
 Observed rules: `deletion`, `non_fast_forward`, `code_quality` (CodeQL, `severity: errors`),
 `required_signatures`, `code_scanning` (CodeQL, `medium_or_higher` security / `errors` alerts).

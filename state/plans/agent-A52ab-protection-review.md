@@ -35,4 +35,7 @@ product/code change; inventing a verdict for P-007.
 - 2026-10-21: diagnosis complete (ruleset `main` vs ADR-011's payload; unsigned PR commits; no
   CodeQL in the tree; merge attempt returns "the base branch policy prohibits the merge"); state
   reconciled and status labels aligned; `make ci` green (243 + 182 subtests); P-007 presented
-  before the presentation in chat; awaiting the owner's verdict and the ruleset edit.
+  before the presentation in chat.
+- 2026-10-21: owner verdict recorded — **P-007, option A**. Remaining: the owner-run ruleset
+  edit (token 403 re-verified), then verify live rules, merge PR #3 + the protection-review PR,
+  strike B-003, record the mechanism in ADR-011.
