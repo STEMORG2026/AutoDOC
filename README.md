@@ -26,11 +26,42 @@ Pre-commit ──> PR check ──> Merge preview ──> Release gate ──> N
 
 ## Quick start (Python 3.11+)
 
+For contributing to the source checkout:
+
 ```sh
 git clone https://github.com/Er-Sajan-PLG/AutoDOC.git && cd AutoDOC
 make setup
 make ci
 ```
+
+### Installable CLI
+
+AutoDOC also builds a dependency-free wheel and source distribution. Use a wheel downloaded from
+the `autodoc-python-distribution` artifact of a tagged GitHub Actions release run:
+
+```sh
+python -m venv .venv
+. .venv/bin/activate                 # Windows: .venv\\Scripts\\activate
+python -m pip install /path/to/autodoc-0.2.0-py3-none-any.whl
+autodoc --version
+autodoc check --repo /path/to/project
+autodoc generate --root /path/to/project --check
+```
+
+The package declares Python **3.11–3.15** support and has no runtime dependencies. CI runs the test
+suite across that range in a supplemental, non-blocking matrix; the named required gate runs full
+`make ci` on Python 3.11. Its installable commands are `check`, `generate`, `adopt`, and `init`;
+check/generation always operate on the selected project root, separately from AutoDOC's bundled
+policy and catalog assets. `init` requires
+an existing directory and writes draft scaffolds; `adopt` is a read-only filename heuristic.
+AutoDOC is **not published to PyPI**; the release workflow builds temporary CI artifacts and does
+not publish or create a GitHub Release. Do not use `pip install autodoc` as an installation path.
+
+`autodoc check` applies the target project's `autodoc.toml` and baseline. With no declared phase,
+checks are advisory unless a severity is explicitly pinned. `autodoc generate` expects a
+`docs/.doc-sync-map.yaml` in the target project; use `--check` for read-only drift checking. These
+commands validate declared structure and bounded extracted facts, not semantic correctness or
+regulatory compliance.
 
 `make docs-recommend` reports which catalog types apply to this repository, why, and which
 decisions are recorded in `autodoc.toml`; `make docs-catalog` validates the catalog rules,
@@ -65,10 +96,10 @@ structured; it never certifies compliance.
 
 | State | Reality |
 | --- | --- |
-| ✅ Working | 265 catalog types with declarative rules, a 24-type core tier and a detectable `applies_when` predicate per type; file-presence profile and applicability report; bounded generators; ownership/inventory/graph; two local tool examples; pytest, Makefile, hooks and CI checks; unsigned actual-run evidence |
-| 🚧 Partial | Route registry is not OpenAPI; SQLite/manifest/alert parsers are bounded; human-review impact proves a co-change, not quality |
+| ✅ Working | Installable zero-runtime-dependency CLI; wheel/sdist build and isolated-install smoke tests; 265 catalog types with declarative rules, a 24-type core tier and a detectable `applies_when` predicate per type; bounded generators; ownership/inventory/graph; pytest, Makefile, hooks and CI checks; unsigned actual-run evidence |
+| 🚧 Partial | Route registry is not OpenAPI; SQLite/manifest/alert parsers are bounded; human-review impact proves a co-change, not quality; release artifacts are temporary workflow artifacts |
 | 📋 Not implemented | Arbitrary language/SQL parsers, external link/network monitoring, LLM, semantic prose verification and signed attestations |
-| 🔒 Blocked | Branch protection needs repository-admin configuration; a release still needs a `vX.Y.Z` tag at the same commit |
+| 🔒 Blocked | PyPI publishing requires owner account/trusted-publisher setup and authorization; a tagged release artifact still needs a `vX.Y.Z` tag at the same commit; branch protection settings remain repository-admin controlled |
 
 `make ci` is canonical. The repository also includes `Taskfile.yaml` for [go-task](https://taskfile.dev/)
 users; if go-task is not installed, use the equivalent `make` targets. `make evidence` runs

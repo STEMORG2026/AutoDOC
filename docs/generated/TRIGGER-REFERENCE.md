@@ -36,7 +36,7 @@ When AutoDOC runs, what each event is allowed to do, and what it never does. Gen
 | On every pull request | opened, updated, or reopened | blocks the merge | no | `make ci`<br>`python scripts/intelligence/change_analyzer.py --base "$BASE"` | the merge is blocked until the required check passes |
 | After merge to the default branch | push to master, or manual dispatch | reports, never blocks | no | `python scripts/doc-sync/generate-all.py` | the generated diff is published as an artifact for review; no bot commit is pushed |
 | Nightly, and Monday morning | cron 0 2 * * * and 0 9 * * 1, or manual dispatch | triage only, never blocks | yes — one request per host every 1.0s, at most 200 links per run, 10s timeout per request | `python scripts/doc-sync/check-doc-drift.py`<br>`python scripts/doc-control/guards.py`<br>`python scripts/doc-control/check_ownership.py`<br>`python scripts/doc-sync/engine.py freshness`<br>`python scripts/doc-control/health.py`<br>`python scripts/doc-control/check_external_links.py` | the run is red for triage; no pull request is affected |
-| On a release tag | push of a v*.*.* tag, or manual dispatch with the tag | produces the release snapshot | no | `python scripts/doc-control/release_snapshot.py --tag "$TAG"` | no snapshot is produced; the release itself is not blocked by this workflow |
+| On a release tag | push of a v*.*.* tag, or manual dispatch with the tag | produces the release snapshot | no | `python scripts/doc-control/release_snapshot.py --tag "$TAG"`<br>`make package` | no snapshot is produced; the release itself is not blocked by this workflow |
 
 ## Job wiring
 
@@ -44,9 +44,10 @@ When AutoDOC runs, what each event is allowed to do, and what it never does. Gen
 | --- | --- | --- | --- | --- | --- |
 | `AutoDOC guard / check` | `.github/workflows/docs-guard.yml` | `pull_request`, `push`, `workflow_dispatch` | yes | — | `make ci`<br>`python scripts/intelligence/change_analyzer.py --base "$BASE"` |
 | `impact` | `.github/workflows/self-doc-check.yml` | `pull_request` | no | paths | `python scripts/intelligence/change_analyzer.py --base "$BASE"`<br>`python scripts/doc-control/check_sync_map.py`<br>`python scripts/doc-sync/check-doc-drift.py` |
+| `Python compatibility` | `.github/workflows/docs-guard.yml` | `pull_request`, `push`, `workflow_dispatch` | no | — | `make test` |
 | `preview` | `.github/workflows/docs-generation-preview.yml` | `push`, `workflow_dispatch` | no | branch | `python scripts/doc-sync/generate-all.py` |
 | `freshness` | `.github/workflows/docs-staleness.yml` | `schedule`, `workflow_dispatch` | no | — | `python scripts/doc-sync/check-doc-drift.py`<br>`python scripts/doc-control/guards.py`<br>`python scripts/doc-control/check_ownership.py`<br>`python scripts/doc-sync/engine.py freshness`<br>`python scripts/doc-control/health.py`<br>`python scripts/doc-control/check_external_links.py` |
-| `snapshot` | `.github/workflows/release.yml` | `push`, `workflow_dispatch` | no | tag | `python scripts/doc-control/release_snapshot.py --tag "$TAG"` |
+| `snapshot` | `.github/workflows/release.yml` | `push`, `workflow_dispatch` | no | tag | `python scripts/doc-control/release_snapshot.py --tag "$TAG"`<br>`make package` |
 
 ## What the gate enforces at the declared phase (`build (warn)`)
 

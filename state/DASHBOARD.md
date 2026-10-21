@@ -1,34 +1,37 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-21T17:52Z · **Reconciled by:** B71a (session `20261021-1459-B71a`,
-PAUSED awaiting owner) · **Base tip:** `c4a9d43` on `master` (PR #10 merged); B71a commit `0d51069` is pushed in open PR #11, with required checks green.
+**Last reconciled:** 2026-10-21T18:44Z · **Reconciled by:** C4R7 (session `20261021-1820-C4R7`,
+implementation verified; awaiting owner review) · **Base tip:** `52d1b79` on `master` (PR #11 merged); PR #12 package-readiness change is being prepared from `arena/072fcb8c-autodoc`.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `c4a9d43`; B71a's assigned branch `arena/48a62791-autodoc` contains `0d51069` (PR #11 open) |
+| Branch | `master` at `52d1b79` (PR #11 merged); C4R7 works on `arena/072fcb8c-autodoc`, package PR #12 pending |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
 | Build-ready | **15/15** · open core decisions **0** (owner decision 4 closed the last one, `DOC-A05-001` Data model, as not applicable) |
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
-| Stack | Python 3.11, **zero runtime dependencies**; pytest + pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
+| Stack | Python 3.11–3.15 declared, **zero runtime dependencies**; build/pytest/pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
 | Docs | 70 controlled instances (28 generated targets, 42 human-owned, `make docs-health` 2026-10-21) · 384 Markdown files tracked |
-| Tests | `make ci`: 263 passed + 190 subtests in 24.19 s (2026-10-21) on B71a's working tree; evidence hashes verified (not signatures) |
-| CI | 5 workflows; required check `AutoDOC guard / check` — **required in GitHub**: ruleset `main` (P-007-A, applied by the owner 2026-10-21, verified live: `deletion`, `non_fast_forward`, `required_status_checks` `AutoDOC guard / check` `strict: true`); nightly freshness warn-only; tag-gated release |
+| Tests | `make ci`: 267 passed + 190 subtests in 22.72 s (Python 3.11, 2026-10-21); clean wheel/sdist install smoke passed; evidence hashes verified (not signatures) |
+| CI | 5 workflows; required check `AutoDOC guard / check` remains in GitHub ruleset `main` (P-007-A, strict); supplemental Python 3.11–3.15 matrix is non-blocking; nightly freshness warn-only; tag workflow builds snapshot + wheel/sdist artifacts, no PyPI publish |
 
 ## Active agents
 
-`B71a` — session `20261021-1459-B71a` (**PAUSED (awaiting owner)**): implemented conditional
-migration-prose validation inside `stub_check.py`, using the four canonical titles, required
-sections and retained prompts. Draft findings route to `placeholders`, approved findings to `stubs`;
-the direct checker warns/fails respectively, while `make ci` applies existing phase/pin severity.
-This is structural only, and the demo has no migration instances. Full `make ci` passed (263 tests,
-190 subtests); the handoff and test caveats are recorded in the session. Commit `0d51069` is pushed
-in PR #11; required GitHub checks pass. The session awaits owner review/closure. A90c's D-001 session
-was closed by the owner at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
+`C4R7` — session `20261021-1820-C4R7` (**IN-PROGRESS; preparing PR #12**): added the installable
+zero-runtime-dependency CLI/package, distinct tool/project roots, wheel/sdist build and isolated
+installation smoke tests. Local `make ci` passed (267 tests, 190 subtests); the package smoke and
+artifact builds passed. The 3.11–3.15 compatibility matrix is supplemental/non-blocking; the
+required status remains `AutoDOC guard / check`. No PyPI publication was authorized. Owner review
+is pending.
+
+`B71a` — session `20261021-1459-B71a` (**PAUSED (awaiting owner)**): migration-prose validation is
+merged in PR #11 at `52d1b79`; the implementation is structural only. The session remains paused;
+merging did not constitute the owner's explicit close. A90c's D-001 session was closed by the owner
+at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 
 ## Alerts
 
@@ -87,11 +90,13 @@ was closed by the owner at 14:59Z; its plan is archived. The nine earlier sessio
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Owner review:** B71a's migration-prose change is in open PR #11 (`0d51069`); required checks
-   pass and full `make ci` passed (263 tests, 190 subtests). The session is paused awaiting owner
-   review/closure; no closure has been asserted. Protection remains aligned (ADR-011), D-001 is
-   fixed, and all prior sessions are owner-closed.
-2. Optional follow-ups only, none gating: the P-006 deferrals in `state/DEBT.md` (`audience` consumer
+1. **Owner review:** review and merge the C4R7 installable CLI/package PR #12 after its required
+   check passes. This branch builds wheel/sdist artifacts but does not publish to PyPI. Decide
+   separately whether to configure trusted publishing and authorize an actual registry release.
+2. **Session close decisions:** B71a's PR #11 is merged at `52d1b79`, but the B71a session remains
+   paused until the owner explicitly closes it. C4R7 likewise remains paused awaiting owner review;
+   merging either PR is not an implicit session close.
+3. Optional follow-ups only, none gating: the P-006 deferrals in `state/DEBT.md` (`audience` consumer
    first if any is picked; JS/TS + Rust toolchains; external dogfood repository; template rendering
    on demand; evidence signing), the one other `open` item (D-010, vulnerability scanning — low,
    needs a network scanner), and promotion to `beta` remains a deliberate event with cliff 2.

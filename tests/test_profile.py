@@ -150,9 +150,12 @@ class FixtureMatrixTests(unittest.TestCase):
         # declared override in autodoc.toml records what a file cannot show (remote visibility).
         self.assertEqual(data['facts']['is_public']['value'], 'true')
         self.assertIn('LICENSE', data['facts']['is_public']['evidence'])
-        # No containers, no deployment and no CLI: the tool reports this on itself.
-        for fact in ('has_docker', 'has_deploy', 'has_cli'):
+        # The package now declares an installable console entry point. Containers and deployment
+        # remain absent; the CLI detector sees the pyproject entry-point declaration.
+        for fact in ('has_docker', 'has_deploy'):
             self.assertEqual(data['facts'][fact]['value'], 'false', fact)
+        self.assertEqual(data['facts']['has_cli']['value'], 'true')
+        self.assertIn('entry_points in python manifest', data['facts']['has_cli']['evidence'])
 
     def test_test_input_directories_are_skipped_and_declared(self):
         """A fixture corpus is an input to the tests, not evidence about the project.

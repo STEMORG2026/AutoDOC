@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-09-26
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # Documentation policy
@@ -34,6 +34,11 @@ For human-review mappings, update the listed target *after* reviewing the source
 The checker can prove co-change, not semantic correctness; CODEOWNERS and branch protection
 must be enabled by repository administrators for actual approval enforcement.
 
+The installable `autodoc` CLI keeps its bundled scripts and policy data under a tool root, separate
+from the target project root. `autodoc check --repo PATH` and `autodoc adopt --project-path PATH` inspect the selected
+project; `autodoc generate --root PATH` and `autodoc init --root PATH` write only to the selected
+target. Installation alone does not deploy a service or change a project checkout.
+
 ## Metadata
 Controlled Markdown (`docs/`, `CONTROL/`, `EXAMPLE-PROJECT/docs/`, `examples/ai-agent-example/docs/`, `examples/local-tools-example/docs/`, root agent-context files and living-state files)
 uses the fields in `CONTROL/metadata/FRONT-MATTER-SCHEMA.json`. Templates under
@@ -50,7 +55,9 @@ CI uploads an unsigned pack of the **test suite it actually ran**, declared proj
 material hashes and documentation health. It does not attest to a signed build, full dependency
 resolution, security, backup success or external compliance. Packs are run artifacts, not
 committed evidence files; a tagged release requires a `vX.Y.Z` tag at the same commit and a
-present `LICENSE` (Apache-2.0 since 2026-10-01).
+present `LICENSE` (Apache-2.0 since 2026-10-01). The required `AutoDOC guard / check` runs
+`make ci` on Python 3.11; the declared Python 3.11–3.15 compatibility matrix is supplemental and
+non-blocking until deliberately made a required check.
 
 The initial 2026-09-26 metadata on human-authored starter documents is an authoring baseline,
 not owner approval. Those files are marked draft pending owner review. New unverified scaffolds
@@ -80,6 +87,7 @@ use `1970-01-01` as a sentinel so freshness warns until a real review updates th
 | Instantiated starter docs | Required sections | `completeness.py` | Fail unfilled starter docs |
 | Approved title-only stubs | Controlled Markdown | `stub_check.py` | Fail approved docs with no section or content beyond the title; drafts warn |
 | Event triggers | `CONTROL/metadata/TRIGGERS.json` + workflows | `triggers.py --check` | Fail an undeclared workflow, an unresolvable declared command, or a required check a filter could stop from reporting |
+| Installed package | `pyproject.toml`, `setup.py`, `MANIFEST.in` | `make package-check` | Build wheel and sdist, rebuild from sdist, then smoke-test the isolated wheel install |
 | External links (scheduled) | Controlled Markdown | `check_external_links.py` | Warn-only: rate-limited, capped, run on the schedule, never part of the pull-request gate |
 
 Other requested controls (SBOM signing, API extraction in arbitrary languages, model evaluation,

@@ -4,8 +4,10 @@ Keep the AutoDOC name and stable catalog IDs. Add catalog entries without renumb
 After editing the catalog, run `python scripts/doc-control/library.py` to update template variants.
 After editing source maps, generators or example sources, run
 `python scripts/doc-sync/generate-all.py`. Review source-to-human impact and update living-state
-files when code changes. Run `python -m unittest discover -s tests -v` and the commands in README.
-Do not claim external evidence (audits, tests or backups) without actual artifacts.
+files when code changes. Run `make ci`; it includes pytest, the wheel/sdist build, a wheel installed
+in a clean environment outside the checkout, and package CLI smoke commands. Use `make package`
+to create local distributions under ignored `dist/`. Do not claim external evidence (audits, tests
+or backups) without actual artifacts.
 
 ## Dependencies
 
@@ -17,8 +19,9 @@ AutoDOC's runtime is the Python standard library only (`dependencies = []` in
   agreement and a new ADR under `docs/adr/` that states what it buys and what it costs adopters.
   Until that exists, a runtime import from a third-party package is a defect.
 - **Development dependencies** live in `[project.optional-dependencies].dev` as bounded ranges
-  (`pytest>=8,<10`, `pre-commit>=3,<5`). They are installed by `make setup` and never imported by
-  shipped code. Widen or narrow a range in the same change that uses it, and run `make ci`.
+  (`build>=1,<2`, `pytest>=8,<10`, `pre-commit>=3,<5`). They are installed by `make setup` and
+  never imported by shipped code. Widen or narrow a range in the same change that uses it, and
+  run `make ci`.
 - **Updating** is manual: there is no automated updater and no bot pull requests. Bump the range,
   run `make ci`, and include the reason in the commit message.
 - **Removing** a dependency means deleting it from `pyproject.toml` and from any import, then

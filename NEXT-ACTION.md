@@ -16,18 +16,25 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-21
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # Next action
 
 ## Immediate focus
-Migration prose validation is implemented (2026-10-21): `stub_check.py` checks the canonical
-sections and unchanged prompts of instantiated migration documents, without claiming semantic
-correctness or reversibility. A real OpenAPI contract remains deferred until the demo source
-implements one. Existing env/alert references are example-only; review their runbooks and
-applicability rather than claiming deployed monitoring. The catalog applicability review is done —
-recorded 2026-10-01 (see Owner decisions below).
+The user-selected installable Python CLI/package is implemented on C4R7: wheel/sdist builds,
+`autodoc check/generate/adopt/init`, separate tool and target-project roots, and clean-venv smoke
+tests. Local `make ci` passed on Python 3.11 (267 tests, 190 subtests, plus package smoke); the
+supplemental 3.11–3.15 matrix has not yet run in GitHub. The required check remains named
+`AutoDOC guard / check`. Await owner review/merge before tagging a distribution. The release
+workflow builds temporary GitHub Actions artifacts only; PyPI publishing was not authorized and
+requires a separate owner decision/setup.
+
+PR #11 merged at `52d1b79` on 2026-10-21; this did **not** close B71a, which remains paused awaiting
+the owner's explicit close. The migration-prose checks remain structural only, not semantic or
+reversibility claims. A real OpenAPI contract remains deferred until the demo source implements
+one. Existing env/alert references are example-only; do not claim deployed monitoring. The catalog
+applicability review is done — recorded 2026-10-01 (see Owner decisions below).
 
 ## Owner decisions
 Done: the license is Apache-2.0 (owner decision, 2026-10-01): canonical text in `LICENSE`, SPDX
@@ -83,11 +90,12 @@ ci`; the only `open` debt left is D-010 (vulnerability scanning, low, needs a ne
    documented exit codes, a pre-push hook and a dry-run branch-protection helper. `make ci` runs it.
 6. Partly done. Per-language references: Python is extracted in-process (exact) and Go's
    toolchain is integrated behind a probe; every other language is reported as L0 with the reason.
-   Next in this step: more integrated toolchains (JavaScript/TypeScript and Rust have canonical
-   tools to wire), then `init`, `adopt`, `promote` and `add` — scaffolding per phase, with `adopt` writing the
-   baseline and `promote` showing the delta and an optional baseline before it writes the phase.
-   Then render templates on demand instead of committing 780 variants, and dogfood on a
-   repository that is not this one.
+   The installed `autodoc init` creates ten draft foundations and `autodoc adopt` is a read-only
+   filename heuristic; neither performs a full phase-scaled adoption or baseline write. Next in
+   this step: add tested JavaScript/TypeScript and Rust tool integrations where justified; extend
+   adoption/scaffolding with owner-reviewed phase/profile decisions; implement `promote` and `add`;
+   render templates on demand instead of committing 780 variants; and dogfood on a repository
+   that is not this one.
 7. Done. Event triggers are declared in `CONTROL/metadata/TRIGGERS.json` and verified by
    `triggers.py --check` (in `make ci`): one blocking event, one required check, no undeclared
    workflow, no filtered required check, and no network from a gate. The scheduled workflow reports

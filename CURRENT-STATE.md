@@ -16,17 +16,18 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-21
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # Current state
 
 AutoDOC has a working sync map, standard-library runtime, three authoritative catalog indices,
 265 template triples, a task API demo and two local tool-policy demonstrations without an LLM or web calls.
-Its checks validate controlled-document metadata, generated drift, age, source-to-human-review impact,
-and the structure of instantiated migration documents (required sections and unfilled template prompts,
-not semantic correctness). A catalog entry represents a possible document, not a completed compliance
-obligation.
+It now also has an installable `autodoc` CLI with zero runtime dependencies, wheel/sdist builds,
+and clean-environment install smoke coverage. Its checks validate controlled-document metadata,
+generated drift, age, source-to-human-review impact, and the structure of instantiated migration
+documents (required sections and unfilled template prompts, not semantic correctness). A catalog
+entry represents a possible document, not a completed compliance obligation.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 
@@ -41,6 +42,15 @@ The human inventory, relationship graph, catalog views and code/test/dependency 
 CI packages actual test-run evidence without claiming a signed build or license approval.
 The release-tag workflow fails closed if `LICENSE` is missing; the owner selected Apache-2.0 on
 2026-10-01 (`LICENSE`, `pyproject.toml`, `docs/00-governance/LICENSE-DECISION.md`).
+
+The user-selected production target — an installable Python CLI/package, not a hosted service — is
+implemented on C4R7: `autodoc check/generate/adopt/init`, separate bundled tool and target-project
+roots, wheel/sdist build and clean-venv smoke coverage. Python 3.11–3.15 are declared; the
+supplemental CI matrix is non-blocking, while the required `AutoDOC guard / check` runs `make ci`
+on Python 3.11. Tagged workflows build temporary GitHub Actions artifacts only; the package is
+not published to PyPI and no publication was authorized. The local full check passed (267 tests,
+190 subtests, plus wheel/sdist install smoke). The branch is awaiting owner review; B71a remains
+paused even though PR #11 merged.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.

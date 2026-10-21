@@ -5,6 +5,26 @@ on:
   push:
   workflow_dispatch:
 jobs:
+  compatibility:
+    name: Python compatibility
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13', '3.14', '3.15']
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install tested development dependencies
+        run: python -m pip install -e '.[dev]'
+      - name: Run tests on this supported Python version
+        run: make test
   check:
     # GitHub matches a required status check by the job's name, not by "workflow / job"; the UI
     # shows the workflow prefix, the API context does not. The name is also what

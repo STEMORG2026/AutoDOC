@@ -1,13 +1,14 @@
 # REGISTRY — who is working here and what they own
 
-**Last reconciled:** 2026-10-21T17:52Z (PR #11 opened at `0d51069`; required checks pass; B71a remains paused awaiting owner)
+**Last reconciled:** 2026-10-21T18:20Z (PR #11 merged at `52d1b79`; B71a remains paused awaiting owner; C4R7 registered for Python package readiness)
 
 ## Active — work in flight, or landed and awaiting the owner
 
-One session holds a claim: `B71a` (migration prose validation), paused for owner review on `arena/48a62791-autodoc`.
+C4R7 holds the active package-readiness claim. B71a (migration prose validation) remains paused for owner review on `arena/48a62791-autodoc`; merging PR #11 did not close it.
 
 | Agent ID | Model / type | Branch | Task (one line) | Started (UTC) | Claimed paths | Status |
 | --- | --- | --- | --- | --- | --- | --- |
+| `C4R7` | Arena.ai Agent Mode | `arena/072fcb8c-autodoc` | Make AutoDOC installable as a zero-runtime-dependency Python CLI/package; build and test wheel/sdist, document limits; do not publish to PyPI | 2026-10-21T18:20Z | `pyproject.toml`, `setup.py`, `MANIFEST.in`, `autodoc/`, `scripts/doc-sync/engine.py`, CLI scripts, `Makefile`, `Taskfile.yaml`, package tests, workflows, usage/architecture docs, `state/**`, living-state files | **IN-PROGRESS** |
 | `B71a` | Arena.ai Agent Mode | `arena/48a62791-autodoc` | Integrate structural checks for four canonical migration titles into `stub_check`; findings route through existing `placeholders`/`stubs` families | 2026-10-21T14:59Z | `state/**`, `scripts/doc-control/stub_check.py`, `scripts/intelligence/enforce.py`, `CONTROL/metadata/CONTEXT-MODEL.json`, `autodoc.toml`, `tests/test_migration_prose.py`, `Makefile`, `NEXT-ACTION.md`, `CHANGELOG.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `RECENT-CHANGES.md`, `docs/00-governance/ENGINE-COVERAGE.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `docs/META/**` | **PAUSED (awaiting owner)** |
 
 ## Closed by the owner

@@ -24,7 +24,15 @@ jobs:
         env:
           TAG: ${{ github.event.inputs.tag || github.ref_name }}
         run: python scripts/doc-control/release_snapshot.py --tag "$TAG" --output "$RUNNER_TEMP/autodoc-release"
+      - name: Install the distribution builder
+        run: python -m pip install 'build>=1,<2'
+      - name: Build wheel and source distribution
+        run: make package
       - uses: actions/upload-artifact@v4
         with:
           name: autodoc-release-snapshot
           path: ${{ runner.temp }}/autodoc-release/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: autodoc-python-distribution
+          path: dist/

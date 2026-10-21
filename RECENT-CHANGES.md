@@ -16,11 +16,12 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-21
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # Recent changes
 
+- Added an installable zero-runtime-dependency CLI with bundled wheel/sdist assets, isolated project-root commands, package smoke checks and Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
 - Added structural validation for canonical migration-document sections and prompts; findings route
   through the existing `placeholders`/`stubs` policy families, so CI retains phase/pin severity.
 - Replaced print-only scripts with deterministic generators, drift and impact checks.
@@ -36,31 +37,29 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
-- 0d51069 2026-10-21 feat: validate migration document prose structure
-- c4a9d43 2026-10-21 Merge pull request #10 from STEMORG2026/arena/44b2fb68-autodoc
-- 58641ce 2026-10-21 Close the record: PR #8 and PR #9 merged, cold-clone check, and why the merge chain stops
-- 0febe31 2026-10-21 Merge pull request #9 from STEMORG2026/arena/44b2fb68-autodoc
-- a30fc5f 2026-10-21 Reconcile state for D-001: registry, index, dashboard, session handoff
-- 55f70ce 2026-10-21 Record D-001's merge (PR #8, 5bbd7d8) and the post-merge cold-clone check
-- 5bbd7d8 2026-10-21 Merge pull request #8 from STEMORG2026/arena/44b2fb68-autodoc
-- d3ebf4a 2026-10-21 Fix D-001: correct the catalog counts and make them checkable
-- 9e5155d 2026-10-21 Merge pull request #7 from STEMORG2026/arena/83bebb7f-autodoc
-- 629338c 2026-10-21 Record the closing record's merge (PR #6, f0aa0e3)
-- f0aa0e3 2026-10-21 Merge pull request #6 from STEMORG2026/arena/83bebb7f-autodoc
-- 69ea4b4 2026-10-21 Record the rule-10 stranger self-check and close the pass
-- 4fe3405 2026-10-21 Close the eight open sessions on the owner's word
-- cffa527 2026-10-21 Merge pull request #5 from STEMORG2026/arena/d2fb52ab-autodoc
-- 2320d4b 2026-10-21 Record the P-007-A application and the post-merge test; strike B-003
-- 87be33b 2026-10-21 Merge pull request #4 from STEMORG2026/arena/d2fb52ab-autodoc
-- 2976760 2026-10-21 fix(state): keep the session log chronological; resume plan progress
-- eab749b 2026-10-21 Merge remote-tracking branch 'origin/master' into arena/d2fb52ab-autodoc
-- 04f7386 2026-10-21 Merge pull request #3 from STEMORG2026/arena/01a0f476-autodoc
-- a642a31 2026-10-21 chore(state): record the P-007 verdict (option A)
+- 52d1b79 2026-10-21 Merge pull request #11 from STEMORG2026/arena/48a62791-autodoc
 
 ## Changed paths at update time
 
-- `state/DASHBOARD.md`
-- `state/INDEX.md`
-- `state/REGISTRY.md`
-- `state/sessions/20261021-1459-B71a-migration-prose-validation.md`
+- `.github/workflows/docs-guard.yml`
+- `.github/workflows/release.yml`
+- `.gitignore`
+- `CHANGELOG.md`
+- `CONTRIBUTING.md`
+- `CONTROL/metadata/TRIGGERS.json`
+- `Makefile`
+- `QUICK-START.md`
+- `README.md`
+- `Taskfile.yaml`
+- `docs/.doc-sync-map.yaml`
+- `docs/00-governance/ADOPTION.md`
+- `docs/00-governance/ENGINE-COVERAGE.md`
+- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
+- `docs/META/CODE-INVENTORY.md`
+- `docs/META/DEPENDENCIES.md`
+- `docs/META/OUTLINE.md`
+- `docs/META/TEST-INVENTORY.md`
+- `docs/generated/AUTOMATION-REFERENCE.md`
+- `docs/generated/TRIGGER-REFERENCE.md`
+- … and 11 more; use git diff --cached --name-only.
 <!-- auto:end -->

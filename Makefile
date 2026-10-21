@@ -1,6 +1,6 @@
 PYTHON := $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 BASE ?= origin/master
-.PHONY: help setup lint generate check test ci docs-verify docs-drift docs-metadata docs-ownership docs-inventory docs-freshness docs-sync docs-health docs-stubs docs-catalog docs-profile docs-recommend docs-hint docs-languages docs-triggers docs-links-external docs-explain docs-enforce docs-baseline docs-require-check hooks-install docs-staged-impact evidence check-evidence self-doc report
+.PHONY: help setup lint generate check test ci package package-check docs-verify docs-drift docs-metadata docs-ownership docs-inventory docs-freshness docs-sync docs-health docs-stubs docs-catalog docs-profile docs-recommend docs-hint docs-languages docs-triggers docs-links-external docs-explain docs-enforce docs-baseline docs-require-check hooks-install docs-staged-impact evidence check-evidence self-doc report
 
 help: ## Show available commands and their purposes
 	@awk '$$0 !~ /^[[:space:]]/ && $$0 !~ /^#/ && index($$0, "## " ) {i=index($$0, "## " ); n=substr($$0,1,i-1); sub(/:[^:]*$$/,"",n); gsub(/\\:/,":",n); gsub(/[[:space:]]+$$/,"",n); printf "%-22s %s\n",n,substr($$0,i+3)}' $(MAKEFILE_LIST)
@@ -106,7 +106,13 @@ self-doc: ## Check map, inventory, triggers, ownership, and staged (or BASE-to-H
 test: ## Run the complete pytest suite
 	$(PYTHON) -m pytest -v
 
-ci: check docs-enforce self-doc test evidence ## Run canonical docs, enforcement, self-documentation, tests and unsigned evidence verification
+package: ## Build the installable wheel and source distribution into dist/
+	$(PYTHON) -m build --outdir dist
+
+package-check: ## Build wheel/sdist, rebuild from sdist, and smoke-test an isolated installed CLI
+	$(PYTHON) scripts/test_package.py
+
+ci: check docs-enforce self-doc test package-check evidence ## Run canonical docs, enforcement, impact, tests, package install smoke and unsigned evidence verification
 
 evidence: ## Run actual tests and package scoped unsigned evidence in evidence/out/
 	mkdir -p evidence/out
