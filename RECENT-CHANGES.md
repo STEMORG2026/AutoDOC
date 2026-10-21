@@ -34,9 +34,13 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- eab749b 2026-10-21 Merge remote-tracking branch 'origin/master' into arena/d2fb52ab-autodoc
+- 04f7386 2026-10-21 Merge pull request #3 from STEMORG2026/arena/01a0f476-autodoc
 - a642a31 2026-10-21 chore(state): record the P-007 verdict (option A)
 - 6da01b2 2026-10-21 chore(state): log the living-state refresh episode (shallow clone)
 - 77ca6c6 2026-10-21 Record the branch-protection review and the P-007 alignment round
+- 41dead9 2026-10-01 Tidy the continuity alert and the active-agents block
+- eec4050 2026-10-01 Record the merge and the post-merge continuity test
 - 4d0c50f 2026-10-01 Merge pull request #2 from STEMORG2026/arena/01a0f476-autodoc
 - 0502447 2026-10-01 Log recovery #20 and raise the recovery count
 - 372bcc6 2026-10-01 Reconcile state with the session's shutdown commits
@@ -50,19 +54,9 @@ auto_generated: false
 - 56be338 2026-10-01 chore(state): register the decision-round walkthrough session
 - 14310ea 2026-10-01 chore(state): hand off paused, with the self-check result
 - c57b149 2026-10-01 fix(state): sessions close only on the owner's word; persist before presenting
-- 8ae8d81 2026-10-01 chore(state): reconcile after the cold-clone continuity test
-- b3a4490 2026-10-01 test(state): cold-clone continuity test — verdict, gaps, and the dossier that closes them
-- 312b40a 2026-10-01 chore(state): correct the recovery-note timestamps to the real clock
-- 2aefa09 2026-10-01 chore(state): record recovery #15 and reconcile the dashboard tip
 
 ## Changed paths at update time
 
-- `state/DASHBOARD.md`
-- `state/DECISIONS.md`
-- `state/INDEX.md`
-- `state/REGISTRY.md`
-- `state/plans/agent-A476-post-merge-test.md`
 - `state/plans/agent-A52ab-protection-review.md`
-- `state/sessions/20261001-1408-A476-post-merge-test.md`
 - `state/sessions/20261021-1138-A52ab-protection-review.md`
 <!-- auto:end -->

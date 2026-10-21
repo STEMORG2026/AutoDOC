@@ -41,3 +41,8 @@ post-merge continuity test are in scope from that instruction.)**
 - 2026-10-21: owner verdict recorded — **P-007, option A**. Remaining: the owner-run ruleset
   edit (token 403 re-verified), then verify live rules, merge PR #3 + the protection-review PR,
   strike B-003, record the mechanism in ADR-011.
+- 2026-10-21 (resumed, "done, test it"): ruleset edit verified live (exact P-007-A); PR #3
+  merged (`04f7386`); `origin/master` merged into this branch (five state-file conflicts
+  resolved, session `1408` integrated); ADR-011 marked recorded. In flight: guard → merge
+  PR #4 → post-merge continuity test on a cold clone of `master` → strike B-003 in the closing
+  record.

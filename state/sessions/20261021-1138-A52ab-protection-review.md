@@ -85,6 +85,16 @@ unshallowed (`git fetch --unshallow`, 42 commits), the block regenerated from re
 `scripts/doc-sync/update-doc-state.py --staged`, reviewed and staged explicitly as the hook
 asks. One pre-commit run in between reported "Stashed changes conflicted with hook auto-fixes"
 and rolled back — the standing recipe is: run the generator manually, review, stage, commit.
+`12:1x` [DECISION] **Owner verdict on P-007: option A** (align the ruleset to ADR-011: keep
+`deletion` + `non_fast_forward`, remove `required_signatures` + both CodeQL rules, add required
+check `AutoDOC guard / check` with `strict: true`). Recorded in `DECISIONS.md` in the same change
+that continues the work (rule 9). The ruleset edit itself is owner-run: the PUT was re-attempted
+after the verdict and 403'd again ("Resource not accessible by integration"), and the ruleset has
+no bypass actor. The owner's checklist is in P-007 and the dashboard's next actions; on the
+owner's word that the edit is live, this session verifies the rules via the read API, merges
+PR #3 and PR #4 (merge commits match the history), strikes B-003 and records the applied
+mechanism in ADR-011. PR #4's `AutoDOC guard / check` is green (1m26s) and PR #4 is itself
+blocked only by B-003.
 `12:2x` [PROGRESS] **Owner resumed the session ("done, test it").** Live rules read back as
 **exactly P-007-A**: `deletion`, `non_fast_forward`, `required_status_checks` → `AutoDOC guard /
 check` (`strict_required_status_checks_policy: true`), nothing else — `required_signatures` and
@@ -104,13 +114,3 @@ merge PR #4 → the post-merge continuity test on a cold clone of `master` → s
 closing record.
 
 
-`12:1x` [DECISION] **Owner verdict on P-007: option A** (align the ruleset to ADR-011: keep
-`deletion` + `non_fast_forward`, remove `required_signatures` + both CodeQL rules, add required
-check `AutoDOC guard / check` with `strict: true`). Recorded in `DECISIONS.md` in the same change
-that continues the work (rule 9). The ruleset edit itself is owner-run: the PUT was re-attempted
-after the verdict and 403'd again ("Resource not accessible by integration"), and the ruleset has
-no bypass actor. The owner's checklist is in P-007 and the dashboard's next actions; on the
-owner's word that the edit is live, this session verifies the rules via the read API, merges
-PR #3 and PR #4 (merge commits match the history), strikes B-003 and records the applied
-mechanism in ADR-011. PR #4's `AutoDOC guard / check` is green (1m26s) and PR #4 is itself
-blocked only by B-003.
