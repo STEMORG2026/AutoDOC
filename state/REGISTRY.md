@@ -1,28 +1,36 @@
 # REGISTRY — who is working here and what they own
 
-**Last reconciled:** 2026-10-21T12:35Z
+**Last reconciled:** 2026-10-21T13:05Z (session `20261021-1257-Abb7f` — the owner closed all eight
+open sessions; every plan archived; no claim is held)
 
 ## Active — work in flight, or landed and awaiting the owner
 
+**None.** No session is in flight and none awaits the owner: the eight sessions that were open were
+closed on the owner's instruction of 2026-10-21 (`"continue from this here and also close the
+session"`), executed by `Abb7f` in session `20261021-1257-Abb7f`. Register yourself here (Step 8)
+before starting work.
+
 | Agent ID | Model / type | Branch | Task (one line) | Started (UTC) | Claimed paths | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `A52ab` | Arena.ai Agent Mode | `arena/d2fb52ab-autodoc` | Branch-protection review: ruleset `main` diagnosed; P-007-A applied and verified; PR #3 + PR #4 merged (`04f7386`, `87be33b`); post-merge test passed; B-003 cleared | 2026-10-21T11:38Z | `state/**`, `NEXT-ACTION.md` | **PAUSED** (awaiting owner close) |
-| `A476` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Post-merge continuity test: merged PR #2 (`4d0c50f`) and verified the merged `master` from a cold clone (`make ci` exit 0, guard green); branch-protection apply not possible from this sandbox | 2026-10-01T14:08Z | `state/**` only | **PAUSED** (awaiting owner) |
-| `A476` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Owner decision round: all six verdicts executed or recorded (P-003 `c7980f9`, P-001 `039e508`, P-002 `3ad5a57`, P-004 payload owner-run, P-005/P-006 records, shutdown/self-check `5dd9112`…`ce4feba`); awaiting the owner's close | 2026-10-01T12:42Z | released (round closed) | **PAUSED** (awaiting owner) |
-| `A476` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Session-lifecycle correction: sessions close only on the owner's word; persist-before-present; handoff self-check | 2026-10-01T12:28Z | `state/**`, `docs/00-governance/MACP.md` (released) | **PAUSED** (awaiting owner) |
-
-## Landed — awaiting the owner's close (no claims held)
-
-| Agent ID | Session | Model / type | Branch | Task | Landed (UTC) | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| `A476` | `sessions/20261001-1219-A476-cold-clone-test.md` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Cold-clone continuity test (verdict, gap fixes, the P-001…P-006 dossier) | 2026-10-01T12:19Z | landed — awaiting owner |
-| `A476` | `sessions/20261001-1110-A476-macp-adoption.md` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Adopt MACP: protocol in governance, bootstrap `state/`, register | 2026-10-01T11:13Z | landed — awaiting owner |
-| `A476` | `sessions/20261001-1120-A476-bootstrap-audit.md` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Transcribe the full protocol; Section 7 audit; reconcile | 2026-10-01T11:29Z | landed — awaiting owner |
-| `A476` | `sessions/20261001-1130-A476-decision-3.md` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Close the open core decisions (11 of 12; 4/16 → 15/16) | 2026-10-01T11:44Z | landed — awaiting owner |
+| — | — | — | No active session | — | — | — |
 
 ## Closed by the owner
 
-None yet. Only the owner's word moves a row here (MACP local rule 8).
+Only the owner's word moves a row here (MACP local rule 8, ADR-009). All nine rows below were
+closed by the same instruction, on 2026-10-21; each session file carries the closing entry with the
+instruction quoted, and its plan is archived under `state/archive/plans/2026-10/`.
+
+| Agent ID | Session | Branch | Task | Closed (UTC) | Plan |
+| --- | --- | --- | --- | --- | --- |
+| `Abb7f` | `sessions/20261021-1257-Abb7f-session-close.md` | `arena/83bebb7f-autodoc` | Close the eight open sessions, archive plans, reconcile `state/` + `NEXT-ACTION.md` | 2026-10-21T13:05Z | `agent-Abb7f-session-close.md` |
+| `A52ab` | `sessions/20261021-1138-A52ab-protection-review.md` | `arena/d2fb52ab-autodoc` | Branch-protection review: B-003, P-007 executed, PR #3 + PR #4 merged, post-merge test, B-003 struck | 2026-10-21T13:00Z | `agent-A52ab-protection-review.md` |
+| `A476` | `sessions/20261001-1408-A476-post-merge-test.md` | `arena/01a0f476-autodoc` | Post-merge continuity test of PR #2 (`04f7386`); protection apply owner-run | 2026-10-21T13:00Z | `agent-A476-post-merge-test.md` |
+| `A476` | `sessions/20261001-1242-A476-decision-round.md` | `arena/01a0f476-autodoc` | Owner decision round: six verdicts executed or recorded | 2026-10-21T13:00Z | `agent-A476-decision-round.md` |
+| `A476` | `sessions/20261001-1228-A476-session-lifecycle.md` | `arena/01a0f476-autodoc` | Session-lifecycle correction (ADR-009, rules 8–10) | 2026-10-21T13:00Z | `agent-A476-session-lifecycle.md` |
+| `A476` | `sessions/20261001-1219-A476-cold-clone-test.md` | `arena/01a0f476-autodoc` | Cold-clone continuity test + the P-001…P-006 dossier | 2026-10-21T13:00Z | `agent-A476-cold-clone-test.md` |
+| `A476` | `sessions/20261001-1130-A476-decision-3.md` | `arena/01a0f476-autodoc` | Decision 3: 11 of 12 core decisions closed | 2026-10-21T13:00Z | `agent-A476-decision-3.md` |
+| `A476` | `sessions/20261001-1120-A476-bootstrap-audit.md` | `arena/01a0f476-autodoc` | Full protocol transcription + Section 7 audit | 2026-10-21T13:00Z | never committed (recorded in `-1228`) |
+| `A476` | `sessions/20261001-1110-A476-macp-adoption.md` | `arena/01a0f476-autodoc` | MACP adopted; `state/` bootstrapped | 2026-10-21T13:00Z | `agent-A476-macp-adoption.md` |
 
 ## Non-agent owner
 

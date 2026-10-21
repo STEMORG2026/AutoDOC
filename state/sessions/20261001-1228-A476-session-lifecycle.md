@@ -10,7 +10,7 @@
 | Started (UTC) | 2026-10-01T12:28Z |
 | Claimed paths | `state/**`, `docs/00-governance/MACP.md` |
 | Plan | `state/plans/agent-A476-session-lifecycle.md` |
-| Status | **PAUSED (awaiting owner)** — work landed; a session closes only on the owner's word (rule 8) |
+| Status | **CLOSED (owner's word, 2026-10-21)** — was "PAUSED (awaiting owner)"; closed by the owner's instruction of 2026-10-21, executed by `Abb7f` (session `20261021-1257-Abb7f`) |
 
 ## Log (append-only, UTC)
 
@@ -71,3 +71,22 @@ check that previously required a second run is now part of the handoff.
 are superseded rather than deleted: it said "the deleted plans are restored" for all three — the
 audit-session plan was never committed and cannot be restored; and it implied the relabel alone was
 the fix — the fix is the three rules plus the self-check, with the relabels as evidence.
+
+---
+
+**Closed by the owner (append-only, `2026-10-21T13:00Z`).** The owner's instruction to the closing
+pass — quoted verbatim: *"continue from this here and also close the session"* — is the word MACP
+local rule 8 (ADR-009) requires, so this session moves from `PAUSED (awaiting owner)` to **`CLOSED
+(owner's word, 2026-10-21)`**.
+
+What the close confirms: the session-lifecycle correction — ADR-009 and MACP local rules 8–10
+(sessions close only on the owner's word; persist before presenting; handoff self-check), with the
+prematurely deleted plans restored (`c57b149`, `14310ea`).
+
+Its plan `state/plans/agent-A476-session-lifecycle.md` is **archived, not deleted**
+(`state/archive/plans/2026-10/agent-A476-session-lifecycle.md`), because rule 8 kept it until this
+word arrived.
+
+Executed by `Abb7f` in session `20261021-1257-Abb7f`, which records how the instruction was read
+and how a session is re-opened if the owner meant a subset (log a new entry, restore the status
+row, move the plan back — nothing here is destructive).

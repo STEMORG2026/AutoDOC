@@ -41,7 +41,11 @@ check` `strict: true`; the signed-commits and CodeQL rules are removed), the liv
 verified, PR #3 (`04f7386`) and PR #4 (`87be33b`) merged, and the post-merge continuity test
 passed on a cold clone of `master` (B-003 cleared). ADR-011 records the mechanism (ruleset
 `main`; `APPLY=1 make docs-require-check` is superseded and stays a dry-run reference). The
-owner's remaining housekeeping is closing the sessions (ADR-009).
+housekeeping that remained — closing the sessions (ADR-009) — is done: the owner closed all eight
+on 2026-10-21 ("continue from this here and also close the session"), their plans are archived
+under `state/archive/plans/2026-10/`, and their closing entries quote the instruction. **Nothing
+is pending on this thread**; the optional P-006 follow-ups listed in `state/DEBT.md` are the only
+open ideas, and promotion to `beta` stays a deliberate event (cliff 2).
 
 ## Shrink before detection (owner decision, 2026-10-01)
 1. Done. The approved-stub check failed on 28 title-only placeholders and they were retired;
