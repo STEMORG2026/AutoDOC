@@ -113,4 +113,27 @@ by keeping this branch's newer protection record and integrating PR #3's session
 merge PR #4 → the post-merge continuity test on a cold clone of `master` → strike B-003 in the
 closing record.
 
+`12:3x` [PROGRESS] **PR #4 merged** (`gh pr merge 4 --merge`, merge commit `87be33b` on `master`)
+after its guard went green on the merge-resolved branch. Both `master` push runs are green:
+PR #3's merge (guard 1m27s, preview 10s) and PR #4's (guard 1m16s, preview 9s).
 
+`12:3x` [PROGRESS] **Post-merge continuity test on a cold clone of `master` (`87be33b`) — passed.**
+Fresh `git clone` to a clean directory (full history):
+1. **State-only read is correct** as a stranger: build-ready **15/15**, **0** open core decisions,
+   beta cliff **2**, P-007 decided and executed, ADR-011 recorded as carried by ruleset `main`,
+   B-003 present with its clearing action done, the dashboard's next actions executable.
+2. **Cold numbers verify with system `python3` and no install:** `recommend.py` reports
+   build-ready **15/15** and 0 open; `check_catalog.py` reports the catalog valid (24 core
+   types, 5 profiles, 16 detected facts, 3 declared traits; the two duplicate-name WARNINGs are
+   pre-existing and expected).
+3. **`make ci` exit 0 on the clone** (`make setup` then `make ci`: 243 passed + 182 subtests,
+   evidence verified).
+4. **The gate is live and green on `master`:** rules read back as exactly `deletion`,
+   `non_fast_forward`, `required_status_checks` → `AutoDOC guard / check` (`strict: true`);
+   both merge commits' runs pass.
+
+`12:3x` [PROGRESS] **B-003 struck; P-007 closed as executed.** This closing record
+(BLOCKERS, DASHBOARD, DECISIONS, REGISTRY, INDEX, `NEXT-ACTION.md`, session + plan) rides the
+next PR from this branch. Handing off **PAUSED (awaiting owner close)** under ADR-009 — the
+owner's word closes this session; no claim is released before that except the files already
+pushed.

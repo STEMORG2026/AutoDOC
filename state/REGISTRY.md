@@ -1,12 +1,12 @@
 # REGISTRY — who is working here and what they own
 
-**Last reconciled:** 2026-10-21T11:57Z
+**Last reconciled:** 2026-10-21T12:35Z
 
 ## Active — work in flight, or landed and awaiting the owner
 
 | Agent ID | Model / type | Branch | Task (one line) | Started (UTC) | Claimed paths | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `A52ab` | Arena.ai Agent Mode | `arena/d2fb52ab-autodoc` | Branch-protection review: ruleset `main` diagnosed; P-007 decided (option A) and applied by the owner; merges + post-merge test executed | 2026-10-21T11:38Z | `state/**`, `NEXT-ACTION.md` | **PAUSED** (awaiting owner — session close after the post-merge record lands) |
+| `A52ab` | Arena.ai Agent Mode | `arena/d2fb52ab-autodoc` | Branch-protection review: ruleset `main` diagnosed; P-007-A applied and verified; PR #3 + PR #4 merged (`04f7386`, `87be33b`); post-merge test passed; B-003 cleared | 2026-10-21T11:38Z | `state/**`, `NEXT-ACTION.md` | **PAUSED** (awaiting owner close) |
 | `A476` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Post-merge continuity test: merged PR #2 (`4d0c50f`) and verified the merged `master` from a cold clone (`make ci` exit 0, guard green); branch-protection apply not possible from this sandbox | 2026-10-01T14:08Z | `state/**` only | **PAUSED** (awaiting owner) |
 | `A476` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Owner decision round: all six verdicts executed or recorded (P-003 `c7980f9`, P-001 `039e508`, P-002 `3ad5a57`, P-004 payload owner-run, P-005/P-006 records, shutdown/self-check `5dd9112`…`ce4feba`); awaiting the owner's close | 2026-10-01T12:42Z | released (round closed) | **PAUSED** (awaiting owner) |
 | `A476` | Arena.ai Agent Mode | `arena/01a0f476-autodoc` | Session-lifecycle correction: sessions close only on the owner's word; persist-before-present; handoff self-check | 2026-10-01T12:28Z | `state/**`, `docs/00-governance/MACP.md` (released) | **PAUSED** (awaiting owner) |

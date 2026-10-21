@@ -1,10 +1,10 @@
 # BLOCKERS — active blockers and dependencies
 
-**Last reconciled:** 2026-10-21T11:57Z (B-003 raised — merges blocked at GitHub; P-007 is the clearing decision)
+**Last reconciled:** 2026-10-21T12:35Z (B-003 cleared — P-007-A applied by the owner; PR #3 and PR #4 merged; post-merge test passed)
 
 | ID | Blocker | Blocks | Owner who can clear it | Raised |
 | --- | --- | --- | --- | --- |
-| **B-003** | **Branch ruleset `main` (id `25542481`, active since 2026-10-21 11:27Z) blocks every merge to `master`.** Its `required_signatures` rule rejects PR #3's unsigned commits (`eec4050`, `41dead9`), its two CodeQL rules (`code_quality`, `code_scanning`) wait for a CodeQL workflow this tree does not have, and ADR-011's required check `AutoDOC guard / check` is not in the ruleset. PR #3 is approved and green and still gets "the base branch policy prohibits the merge". **Clearing action — owner verdict P-007-A recorded 2026-10-21:** edit the ruleset per the P-007 checklist (drop `required_signatures` + both CodeQL rules, add required check `AutoDOC guard / check` `strict: true`, keep `deletion` + `non_fast_forward`) — GitHub → Settings → Rules → Rulesets → `main`; this session's token writes no repository settings (403, re-verified after the verdict) and the ruleset has no bypass actor. Strike this row once the edit is live and the PRs merge | PR #3, the protection-review PR from `arena/d2fb52ab-autodoc`, and every future merge to `master` | `@Er-Sajan-PLG` | 2026-10-21 |
+| ~~B-003~~ | **CLEARED 2026-10-21** — the owner applied P-007-A: ruleset `main` now carries exactly `deletion`, `non_fast_forward` and `required_status_checks` → `AutoDOC guard / check` (`strict: true`); the `required_signatures` and CodeQL rules are gone. PR #3 (`04f7386`) and PR #4 (`87be33b`) merged with merge commits and the post-merge continuity test passed on a cold clone of `master` (state read, cold numbers, `make ci` exit 0, guard green on both merges) | Nothing — done | `@Er-Sajan-PLG` | 2026-10-21 |
 | ~~B-001~~ | **CLEARED 2026-10-01** — the owner confirmed v1.3 ("proceed with recomendation") and the recording landed: `owner_reviewed` notes in `CONTROL/metadata/CATALOG-RULES.json` + `PROFILES.json`, page → `approved`, caveat off `NEXT-ACTION.md` + `ADOPTION.md`, D-011 refreshed | Nothing — done | `@Er-Sajan-PLG` | 2026-10-01 |
 | ~~B-002~~ | **CLEARED 2026-10-01** — the owner acknowledged the decision-3 ADR deviation and kept the real ADR (P-002, "proceed with recomendation"); ADR-008 now records it | Nothing — done | `@Er-Sajan-PLG` | 2026-10-01 |
 

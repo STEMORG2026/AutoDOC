@@ -35,15 +35,13 @@ out at the same commit. Done: the core list and the five profiles are owner-revi
 (2026-10-01) — `owner_reviewed` is recorded in `CONTROL/metadata/CATALOG-RULES.json` and
 `PROFILES.json`, `docs/00-governance/CORE-LIST-REVIEW.md` is `approved`, and every applicable
 core decision is closed (the resolver reports 15/15 build-ready with 0 open). Remaining
-(updated 2026-10-21): the owner protected `master` on 2026-10-21 with **ruleset `main`**, but it
-deviates from the recorded ADR-011 payload — it omits the required check `AutoDOC guard / check`
-and adds `required_signatures` plus two CodeQL rules (`code_quality`, `code_scanning`) that
-currently block every merge, PR #3 included ("the base branch policy prohibits the merge"; the
-PR is approved and green). The clearing action is the owner's verdict on **P-007** in
-`state/DECISIONS.md` § Pending and the matching ruleset edit (Settings → Rules → Rulesets →
-`main`); `APPLY=1 make docs-require-check` stays a dry-run alternative and this agent's token
-cannot write repository settings either. That action is not automated by checked-in files and
-must not be claimed as complete.
+(updated 2026-10-21, after the fix): **nothing on protection** — the owner applied P-007-A
+(ruleset `main` carries `deletion`, `non_fast_forward` and required check `AutoDOC guard /
+check` `strict: true`; the signed-commits and CodeQL rules are removed), the live rules were
+verified, PR #3 (`04f7386`) and PR #4 (`87be33b`) merged, and the post-merge continuity test
+passed on a cold clone of `master` (B-003 cleared). ADR-011 records the mechanism (ruleset
+`main`; `APPLY=1 make docs-require-check` is superseded and stays a dry-run reference). The
+owner's remaining housekeeping is closing the sessions (ADR-009).
 
 ## Shrink before detection (owner decision, 2026-10-01)
 1. Done. The approved-stub check failed on 28 title-only placeholders and they were retired;

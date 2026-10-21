@@ -28,8 +28,9 @@ ADR-011 (owner-run application; attempted, no admin rights in this session), P-0
 P-006 → ADR-013, P-001 → ADR-002 (recorded), P-002 → ADR-008 (acknowledged). **All six are now
 executed or recorded.** The protection apply happened 2026-10-21 — but as ruleset `main`, which
 deviates from ADR-011's payload and blocks every merge; its alignment was **P-007**, decided
-2026-10-21 in-session (**option A**) with the owner-run ruleset edit as the remaining step
-(blocker B-003). The dossiers below are kept as the record of what was presented.
+2026-10-21 in-session (**option A**) and **executed the same day**: the owner edited ruleset
+`main` (verified live), PR #3 (`04f7386`) and PR #4 (`87be33b`) merged, and the post-merge
+continuity test passed — **B-003 cleared**. The dossiers below are kept as the record of what was presented.
 
 **Added 2026-10-01 by the cold-clone continuity test** (session `20261001-1219-A476`): the round
 below previously existed only in chat, so a new agent could see *that* decisions were pending but
@@ -98,7 +99,9 @@ is picked now, `audience` first, toolchains second.*
 "Cannot merge the commit, I protected the branch and did some changes, have a look at AutoDOC").
 
 **P-007 — Align the branch protection with ADR-011 (clears B-003).** **Decided 2026-10-21 by the
-owner in-session: option A.** Execution checklist (the ruleset edit itself is owner-run — this
+owner in-session: option A — executed 2026-10-21** (owner applied the edit; rules verified live;
+PR #3 `04f7386` + PR #4 `87be33b` merged; post-merge test passed; B-003 struck). Execution
+checklist as recorded (the ruleset edit itself was owner-run — this
 session's token writes no repository settings, 403 re-verified after the verdict; the ruleset has
 no bypass actor): GitHub → Settings → Rules → Rulesets → `main` → Edit —
 (1) remove `required_signatures`; (2) remove `code_quality`; (3) remove `code_scanning`;
