@@ -6,6 +6,7 @@ title, files touched, status, branch.
 
 | Session (file) | ID | Agent | Date (UTC) | Title | Files touched | Status | Branch |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| `state/sessions/20261021-1138-A52ab-protection-review.md` | `20261021-1138-A52ab` | A52ab | 2026-10-21 | Branch-protection review: ruleset `main` blocks every merge to `master` (PR #3 included); B-003 raised; P-007 alignment round presented | `state/**`; `NEXT-ACTION.md` | PAUSED (awaiting owner) | `arena/d2fb52ab-autodoc` |
 | `state/sessions/20261001-1242-A476-decision-round.md` | `20261001-1242-A476` | A476 | 2026-10-01 | Owner decision round: all six verdicts ("proceed with recomendation") executed or recorded; B-001/B-002 cleared; branch-protection apply owner-run | `state/**`; `autodoc.toml`, `CONTROL/metadata/**`, `CORE-LIST-REVIEW.md`, `ADOPTION.md`, `NEXT-ACTION.md`, `docs/META/**` | PAUSED (awaiting owner) | `arena/01a0f476-autodoc` |
 | `state/sessions/20261001-1228-A476-session-lifecycle.md` | `20261001-1228-A476` | A476 | 2026-10-01 | Session-lifecycle correction (owner instruction): sessions close only on the owner's word; persist-before-present; handoff self-check | `docs/00-governance/MACP.md` (local rules 8–10), `state/DECISIONS.md` (ADR-009), `state/REGISTRY.md`, `state/INDEX.md`, `state/DASHBOARD.md`, restored plans | PAUSED (awaiting owner) | `arena/01a0f476-autodoc` |
 | `state/sessions/20261001-1219-A476-cold-clone-test.md` | `20261001-1219-A476` | A476 | 2026-10-01 | Cold-clone continuity test and the decision dossier it produced | `state/DECISIONS.md` (P-001…P-006), `state/DEBT.md`, `state/DASHBOARD.md`, `state/REGISTRY.md`, `state/INDEX.md`, this session | landed — awaiting owner | `arena/01a0f476-autodoc` |
@@ -31,4 +32,4 @@ from this table's live rows (the row stays, the file moves). Nothing archived ye
 ## Keywords
 
 `macp`, `bootstrap`, `audit`, `protocol`, `core-list`, `decision-3`, `charter`, `security`, `conduct`,
-`adr`, `dependencies`, `cold-clone`, `continuity`, `pending-decisions`, `session-lifecycle`, `owner-close`, `license`, `enforcement`, `catalog`, `profiles`, `phase`, `recovery` — search these before opening a session file.
+`adr`, `dependencies`, `cold-clone`, `continuity`, `pending-decisions`, `session-lifecycle`, `owner-close`, `license`, `enforcement`, `catalog`, `profiles`, `phase`, `recovery`, `protection`, `ruleset`, `branch-protection`, `merge-block`, `signatures`, `codeql`, `P-007` — search these before opening a session file.
