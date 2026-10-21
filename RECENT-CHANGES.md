@@ -36,6 +36,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 0d51069 2026-10-21 feat: validate migration document prose structure
 - c4a9d43 2026-10-21 Merge pull request #10 from STEMORG2026/arena/44b2fb68-autodoc
 - 58641ce 2026-10-21 Close the record: PR #8 and PR #9 merged, cold-clone check, and why the merge chain stops
 - 0febe31 2026-10-21 Merge pull request #9 from STEMORG2026/arena/44b2fb68-autodoc
@@ -55,29 +56,11 @@ auto_generated: false
 - eab749b 2026-10-21 Merge remote-tracking branch 'origin/master' into arena/d2fb52ab-autodoc
 - 04f7386 2026-10-21 Merge pull request #3 from STEMORG2026/arena/01a0f476-autodoc
 - a642a31 2026-10-21 chore(state): record the P-007 verdict (option A)
-- 6da01b2 2026-10-21 chore(state): log the living-state refresh episode (shallow clone)
 
 ## Changed paths at update time
 
-- `CHANGELOG.md`
-- `CONTEXT-SNAPSHOT.md`
-- `CONTROL/metadata/CONTEXT-MODEL.json`
-- `Makefile`
-- `autodoc.toml`
-- `docs/00-governance/ENGINE-COVERAGE.md`
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
-- `docs/META/CODE-INVENTORY.md`
-- `docs/META/OUTLINE.md`
-- `docs/META/TEST-INVENTORY.md`
-- `scripts/doc-control/stub_check.py`
-- `scripts/intelligence/enforce.py`
 - `state/DASHBOARD.md`
 - `state/INDEX.md`
 - `state/REGISTRY.md`
-- `state/archive/plans/2026-10/README.md`
-- `state/archive/plans/2026-10/agent-A90c-debt-d001.md`
-- `state/plans/agent-B71a-migration-prose-validation.md`
-- `state/sessions/20261021-1318-A90c-debt-d001.md`
 - `state/sessions/20261021-1459-B71a-migration-prose-validation.md`
-- … and 1 more; use git diff --cached --name-only.
 <!-- auto:end -->

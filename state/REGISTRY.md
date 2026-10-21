@@ -1,6 +1,6 @@
 # REGISTRY — who is working here and what they own
 
-**Last reconciled:** 2026-10-21T15:34Z (migration-prose check integrated; `make ci` green; B71a paused awaiting owner)
+**Last reconciled:** 2026-10-21T17:52Z (PR #11 opened at `0d51069`; required checks pass; B71a remains paused awaiting owner)
 
 ## Active — work in flight, or landed and awaiting the owner
 

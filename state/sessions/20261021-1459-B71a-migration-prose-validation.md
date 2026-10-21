@@ -36,12 +36,14 @@
 
 - **Outcome:** PARTIAL — the requested implementation and verification are done; this session is paused awaiting the owner's review/closure per ADR-009.
 - **Accomplished:** Integrated the four canonical migration titles, three required sections and retained template-prompt detection into `scripts/doc-control/stub_check.py`; findings route through `placeholders` for drafts and `stubs` for approved docs, with phase/pin severity left to existing enforcement. Generated/unrelated docs are skipped. Added fixture-based coverage, clarified the structural-only limit and refreshed mapped documentation.
-- **Not accomplished:** No semantic review, correctness/truth/completeness/reversibility validation, SQL migration validation, or actual demo migration was added. No commit or push was made.
+- **Not accomplished:** No semantic review, correctness/truth/completeness/reversibility validation, SQL migration validation, or actual demo migration was added. No merge was performed; owner review is pending.
 - **Key policy decision:** No separate checker, enforcement family, or parallel gate. The direct `docs-stubs` command warns on draft findings and fails approved findings; CI applies existing phase/pin severity to those families.
 - **Files changed:** `stub_check.py`, `tests/test_migration_prose.py`, `scripts/intelligence/enforce.py`, `CONTROL/metadata/CONTEXT-MODEL.json`, `autodoc.toml`, `Makefile`; living/changelog/architecture/coverage docs and generated inventory docs; B71a coordination records. A90c was owner-closed and its plan archived as authorized.
 - **Technical debt / risks:** No known defect. The contract intentionally matches canonical prompts structurally; if a template's wording or section names change, update the contract/tests together. This cannot judge whether authored prose is correct or useful.
-- **Prioritized next steps:** Owner reviews the staged change set; if accepted, the owner may request a commit/push or close B71a. The next unrelated integration remains a real OpenAPI contract only after its source is implemented.
+- **Prioritized next steps:** Owner reviews open PR #11 (`https://github.com/STEMORG2026/AutoDOC/pull/11`); the owner decides whether to merge and close B71a. The next unrelated integration remains a real OpenAPI contract only after its source is implemented.
 
 B71a remains **PAUSED (awaiting owner)**; its plan is retained at `state/plans/agent-B71a-migration-prose-validation.md`.
 
 `15:34` [PROGRESS] After staging the intended change set and refreshing the staged state block, reran `git diff --cached --check`, `make docs-stubs` and `make ci`: all passed. Full CI again reported **263 passed and 190 subtests in 24.19s**; the evidence hashes verified (not signatures). The changes remain staged but uncommitted on `arena/48a62791-autodoc`; B71a remains paused awaiting owner review/closure.
+
+`17:52` [PROGRESS] At the owner's request, committed the change set as `0d51069` (`feat: validate migration document prose structure`), pushed only `arena/48a62791-autodoc`, and opened PR #11 against `master`: https://github.com/STEMORG2026/AutoDOC/pull/11. `gh pr checks 11 --watch` reports both `AutoDOC guard / check` and `impact` **pass**. No merge was performed; B71a remains paused awaiting owner review/closure.

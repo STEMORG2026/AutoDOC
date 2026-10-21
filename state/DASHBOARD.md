@@ -1,14 +1,14 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-21T15:34Z · **Reconciled by:** B71a (session `20261021-1459-B71a`,
-PAUSED awaiting owner) · **Base tip:** `c4a9d43` on `master` (PR #10 merged; required check green); B71a changes remain uncommitted on its assigned branch.
+**Last reconciled:** 2026-10-21T17:52Z · **Reconciled by:** B71a (session `20261021-1459-B71a`,
+PAUSED awaiting owner) · **Base tip:** `c4a9d43` on `master` (PR #10 merged); B71a commit `0d51069` is pushed in open PR #11, with required checks green.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `c4a9d43`; B71a's assigned branch `arena/48a62791-autodoc` has the uncommitted validation change set |
+| Branch | `master` at `c4a9d43`; B71a's assigned branch `arena/48a62791-autodoc` contains `0d51069` (PR #11 open) |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -26,9 +26,9 @@ migration-prose validation inside `stub_check.py`, using the four canonical titl
 sections and retained prompts. Draft findings route to `placeholders`, approved findings to `stubs`;
 the direct checker warns/fails respectively, while `make ci` applies existing phase/pin severity.
 This is structural only, and the demo has no migration instances. Full `make ci` passed (263 tests,
-190 subtests); the handoff and test caveats are recorded in the session. No commit or push has been
-made. A90c's D-001 session was closed by the owner at 14:59Z; its plan is archived. The nine earlier
-sessions remain closed.
+190 subtests); the handoff and test caveats are recorded in the session. Commit `0d51069` is pushed
+in PR #11; required GitHub checks pass. The session awaits owner review/closure. A90c's D-001 session
+was closed by the owner at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 
 ## Alerts
 
@@ -87,10 +87,10 @@ sessions remain closed.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Owner review:** B71a's migration-prose check is implemented on its assigned branch; full `make
-   ci` passed (263 tests, 190 subtests). The session is paused awaiting owner review/closure; no
-   closure has been asserted. Protection remains aligned (ADR-011), D-001 is fixed, and all prior
-   sessions are owner-closed.
+1. **Owner review:** B71a's migration-prose change is in open PR #11 (`0d51069`); required checks
+   pass and full `make ci` passed (263 tests, 190 subtests). The session is paused awaiting owner
+   review/closure; no closure has been asserted. Protection remains aligned (ADR-011), D-001 is
+   fixed, and all prior sessions are owner-closed.
 2. Optional follow-ups only, none gating: the P-006 deferrals in `state/DEBT.md` (`audience` consumer
    first if any is picked; JS/TS + Rust toolchains; external dogfood repository; template rendering
    on demand; evidence signing), the one other `open` item (D-010, vulnerability scanning — low,
