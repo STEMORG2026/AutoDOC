@@ -34,6 +34,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 2976760 2026-10-21 fix(state): keep the session log chronological; resume plan progress
 - eab749b 2026-10-21 Merge remote-tracking branch 'origin/master' into arena/d2fb52ab-autodoc
 - 04f7386 2026-10-21 Merge pull request #3 from STEMORG2026/arena/01a0f476-autodoc
 - a642a31 2026-10-21 chore(state): record the P-007 verdict (option A)
@@ -53,10 +54,14 @@ auto_generated: false
 - c7980f9 2026-10-01 Close the last core decision: the demo-only facts answer no, and the detector stops matching itself
 - 56be338 2026-10-01 chore(state): register the decision-round walkthrough session
 - 14310ea 2026-10-01 chore(state): hand off paused, with the self-check result
-- c57b149 2026-10-01 fix(state): sessions close only on the owner's word; persist before presenting
 
 ## Changed paths at update time
 
+- `state/BLOCKERS.md`
+- `state/DASHBOARD.md`
+- `state/DECISIONS.md`
+- `state/INDEX.md`
+- `state/REGISTRY.md`
 - `state/plans/agent-A52ab-protection-review.md`
 - `state/sessions/20261021-1138-A52ab-protection-review.md`
 <!-- auto:end -->

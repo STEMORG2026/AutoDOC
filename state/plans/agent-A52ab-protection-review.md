@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Diagnose why PR #3 cannot merge under the owner's new branch protection, record the true state in `state/`, and present the alignment decision (P-007) for the owner's verdict |
 | Owner of the work | `A52ab` (session `20261021-1138-A52ab`) |
-| Status | **PAUSED (awaiting owner)** — the diagnosis and record are landed on the session branch; the unblock itself is owner-run (ruleset edit) and the verdict is pending (kept per MACP local rule 8) |
+| Status | **PAUSED (awaiting owner close)** — the whole loop landed: P-007-A applied and verified, PR #3 + PR #4 merged, post-merge test passed, B-003 struck; kept until the owner closes the session (MACP local rule 8) |
 | Opened (UTC) | 2026-10-21T11:38Z |
 
 ## Scope
@@ -46,3 +46,7 @@ post-merge continuity test are in scope from that instruction.)**
   resolved, session `1408` integrated); ADR-011 marked recorded. In flight: guard → merge
   PR #4 → post-merge continuity test on a cold clone of `master` → strike B-003 in the closing
   record.
+- 2026-10-21 (closed out): PR #4 merged (`87be33b`); post-merge continuity test on a cold clone
+  of `master` passed (state read, cold numbers without install, `make ci` exit 0, guard green on
+  both merges, rules read back exact); B-003 struck; P-007 executed. Handing off PAUSED
+  (awaiting owner close).
