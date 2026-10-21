@@ -34,38 +34,29 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- eab749b 2026-10-21 Merge remote-tracking branch 'origin/master' into arena/d2fb52ab-autodoc
+- 04f7386 2026-10-21 Merge pull request #3 from STEMORG2026/arena/01a0f476-autodoc
+- a642a31 2026-10-21 chore(state): record the P-007 verdict (option A)
+- 6da01b2 2026-10-21 chore(state): log the living-state refresh episode (shallow clone)
+- 77ca6c6 2026-10-21 Record the branch-protection review and the P-007 alignment round
+- 41dead9 2026-10-01 Tidy the continuity alert and the active-agents block
+- eec4050 2026-10-01 Record the merge and the post-merge continuity test
+- 4d0c50f 2026-10-01 Merge pull request #2 from STEMORG2026/arena/01a0f476-autodoc
+- 0502447 2026-10-01 Log recovery #20 and raise the recovery count
+- 372bcc6 2026-10-01 Reconcile state with the session's shutdown commits
+- ce4feba 2026-10-01 Log the rule-10 self-check and pause the round's plan
+- e14135e 2026-10-01 Fix the reconciled line lost to a batch-edit race
+- 5dd9112 2026-10-01 Record decisions 5-7 and hand off the round (B-001 and B-002 cleared)
+- 3ad5a57 2026-10-01 Acknowledge the decision-3 ADR deviation (B-002 cleared)
+- 039e508 2026-10-01 Record the owner's review of the core list and profiles (B-001 cleared)
 - f43ad56 2026-10-01 chore(state): record the owner round and reconcile after decision 4
 - c7980f9 2026-10-01 Close the last core decision: the demo-only facts answer no, and the detector stops matching itself
 - 56be338 2026-10-01 chore(state): register the decision-round walkthrough session
 - 14310ea 2026-10-01 chore(state): hand off paused, with the self-check result
 - c57b149 2026-10-01 fix(state): sessions close only on the owner's word; persist before presenting
-- 8ae8d81 2026-10-01 chore(state): reconcile after the cold-clone continuity test
-- b3a4490 2026-10-01 test(state): cold-clone continuity test — verdict, gaps, and the dossier that closes them
-- 312b40a 2026-10-01 chore(state): correct the recovery-note timestamps to the real clock
-- 2aefa09 2026-10-01 chore(state): record recovery #15 and reconcile the dashboard tip
-- 407d3d4 2026-10-01 chore(state): record the decision-3 landing and green PR gates
-- f39e20f 2026-10-01 chore(state): reconcile after closing the open core decisions
-- 1a65f5d 2026-10-01 Close the open core decisions at their existing homes (owner decision 3)
-- 891dcc8 2026-10-01 chore(state): record the audit landing and green PR gates
-- 3bb53b6 2026-10-01 chore(state): reconcile after the MACP bootstrap audit
-- d26d798 2026-10-01 Transcribe the full MACP protocol and remove the reconstructed sections
-- f417a8f 2026-10-01 Log the MACP landing and hand off with the session state reconciled
-- 868588e 2026-10-01 Adopt MACP: protocol in governance, state/ bootstrapped, session registered
-- c02d733 2026-10-01 Apply the three flag decisions: detector, rules, config, page and tests
-- f37d98a 2026-10-01 Apply the owner's three core-list flags and show the final counts
-- d384d4e 2026-10-01 Correct the core-list review and answer the owner's three fact questions
 
 ## Changed paths at update time
 
-- `CONTROL/metadata/CATALOG-RULES.json`
-- `CONTROL/metadata/MASTER-INDEX.json`
-- `CONTROL/metadata/PROFILES.json`
-- `docs/00-governance/ADOPTION.md`
-- `docs/00-governance/CORE-LIST-REVIEW.md`
-- `docs/00-governance/INVENTORY.yaml`
-- `docs/META/OUTLINE.md`
-- `state/BLOCKERS.md`
-- `state/DEBT.md`
-- `state/DECISIONS.md`
-- `state/sessions/20261001-1242-A476-decision-round.md`
+- `state/plans/agent-A52ab-protection-review.md`
+- `state/sessions/20261021-1138-A52ab-protection-review.md`
 <!-- auto:end -->

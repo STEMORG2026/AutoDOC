@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-01
+last_updated: 2026-10-21
 auto_generated: false
 ---
 # Next action
@@ -34,10 +34,16 @@ Release snapshots are no longer gated on the licence; they still require a `vX.Y
 out at the same commit. Done: the core list and the five profiles are owner-reviewed
 (2026-10-01) — `owner_reviewed` is recorded in `CONTROL/metadata/CATALOG-RULES.json` and
 `PROFILES.json`, `docs/00-governance/CORE-LIST-REVIEW.md` is `approved`, and every applicable
-core decision is closed (the resolver reports 15/15 build-ready with 0 open). Remaining: apply
-the required check in GitHub settings — owner-run, `APPLY=1 make docs-require-check` (without
-it, the payload prints). That action is not automated by checked-in files and must not be
-claimed as complete.
+core decision is closed (the resolver reports 15/15 build-ready with 0 open). Remaining
+(updated 2026-10-21): the owner protected `master` on 2026-10-21 with **ruleset `main`**, but it
+deviates from the recorded ADR-011 payload — it omits the required check `AutoDOC guard / check`
+and adds `required_signatures` plus two CodeQL rules (`code_quality`, `code_scanning`) that
+currently block every merge, PR #3 included ("the base branch policy prohibits the merge"; the
+PR is approved and green). The clearing action is the owner's verdict on **P-007** in
+`state/DECISIONS.md` § Pending and the matching ruleset edit (Settings → Rules → Rulesets →
+`main`); `APPLY=1 make docs-require-check` stays a dry-run alternative and this agent's token
+cannot write repository settings either. That action is not automated by checked-in files and
+must not be claimed as complete.
 
 ## Shrink before detection (owner decision, 2026-10-01)
 1. Done. The approved-stub check failed on 28 title-only placeholders and they were retired;

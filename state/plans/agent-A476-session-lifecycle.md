@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Correct the two process mistakes the owner identified: (1) sessions were closed by the agent instead of the owner; (2) a decision round reached chat before it existed in state, which forced the owner to ask for a cold-clone test. Fix the cause so neither recurs |
 | Owner of the work | `A476` (session `20261001-1228-A476`) |
-| Status | ACTIVE (work in flight) |
+| Status | **PAUSED (awaiting owner)** — work landed (relabelled 2026-10-21 to match REGISTRY); kept until the owner closes the session (MACP local rule 8) |
 | Opened (UTC) | 2026-10-01T12:28Z |
 
 ## Scope
