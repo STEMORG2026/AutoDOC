@@ -76,3 +76,12 @@ the session branch with a PR. Rule-10 self-check: the owner's next action is exe
 state alone — P-007, B-003 and the dashboard each carry the exact ruleset edit and the reason
 each current rule blocks. Handing off **PAUSED (awaiting owner)**: the verdict on P-007 and the
 ruleset edit are the owner's; merging PR #3 and this branch's PR follow the unblock.
+
+`11:5x` [PROGRESS] **Living-state refresh episode (for the next agent):** the pre-commit hook
+`doc-state-sync` regenerates `RECENT-CHANGES.md`'s "Last 20 Git commits" from local `git log` —
+and this checkout was a **depth-1 clone**, so the first run would have replaced the real
+20-commit block with a single line. The generated rewrite was not committed; the clone was
+unshallowed (`git fetch --unshallow`, 42 commits), the block regenerated from real history via
+`scripts/doc-sync/update-doc-state.py --staged`, reviewed and staged explicitly as the hook
+asks. One pre-commit run in between reported "Stashed changes conflicted with hook auto-fixes"
+and rolled back — the standing recipe is: run the generator manually, review, stage, commit.
