@@ -59,6 +59,10 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_catalog.py` | 305 | `CatalogTests.test_validator_fails_on_unimplemented_schema_keyword` |
 | `tests/test_catalog.py` | 310 | `CatalogTests.test_validator_supports_one_of_for_two_documented_forms` |
 | `tests/test_catalog.py` | 318 | `CatalogTests.test_cross_checks_catch_rules_that_drift` |
+| `tests/test_catalog_counts.py` | 104 | `CatalogCountTests.test_derived_counts_are_internally_consistent` |
+| `tests/test_catalog_counts.py` | 111 | `CatalogCountTests.test_every_documented_count_matches_the_indexes` |
+| `tests/test_catalog_counts.py` | 126 | `CatalogCountTests.test_a_stale_number_is_caught_and_history_is_escapable` |
+| `tests/test_catalog_counts.py` | 137 | `CatalogCountTests.test_the_ambiguous_bare_core_count_is_not_read` |
 | `tests/test_context.py` | 22 | `ContextTests.test_missing_file_is_an_empty_advisory_context` |
 | `tests/test_context.py` | 31 | `ContextTests.test_bare_reason_string_is_normalised` |
 | `tests/test_context.py` | 37 | `ContextTests.test_table_reason_form_is_accepted` |

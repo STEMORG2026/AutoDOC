@@ -2,7 +2,7 @@
 
 ## Select, instantiate, connect
 
-1. Filter the catalogs by project phase and risk; record exclusions rather than copying 260 empty docs.
+1. Filter the catalogs by project phase and risk; record exclusions rather than copying 265 empty docs.
 2. Copy a `TEMPLATES/` blank or canonical file. Add full metadata per
    `CONTROL/metadata/FRONT-MATTER-SCHEMA.json` and a **new instance ID**, not the catalog ID.
    The built-in dependency-free parser accepts one scalar per line and JSON-compatible inline

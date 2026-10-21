@@ -83,7 +83,7 @@ the phase default applies and a pin would only duplicate it.
 The catalog now separates tiers: **24 hand-picked core** types (each with a recorded reason and
 the phase at which it becomes required, in `CONTROL/metadata/CATALOG-RULES.json`), 49
 **extended**, and 192 **contextual**. `README` was added as a type: the spec's only
-every-phase document was missing from all 260. `priority` is gone (it was a byproduct of three
+every-phase document was missing from all 260 types that existed then. `priority` is gone (it was a byproduct of three
 domain prefixes). A type's `applies_when` is a predicate over **three-valued facts** detected by
 `make docs-profile`, never a project-type label; the 72 types with no detectable predicate are
 marked `assess` and are never auto-recommended. `make docs-recommend` joins the profile with
@@ -101,4 +101,4 @@ its own source (which is why `has_network_listener` needed no override).
 Environment and alert references are exercised only by the task demo. The local tool-policy
 example is not an adopted service and creates no new production on-call obligations. Its
 versioned matrix documents a strictly denied network/shell boundary. Catalog entries remain
-possible types, not 260 instantiated governed documents.
+possible types, not 265 instantiated governed documents.

@@ -21,7 +21,7 @@ auto_generated: false
 ---
 # AutoDOC limitations
 
-AutoDOC has 260 *possible* document types, but only configured, tested extractors generate
+AutoDOC has 265 *possible* document types, but only configured, tested extractors generate
 facts. All other types are templates and human-owned instances subject to metadata, ownership,
 review-path and freshness checks **when instantiated and mapped**; templates alone are not
 inventoried human documents. There is no semantic proof of prose accuracy or architecture

@@ -27,7 +27,7 @@ auto_generated: false
 - Integrated agent context in the demo and a scoped CI test evidence artifact.
 - Made example SQL schema idempotent and added measured health reporting.
 - Self-adopted catalogs and CI workflows, added architecture/adoption reviews and ownership checks.
-- Added AST/Markdown/manifest inventories, 260-type catalog views, agent tool example and scoped evidence packaging.
+- Added AST/Markdown/manifest inventories, 260-type catalog views (the catalog held 260 then), agent tool example and scoped evidence packaging.
 - Tightened demo API, config and SQL extraction to fail on unsupported contracts.
 - Added described environment/alert references, Mermaid graph, local tool policy demo and JUnit-derived unsigned evidence.
 

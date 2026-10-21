@@ -24,7 +24,7 @@ auto_generated: false
 ## What works
 AutoDOC's versioned map generates references for the example API/config/schema, its own
 catalogs/workflows, a Python AST symbol/test inventory, Markdown outline, declared dependencies
-the filtered 260-type catalog views, two local tool-authorization examples, a described env and checked alert catalog, an unsigned
+the filtered 265-type catalog views, two local tool-authorization examples, a described env and checked alert catalog, an unsigned
 test-evidence pack and a template completeness report. Generation is deterministic. CI checks drift, metadata,
 ownership, freshness, templates, human review impact, and actual test results.
 

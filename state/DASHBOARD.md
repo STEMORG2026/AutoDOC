@@ -13,12 +13,12 @@
 | Branch | `master` at `cffa527`; the closing pass rides `arena/83bebb7f-autodoc` |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
-| Catalog | 24 core · 49 extended · 265 types (prose still says 260 — D-001) · 16 detected facts · 3 declared traits |
+| Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
 | Build-ready | **15/15** · open core decisions **0** (owner decision 4 closed the last one, `DOC-A05-001` Data model, as not applicable) |
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
 | Stack | Python 3.11, **zero runtime dependencies**; pytest + pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
-| Docs | 70 controlled instances (28 generated targets, 42 human-owned, `make docs-health` 2026-10-21) · 382 Markdown files tracked |
-| Tests | 243 passed + 182 subtests, ~23 s (2026-10-21); cold clone of `master` re-verified the same day |
+| Docs | 70 controlled instances (28 generated targets, 42 human-owned, `make docs-health` 2026-10-21) · 384 Markdown files tracked |
+| Tests | 247 passed + 182 subtests, ~26 s (2026-10-21); cold clone of `master` re-verified the same day |
 | CI | 5 workflows; required check `AutoDOC guard / check` — **required in GitHub**: ruleset `main` (P-007-A, applied by the owner 2026-10-21, verified live: `deletion`, `non_fast_forward`, `required_status_checks` `AutoDOC guard / check` `strict: true`); nightly freshness warn-only; tag-gated release |
 
 ## Active agents

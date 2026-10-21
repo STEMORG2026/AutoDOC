@@ -31,8 +31,8 @@ removing dependencies — including vulnerability and licence handling — is in
 
 1. Run `python scripts/adopt.py --project-path /path/to/project` for **heuristic suggestions**;
    it does not modify the project or establish regulatory applicability.
-2. Browse [the 260-type catalog](docs/01-catalogs/CATALOG-INDEX.md), select relevant types,
-   assign real owners and record non-applicability. Do not copy 260 empty documents.
+2. Browse [the 265-type catalog](docs/01-catalogs/CATALOG-INDEX.md), select relevant types,
+   assign real owners and record non-applicability. Do not copy 265 empty documents.
 3. Copy/adapt the engine and `docs/.doc-sync-map.yaml` to actual sources, generate only factual
    references with supported extractors, and create human-owned records for design decisions.
 4. Run `make docs:verify`, `make test`, then enable required checks/CODEOWNERS approval manually
