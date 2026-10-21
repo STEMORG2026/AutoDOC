@@ -73,3 +73,28 @@ is now the record that it is done, with the instruction quoted.
 `make ci` **exits 0** on the closing tree — 243 passed, 182 subtests, evidence pack verified
 (hashes, not signatures), guards and catalog checks green. The three stale-figure corrections in
 the dashboard are numbers a tool printed at that moment, not claims carried over.
+
+`13:12` [PROGRESS] **Rule-10 stranger self-check, on a cold clone of the committed tree.** Depth-1
+clone of the closing commit into `/tmp/closecheck` (no `.venv`, no chat, no history beyond the
+commit) and read only what `AGENTS.md` → `MACP.md` → `state/` prescribe. What a stranger finds:
+
+| Question | Answer read from state alone |
+| --- | --- |
+| Is anyone working? | No — `REGISTRY.md` active table says "none", `DASHBOARD.md` says "Active agents: none" |
+| Is anything awaiting the owner? | No — the *Closed by the owner* table has all nine rows with their closing time and archived plan |
+| Are the closes authoritative? | Yes — each session file quotes the owner's instruction of 2026-10-21 and names what it closes |
+| Where are the plans? | None active (`state/plans/README.md`); all eight under `state/archive/plans/2026-10/` with a README mapping plan → session |
+| What is the project's position? | 15/15 build-ready, 0 open core decisions, beta cliff 2, protection = ruleset `main` (ADR-011), no open blocker |
+| What is next? | Nothing pending; only the optional P-006 follow-ups and a deliberate promotion decision |
+
+Cold numbers with system `python3` and **no install**: `recommend.py` → build-ready **15/15**, open
+core decisions **0**; `check_catalog.py` → catalog valid (24 core types, 16 facts, 3 traits);
+`guards.py`, `frontmatter_validator.py`, `check_sync_map.py` and `triggers.py --check` all clean;
+`generate-all.py --check` reports no drift. Nothing in `state/` had to be explained by chat.
+
+`13:15` [SHUTDOWN] Closing handoff. The closure commit lands through PR #6 from
+`arena/83bebb7f-autodoc`; `master` carries it after the merge. No claim is released that was not
+already free, `state/plans/` is empty, and the only thing this pass did not do is write its own PR
+number into the record of its merge — the merge commit is in git and the dashboard states the tip
+it was reconciled against (`cffa527`). **This session is CLOSED** on the owner's word; there is no
+successor and no work in flight.
