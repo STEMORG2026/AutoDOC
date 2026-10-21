@@ -10,7 +10,7 @@
 | Started (UTC) | 2026-10-21T11:38Z |
 | Claimed paths | `state/**`; `NEXT-ACTION.md` |
 | Plan | `state/plans/agent-A52ab-protection-review.md` |
-| Status | **PAUSED (awaiting owner)** — work handed off; a session closes only on the owner's word (ADR-009 / MACP local rule 8) |
+| Status | **CLOSED (owner's word, 2026-10-21)** — was "PAUSED (awaiting owner)"; closed by the owner's instruction of 2026-10-21, executed by `Abb7f` (session `20261021-1257-Abb7f`) |
 
 ## Log (append-only, UTC)
 
@@ -137,3 +137,23 @@ Fresh `git clone` to a clean directory (full history):
 next PR from this branch. Handing off **PAUSED (awaiting owner close)** under ADR-009 — the
 owner's word closes this session; no claim is released before that except the files already
 pushed.
+
+---
+
+**Closed by the owner (append-only, `2026-10-21T13:00Z`).** The owner's instruction to the closing
+pass — quoted verbatim: *"continue from this here and also close the session"* — is the word MACP
+local rule 8 (ADR-009) requires, so this session moves from `PAUSED (awaiting owner)` to **`CLOSED
+(owner's word, 2026-10-21)`**.
+
+What the close confirms: the branch-protection review — ruleset `main` diagnosed (B-003), P-007
+decided (option A) and applied by the owner, the rules verified live, PR #3 + PR #4 merged
+(`04f7386`, `87be33b`), the post-merge continuity test passed and **B-003 struck** (`77ca6c6`,
+`6da01b2`, `a642a31`, `eab749b`, `2976760`, closing record in PR #5 `cffa527`).
+
+Its plan `state/plans/agent-A52ab-protection-review.md` is **archived, not deleted**
+(`state/archive/plans/2026-10/agent-A52ab-protection-review.md`), because rule 8 kept it until
+this word arrived.
+
+Executed by `Abb7f` in session `20261021-1257-Abb7f`, which records how the instruction was read
+and how a session is re-opened if the owner meant a subset (log a new entry, restore the status
+row, move the plan back — nothing here is destructive).
