@@ -85,6 +85,24 @@ unshallowed (`git fetch --unshallow`, 42 commits), the block regenerated from re
 `scripts/doc-sync/update-doc-state.py --staged`, reviewed and staged explicitly as the hook
 asks. One pre-commit run in between reported "Stashed changes conflicted with hook auto-fixes"
 and rolled back — the standing recipe is: run the generator manually, review, stage, commit.
+`12:2x` [PROGRESS] **Owner resumed the session ("done, test it").** Live rules read back as
+**exactly P-007-A**: `deletion`, `non_fast_forward`, `required_status_checks` → `AutoDOC guard /
+check` (`strict_required_status_checks_policy: true`), nothing else — `required_signatures` and
+both CodeQL rules are gone. Both open PRs flipped `BLOCKED` → `CLEAN`, which is the live proof
+that those rules were the block and that the required check is now the gate. ADR-011 is marked
+recorded (mechanism: ruleset `main`; the classic `APPLY=1 make docs-require-check` payload is
+superseded).
+
+`12:2x` [PROGRESS] **PR #3 merged** (`gh pr merge 3 --merge`, merge commit `04f7386` on
+`master`) — the commit the owner could not merge is in. `origin/master` merged into this branch
+next; the five overlapping state files (`BLOCKERS`, `DECISIONS`, `INDEX`, `REGISTRY`,
+`DASHBOARD`) conflicted by design (two sessions reconciled the same surfaces) and were resolved
+by keeping this branch's newer protection record and integrating PR #3's session `1408` rows
+(plan + session files landed clean). Session counts corrected to eight open (PAUSED: `-1228`,
+`-1242`, `-1408`, this one; landed: `-1110`, `-1120`, `-1130`, `-1219`). Next: guard green →
+merge PR #4 → the post-merge continuity test on a cold clone of `master` → strike B-003 in the
+closing record.
+
 
 `12:1x` [DECISION] **Owner verdict on P-007: option A** (align the ruleset to ADR-011: keep
 `deletion` + `non_fast_forward`, remove `required_signatures` + both CodeQL rules, add required

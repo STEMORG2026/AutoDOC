@@ -19,7 +19,9 @@ stale session-status labels found along the way; `make ci` before every push.
 (verified 403 on the ruleset PUT, same limitation ADR-011 recorded), and the ruleset has no bypass
 actor, so the edit is owner-run; merging PR #3 while the owner's own ruleset forbids it (the owner
 decides how to unblock — a bypass would violate the protection they just configured); any
-product/code change; inventing a verdict for P-007.
+product/code change; inventing a verdict for P-007. **(Resumed 2026-10-21 by "done, test it":
+the owner applied P-007-A and instructed verification — the merges of PR #3/PR #4 and the
+post-merge continuity test are in scope from that instruction.)**
 
 ## Approach
 
