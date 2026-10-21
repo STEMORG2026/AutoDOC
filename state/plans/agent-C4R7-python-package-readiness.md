@@ -4,14 +4,14 @@
 | --- | --- |
 | Objective | Turn AutoDOC's current repository-only scripts into an installable, dependency-free Python CLI with a buildable wheel/sdist and isolated-install smoke coverage. |
 | Owner of the work | `C4R7` (session `20261021-1820-C4R7`) |
-| Status | **IN-PROGRESS** |
+| Status | **IN-PROGRESS (PR #12 checks pending)** |
 | Opened (UTC) | 2026-10-21T18:20Z |
 
 ## Scope
 
 **In:** a small `autodoc` console entry point for version/check/generate/adopt/init; wheel and sdist packaging that includes the runtime scripts and their catalog/policy assets; project-root handling that works from an installed wheel; isolated installation and CLI smoke tests; build artifacts in CI release workflow; supported Python-version declaration and concise usage/limitations documentation.
 
-**Out:** publishing to PyPI or configuring trusted publishing (requires owner account/project settings); deploying a hosted service; adding runtime dependencies; changing enforcement semantics or claiming semantic/complicance validation; closing the paused B71a session without the owner's explicit close.
+**Out:** publishing to PyPI or configuring trusted publishing (requires owner account/project settings); deploying a hosted service; adding runtime dependencies; changing enforcement semantics or claiming semantic/compliance validation; closing the paused B71a session without the owner's explicit close.
 
 ## Approach
 
@@ -38,3 +38,11 @@ Remove the `autodoc` entry point and package-data build support, restore the pri
 - The installed CLI operates on an explicit temporary project root without relying on the source checkout.
 - Both wheel and sdist build successfully; CI retains required gate naming and verifies distribution artifacts.
 - Documentation states what is supported and does not call AutoDOC a hosted service or compliance certificate.
+
+## Outcome recorded
+
+- `make ci`: **267 tests + 190 subtests passed** on local Python 3.11; evidence hashes verified.
+- `make package-check`: wheel/sdist build, sdist-to-wheel rebuild, and clean installed-wheel smoke (version/help/invalid usage plus check/generate/adopt/init) passed.
+- `make package`: produced the 0.2.0 wheel and sdist. No runtime dependencies were added.
+- Commit `6af0c03` is pushed and PR #12 is open; required GitHub checks and supplemental 3.12–3.15 results are pending.
+- No PyPI publishing or trusted-publishing setup was authorized. After checks pass, pause for owner review; do not close B71a.

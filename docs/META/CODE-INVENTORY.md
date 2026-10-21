@@ -288,5 +288,5 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/test_package.py` | 22 | function | `run` | `(command: list[str], *, cwd: Path, expected: int=0, env: dict[str, str] | None=None)` | — |
 | `scripts/test_package.py` | 34 | function | `extract_generated_sdist` | `(archive_path: Path, destination: Path) -> Path` | Extract only ordinary files/directories from the just-built sdist, rejecting path escapes. |
 | `scripts/test_package.py` | 53 | function | `smoke_installed_cli` | `(wheel: Path, work: Path) -> None` | — |
-| `scripts/test_package.py` | 111 | function | `main` | `() -> int` | — |
+| `scripts/test_package.py` | 117 | function | `main` | `() -> int` | — |
 | `setup.py` | 27 | function | `runtime_data_files` | `() -> list[tuple[str, list[str]]]` | Return the executable runtime files plus the catalog/context inputs they need. |

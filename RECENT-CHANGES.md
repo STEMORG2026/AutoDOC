@@ -37,29 +37,16 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 6af0c03 2026-10-21 feat: ship AutoDOC as an installable CLI
 - 52d1b79 2026-10-21 Merge pull request #11 from STEMORG2026/arena/48a62791-autodoc
 
 ## Changed paths at update time
 
-- `.github/workflows/docs-guard.yml`
-- `.github/workflows/release.yml`
-- `.gitignore`
-- `CHANGELOG.md`
-- `CONTRIBUTING.md`
-- `CONTROL/metadata/TRIGGERS.json`
-- `Makefile`
-- `QUICK-START.md`
-- `README.md`
-- `Taskfile.yaml`
-- `docs/.doc-sync-map.yaml`
-- `docs/00-governance/ADOPTION.md`
-- `docs/00-governance/ENGINE-COVERAGE.md`
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
 - `docs/META/CODE-INVENTORY.md`
-- `docs/META/DEPENDENCIES.md`
-- `docs/META/OUTLINE.md`
-- `docs/META/TEST-INVENTORY.md`
-- `docs/generated/AUTOMATION-REFERENCE.md`
-- `docs/generated/TRIGGER-REFERENCE.md`
-- … and 11 more; use git diff --cached --name-only.
+- `scripts/test_package.py`
+- `state/DASHBOARD.md`
+- `state/INDEX.md`
+- `state/REGISTRY.md`
+- `state/plans/agent-C4R7-python-package-readiness.md`
+- `state/sessions/20261021-1820-C4R7-python-package-readiness.md`
 <!-- auto:end -->

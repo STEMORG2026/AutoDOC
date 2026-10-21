@@ -67,6 +67,12 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
     version = run([str(cli), "--version"], cwd=work, env=environment)
     if version.stdout.strip() != f"autodoc {PROJECT_VERSION}":
         raise RuntimeError(f"unexpected installed version output: {version.stdout.strip()!r}")
+    help_text = run([str(cli), "--help"], cwd=work, env=environment)
+    if not all(command in help_text.stdout for command in ("check", "generate", "adopt", "init")):
+        raise RuntimeError("installed CLI help omitted one or more supported commands")
+    invalid = run([str(cli), "unsupported-command"], cwd=work, expected=2, env=environment)
+    if "invalid choice" not in invalid.stderr:
+        raise RuntimeError("installed CLI did not report invalid usage through argparse")
 
     project = work / "consumer-project"
     project.mkdir()

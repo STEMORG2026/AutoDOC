@@ -26,9 +26,12 @@ See `state/plans/agent-C4R7-python-package-readiness.md`.
 ## Verification and evidence
 
 - Initial repository status: clean at `52d1b79`; merged PR #11 confirmed.
-- Baseline/package exploration found no console entry point, package assets excluded, and scripts assuming repository-root assets. `scripts/intelligence/enforce.py --repo` already offers a target-project boundary; `scripts/doc-sync/engine.py` needs a corresponding explicit root for standalone generation.
-- Tests/build/install smoke checks: **not yet run**.
+- Baseline/package exploration found no console entry point, package assets excluded, and scripts assuming repository-root assets. `scripts/intelligence/enforce.py --repo` already offered a target-project boundary; standalone generation needed a matching explicit root.
+- Local verification on Python 3.11.2: `make generate`, `make self-doc`, and `git diff --check` passed; final `make ci` passed with **267 tests and 190 subtests**, and verified evidence hashes (not signatures).
+- `make package-check` passed: built wheel and sdist, rebuilt a wheel from the sdist, then installed the wheel in a clean venv outside the checkout and exercised version/help/invalid usage plus `check`, `generate`, `adopt`, and `init`. `make package` also built `autodoc-0.2.0-py3-none-any.whl` and `autodoc-0.2.0.tar.gz`.
+- Commit `6af0c03` (`feat: ship AutoDOC as an installable CLI`) is pushed on `arena/072fcb8c-autodoc`; PR #12 is open against `master`. Required GitHub checks and supplemental Python 3.12–3.15 results are pending.
+- Runtime dependencies remain empty; declared Python range is `>=3.11,<3.16`. Package workflow creates temporary Actions artifacts; no PyPI publish action was added or authorized.
 
 ## Handoff
 
-In progress. Record final validation, exact build/test results, branch/commit/PR status, and any remaining release/PyPI owner actions before closing this session. Do not claim PyPI publication.
+Implementation and local checks are complete. Wait for PR #12 checks; then set this session to **PAUSED (awaiting owner)** and hand off for owner review/merge. Do not claim cross-version remote verification until the matrix completes, and do not claim PyPI publication. B71a remains paused; PR #11 merging did not close that session.
