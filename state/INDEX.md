@@ -6,6 +6,7 @@ title, files touched, status, branch.
 
 | Session (file) | ID | Agent | Date (UTC) | Title | Files touched | Status | Branch |
 | --- | --- | --- | --- | --- | --- | --- | --- |
+| `state/sessions/20261021-1318-A90c-debt-d001.md` | `20261021-1318-A90c` | A90c | 2026-10-21 | Debt D-001: 11 stale catalog-count claims corrected (260 → 265; 45/194 → 49/192) and a derived-count guard added (`tests/test_catalog_counts.py`) so the numbers fail `make ci` when they drift | `README.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `QUICK-START.md`, `IMPLEMENTATION-GUIDE.md`, `RECENT-CHANGES.md`, `docs/00-governance/{ADOPTION,ENGINE-COVERAGE,LIMITATIONS}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `tests/**`, `state/**` | PAUSED (awaiting owner) | `arena/44b2fb68-autodoc` |
 | `state/sessions/20261021-1257-Abb7f-session-close.md` | `20261021-1257-Abb7f` | Abb7f | 2026-10-21 | Close the eight open sessions on the owner's word (ADR-009); plans archived; `REGISTRY`/`INDEX`/`DASHBOARD`/`NEXT-ACTION.md` reconciled | `state/**`, `NEXT-ACTION.md` | CLOSED (owner's word, 2026-10-21) | `arena/83bebb7f-autodoc` |
 | `state/sessions/20261021-1138-A52ab-protection-review.md` | `20261021-1138-A52ab` | A52ab | 2026-10-21 | Branch-protection review: ruleset `main` diagnosed (B-003); P-007 decided and applied (option A); PR #3 + PR #4 merged; post-merge test passed; B-003 cleared | `state/**`; `NEXT-ACTION.md` | CLOSED (owner's word, 2026-10-21) | `arena/d2fb52ab-autodoc` |
 | `state/sessions/20261001-1408-A476-post-merge-test.md` | `20261001-1408-A476` | A476 | 2026-10-01 | Post-merge continuity test: PR #2 merged to `master` (`4d0c50f`); cold clone passes (state read, cold numbers, `make ci` exit 0, guard green); protection apply owner-run | `state/**` only | CLOSED (owner's word, 2026-10-21) | `arena/01a0f476-autodoc` |
@@ -34,4 +35,4 @@ from this table's live rows (the row stays, the file moves). No session is archi
 ## Keywords
 
 `macp`, `bootstrap`, `audit`, `protocol`, `core-list`, `decision-3`, `charter`, `security`, `conduct`,
-`adr`, `dependencies`, `cold-clone`, `continuity`, `pending-decisions`, `session-lifecycle`, `owner-close`, `license`, `enforcement`, `catalog`, `profiles`, `phase`, `recovery`, `protection`, `ruleset`, `branch-protection`, `merge-block`, `signatures`, `codeql`, `P-007` — search these before opening a session file.
+`adr`, `dependencies`, `catalog-counts`, `drift-guard`, `cold-clone`, `continuity`, `pending-decisions`, `session-lifecycle`, `owner-close`, `license`, `enforcement`, `catalog`, `profiles`, `phase`, `recovery`, `protection`, `ruleset`, `branch-protection`, `merge-block`, `signatures`, `codeql`, `P-007` — search these before opening a session file.
