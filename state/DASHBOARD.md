@@ -2,7 +2,8 @@
 
 **Last reconciled:** 2026-10-21T13:10Z · **Reconciled by:** Abb7f (closing pass, session
 `20261021-1257-Abb7f`, CLOSED on the owner's word) · **Tip at reconciliation:** `cffa527` on
-`master` (PR #5 merged; this branch carries the closing record pending its own PR)
+`master` (PR #5 merged; the closing record then landed as **PR #6**, merge commit **`f0aa0e3`**,
+2026-10-21T13:03Z, with `AutoDOC guard` and the generation preview green on that commit)
 
 ## Project
 

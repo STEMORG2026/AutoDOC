@@ -98,3 +98,11 @@ already free, `state/plans/` is empty, and the only thing this pass did not do i
 number into the record of its merge — the merge commit is in git and the dashboard states the tip
 it was reconciled against (`cffa527`). **This session is CLOSED** on the owner's word; there is no
 successor and no work in flight.
+
+`13:20` [PROGRESS] **The closure is on `master`.** PR #6 merged as **`f0aa0e3`**
+(2026-10-21T13:03Z); `AutoDOC guard` and `AutoDOC generation preview` both report success on that
+commit, the ruleset reads back exactly `deletion`, `non_fast_forward`, `required_status_checks`
+(`AutoDOC guard / check`, strict), and a fresh clone of `master` shows all nine sessions `CLOSED`,
+`state/plans/` empty, build-ready 15/15 with 0 open core decisions, a valid catalog and clean
+guards. This entry is the merge record the shutdown note above said it would not write; it rides
+the follow-up commit, the same way PR #5 recorded PR #4's merge.
