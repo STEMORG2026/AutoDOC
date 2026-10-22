@@ -1,14 +1,14 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T04:40Z · **Reconciled by:** 627F (session `20261022-0426-627F`,
-PR #12 merged; C4R7 remains paused) · **Base tip:** `08229a0` on `master` (PR #12 merged); active continuation branch: `arena/627fcb46-autodoc`.
+**Last reconciled:** 2026-10-22T04:45Z · **Reconciled by:** 627F (session `20261022-0426-627F`,
+PR #12 merged; C4R7 remains paused; PR #13 checks pass) · **Base tip:** `08229a0` on `master` (PR #12 merged); active continuation branch: `arena/627fcb46-autodoc` with PR #13 open for owner review.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `08229a0` (PR #12 merged); continuation branch `arena/627fcb46-autodoc` is active |
+| Branch | `master` at `08229a0` (PR #12 merged); active continuation branch `arena/627fcb46-autodoc` has PR #13 open with checks green |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -21,10 +21,10 @@ PR #12 merged; C4R7 remains paused) · **Base tip:** `08229a0` on `master` (PR #
 
 ## Active agents
 
-`627F` — session `20261022-0426-627F` (**PAUSED (awaiting owner scope selection)**): reconciled
-PR #12 after merge; confirmed that C4R7 remains paused and did not choose an optional roadmap item.
-Local `make ci` passes on the merged base. The next step is an owner choice among non-gating P-006
-follow-ups, or an explicit session-close instruction.
+`627F` — session `20261022-0426-627F` (**PAUSED (awaiting PR #13 review and owner scope selection)**):
+reconciled PR #12 after merge; confirmed that C4R7 remains paused and did not choose an optional
+roadmap item. PR #13 carries the state update and all required/Python 3.11–3.15 checks pass. The
+next step is owner review and a choice among non-gating P-006 follow-ups, or an explicit session-close instruction.
 
 `C4R7` — session `20261021-1820-C4R7` (**PAUSED (awaiting explicit owner closure)**): added the
 installable zero-runtime-dependency CLI/package, distinct tool/project roots, wheel/sdist build and
@@ -97,10 +97,11 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Choose the next bounded task:** the installable CLI/package is already merged at `08229a0`.
-   P-006 follow-ups are optional/non-gating; D-004 (`audience` consumer) is first if any P-006 item
-   is selected. Other deferred work includes JS/TS + Rust toolchains, external dogfood, on-demand
-   templates, and evidence signing. The user has not selected one yet.
+1. **Review PR #13 and choose the next bounded task:** the post-merge state update is open with all
+   required/Python 3.11–3.15 checks passing. The installable CLI/package is already merged at
+   `08229a0`. P-006 follow-ups are optional/non-gating; D-004 (`audience` consumer) is first if any
+   P-006 item is selected. Other deferred work includes JS/TS + Rust toolchains, external dogfood,
+   on-demand templates, and evidence signing. No follow-up has been selected yet.
 2. **Session closure:** C4R7 remains paused awaiting the owner's explicit close; merging PR #12 did
    not close it. B71a also remains paused after PR #11 (`52d1b79`); do not close either by inference.
 3. **Release boundary:** the package workflow builds artifacts only. PyPI/trusted publishing requires

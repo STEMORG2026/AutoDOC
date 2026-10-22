@@ -31,14 +31,17 @@ See `state/plans/agent-627F-post-pr12-continuation.md`.
 - `2026-10-22T04:28Z` [DECISION] Scope “continue the work” to the required post-merge reconciliation. Leave optional P-006 work to owner selection because ADR-013 deferred it and D-004 records a first-item ordering; do not choose policy semantics or a registry release.
 - `2026-10-22T04:36Z` [CHANGE] Reconciled `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, dashboard, registry, index, architecture summary, and C4R7's session/plan to the PR #12 merge. C4R7 and B71a remain paused; no P-006 item or publication was selected.
 - `2026-10-22T04:38Z` [VERIFICATION] `make generate`, `make self-doc`, `git diff --cached --check`, and `make ci` passed. Full CI: 267 tests and 190 subtests passed; evidence hashes verified (not signatures).
+- `2026-10-22T04:41Z` [COMMIT] Committed the 11-file reconciliation as `bd44be4` (`docs(state): reconcile PR #12 merge`) and pushed only `arena/627fcb46-autodoc`.
+- `2026-10-22T04:42Z` [PR] Opened PR #13 for owner review. Required `AutoDOC guard / check` and Python 3.11–3.15 matrix all passed; PR remains open and unmerged.
 
 ## Verification and evidence
 
 - PR #12 merge commit: `08229a0becc874a51d72f80eddd68b19cdb66767`.
 - Before merge, GitHub reported the required `AutoDOC guard / check`, `impact`, and Python 3.11, 3.12, 3.13, 3.14, and 3.15 jobs as passed.
 - The continuation branch started clean at the PR #12 merge commit; repository history was unshallowed before refreshing Git-derived state.
-- Local validation on Python 3.11 passed: `make generate`, `make self-doc`, and `make ci` (267 tests, 190 subtests); evidence hashes verified, not signed. No production-code changes were made.
+- Local validation on Python 3.11 passed: `make generate`, `make self-doc`, `make docs-staged-impact`, and `make ci` (267 tests, 190 subtests); evidence hashes verified, not signed. No production-code changes were made.
+- PR #13: https://github.com/STEMORG2026/AutoDOC/pull/13 — required gate and Python 3.11–3.15 checks all passed; PR is open and unmerged.
 
 ## Handoff
 
-Post-merge records are reconciled and local checks pass. Commit and push only `arena/627fcb46-autodoc`, then open a follow-up PR for owner review. Pause for the owner to select a next optional workstream or explicitly close C4R7. Do not publish to PyPI or close C4R7/B71a on inference.
+Post-merge records are reconciled in PR #13 (`https://github.com/STEMORG2026/AutoDOC/pull/13`); local CI and all PR checks pass. The PR remains open and unmerged for owner review. Pause for the owner to select a next optional workstream or explicitly close C4R7. Do not publish to PyPI or close C4R7/B71a on inference.

@@ -22,9 +22,11 @@ auto_generated: false
 # Next action
 
 ## Immediate focus
-The user-selected installable Python CLI/package is implemented and merged by PR #12 at
-`08229a0` (2026-10-22): wheel/sdist builds, `autodoc check/generate/adopt/init`, distinct tool and
-target-project roots, and clean-venv smoke tests. Local `make ci` passed (267 tests, 190 subtests);
+Post-merge state reconciliation is proposed in PR #13 from `arena/627fcb46-autodoc`; its required
+gate and Python 3.11–3.15 jobs pass, and owner review is pending. The user-selected installable
+Python CLI/package is implemented and merged by PR #12 at `08229a0` (2026-10-22): wheel/sdist
+builds, `autodoc check/generate/adopt/init`, distinct tool and target-project roots, and clean-venv
+smoke tests. Local `make ci` passed (267 tests, 190 subtests);
 the required `AutoDOC guard / check`, impact job and supplemental Python 3.11–3.15 matrix all
 passed on GitHub. C4R7 remains paused; merging did not explicitly close the session. The release
 workflow builds temporary GitHub Actions artifacts only; PyPI publishing was not authorized.
