@@ -38,10 +38,10 @@ then found that `check --repo` resolved `[instantiated]`/`[satisfied_by]` paths 
 tool root rather than the target project. The fix branch `fix/dogfood-packaged-root` resolves those
 paths against the target root, rejects duplicate instance IDs in `add`, and corrects the `promote`
 empty-delta wording. Its local `make ci` gate passes (304 tests + 190 subtests, wheel/sdist and
-clean-install smoke for all seven commands, unsigned evidence-hash verification), and PR #19 is
-open for owner review. The owner verdict on the proposed `0.3.0`/Beta version remains. AutoDOC also
-has an installable CLI with zero runtime dependencies, wheel/sdist builds, and clean-environment
-install smoke coverage.
+clean-install smoke for all seven commands, unsigned evidence-hash verification), and PR #19 merged
+at `06ccb0a`. Post-merge `master` `make ci` passes and its guard/generation-preview runs are green.
+The owner verdict on the proposed `0.3.0`/Beta version remains. AutoDOC also has an installable CLI
+with zero runtime dependencies, wheel/sdist builds, and clean-environment install smoke coverage.
 Its checks validate controlled-document metadata, generated drift, age, source-to-human-review
 impact, and the structure of instantiated migration documents (required sections and unfilled
 template prompts, not semantic correctness). A catalog entry represents a possible document, not a
@@ -83,9 +83,8 @@ remains paused; merging did not close it. PR #15's post-merge state reconciliati
 passed (the PR impact step ran within the guard check; no separate impact status was listed). The
 owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's production-readiness
 commands merged in PR #18 at `1361ba2`. Post-merge installed-wheel dogfood found the packaged-root
-path defect; the fixes are committed as `deec574` on `fix/dogfood-packaged-root` and open as PR
-#19. The owner review and the `0.3.0`/Beta verdict remain pending; 912C remains paused because
-merging did not close it.
+path defect; the fixes merged in PR #19 at `06ccb0a`. The owner release and `0.3.0`/Beta verdict
+remain pending; 912C and PRD1 remain paused because merging did not close them.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.

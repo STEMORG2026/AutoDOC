@@ -1,6 +1,6 @@
 # BLOCKERS — active blockers and dependencies
 
-**Last reconciled:** 2026-10-22T13:28Z (no active blockers. B-003 remains cleared; PR #16 merged D-003 at `a28616b`; PR #18 merged PRD1's production-readiness commands at `1361ba2`; the installed-wheel dogfood fix is open as PR #19 with all checks passing, awaiting owner review. The first PR #19 guard/impact failure was the expected living-state co-change gate, not a code defect.)
+**Last reconciled:** 2026-10-22T13:50Z (no active blockers. B-003 remains cleared; PR #16 merged D-003 at `a28616b`; PR #18 merged PRD1's production-readiness commands at `1361ba2`; PR #19 merged the installed-wheel dogfood fixes at `06ccb0a`, and post-merge `make ci` plus master guard/generation-preview checks pass. Release/version decisions remain owner-gated.)
 
 | ID | Blocker | Blocks | Owner who can clear it | Raised |
 | --- | --- | --- | --- | --- |
