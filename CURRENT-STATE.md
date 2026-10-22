@@ -57,8 +57,9 @@ also remains paused after PR #11 merged.
 PR #13's post-merge reconciliation is also merged at `a704752`. The owner then selected D-004
 followed by D-002 and confirmed the audience rule recorded in ADR-014. The implementations described
 below are on the active follow-up branch `arena/894b93ee-autodoc`, not yet merged to `master`.
-Its full local `make ci` passes on Python 3.11 (280 tests and 190 subtests); evidence hashes verify,
-not signatures. The follow-up PR and its remote checks are still pending.
+Commit `ea03f0b` is included in open PR #14; the required check, impact job and Python 3.11–3.15
+matrix all pass. Local `make ci` passed on Python 3.11 (280 tests and 190 subtests); evidence hashes
+verify, not signatures. The PR is awaiting owner review; no merge has been performed.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.

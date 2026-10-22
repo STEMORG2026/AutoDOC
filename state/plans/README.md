@@ -7,7 +7,7 @@ One file per active session, opened at MACP Step 9 and named `agent-<id>-<topic>
 ## Current plans
 
 - `agent-894B-d004-language-readers.md` — D-004 audience applicability and D-002 language readers;
-  active implementation on `arena/894b93ee-autodoc`.
+  PR #14 is open from `arena/894b93ee-autodoc`, all checks pass, awaiting owner review.
 - `agent-627F-post-pr12-continuation.md` — PR #12 state reconciliation; PR #13 merged, owner chose
   the next scope, but the session remains paused until explicit owner closure.
 

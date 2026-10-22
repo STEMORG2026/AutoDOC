@@ -110,13 +110,12 @@ inference. PyPI publishing remains unauthorized.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Finish the selected D-004 + D-002 handoff:** local `make ci`, `git diff --check`, staged impact,
-   ownership and pre-commit checks have passed. Commit and push only `arena/894b93ee-autodoc`; open
-   a follow-up PR for owner review. PR #13 is already merged at `a704752`. Do not merge the new PR
-   without explicit owner authorization.
-2. **Session closure:** 894B will pause for owner review after opening the PR; the owner must
-   explicitly close it. 627F remains paused after PR #13; C4R7 remains paused after PR #12; B71a
-   remains paused after PR #11. Do not close any by inference.
+1. **D-004 + D-002 handoff:** PR #14 is open from `arena/894b93ee-autodoc`; local `make ci`, staged
+   impact and pre-commit checks pass, as do the required GitHub check, impact job and Python
+   3.11–3.15 matrix. Await owner review; do not merge without explicit authorization.
+2. **Session closure:** 894B is paused awaiting owner review; only the owner may explicitly close it.
+   627F remains paused after PR #13; C4R7 remains paused after PR #12; B71a remains paused after
+   PR #11. Do not close any by inference.
 3. **Release and deferred-work boundaries:** package workflows build artifacts only; PyPI/trusted
    publishing needs a separate owner decision. D-003, D-007 and D-009 remain deferred; D-010
    vulnerability scanning remains low/open; promotion to `beta` remains a deliberate event with

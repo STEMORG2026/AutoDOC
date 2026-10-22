@@ -21,7 +21,7 @@ auto_generated: false
 ---
 # Recent changes
 
-- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers on `arena/894b93ee-autodoc`; local `make ci` passed (280 tests, 190 subtests). The follow-up is not yet merged; external tools are absent locally and covered with fake executables.
+- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers on `arena/894b93ee-autodoc`; local `make ci` passed (280 tests, 190 subtests). PR #14 is open and all required GitHub checks pass; it awaits owner review. External tools are absent locally and covered with fake executables.
 - Merged PR #12 (`08229a0`): installable zero-runtime-dependency CLI, wheel/sdist assets, isolated project-root commands, package smoke tests, and passing Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
 - Added structural validation for canonical migration-document sections and prompts; findings route
   through the existing `placeholders`/`stubs` policy families, so CI retains phase/pin severity.
@@ -38,6 +38,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- ea03f0b 2026-10-22 feat: add audience gating and language references
 - a704752 2026-10-22 Merge pull request #13 from STEMORG2026/arena/627fcb46-autodoc
 - 83e3b21 2026-10-22 docs(state): record PR 13 handoff
 - bd44be4 2026-10-22 docs(state): reconcile PR #12 merge
@@ -57,29 +58,16 @@ auto_generated: false
 - 5bbd7d8 2026-10-21 Merge pull request #8 from STEMORG2026/arena/44b2fb68-autodoc
 - d3ebf4a 2026-10-21 Fix D-001: correct the catalog counts and make them checkable
 - 9e5155d 2026-10-21 Merge pull request #7 from STEMORG2026/arena/83bebb7f-autodoc
-- 629338c 2026-10-21 Record the closing record's merge (PR #6, f0aa0e3)
 
 ## Changed paths at update time
 
-- `CHANGELOG.md`
-- `CONTROL/metadata/CATALOG-RULES.json`
-- `CONTROL/metadata/CATALOG-SCHEMA.json`
-- `CONTROL/metadata/CONTEXT-MODEL.json`
-- `CONTROL/metadata/CONTEXT-SCHEMA.json`
-- `CONTROL/policies/DOCUMENTATION-POLICY.md`
-- `autodoc.toml`
-- `docs/00-governance/ADOPTION.md`
-- `docs/00-governance/ENGINE-COVERAGE.md`
-- `docs/00-governance/LIMITATIONS.md`
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
-- `docs/META/CODE-INVENTORY.md`
-- `docs/META/OUTLINE.md`
-- `docs/META/TEST-INVENTORY.md`
-- `scripts/doc-sync/engine.py`
-- `scripts/doc-sync/languages.py`
-- `scripts/intelligence/recommend.py`
 - `state/ARCHITECTURE.md`
 - `state/DASHBOARD.md`
 - `state/DEBT.md`
-- … and 19 more; use git diff --cached --name-only.
+- `state/DECISIONS.md`
+- `state/INDEX.md`
+- `state/REGISTRY.md`
+- `state/plans/README.md`
+- `state/plans/agent-894B-d004-language-readers.md`
+- `state/sessions/20261022-0445-894B-d004-language-readers.md`
 <!-- auto:end -->

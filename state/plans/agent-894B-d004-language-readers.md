@@ -5,7 +5,7 @@
 | Objective | Implement the owner-selected D-004 reader-derived audience gate, then D-002 JavaScript/TypeScript and Rust toolchain readers, with tests and truthful limits. |
 | Owner of the work | `894B` (session `20261022-0445-894B`) |
 | Branch | `arena/894b93ee-autodoc`, based at PR #13 merge `a704752` |
-| Status | **IN PROGRESS — CI, staged-impact and pre-commit checks passed; commit/push/PR handoff pending** |
+| Status | **PAUSED — PR #14 is open; local, staged-impact, pre-commit and GitHub checks pass; awaiting owner review** |
 | Opened (UTC) | 2026-10-22T04:45Z |
 
 ## Owner decision and semantics

@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-22 (PR #13 merged at `a704752`; owner-selected D-004 and D-002 implemented on active `arena/894b93ee-autodoc`; C4R7, B71a and 627F remain paused)
+**Last reconciled:** 2026-10-22 (PR #13 merged at `a704752`; PR #14 open with D-004 and D-002 implemented and all checks passing; C4R7, B71a and 627F remain paused)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -40,14 +40,14 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 - **Scale:** 1015 tracked files = 64 `.py`, 361 `.md`, and 265 catalog types × 3 template variants; 68 controlled docs (24 generated, 44 human-owned). **Refreshed 2026-10-21:** 1039 tracked files = 65 `.py`, 384 `.md`; 70 controlled instances (28 generated targets, 42 human-owned) — the counts a reader should cite today.
 - **Demo surface:** SQLite (`EXAMPLE-PROJECT/db/schema.sql`, single `tasks` table, no migrations) and a stdlib threaded HTTP server with three routes (`GET/POST /tasks`, `GET /health`), **no auth**, 1–4096-byte body cap, JSON 400/404 errors.
 - **Readers:** Python declarations via AST (exact, in-process) and Go references via `go doc -all .`; the active follow-up branch adds JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON via `cargo rustdoc`. These external references run on demand, validate tool output, and report missing tools as L0 in that run. Node v22.22.3 is present locally; JSDoc, TypeDoc, Cargo, rustc and rustdoc are absent, so the new integrations use fake-tool tests here.
-- **Gates:** the current follow-up branch passes local `make ci` on Python 3.11 (280 tests + 190 subtests), including catalog checks, guards, drift, impact, package smoke and evidence hashing. PR #12's required `AutoDOC guard / check`, impact job and supplemental Python 3.11–3.15 matrix passed remotely; PR #13 merged at `a704752`. The follow-up PR is pending; the supplemental matrix remains non-blocking. Nightly freshness is warn-only.
+- **Gates:** the current follow-up branch passes local `make ci` on Python 3.11 (280 tests + 190 subtests), including catalog checks, guards, drift, impact, package smoke and evidence hashing. PR #13 merged at `a704752`; PR #14's required `AutoDOC guard / check`, impact job and supplemental Python 3.11–3.15 matrix all pass. PR #14 awaits owner review; the supplemental matrix remains non-blocking. Nightly freshness is warn-only.
 - **Known-issue markers:** none inline (0 TODO/FIXME/XXX/HACK); the known surface is `LIMITATIONS.md` and `ENGINE-COVERAGE.md`.
 
 ## Change log
 
 | Date | Change |
 | --- | --- |
-| 2026-10-22 | Owner selected D-004 followed by D-002 after PR #13 merged at `a704752`; D-004's closed-audience semantics and JSDoc/TypeDoc/nightly Rustdoc JSON readers are implemented on `arena/894b93ee-autodoc`, pending PR review/merge. No PyPI publication or session closure was authorized. |
+| 2026-10-22 | Owner selected D-004 followed by D-002 after PR #13 merged at `a704752`; D-004's closed-audience semantics and JSDoc/TypeDoc/nightly Rustdoc JSON readers are implemented on `arena/894b93ee-autodoc` in PR #14; all checks pass, awaiting owner review. No PyPI publication or session closure was authorized. |
 | 2026-10-22 | C4R7 added the installable `autodoc` CLI, isolated wheel/sdist packaging and smoke tests, separate tool/project roots, version metadata and temporary tag-run distribution artifacts; PR #12 merged at `08229a0`. PyPI publishing remains unauthorized/unconfigured; C4R7 and B71a remain paused until explicit owner closure. |
 | 2026-10-01 | Decision 3 closed the open core decisions: new `docs/00-governance/PROJECT-CHARTER.md`, `docs/adr/` (first ADR), `SECURITY.md`, `CODE_OF_CONDUCT.md`; module contracts, test strategy, dependency setup and dependency policy now have named homes (`autodoc.toml` declarations); readiness 15/16 at commit `1a65f5d`. |
 | 2026-10-01 | Full MACP transcription landed (Sections 2–7 + REMEMBER verbatim) and the Section 7 Step 1 audit completed; `state/` files reconciled at `d26d798`. |

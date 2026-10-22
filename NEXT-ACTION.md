@@ -30,8 +30,9 @@ match=true, non-match within a non-empty declaration=false/not applicable, empty
 `cargo rustdoc`; external references remain on-demand, and missing tools are reported as L0 in that
 run. After the final code and documentation changes, local `make ci` passed on Python 3.11 (280
 tests, 190 subtests; evidence hashes verified, not signatures). Staged impact and all pre-commit
-hooks also passed. Commit and push only `arena/894b93ee-autodoc`, then open a follow-up PR for owner
-review. Do not merge it without explicit authorization.
+hooks also passed. The implementation is committed as `ea03f0b` and pushed only to
+`arena/894b93ee-autodoc`; follow-up PR #14 is open and all required checks pass. Await owner review.
+Do not merge it without explicit authorization.
 
 D-003 (on-demand templates), D-007 (evidence signing) and D-009 (external dogfood) remain deferred
 and non-gating. D-010 vulnerability scanning remains open/low. C4R7 remains paused after PR #12;
@@ -66,7 +67,7 @@ D-001 session was subsequently closed on 2026-10-21 by the owner's explicit inst
 "Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
 thread**; the remaining unselected P-006 follow-ups in `state/DEBT.md` are D-003, D-007 and D-009,
 and promotion to `beta` stays a deliberate event (cliff 2). D-004 and D-002 are the owner-selected
-active follow-up on `arena/894b93ee-autodoc`, pending review/merge. One debt item closed on
+active follow-up on `arena/894b93ee-autodoc`, in PR #14 awaiting owner review/merge. One debt item closed on
 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
 ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner.
