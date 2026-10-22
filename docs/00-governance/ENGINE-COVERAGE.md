@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-21
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # Engine coverage and honest limits
@@ -31,7 +31,9 @@ unverified. The catalog type `DEV-B07-001` Test strategy is satisfied by this do
    fixtures beyond the repository itself) and covers accepted *and* rejected inputs: a parser that
    accepts a note is only trusted once a test shows it rejects the malformed variant. The current
    suite and its subtests are counted in the evidence pack, and the test inventory
-   (`docs/META/TEST-INVENTORY.md`) is generated, not maintained by hand.
+   (`docs/META/TEST-INVENTORY.md`) is generated, not maintained by hand. `make ci` also builds a
+   wheel and sdist, rebuilds a wheel from the sdist, and installs the wheel in a clean virtual
+   environment outside the checkout to exercise the console CLI and target-root boundary.
 2. **Golden fixtures decide enforcement semantics.** `tests/fixtures/` holds whole miniature
    repositories (library, service, typed-library) and a matrix of expected outcomes, so a change to
    phase, tier, profile or fact handling must either keep the matrix green or change it deliberately.
@@ -41,9 +43,11 @@ unverified. The catalog type `DEV-B07-001` Test strategy is satisfied by this do
 4. **The declared phase decides severity.** No check is "on" or "off" by accident: severity comes
    from `autodoc.toml` and `CONTROL/metadata/CONTEXT-MODEL.json`, the report names the families it
    did not run, and an undeclared phase reports instead of failing.
-5. **CI decides what actually gates.** The required check runs the same `make` targets locally and
-   remotely; the trigger model (`CONTROL/metadata/TRIGGERS.json`) is verified against the workflows,
-   and scheduled network checks are warn-only by design.
+5. **CI decides what actually gates.** The named required check runs the same `make ci` locally
+   and remotely on Python 3.11. A separate Python 3.11–3.15 compatibility matrix supplies
+   additional non-blocking signals; only the configured named check is required by branch
+   protection. The trigger model (`CONTROL/metadata/TRIGGERS.json`) is verified against the
+   workflows, and scheduled network checks are warn-only by design.
 6. **Evidence records that a run happened — it is unsigned** and proves nothing about who ran it or
    whether a reviewer agreed (`docs/00-governance/EVIDENCE-SIGNING.md`).
 
@@ -77,6 +81,9 @@ All outputs below have concrete sources in `docs/.doc-sync-map.yaml`; `make gene
 | Fixture repositories | kind x phase x ecosystem matrix | Awkward cases: no manifest, unread ecosystem, docs-only | `test_profile.py` |
 | Enforcement policy | severity per check family per phase | One precedence: override, phase default, report | `test_enforce.py` |
 | Adoption baseline | suppressed findings and stale entries | Keyed by rule and location; never suppresses a new finding | `test_enforce.py` |
+| Installable CLI | `autodoc check/generate/adopt/init` | Bundled tool root is separate from the selected project root; zero runtime dependencies | `test_cli.py`, `scripts/test_package.py` |
+| Wheel + source distribution | `make package` / `make package-check` | Build both formats, rebuild from sdist, install wheel in a clean venv outside the checkout | `scripts/test_package.py` |
+| Python compatibility | Python 3.11–3.15 | Supplemental matrix; non-blocking. The named required gate runs full `make ci` on Python 3.11 | `.github/workflows/docs-guard.yml` |
 | Exit codes | `0`, `1`, `2` | Documented in `docs/reference/EXIT-CODES.md` | `test_enforce.py` |
 | Catalogs/workflow files | Three views, CI inventory, completeness | Stable IDs and file hashes | `test_engine.py`, `test_phase3.py` |
 | Frontmatter + sync map | Master/human inventories; JSON + Mermaid graph | References and actual mapped paths | `test_engine.py`, `test_phase3.py` |
@@ -173,5 +180,4 @@ are project-dependent; do not quote estimates as measured facts.
 ## Known environment constraints
 The go-task binary is not installed in this sandbox. The Taskfile delegates to Make but
 `task ci` was not executable here; `make ci` is the canonical local verification path.
-Python 3.11+ and pytest for development are declared in `pyproject.toml`; runtime extraction
-uses the standard library. The owner selected Apache-2.0 on 2026-10-01 (`LICENSE`), so release snapshots are gated only by the tag and a clean tree.
+Python 3.11–3.15 are tested in the workflow matrix and `pyproject.toml` declares `>=3.11,<3.16`; runtime extraction uses the standard library. The owner selected Apache-2.0 on 2026-10-01 (`LICENSE`), so release snapshots are gated by the tag and a clean tree. Tagged release runs build wheel/sdist artifacts without publishing them to PyPI.

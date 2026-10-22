@@ -65,6 +65,17 @@
             "python scripts/doc-control/check_sync_map.py",
             "python scripts/doc-sync/check-doc-drift.py"
           ]
+        },
+        {
+          "name": "Python compatibility",
+          "job": "compatibility",
+          "workflow": ".github/workflows/docs-guard.yml",
+          "events": ["pull_request", "push", "workflow_dispatch"],
+          "required": false,
+          "paths_filtered": false,
+          "tag_filtered": false,
+          "branch_filtered": false,
+          "commands": ["make test"]
         }
       ]
     },
@@ -147,7 +158,10 @@
       "network": false,
       "bypass": null,
       "failure": "no snapshot is produced; the release itself is not blocked by this workflow",
-      "runs": ["python scripts/doc-control/release_snapshot.py --tag \"$TAG\""],
+      "runs": [
+        "python scripts/doc-control/release_snapshot.py --tag \"$TAG\"",
+        "make package"
+      ],
       "wiring": [".github/workflows/release.yml"],
       "jobs": [
         {
@@ -159,7 +173,10 @@
           "paths_filtered": false,
           "tag_filtered": true,
           "branch_filtered": false,
-          "commands": ["python scripts/doc-control/release_snapshot.py --tag \"$TAG\""]
+          "commands": [
+            "python scripts/doc-control/release_snapshot.py --tag \"$TAG\"",
+            "make package"
+          ]
         }
       ]
     }

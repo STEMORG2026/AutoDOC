@@ -1155,6 +1155,7 @@ flowchart LR
     na169cd0828d7f68e["TEMPLATES/SPECIFICATIONS/DOC-A23-007.md"]
     n0395b612934202e9["TEMPLATES/SPECIFICATIONS/DOC-A23-007.md.blank"]
     n37d73aeb311ed7a5["TEMPLATES/SPECIFICATIONS/DOC-A23-007.md.example"]
+    nfe406c507a2cbd89["autodoc/**/*.py"]
     n64d1e298edc7c392["docs/**/*.md"]
     nc69236c0d28f1ef9["docs/.doc-sync-map.yaml"]
     nb1b9944cd1ff19b1["docs/00-governance/INVENTORY.yaml"]
@@ -1193,6 +1194,7 @@ flowchart LR
     n4d359350ce96e0f8["scripts/doc-sync/*.py"]
     n08fd583c6839626b["scripts/intelligence/*.py"]
     n1861a1cb5f749b40["scripts/validate/*.py"]
+    n60f61ab7a8d1910d["setup.py"]
     n8f2cc361b0771c18["tests/test_*.py"]
     n201c51ddce9e86e0 -->|generates| n50f65dbfb1d93d50
     n201c51ddce9e86e0 -->|generates| n76cdb30ae4f59fe2
@@ -2090,6 +2092,7 @@ flowchart LR
     n6e8f5956033ae90b -->|generates| needcd9deb4bda49d
     n5c126dfbe6aa5f3d -->|generates| nbaf97e36c13ba394
     n39e52e5a5973e2b3 -->|generates| n32b93bea00f615f8
+    nfe406c507a2cbd89 -->|generates| nb89605aa9b400bdc
     n64d1e298edc7c392 -->|generates| n44de050a3c5f46b2
     n64d1e298edc7c392 -->|generates| nde346fe6ced5b4df
     n64d1e298edc7c392 -->|generates| nb1b9944cd1ff19b1
@@ -2118,5 +2121,6 @@ flowchart LR
     n4d359350ce96e0f8 -->|generates| n08c6b8dfc8ba0143
     n08fd583c6839626b -->|generates| n08c6b8dfc8ba0143
     n1861a1cb5f749b40 -->|generates| n08c6b8dfc8ba0143
+    n60f61ab7a8d1910d -->|generates| nb89605aa9b400bdc
     n8f2cc361b0771c18 -->|generates| n498a56f1369ff3fe
 ```

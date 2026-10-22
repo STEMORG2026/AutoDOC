@@ -9,8 +9,9 @@ import sys
 from datetime import date, timedelta
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path.insert(0, str(ROOT / "engine"))
+TOOL_ROOT = Path(__file__).resolve().parents[2]
+ROOT = TOOL_ROOT
+sys.path.insert(0, str(TOOL_ROOT / "engine"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import languages  # noqa: E402 - the registry sits beside this module
 from extractors.env_alerts import environment, alerts
@@ -700,7 +701,7 @@ def controlled():
                                        'AGENTS.md', 'CLAUDE.md', 'AGENT-MEMORY.md',
                                        'ANTI-PATTERNS-FOR-AGENT.md', 'CONTEXT-SNAPSHOT.md',
                                        'TASK-FOR-AGENT.md')]
-    return sorted(set(paths_))
+    return sorted(path for path in set(paths_) if path.is_file())
 
 
 
@@ -863,14 +864,21 @@ def update_state(base=None, staged=False):
             print('Updated', name, '(review and stage explicitly)')
 
 def main():
+    global ROOT, MAP
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=['generate', 'drift', 'impact', 'validate', 'freshness', 'state'])
+    parser.add_argument('--root', type=Path, default=ROOT,
+                        help='Project root (default: AutoDOC checkout/runtime root)')
     parser.add_argument('--base', help='Git merge base/ref for PR comparisons')
     parser.add_argument('--staged', action='store_true')
     parser.add_argument('--only', help='Only one mapped generated entry ID')
     parser.add_argument('--check', action='store_true', help='Check instead of writing (generate only)')
     parser.add_argument('--write', action='store_true', help='Explicit write mode (generate only)')
     args = parser.parse_args()
+    ROOT = args.root.expanduser().resolve()
+    if not ROOT.is_dir():
+        parser.error('--root must be an existing directory: ' + str(ROOT))
+    MAP = ROOT / 'docs/.doc-sync-map.yaml'
     try:
         if args.command == 'generate':
             if args.check and args.write:

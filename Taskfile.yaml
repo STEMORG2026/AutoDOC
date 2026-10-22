@@ -29,6 +29,8 @@ tasks:
   evidence: {cmds: ['make evidence']}
   check-evidence: {cmds: ['make check-evidence']}
   test: {cmds: ['make test']}
+  package: {cmds: ['make package']}
+  package:check: {cmds: ['make package-check']}
   ci: {cmds: ['make ci']}
   docs:init: {cmds: ['python scripts/init-project.py --name "{{.NAME}}" --type "{{.TYPE | default "generic"}}" --output "{{.OUTPUT}}"']}
   docs:adopt: {cmds: ['python scripts/adopt.py --project-path "{{.OUTPUT}}"']}

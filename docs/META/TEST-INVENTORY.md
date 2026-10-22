@@ -63,6 +63,10 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_catalog_counts.py` | 111 | `CatalogCountTests.test_every_documented_count_matches_the_indexes` |
 | `tests/test_catalog_counts.py` | 126 | `CatalogCountTests.test_a_stale_number_is_caught_and_history_is_escapable` |
 | `tests/test_catalog_counts.py` | 137 | `CatalogCountTests.test_the_ambiguous_bare_core_count_is_not_read` |
+| `tests/test_cli.py` | 29 | `test_version_and_help_are_available_without_a_checkout_cwd` |
+| `tests/test_cli.py` | 39 | `test_generate_uses_explicit_project_root` |
+| `tests/test_cli.py` | 77 | `test_check_adopt_and_init_operate_on_selected_project` |
+| `tests/test_cli.py` | 95 | `test_adoption_scan_skips_dependency_and_build_trees` |
 | `tests/test_context.py` | 22 | `ContextTests.test_missing_file_is_an_empty_advisory_context` |
 | `tests/test_context.py` | 31 | `ContextTests.test_bare_reason_string_is_normalised` |
 | `tests/test_context.py` | 37 | `ContextTests.test_table_reason_form_is_accepted` |
@@ -224,10 +228,10 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_profile.py` | 133 | `FixtureMatrixTests.test_unknown_declared_fact_is_rejected` |
 | `tests/test_profile.py` | 138 | `FixtureMatrixTests.test_profile_is_deterministic_and_path_free` |
 | `tests/test_profile.py` | 143 | `FixtureMatrixTests.test_this_repository_facts` |
-| `tests/test_profile.py` | 157 | `FixtureMatrixTests.test_test_input_directories_are_skipped_and_declared` |
-| `tests/test_profile.py` | 171 | `FixtureMatrixTests.test_a_typed_library_surface_is_not_an_http_api` |
-| `tests/test_profile.py` | 182 | `FixtureMatrixTests.test_content_scan_records_the_file_not_the_value` |
-| `tests/test_profile.py` | 187 | `FixtureMatrixTests.test_the_detector_never_matches_its_own_source` |
+| `tests/test_profile.py` | 160 | `FixtureMatrixTests.test_test_input_directories_are_skipped_and_declared` |
+| `tests/test_profile.py` | 174 | `FixtureMatrixTests.test_a_typed_library_surface_is_not_an_http_api` |
+| `tests/test_profile.py` | 185 | `FixtureMatrixTests.test_content_scan_records_the_file_not_the_value` |
+| `tests/test_profile.py` | 190 | `FixtureMatrixTests.test_the_detector_never_matches_its_own_source` |
 | `tests/test_resolver.py` | 82 | `PhaseScalingTests.test_undeclared_phase_is_advisory_and_never_fails` |
 | `tests/test_resolver.py` | 92 | `PhaseScalingTests.test_prototype_reports_without_warning` |
 | `tests/test_resolver.py` | 98 | `PhaseScalingTests.test_build_warns_but_does_not_fail` |

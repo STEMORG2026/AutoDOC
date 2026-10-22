@@ -1,0 +1,13 @@
+include LICENSE
+include README.md
+include pyproject.toml
+include setup.py
+include MANIFEST.in
+recursive-include autodoc *.py
+recursive-include scripts *.py
+recursive-include engine *.py
+recursive-include CONTROL/metadata *.json *.yaml
+include CATALOG-A/INDEX.yaml
+include CATALOG-B/INDEX.yaml
+include CATALOG-C/INDEX.yaml
+recursive-include tests *.py

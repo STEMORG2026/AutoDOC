@@ -78,13 +78,14 @@ def key_of(finding):
 def repo_scope(root):
     """Point the delegated checkers at `root` for one run, then put them back.
 
-    guards.py, stub_check.py and engine.py are single-repository tools that read a module-level
-    ROOT; `enforce.py --repo <elsewhere>` has to answer about *that* repository, so the root is
-    rebound for the duration of the collection instead of running three copies of their logic.
-    Derived constants (`engine.MAP`) are rebound with it.
+    guards.py, stub_check.py and both sync-engine module handles are single-repository tools that
+    read a module-level ROOT; `enforce.py --repo <elsewhere>` has to answer about *that* repository,
+    so the root is rebound for the duration of collection instead of running separate checker
+    logic. `stub_check` imports the sync engine under its own module name, so both module handles
+    and each derived map path must follow the selected project root.
     """
-    saved = [(module, module.ROOT, getattr(module, 'MAP', None))
-             for module in (guards, stub_check, engine)]
+    modules = dict.fromkeys((guards, stub_check, engine, stub_check.sync_engine))
+    saved = [(module, module.ROOT, getattr(module, 'MAP', None)) for module in modules]
     for module, _, _ in saved:
         module.ROOT = root
         if hasattr(module, 'MAP'):

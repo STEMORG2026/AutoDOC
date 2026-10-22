@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added an installable, zero-runtime-dependency `autodoc` CLI (`check`, `generate`, `adopt`,
+  `init`) with separate tool/project roots, wheel/sdist builds, clean-venv smoke coverage and
+  Python 3.11–3.15 CI. Tagged runs build temporary GitHub Actions artifacts; PyPI publishing is
+  not configured or authorized.
 - Extended the structural document check to validate required sections and unchanged prompts for
   the four canonical migration document titles. Draft findings use the existing `placeholders`
   family, approved findings use `stubs`; the check makes no semantic or reversibility claim.

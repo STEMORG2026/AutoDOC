@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-01
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # AutoDOC self-adoption and applicability
@@ -29,6 +29,12 @@ profiles themselves were owner-reviewed on 2026-10-01 (`owner_reviewed` in
 `docs/00-governance/CORE-LIST-REVIEW.md`). The repository owner
 `@Er-Sajan-PLG` is the designated primary owner in `CONTROL/metadata/OWNERSHIP-MATRIX.yaml`;
 no backup, security approver or external auditor has been assigned.
+
+The installable Python distribution exposes this same engine through `autodoc check`,
+`autodoc generate`, `autodoc adopt` and `autodoc init`; it keeps bundled policy/catalog assets
+separate from the project path being checked. It is a CLI, not a hosted service. The package is
+built and tested as wheel/sdist but is not published to PyPI; adoption remains an explicit
+configuration and review process, not an automatic claim that a project is governed.
 
 ## Selected document types
 

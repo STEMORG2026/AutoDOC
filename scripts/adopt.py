@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 """Read-only scan of an existing project to suggest applicable AutoDOC domains."""
 import argparse
+import os
 from pathlib import Path
+
+# Adoption hints should be fast and should not crawl virtual environments, package caches or
+# build outputs. These exclusions affect only this read-only heuristic scan.
+SKIP_DIRS = frozenset({
+    '.git', '.hg', '.svn', '.venv', 'venv', 'env', 'node_modules',
+    '__pycache__', '.pytest_cache', '.mypy_cache', '.ruff_cache', '.tox', '.nox',
+    '.next', '.nuxt', '.turbo', '.cache', 'build', 'dist', 'target',
+})
 
 RULES = [
     ('API contracts', ('openapi.yaml', 'routes.json', 'package.json'), 'A08-APIS'),
@@ -13,8 +22,13 @@ RULES = [
 
 
 def scan(project):
-    # Search only within the selected directory; no writes, imports or code execution.
-    names = {p.name for p in project.rglob('*') if p.is_file() or p.is_dir()}
+    # Search only within the selected directory; no writes, imports or code execution. Prune
+    # common dependency/build caches before descent so an adoption hint stays bounded in practice.
+    names = set()
+    for directory, subdirectories, filenames in os.walk(project, followlinks=False):
+        subdirectories[:] = [name for name in subdirectories if name not in SKIP_DIRS]
+        names.update(subdirectories)
+        names.update(filenames)
     return [(name, domain, [signal for signal in signals if signal in names])
             for name, signals, domain in RULES if any(signal in names for signal in signals)]
 

@@ -1,0 +1,167 @@
+"""Small dependency-free CLI over AutoDOC's existing repository scripts.
+
+The installed Python package is kept separate from the user project. The policy/data scripts live
+under the distribution's ``share/autodoc`` data directory; ``--repo`` and ``--root`` always name
+the project being inspected or generated.
+"""
+
+from __future__ import annotations
+
+import argparse
+import site
+import subprocess
+import sys
+import sysconfig
+from pathlib import Path
+from typing import Sequence
+
+from . import __version__
+
+
+def runtime_root() -> Path:
+    """Locate the bundled AutoDOC scripts and policy data, never the target project.
+
+    An editable/source checkout is useful for development. Normal installs place data files under
+    ``sysconfig.get_path('data')/share/autodoc``; ``site.USER_BASE`` covers ``pip install --user``.
+    """
+    candidates: list[Path] = [Path(__file__).resolve().parents[1]]
+    data_directory = sysconfig.get_path("data")
+    if data_directory:
+        candidates.append(Path(data_directory) / "share" / "autodoc")
+    candidates.append(Path(site.USER_BASE) / "share" / "autodoc")
+
+    required = (
+        "scripts/intelligence/enforce.py",
+        "scripts/doc-sync/engine.py",
+        "scripts/init-project.py",
+        "scripts/adopt.py",
+        "engine/extractors/facts.py",
+        "CONTROL/metadata/CONTEXT-MODEL.json",
+        "CATALOG-B/INDEX.yaml",
+    )
+    checked: set[Path] = set()
+    for candidate in candidates:
+        candidate = candidate.resolve()
+        if candidate in checked:
+            continue
+        checked.add(candidate)
+        if all((candidate / relative).is_file() for relative in required):
+            return candidate
+
+    raise RuntimeError(
+        "AutoDOC runtime files are missing. Reinstall the complete AutoDOC distribution; "
+        "the target project is not a substitute for the installed tool assets."
+    )
+
+
+def _add_check_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--repo", type=Path, default=Path.cwd(),
+        help="project to inspect (default: current directory)",
+    )
+    parser.add_argument("--config", type=Path, help="context TOML (default: <repo>/autodoc.toml)")
+    parser.add_argument("--baseline", type=Path, help="baseline JSON (default: <repo>/autodoc-baseline.json)")
+    parser.add_argument("--write-baseline", action="store_true", help="record current findings as a baseline")
+    parser.add_argument("--fail-on-stale", action="store_true", help="fail when old baseline entries no longer match")
+    parser.add_argument("--json", action="store_true", help="print a machine-readable JSON report")
+    parser.add_argument("--output", type=Path, help="write the report to this file instead of stdout")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="autodoc",
+        description="Installable CLI for AutoDOC's bounded documentation checks and generators.",
+    )
+    parser.add_argument("--version", action="version", version=f"%(prog)s {__version__}")
+    commands = parser.add_subparsers(dest="command", required=True)
+
+    check = commands.add_parser("check", help="check a project using its declared context and baseline")
+    _add_check_arguments(check)
+
+    generate = commands.add_parser("generate", help="generate mapped factual documents for a project")
+    generate.add_argument(
+        "--root", type=Path, default=Path.cwd(),
+        help="project containing docs/.doc-sync-map.yaml (default: current directory)",
+    )
+    generate.add_argument("--check", action="store_true", help="check for drift without writing files")
+    generate.add_argument("--only", help="run one generator ID from the project's sync map")
+
+    adopt = commands.add_parser("adopt", help="read-only heuristic scan for potentially relevant catalog domains")
+    adopt.add_argument("--project-path", type=Path, default=Path.cwd(), help="project to scan (default: current directory)")
+
+    init = commands.add_parser("init", help="scaffold starter documents in an existing project")
+    init.add_argument("--name", required=True, help="project name")
+    init.add_argument(
+        "--type", default="generic", choices=["generic", "web-api", "cli", "library", "ai-agent"],
+        help="project type recorded in scaffold prompts (default: generic)",
+    )
+    init.add_argument("--output", type=Path, default=Path.cwd(), help="existing project directory (default: current directory)")
+    return parser
+
+
+def _absolute_directory(parser: argparse.ArgumentParser, value: Path, option: str) -> Path:
+    directory = value.expanduser().resolve()
+    if not directory.is_dir():
+        parser.error(f"{option} must be an existing directory: {directory}")
+    return directory
+
+
+def _absolute_file(value: Path) -> Path:
+    return value.expanduser().resolve()
+
+
+def _run_script(script: Path, arguments: Sequence[str]) -> int:
+    """Execute an existing script with the same interpreter and preserve its exit code."""
+    try:
+        return subprocess.run(
+            [sys.executable, str(script), *arguments],
+            check=False,
+        ).returncode
+    except OSError as error:
+        print(f"AutoDOC could not start {script.name}: {error}", file=sys.stderr)
+        return 2
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        tool_root = runtime_root()
+    except RuntimeError as error:
+        print(f"AutoDOC error: {error}", file=sys.stderr)
+        return 2
+
+    if args.command == "check":
+        project = _absolute_directory(parser, args.repo, "--repo")
+        command = ["--repo", str(project)]
+        for option in ("config", "baseline", "output"):
+            value = getattr(args, option)
+            if value is not None:
+                command.extend(("--" + option, str(_absolute_file(value))))
+        for option in ("write_baseline", "fail_on_stale", "json"):
+            if getattr(args, option):
+                command.append("--" + option.replace("_", "-"))
+        return _run_script(tool_root / "scripts/intelligence/enforce.py", command)
+
+    if args.command == "generate":
+        project = _absolute_directory(parser, args.root, "--root")
+        command = ["generate", "--root", str(project)]
+        if args.check:
+            command.append("--check")
+        if args.only:
+            command.extend(("--only", args.only))
+        return _run_script(tool_root / "scripts/doc-sync/engine.py", command)
+
+    if args.command == "adopt":
+        project = _absolute_directory(parser, args.project_path, "--project-path")
+        return _run_script(tool_root / "scripts/adopt.py", ["--project-path", str(project)])
+
+    if args.command == "init":
+        project = _absolute_directory(parser, args.output, "--output")
+        return _run_script(
+            tool_root / "scripts/init-project.py",
+            ["--name", args.name, "--type", args.type, "--output", str(project)],
+        )
+
+    parser.error(f"unknown command: {args.command}")
+    return 2

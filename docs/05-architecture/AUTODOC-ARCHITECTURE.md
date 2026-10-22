@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-21
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # AutoDOC architecture
@@ -25,6 +25,16 @@ auto_generated: false
 AutoDOC is a dependency-free Python documentation control system for this repository and
 a task API and two educational local tool-authorization examples. It indexes possible documents, generates a bounded set of factual
 references and checks source-to-document impact. It does **not** execute controls listed in a catalog.
+
+The installable distribution adds the `autodoc` console entry point over the existing scripts. The
+wheel contains the Python package plus only the runtime scripts, catalog indices and context
+metadata under the Python data directory (`share/autodoc`); it does not copy the full repository
+or its development state. At runtime, the CLI locates that **tool root** separately from the target
+project: `autodoc check --repo PATH` delegates to the existing enforcement policy, and
+`autodoc generate --root PATH` reads that project's sync map. `init` and `adopt` likewise receive
+an explicit existing project directory. This boundary is exercised by a clean-venv install test
+outside the checkout. Runtime dependencies remain empty. The release workflow builds wheel and
+sdist artifacts only; PyPI publication and GitHub Release creation are not configured.
 
 ## Details and decisions
 
@@ -219,6 +229,7 @@ is not a guarantee, and a change that widens one of them is an architecture chan
 
 | Module | Promise to callers | Explicitly not promised |
 | --- | --- | --- |
+| `autodoc/cli.py` + `share/autodoc/` runtime files | Console entry point over the existing repository scripts; resolves bundled tool assets separately from `--repo`/`--root`; standard-library runtime | PyPI availability, automatic target-project configuration, semantic validation, or a hosted service |
 | `engine/`, `engine/extractors/` | Deterministic parsing of the documented source subsets (routes JSON, config JSON/schema, simple SQLite DDL, alert YAML subset, PEP 621 manifests, Python AST, ATX headings); no network, no writes; an unsupported construct fails loudly instead of being skipped | Validating your SQL beyond the documented subset; understanding prose; resolving transitive dependencies |
 | `scripts/doc-sync/` (`engine.py`, `generate-all.py`, `check-doc-drift.py`, `languages.py`, `update-doc-state.py`) | For every entry in `docs/.doc-sync-map.yaml`: regenerate the target from its sources in memory and fail when the committed target differs; every generator is labeled `exact` or `heuristic`; state blocks update only between their auto markers | Semantic accuracy of generated text (it restates its sources exactly); reading files the map does not name |
 | `scripts/doc-control/` (validators, catalog build/check, guards, health, evidence, release snapshot) | One specific class of finding each (catalog consistency, links, stubs including migration section prompts, placeholders, key markers, health, hashes), a documented exit code, and no writes unless a `--write`/`--output` flag says so | Proving content is true or adequate; certifying compliance; signing evidence (hashes only) |
@@ -231,8 +242,9 @@ rule** — nothing is deleted or renumbered that another document may reference;
 is marked, not removed.
 
 ## Verification and references
-Run `make ci` (or `python -m unittest discover -s tests -v` offline), `python scripts/doc-sync/check-doc-drift.py`,
-`python scripts/doc-control/library.py --check`, and the metadata, ownership and freshness checks.
+Run `make ci` (including the isolated wheel/sdist build and CLI smoke check),
+`python scripts/doc-sync/check-doc-drift.py`, `python scripts/doc-control/library.py --check`,
+and the metadata, ownership and freshness checks.
 The actual workflow names and fingerprints are in `docs/generated/WORKFLOW-REFERENCE.md`, and the
 event model with the required check is in `docs/generated/TRIGGER-REFERENCE.md` (verify it with
 `python scripts/intelligence/triggers.py --check`).
