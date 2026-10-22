@@ -87,6 +87,15 @@ def test_forward_promotion_to_a_warn_phase_writes_cleanly(tmp_path):
     assert tomllib.loads(path.read_text(encoding="utf-8"))["phase"] == "build"
 
 
+def test_preview_does_not_claim_no_enforcement_change_when_the_mode_changes(tmp_path):
+    text = 'schema = 1\nphase = "build"\nphase_declared = "2026-01-01"\n'
+    code, result, path = run(tmp_path, target="beta", text=text)
+
+    assert code == 0
+    assert "no catalog requirement or enforcement changes" not in promote_module.render(result)
+    assert "Delta: no catalog requirement changes." in promote_module.render(result)
+
+
 def test_same_phase_is_a_noop(tmp_path):
     code, result, path = run(tmp_path, target="build")
 

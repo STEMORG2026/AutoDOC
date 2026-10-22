@@ -42,6 +42,31 @@ def project_instance_id(root: Path, doc: dict) -> str:
     return f"INST-{slug}-{doc['id']}"
 
 
+FRONTMATTER_ID = re.compile(r'^id:\s*["\']?([^"\'\s]+)', re.MULTILINE)
+
+
+def existing_instances(root: Path) -> dict[str, Path]:
+    """Map instance IDs already declared under docs/ to their files."""
+    found = {}
+    docs = root / 'docs'
+    if not docs.is_dir():
+        return found
+    for path in docs.rglob('*.md'):
+        try:
+            text = path.read_text(encoding='utf-8')
+        except (OSError, UnicodeDecodeError):
+            continue
+        if not text.startswith('---'):
+            continue
+        end = text.find('\n---', 3)
+        if end == -1:
+            continue
+        match = FRONTMATTER_ID.search(text[:end])
+        if match:
+            found.setdefault(match.group(1), path)
+    return found
+
+
 def default_target(root: Path, doc: dict) -> Path:
     return root / "docs" / "autodoc" / library.destination(doc)
 
@@ -74,11 +99,17 @@ def add(
         raise ValueError(f"variant must be one of {', '.join(library.VARIANTS)}")
     doc = find_document(document_id)
     target = resolve_target(root, doc, output)
+    instance = instance_id or project_instance_id(root, doc)
+    existing = existing_instances(root).get(instance)
+    if existing and existing.resolve() != target:
+        raise ValueError(
+            f"instance id {instance} is already used by "
+            f"{existing.relative_to(root).as_posix()}; choose --instance for a distinct id")
     exists = target.exists()
     if exists and not force:
         raise FileExistsError(f"refusing to overwrite existing document: {target}")
     content = library.render_instance(
-        doc, variant, instance_id=instance_id or project_instance_id(root, doc), today=today)
+        doc, variant, instance_id=instance, today=today)
     result = {
         "command": "add",
         "repo": str(root),

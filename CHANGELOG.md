@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Fixed the installed-wheel `autodoc check` path boundary: `[instantiated]` and
+  `[satisfied_by]` locations now resolve against the selected `--repo`, not the bundled tool
+  root, and the check still reports genuinely missing destinations.
+- Made `autodoc add` reject an instance ID already declared by another document and point at
+  `--instance` for a distinct ID.
+- Corrected the `autodoc promote` preview so it no longer says there are no enforcement changes
+  when the phase changes the enforcement mode without adding a requirement.
+- Dogfooded the installed wheel against AutoDOC, `Universal_Software_Auditor`,
+  `ai_infrastructure`, `requests`, Flask and Express; the packaged-root defect was found by that
+  run.
 - Added `autodoc add <catalog-id>`: previews or writes one catalog-derived document with a
   project-qualified instance ID and creation date, refuses silent overwrites, and keeps the
   destination inside the selected project.

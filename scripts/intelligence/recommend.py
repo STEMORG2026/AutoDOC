@@ -402,14 +402,19 @@ def because(item, enforcement):
     return f'phase={phase}' + (f' and {tokens}' if tokens else '')
 
 
-def findings(documents, context, groups, enforcement=None):
+def findings(documents, context, groups, enforcement=None, root=None):
     """Return one structured finding per problem: rule, severity, location, reason, fix, cause.
 
     Config findings and requirement findings are both here, distinguished by `kind`, because a
     broken autodoc.toml is a usage error (exit 2) while a missing document is a real finding
     (exit 1). Neither this function nor its callers decide exit codes; the enforcement layer does.
+
+    Paths in `[instantiated]` and `[satisfied_by]` are relative to the project being checked, not
+    the installed tool. `root` lets a caller name that project; the default keeps direct callers
+    (and this repository's own tests) working.
     """
     enforcement = enforcement or context_module.enforcement(context['phase'])
+    base = Path(root) if root else ROOT
     ids = {document['id'] for document in documents}
     out = []
 
@@ -425,7 +430,7 @@ def findings(documents, context, groups, enforcement=None):
                 config(section, f'unknown catalog id {doc_id}',
                        'remove it, or use an id from CATALOG-A/B')
     for doc_id, path in context['instantiated'].items():
-        if doc_id in ids and not (ROOT / path).is_file():
+        if doc_id in ids and not (base / path).is_file():
             config('instantiated', f'{doc_id} points at a missing path {path}',
                    'point it at the document that exists')
     for doc_id, entry in context['not_applicable'].items():
@@ -440,7 +445,7 @@ def findings(documents, context, groups, enforcement=None):
         for location in locations:
             if location.startswith(('http://', 'https://')):
                 continue  # offline: a declared URL is recorded, never fetched or asserted live
-            if not (ROOT / location).is_file():
+            if not (base / location).is_file():
                 config('satisfied_by', f'{doc_id} location does not exist: {location}',
                        'fix the path, or declare the URL instead')
     for item in groups['acknowledged']:
