@@ -78,13 +78,16 @@ See `state/plans/agent-PRD1-production-readiness.md`.
   living-state co-change gate; reconciled `CURRENT-STATE.md`, `NEXT-ACTION.md`,
   `RECENT-CHANGES.md`, `state/**` and the architecture note.
 - `2026-10-22T13:28Z` [CHECKS] PR #19 checks pass: required `AutoDOC guard / check`, `impact`, and
-  Python compatibility 3.11–3.15. Owner review and merge remain pending.
+  Python compatibility 3.11–3.15.
+- `2026-10-22T13:44Z` [MERGE] Owner merged PR #19 at `06ccb0a`; local `master` was fast-forwarded
+  to the merge commit. Post-merge `make ci` passes at 304 tests + 190 subtests; master guard and
+  generation-preview runs are green. Merging did not close this session.
 
 ## Outcome
 
-**PARTIAL — PR #18 merged at `1361ba2`; installed-wheel dogfood fix committed as `deec574` and
-open as PR #19 with all checks passing; owner review and merge pending.** The session is not closed: local rule 8 reserves
-`COMPLETED`/`CLOSED` for the owner's word.
+**PAUSED — PR #18 merged at `1361ba2`; installed-wheel dogfood fix merged in PR #19 at `06ccb0a`;
+post-merge `make ci` passes. Owner closure, the `0.3.0`/Beta verdict and release remain pending.**
+The session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner's word.
 
 ### Accomplished
 
@@ -101,15 +104,15 @@ open as PR #19 with all checks passing; owner review and merge pending.** The se
   changelog and generated metadata are updated. PR #18 merged at `1361ba2`.
 - Installed-wheel dogfood covered AutoDOC, `Universal_Software_Auditor`, `ai_infrastructure`,
   `requests`, Flask and Express; the packaged-root defect was fixed, duplicate instance IDs are
-  refused, and the promote wording is correct. PR #19 is open.
+  refused, and the promote wording is correct. PR #19 merged at `06ccb0a`.
 - Full suite: 304 passed, 190 subtests passed. Package smoke: wheel/sdist build, sdist rebuild and
   clean-wheel exercise of all seven commands passed; unsigned evidence hashes verified.
 
 ### Not accomplished
 
-- PR #19 is open; merge and the owner verdict remain pending.
-- PyPI publication, merging without owner authorization, session closure and an owner verdict on
-  the version/classifier proposal remain out of scope.
+- Owner closure, the `0.3.0`/Beta verdict and release remain pending.
+- PyPI publication, session closure and an owner verdict on the version/classifier proposal remain
+  out of scope.
 - D-009's external-dogfood evidence has not been formally accepted/recorded by the owner.
 - No new ADR: the commands implement already-declared behaviour (phase change is an explicit event;
   context is declared), so no design decision was made on the owner's behalf.
@@ -153,7 +156,8 @@ open as PR #19 with all checks passing; owner review and merge pending.** The se
 
 ### Next steps
 
-1. Review PR #18 after GitHub checks finish.
-2. Owner decides whether to keep `0.3.0` / Beta and whether to merge; do not merge without explicit
-   authorization.
+1. Owner decides whether to keep `0.3.0` / Beta and whether to release; no release or PyPI
+   publication is authorized.
+2. Record formal acceptance of the D-009 dogfood evidence if the owner chooses to close it; keep
+   D-007 and D-010 separate.
 3. If the owner requests follow-up changes, keep this session paused rather than opening a new one.

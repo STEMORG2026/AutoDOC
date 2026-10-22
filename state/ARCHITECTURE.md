@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-22 (PR #15 merged at `990113b`; D-004/D-002 from PR #14 are on `master`; D-003 implementation, CI, pre-commit and staged impact pass on `arena/912c4060-autodoc`, pending commit/PR handoff; 894B/C4R7/B71a/627F remain paused unless explicitly closed)
+**Last reconciled:** 2026-10-22 (PR #18 merged production-readiness commands at `1361ba2`; PR #19 merged installed-wheel dogfood fixes at `06ccb0a`; post-merge `make ci` and master checks pass; PRD1/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -40,13 +40,14 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 - **Scale:** The pre-migration snapshot on 2026-10-21 had 1039 tracked files (65 `.py`, 384 `.md`) including the 795 template variants. After the D-003 working-tree migration on 2026-10-22, the source tree contains 271 files (73 `.py`, 129 `.md`); 70 controlled Markdown documents (24 generated, 46 human-owned; 28 mapped generated targets in total, four non-Markdown); and 265 catalog types with 795 renderable outputs, none checked in. Counts exclude ignored `build/` outputs.
 - **Demo surface:** SQLite (`EXAMPLE-PROJECT/db/schema.sql`, single `tasks` table, no migrations) and a stdlib threaded HTTP server with three routes (`GET/POST /tasks`, `GET /health`), **no auth**, 1–4096-byte body cap, JSON 400/404 errors.
 - **Readers:** Python declarations via AST (exact, in-process) and Go references via `go doc -all .`; `master` now includes JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON via `cargo rustdoc`. These external references run on demand, validate tool output, and report missing tools as L0 in that run. Node v22.22.3 is present locally; JSDoc, TypeDoc, Cargo, rustc and rustdoc are absent, so the integrations are validated with fake-tool tests here.
-- **Gates:** the post-merge tree passed local `make ci` on Python 3.11 (280 tests + 190 subtests). The D-003 worktree also passes `make ci` (288 tests + 190 subtests), including catalog checks, guards, drift, staged-impact check, wheel/sdist package smoke and evidence hashing; hashes are not signatures. PR #13 merged at `a704752`; PR #14 merged at `7a0fd47` and PR #15 at `990113b` after their required checks and declared Python 3.11–3.15 matrices passed. The supplemental matrix remains non-blocking. Nightly freshness is warn-only.
+- **Gates:** post-merge `master` at `06ccb0a` passes local `make ci` with 304 tests + 190 subtests, including catalog checks, guards, drift, staged-impact check, wheel/sdist package smoke and evidence hashing; hashes are not signatures. PR #18 merged at `1361ba2` and PR #19 at `06ccb0a` after their required checks and declared Python 3.11–3.15 matrices passed; master guard and generation-preview runs are green. The supplemental matrix remains non-blocking. Nightly freshness is warn-only.
 - **Known-issue markers:** none inline (0 TODO/FIXME/XXX/HACK); the known surface is `LIMITATIONS.md` and `ENGINE-COVERAGE.md`.
 
 ## Change log
 
 | Date | Change |
 | --- | --- |
+| 2026-10-22 | PR #18 merged `autodoc add`, guarded `autodoc promote` and `init --phase/--profile` at `1361ba2`. Installed-wheel dogfood then found target-root path resolution, duplicate instance-ID and promote-wording defects; PR #19 merged the fixes at `06ccb0a`, and post-merge `make ci` plus master CI passed. No release or session closure was authorized. |
 | 2026-10-22 | Owner selected D-004 followed by D-002 after PR #13 merged at `a704752`; the audience rule and JSDoc/TypeDoc/nightly Rustdoc JSON readers merged to `master` in PR #14 at `7a0fd47`; post-merge local CI passed. No PyPI publication or session closure was authorized. |
 | 2026-10-22 | C4R7 added the installable `autodoc` CLI, isolated wheel/sdist packaging and smoke tests, separate tool/project roots, version metadata and temporary tag-run distribution artifacts; PR #12 merged at `08229a0`. PyPI publishing remains unauthorized/unconfigured; C4R7 and B71a remain paused until explicit owner closure. |
 | 2026-10-01 | Decision 3 closed the open core decisions: new `docs/00-governance/PROJECT-CHARTER.md`, `docs/adr/` (first ADR), `SECURITY.md`, `CODE_OF_CONDUCT.md`; module contracts, test strategy, dependency setup and dependency policy now have named homes (`autodoc.toml` declarations); readiness 15/16 at commit `1a65f5d`. |

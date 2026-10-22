@@ -1,17 +1,16 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T13:28Z · **Reconciled by:** PRD1 (session `20261022-1145-PRD1`,
-installed-wheel dogfood and PR #18 merge) · **Base tip:** `1361ba2` on `master` (PR #18 merged
-PRD1's production-readiness commands); the installed-wheel dogfood found a packaged-root defect,
-fixed on `fix/dogfood-packaged-root` at `deec574`; PR #19 is open for review. Local `master`
-remains `a28616b` and is behind `origin/master`.
+**Last reconciled:** 2026-10-22T13:50Z · **Reconciled by:** PRD1 (session `20261022-1145-PRD1`,
+post-merge reconciliation) · **Base tip:** `06ccb0a` on `master` (PR #19 merged the installed-wheel
+dogfood fixes); local `master` is synced. PRD1 remains paused pending explicit owner closure;
+release decisions remain owner-only.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `1361ba2` (PR #18 merged PRD1's `add`/`promote`/`init` work); follow-up fixes on `fix/dogfood-packaged-root` at `deec574`, PR #19 open; local `master` remains `a28616b` and is behind |
+| Branch | `master` at `06ccb0a` (PR #19 merged the dogfood fixes on top of PR #18); local `master` is synced; no active implementation branch until the owner directs |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -19,20 +18,20 @@ remains `a28616b` and is behind `origin/master`.
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
 | Stack | Python 3.11–3.15 declared, **zero runtime dependencies**; build/pytest/pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
 | Docs | 70 controlled Markdown documents (24 generated, 46 human-owned); 28 mapped generated targets in total (four non-Markdown); 265 catalog types can render all 795 variants on demand, none checked in. PRD1 adds single-document instantiation and guarded phase promotion. |
-| Tests | Follow-up branch `make ci` passes on Python 3.14.8: 304 tests + 190 subtests, wheel/sdist build + clean-install smoke (`check/generate/adopt/init/add/promote/templates`), and unsigned evidence hashes verified (not signatures). PR #19 checks pass (guard, impact, Python 3.11–3.15); its first run failed only because these living-state files had not yet been reconciled. |
+| Tests | Post-merge `master` `make ci` passes on Python 3.14.8: 304 tests + 190 subtests, wheel/sdist build + clean-install smoke (`check/generate/adopt/init/add/promote/templates`), and unsigned evidence hashes verified (not signatures). PR #19 checks passed before merge; master guard and generation-preview runs are green. |
 | CI | 5 workflows; required check `AutoDOC guard / check` remains in GitHub ruleset `main` (P-007-A, strict); supplemental Python 3.11–3.15 matrix is non-blocking; nightly freshness warn-only; tag workflow builds snapshot + wheel/sdist artifacts, no PyPI publish |
 
 ## Active agents
 
-`PRD1` — session `20261022-1145-PRD1` (**PAUSED — PR #18 merged; dogfood follow-up PR #19 open**):
+`PRD1` — session `20261022-1145-PRD1` (**PAUSED — merged; awaiting explicit owner closure**):
 implemented `autodoc promote` (preview/apply phase deltas, guarded write, force-only
 demotion/backdate), `autodoc add` (one catalog document, root-bounded, preview by default) and
 `init --phase/--profile`. PR #18 merged by the owner at `1361ba2`. Installed-wheel dogfood then
 found that packaged `check` resolved `[instantiated]`/`[satisfied_by]` paths against the bundled
 tool root instead of `--repo`; the follow-up also rejects duplicate instance IDs and corrects the
-`promote` empty-delta wording. The fix branch has local `make ci` green at 304 tests + 190
-subtests; PR #19 is open with all checks passing. The `0.3.0` / Beta proposal and PR #19 merge
-still need owner sign-off.
+`promote` empty-delta wording. PR #19 merged at `06ccb0a`; post-merge `make ci` passes at 304 tests
++ 190 subtests. The `0.3.0` / Beta proposal and release decision remain owner-only. Merging did not
+close the session.
 
 `912C` — session `20261022-1011-912C` (**PAUSED — merged; awaiting explicit owner closure**):
 D-003's on-demand catalog-template rendering merged in PR #16 at `a28616b`. The implementation kept
@@ -64,14 +63,13 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 
 **Current follow-up (2026-10-22).** PR #13 merged at `a704752`; PR #14 placed D-004/D-002 on
 `master` at `7a0fd47`; PR #15's reconciliation merged at `990113b`; D-003 merged in PR #16 at
-`a28616b`; PR #18 merged PRD1's production-readiness commands at `1361ba2`. Installed-wheel
-dogfood found a packaged-root path defect and tested AutoDOC, `Universal_Software_Auditor`,
-`ai_infrastructure`, `requests`, Flask and Express. The fixes are committed as `deec574` on
-`fix/dogfood-packaged-root`; PR #19 is open with all checks passing. The owner still needs to
-review PR #19, decide
-whether to keep `0.3.0` / Beta, and decide on release. 894B/627F/C4R7/B71a remain paused; 912C is
-merged but not explicitly closed. D-007 and PyPI publishing remain unauthorized; D-009's external
-dogfood was executed but its formal acceptance/record remains open.
+`a28616b`; PR #18 merged PRD1's production-readiness commands at `1361ba2`; PR #19 merged the
+installed-wheel dogfood fixes at `06ccb0a`. Dogfood covered AutoDOC, `Universal_Software_Auditor`,
+`ai_infrastructure`, `requests`, Flask and Express; post-merge `make ci` passes at 304 tests + 190
+subtests and master's guard/generation-preview runs are green. The owner still needs to decide
+whether to keep `0.3.0` / Beta and whether to release. 894B/627F/C4R7/B71a remain paused; 912C and
+PRD1 are merged but not explicitly closed. D-007 and PyPI publishing remain unauthorized; D-009's
+external dogfood was executed but its formal acceptance/record remains open.
 
 1. **D-001 fixed (2026-10-21).** The catalog counts are no longer remembered: eleven prose claims
    were corrected and `tests/test_catalog_counts.py` derives `265 / 209 / 56 / 24 / 49 / 192` from
@@ -110,7 +108,8 @@ dogfood was executed but its formal acceptance/record remains open.
 
 | Date | Work | Commits |
 | --- | --- | --- |
-| 2026-10-22 | **PRD1 production-readiness commands merged:** `autodoc add`, guarded `autodoc promote`, `init --phase/--profile`; post-merge installed-wheel dogfood found and fixed the packaged-root path defect, with duplicate-instance and wording guards, in PR #19 (open) | PR #18 → `1361ba2` |
+| 2026-10-22 | **PRD1 production-readiness commands merged:** `autodoc add`, guarded `autodoc promote`, `init --phase/--profile` | PR #18 → `1361ba2` |
+| 2026-10-22 | **Installed-wheel dogfood fixes merged:** target-root path resolution for `[instantiated]`/`[satisfied_by]`, duplicate instance-ID refusal and corrected promote wording; 304 tests + 190 subtests; release still owner-gated | PR #19 → `06ccb0a` |
 | 2026-10-22 | **D-003 on-demand catalog templates merged:** 265 types render canonical/blank/example variants into ignored `build/TEMPLATES`; 795 tracked variants removed after byte-match; no session closure or PyPI publication | PR #16 → `a28616b` |
 | 2026-10-22 | **D-004 audience applicability and D-002 language readers merged:** owner-confirmed `reader` semantics; JSDoc, TypeDoc and nightly Rustdoc readers; no session closure or PyPI publication | PR #14 → `7a0fd47` |
 | 2026-10-22 | **Post-merge state reconciliation merged:** package readiness reflected after PR #12; C4R7/B71a preserved as paused; no PyPI publication | PR #13 → `a704752` |
@@ -134,18 +133,15 @@ dogfood was executed but its formal acceptance/record remains open.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **PR #19 review:** the installed-wheel dogfood fix is committed as `deec574`; PR #19 is open
-   with all checks passing. It covers target-root path resolution, duplicate instance IDs, promote
-   wording, tests and regenerated inventories. Do not merge without explicit owner authorization.
-2. **Owner verdict:** decide whether to keep the proposed `0.3.0` / Beta version-classifier change.
-   No release or PyPI publication is proposed.
-3. **Deferred scope:** D-007 remains unselected; D-009's external dogfood was executed but its
-   formal acceptance/record remains open. D-003 is merged. Do not infer a new feature or merge a
-   follow-up PR without owner authorization.
-4. **Session closure and release boundaries:** PRD1 awaits PR #19 review; 912C, 894B, 627F, C4R7
-   and B71a remain paused/awaiting explicit owner closure. Package workflows build artifacts only;
-   PyPI/trusted publishing needs a separate owner decision. D-010 vulnerability scanning remains
-   low/open; promotion to `beta` remains a deliberate event with cliff 2.
+1. **Owner release decision:** decide whether to keep the proposed `0.3.0` / Beta
+   version-classifier change and whether to release. No release or PyPI publication is proposed.
+2. **Deferred scope:** D-007 remains unselected; D-009's external dogfood was executed but its
+   formal acceptance/record remains open. D-010 vulnerability scanning remains low/open. No
+   implementation work is pending for the merged production-readiness scope.
+3. **Session closure and release boundaries:** PRD1 and 912C are merged but not closed; 894B, 627F,
+   C4R7 and B71a remain paused/awaiting explicit owner closure. Only the owner closes sessions.
+   Package workflows build artifacts only; PyPI/trusted publishing needs a separate owner decision;
+   promotion to `beta` remains a deliberate event with cliff 2.
 
 This dashboard summarizes; it never overrides `NEXT-ACTION.md` or an owner instruction. Sessions
 are closed only by the owner.

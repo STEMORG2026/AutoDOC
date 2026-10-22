@@ -27,8 +27,8 @@ auto_generated: false
   project rather than the bundled tool root. The same branch rejects duplicate instance IDs in
   `add`, corrects the `promote` empty-delta wording, and adds regression tests. Local `make ci`
   passes (304 tests + 190 subtests, package smoke, unsigned evidence hashes verified); commit
-  `deec574` is open as PR #19 with all checks passing. No release, PyPI publication, version decision or session closure is
-  included.
+  `deec574` merged in PR #19 at `06ccb0a`, and post-merge `make ci` passes. No release, PyPI
+  publication, version decision or session closure is included.
 - Added the production-readiness commands after D-003 merged in PR #16 (`a28616b`): `autodoc add`
   previews or writes one catalog document with a project-qualified instance ID and current dates;
   `autodoc promote` previews the target phase's requirement/enforcement delta and writes only the
