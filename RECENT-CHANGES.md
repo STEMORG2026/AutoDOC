@@ -27,7 +27,7 @@ auto_generated: false
   project rather than the bundled tool root. The same branch rejects duplicate instance IDs in
   `add`, corrects the `promote` empty-delta wording, and adds regression tests. Local `make ci`
   passes (304 tests + 190 subtests, package smoke, unsigned evidence hashes verified); commit
-  `deec574` is open as PR #19. No release, PyPI publication, version decision or session closure is
+  `deec574` is open as PR #19 with all checks passing. No release, PyPI publication, version decision or session closure is
   included.
 - Added the production-readiness commands after D-003 merged in PR #16 (`a28616b`): `autodoc add`
   previews or writes one catalog document with a project-qualified instance ID and current dates;
@@ -55,6 +55,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 1a584d7 2026-10-22 docs(state): reconcile PR 18 merge and PR 19 dogfood
 - deec574 2026-10-22 fix: resolve packaged check paths and dogfood guards
 - adee921 2026-10-22 docs(state): record PR 18 checks passing
 - 67180ea 2026-10-22 docs(state): record PR 18 review handoff
@@ -74,12 +75,9 @@ auto_generated: false
 - bd44be4 2026-10-22 docs(state): reconcile PR #12 merge
 - 08229a0 2026-10-22 Merge pull request #12 from STEMORG2026/arena/072fcb8c-autodoc
 - aa375ca 2026-10-22 docs(state): refresh package readiness status
-- 3cc89b2 2026-10-22 docs(state): reconcile C4R7 package readiness
 
 ## Changed paths at update time
 
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
-- `docs/META/OUTLINE.md`
 - `state/BLOCKERS.md`
 - `state/DASHBOARD.md`
 - `state/INDEX.md`

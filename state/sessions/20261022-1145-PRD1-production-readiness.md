@@ -77,11 +77,13 @@ See `state/plans/agent-PRD1-production-readiness.md`.
 - `2026-10-22T13:20Z` [CHECKS] PR #19's first guard/impact run failed only on the expected
   living-state co-change gate; reconciled `CURRENT-STATE.md`, `NEXT-ACTION.md`,
   `RECENT-CHANGES.md`, `state/**` and the architecture note.
+- `2026-10-22T13:28Z` [CHECKS] PR #19 checks pass: required `AutoDOC guard / check`, `impact`, and
+  Python compatibility 3.11–3.15. Owner review and merge remain pending.
 
 ## Outcome
 
 **PARTIAL — PR #18 merged at `1361ba2`; installed-wheel dogfood fix committed as `deec574` and
-open as PR #19; owner review and merge pending.** The session is not closed: local rule 8 reserves
+open as PR #19 with all checks passing; owner review and merge pending.** The session is not closed: local rule 8 reserves
 `COMPLETED`/`CLOSED` for the owner's word.
 
 ### Accomplished

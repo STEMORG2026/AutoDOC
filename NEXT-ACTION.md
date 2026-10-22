@@ -29,13 +29,13 @@ instantiates one document with a project-qualified ID and current dates; `autodo
 unresolved; `autodoc init --phase/--profile` records an initial declaration. Post-merge
 installed-wheel dogfood found that packaged `check --repo` resolved `[instantiated]` and
 `[satisfied_by]` paths against the bundled tool root rather than the target project. The fixes are
-committed as `deec574` on `fix/dogfood-packaged-root` and open as PR #19; local `make ci` passes
+committed as `deec574` on `fix/dogfood-packaged-root`; PR #19 is open with all checks passing; local `make ci` passes
 (304 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands, unsigned
 evidence hashes verified).
 
 PR #19 also rejects duplicate instance IDs in `add` and corrects the `promote` empty-delta
 wording. Its first guard/impact run failed only because the living-state files had not yet been
-reconciled; this update addresses that. The change proposes `0.3.0` and the Beta classifier but
+reconciled; that is fixed and all checks now pass. The change proposes `0.3.0` and the Beta classifier but
 records no owner approval. D-007 remains unselected; D-009's external dogfood was executed but its
 formal acceptance/record remains open. Do not publish to PyPI or close any paused session by
 inference. Promotion to `beta` remains a deliberate event with the same two-row cliff (License
@@ -43,7 +43,7 @@ inference. Promotion to `beta` remains a deliberate event with the same two-row 
 
 D-007 (evidence signing) remains deferred and non-gating. D-009 (external dogfood) was executed
 against the installed wheel and five additional repositories; its formal owner acceptance/record
-remains open. D-010 vulnerability scanning remains open/low. PRD1 awaits PR #19 review; 912C
+remains open. D-010 vulnerability scanning remains open/low. PRD1 awaits PR #19 review and merge; 912C
 remains paused after PR #16;
 C4R7 remains paused after PR #12; B71a remains paused after PR #11; 627F remains paused after
 PR #13; 894B remains paused after PR #14. Merging did not explicitly close those sessions. The
