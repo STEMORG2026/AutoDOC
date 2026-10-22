@@ -21,6 +21,14 @@ auto_generated: false
 ---
 # Recent changes
 
+- Dogfooded the installed `0.3.0` wheel against AutoDOC, `Universal_Software_Auditor`,
+  `ai_infrastructure`, `requests`, Flask and Express. The packaged `check --repo` path bug was
+  reproduced and fixed: `[instantiated]`/`[satisfied_by]` paths now resolve against the target
+  project rather than the bundled tool root. The same branch rejects duplicate instance IDs in
+  `add`, corrects the `promote` empty-delta wording, and adds regression tests. Local `make ci`
+  passes (304 tests + 190 subtests, package smoke, unsigned evidence hashes verified); commit
+  `deec574` is open as PR #19. No release, PyPI publication, version decision or session closure is
+  included.
 - Added the production-readiness commands after D-003 merged in PR #16 (`a28616b`): `autodoc add`
   previews or writes one catalog document with a project-qualified instance ID and current dates;
   `autodoc promote` previews the target phase's requirement/enforcement delta and writes only the
@@ -28,8 +36,8 @@ auto_generated: false
   unresolved; `autodoc init --phase/--profile` records an explicit initial declaration. Runtime
   packaging, installed-package smoke, usage/governance/architecture/exit-code docs, generated
   metadata and changelog are updated. Local `make ci` passed (301 tests + 190 subtests, package
-  smoke, evidence hashes verified—not signatures); the review PR remains. The `0.3.0`/Beta version
-  proposal needs owner sign-off.
+  smoke, evidence hashes verified—not signatures); PR #18 merged at `1361ba2`. The `0.3.0`/Beta
+  version proposal still needs owner sign-off.
 - After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47`. Post-merge local `make ci` passed (280 tests, 190 subtests). PR #15 state reconciliation merged at `990113b` after explicit owner authorization; its required guard/check and Python 3.11–3.15 matrix passed, with the impact step inside the guard job. The owner then selected D-003: the 265 catalog types now render canonical, blank and synthetic-example variants on demand into ignored `build/TEMPLATES` through Make and the installed CLI. All 795 old outputs matched byte-for-byte before removal; the two explanatory READMEs remain. Targeted tests passed (70 tests, 65 subtests); `make ci` passed (288 tests, 190 subtests, package smoke, evidence hashes verified—not signatures), and the Make rendering target produced all 265 blank variants in a temporary tree. `pre-commit run --all-files` and `make docs-staged-impact` passed; full `make ci` passed on the staged tree. Commit/push and the follow-up review PR remain. External tools are absent locally and covered with fake executables.
 - Merged PR #12 (`08229a0`): installable zero-runtime-dependency CLI, wheel/sdist assets, isolated project-root commands, package smoke tests, and passing Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
 - Added structural validation for canonical migration-document sections and prompts; findings route
@@ -47,6 +55,8 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- deec574 2026-10-22 fix: resolve packaged check paths and dogfood guards
+- adee921 2026-10-22 docs(state): record PR 18 checks passing
 - 67180ea 2026-10-22 docs(state): record PR 18 review handoff
 - 6a76106 2026-10-22 feat: add document instantiation and guarded phase promotion
 - a28616b 2026-10-22 Merge pull request #16 from STEMORG2026/arena/912c4060-autodoc
@@ -65,11 +75,11 @@ auto_generated: false
 - 08229a0 2026-10-22 Merge pull request #12 from STEMORG2026/arena/072fcb8c-autodoc
 - aa375ca 2026-10-22 docs(state): refresh package readiness status
 - 3cc89b2 2026-10-22 docs(state): reconcile C4R7 package readiness
-- b8ba4c2 2026-10-21 test: verify installed CLI help and usage errors
-- 6af0c03 2026-10-21 feat: ship AutoDOC as an installable CLI
 
 ## Changed paths at update time
 
+- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
+- `docs/META/OUTLINE.md`
 - `state/BLOCKERS.md`
 - `state/DASHBOARD.md`
 - `state/INDEX.md`

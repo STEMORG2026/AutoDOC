@@ -226,10 +226,10 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
-- L2 line 41: Details and decisions
-- L2 line 237: Module contracts
-- L2 line 256: Verification and references
-- L2 line 267: Phase 3 trust boundaries
+- L2 line 44: Details and decisions
+- L2 line 240: Module contracts
+- L2 line 259: Verification and references
+- L2 line 270: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 

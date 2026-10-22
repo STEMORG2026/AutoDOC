@@ -71,10 +71,13 @@ or external state is touched. Promote writes are local, atomic and validated bef
 - New tests pass; `make ci` exits 0 and the isolated wheel/sdist smoke exercises the new commands.
 - State and user docs describe the shipped behavior without claiming owner approval.
 
-## Status — 2026-10-22T12:27Z
+## Status — 2026-10-22T13:20Z
 
-Implementation and local verification are complete: 301 tests + 190 subtests pass, package smoke
-exercises all seven CLI commands, and `make ci` exits 0. Staged impact and pre-commit pass; commit
-`6a76106` is pushed and PR #18 is open for owner review; all GitHub checks pass. The plan remains
-active only for owner review/merge; the session is not closed. The `0.3.0` / Beta version-classifier change is a proposal
-awaiting owner sign-off, not a recorded decision.
+PR #18 merged at `1361ba2`. Installed-wheel dogfood then exercised AutoDOC and five additional
+repositories and found the packaged-root path defect. The follow-up fixes target-root resolution,
+duplicate instance IDs and promote wording; 304 tests + 190 subtests pass, package smoke exercises
+all seven CLI commands, and `make ci` exits 0. Commit `deec574` is pushed on
+`fix/dogfood-packaged-root` and open as PR #19; its first guard/impact run failed only on the
+living-state co-change gate, now reconciled. The plan remains active only for owner review/merge;
+the session is not closed. The `0.3.0` / Beta version-classifier change is a proposal awaiting
+owner sign-off, not a recorded decision.

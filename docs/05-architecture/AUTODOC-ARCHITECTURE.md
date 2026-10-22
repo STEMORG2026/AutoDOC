@@ -30,13 +30,16 @@ The installable distribution adds the `autodoc` console entry point over the exi
 wheel contains the Python package plus only the runtime scripts, catalog indices and context
 metadata under the Python data directory (`share/autodoc`); it does not copy the full repository
 or its development state. At runtime, the CLI locates that **tool root** separately from the target
-project: `autodoc check --repo PATH` delegates to the existing enforcement policy, and
-`autodoc generate --root PATH` reads that project's sync map. `init`, `adopt`, `add`, `promote`
-and `templates` likewise receive an explicit existing project directory. `init` can write an
-initial phase/profile declaration, `add` instantiates one catalog type, and `promote` previews the
-catalog delta before editing the top-level phase declarations. This boundary is exercised by a
-clean-venv install test outside the checkout. Runtime dependencies remain empty. The release workflow builds wheel and
-sdist artifacts only; PyPI publication and GitHub Release creation are not configured.
+project: `autodoc check --repo PATH` delegates to the existing enforcement policy and resolves
+the project's `[instantiated]`/`[satisfied_by]` paths against `PATH`, while the bundled tool root
+supplies catalog data only. `autodoc generate --root PATH` reads that project's sync map. `init`,
+`adopt`, `add`, `promote` and `templates` likewise receive an explicit existing project directory.
+`init` can write an initial phase/profile declaration; `add` instantiates one catalog type and
+rejects an instance ID already declared by another controlled document unless `--instance` names a
+distinct ID; and `promote` previews the catalog delta before editing the top-level phase
+declarations. This boundary is exercised by a clean-venv install test outside the checkout.
+Runtime dependencies remain empty. The release workflow builds wheel and sdist artifacts only;
+PyPI publication and GitHub Release creation are not configured.
 
 ## Details and decisions
 
@@ -227,9 +230,9 @@ Catalog records / mapped source files / Markdown metadata
 
 - **The resolver** (`scripts/intelligence/recommend.py`) joins profile, catalog and the recorded
   decisions in `autodoc.toml` — `[instantiated]`, `[satisfied_by]` (locations that count, local
-  paths verified and URLs recorded but never fetched) and `[not_applicable]` (a reason is
-  mandatory). A skip whose predicate is now true is reported as a **stale decision** and
-  re-surfaced. `--check` fails only what the declared phase says must fail, and `--explain`
+  paths verified against the selected target root and URLs recorded but never fetched) and
+  `[not_applicable]` (a reason is mandatory). A skip whose predicate is now true is reported as a
+  **stale decision** and re-surfaced. `--check` fails only what the declared phase says must fail, and `--explain`
   prints the derivation chain for one requirement. `assess` marks the 81 types with no detectable
   predicate, so they are never auto-recommended. The fact vocabulary is closed: `check_catalog.py`
   fails on a predicate token nothing can detect, and on a fact no catalog entry consumes.
