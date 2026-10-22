@@ -23,7 +23,7 @@ auto_generated: false
 
 AutoDOC has a working sync map, standard-library runtime, three authoritative catalog indices,
 265 catalog types, a task API demo and two local tool-policy demonstrations without an LLM or web calls.
-The owner-selected D-003 migration is implemented on `arena/912c4060-autodoc` after PR #15 merged:
+The owner-selected D-003 migration is implemented on `arena/d5317c9e-autodoc` after PR #15 merged:
 each catalog record remains the single source per type, and canonical, blank and synthetic-example
 variants render on demand into ignored `build/TEMPLATES/` through Make and the installed CLI. Before
 removal, all 795 generated outputs were compared byte-for-byte with the prior files; all matched.
@@ -70,7 +70,7 @@ on Python 3.11 (280 tests and 190 subtests); evidence hashes verify, not signatu
 remains paused; merging did not close it. PR #15's post-merge state reconciliation merged at
 `990113b` after the owner explicitly authorized it; its required guard and Python 3.11–3.15 matrix
 passed (the PR impact step ran within the guard check; no separate impact status was listed). The owner
-then selected D-003; implementation is in progress on `arena/912c4060-autodoc`.
+then selected D-003; implementation is complete on the assigned branch `arena/d5317c9e-autodoc`, pending push and review-PR handoff.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.

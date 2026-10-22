@@ -38,7 +38,8 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
-- ffb10fc 2026-10-22 docs(state): record owner-selected D-003 scope
+- 156ba8e 2026-10-22 feat: render catalog template variants on demand
+- 71ba468 2026-10-22 docs(state): record owner-selected D-003 scope
 - 990113b 2026-10-22 Merge pull request #15 from STEMORG2026/arena/912c4060-autodoc
 - a3bc86d 2026-10-22 docs(state): clarify PR15 impact check status
 - ed0a4d3 2026-10-22 docs(state): record PR15 review handoff
@@ -57,29 +58,14 @@ auto_generated: false
 - 52d1b79 2026-10-21 Merge pull request #11 from STEMORG2026/arena/48a62791-autodoc
 - 37c698a 2026-10-21 chore(state): reconcile migration validation PR
 - 0d51069 2026-10-21 feat: validate migration document prose structure
-- c4a9d43 2026-10-21 Merge pull request #10 from STEMORG2026/arena/44b2fb68-autodoc
 
 ## Changed paths at update time
 
-- `CATALOG-A/INDEX.yaml`
-- `CATALOG-B/INDEX.yaml`
-- `CHANGELOG.md`
-- `CONTRIBUTING.md`
-- `CONTROL/metadata/CATALOG-SCHEMA.json`
-- `CONTROL/policies/DOCUMENTATION-POLICY.md`
-- `IMPLEMENTATION-GUIDE.md`
-- `Makefile`
-- `QUICK-START.md`
-- `README.md`
-- `TEMPLATES/AGENT-CONTEXT/README.md`
-- `TEMPLATES/GENERATED/README.md`
-- `Taskfile.yaml`
-- `autodoc/cli.py`
-- `docs/.doc-sync-map.yaml`
-- `docs/00-governance/ADOPTION.md`
-- `docs/00-governance/ENGINE-COVERAGE.md`
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
-- `docs/META/CODE-INVENTORY.md`
-- `docs/META/COMPLETENESS-REPORT.md`
-- … and 22 more; use git diff --cached --name-only.
+- `state/ARCHITECTURE.md`
+- `state/DASHBOARD.md`
+- `state/DECISIONS.md`
+- `state/INDEX.md`
+- `state/REGISTRY.md`
+- `state/plans/agent-912C-pr14-post-merge-reconciliation.md`
+- `state/sessions/20261022-1011-912C-pr14-post-merge-reconciliation.md`
 <!-- auto:end -->

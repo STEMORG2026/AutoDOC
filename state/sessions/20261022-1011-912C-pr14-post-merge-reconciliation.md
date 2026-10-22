@@ -10,7 +10,7 @@ follow-up PR is authorized by that request.
 
 ## Coordination and decisions
 
-- Active branch: `arena/912c4060-autodoc`, clean at the PR #14 merge commit `7a0fd47`.
+- Current assigned branch: `arena/d5317c9e-autodoc`. The D-003 scope and implementation commits prepared earlier on `arena/912c4060-autodoc` were cherry-picked onto this assigned branch as `71ba468` and `156ba8e`; the resulting implementation tree is byte-for-byte the same as `7604cee`. Push and review-PR handoff remain pending.
 - Git history was shallow at startup; `git fetch --unshallow origin` succeeded before reading
   Git-derived living state. The local `.venv` is absent and will be recreated with `make setup`.
 - The earlier 894B session remains paused. PR #14 merging does not close it; this session will
@@ -87,8 +87,10 @@ See `state/plans/agent-912C-pr14-post-merge-reconciliation.md`.
 ## Handoff
 
 PR #15 is merged at `990113b`; this session is **IN PROGRESS** on owner-selected D-003, not closed.
-Implementation, full `make ci`, pre-commit and staged impact are complete on `arena/912c4060-autodoc`;
-795 prior variants matched byte-for-byte before removal, and rendering happens on demand from catalog
-records into ignored `build/TEMPLATES/`. Commit/push and opening the review PR remain. D-007, D-009,
+Implementation, full `make ci`, pre-commit and staged impact passed on the tree now at local
+`arena/d5317c9e-autodoc` (`156ba8e`; tree identical to `7604cee`), after the two selected-scope and
+implementation commits were cherry-picked from the earlier work branch. All 795 prior variants
+matched byte-for-byte before removal, and rendering happens on demand from catalog records into
+ignored `build/TEMPLATES/`. Push and opening the review PR from the assigned branch remain. D-007, D-009,
 PyPI publication and closure of other paused sessions remain unauthorized. Do not merge the D-003
 follow-up PR without explicit owner authorization.

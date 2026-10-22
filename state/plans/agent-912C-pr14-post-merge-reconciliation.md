@@ -4,8 +4,8 @@
 | --- | --- |
 | Objective | After reconciling PR #14/#15, implement the owner's D-003 selection: keep one catalog source record per type and render canonical, blank and synthetic-example variants on demand into ignored `build/TEMPLATES/`. |
 | Owner of the work | `912C` (session `20261022-1011-912C`) |
-| Branch | `arena/912c4060-autodoc`, based at PR #15 merge `990113b5c496b833af9e855cb6e3870d816c1cb4` |
-| Status | **IN PROGRESS — implementation, `make ci`, pre-commit and staged impact passed; commit/push and review-PR handoff remain; do not merge without owner authorization** |
+| Branch | `arena/d5317c9e-autodoc`, based at PR #15 merge `990113b5c496b833af9e855cb6e3870d816c1cb4` |
+| Status | **IN PROGRESS — implementation, `make ci`, pre-commit and staged impact passed; commits are on the assigned branch; push and review-PR handoff remain; do not merge without owner authorization** |
 | Opened (UTC) | 2026-10-22T10:39Z |
 
 ## Predecessor work
@@ -28,7 +28,7 @@
 
 ## Approach
 
-1. Keep all work on `arena/912c4060-autodoc`; selection is recorded before implementation.
+1. Keep all work on the assigned branch `arena/d5317c9e-autodoc`; selection is recorded before implementation.
 2. Extend `scripts/doc-control/library.py` to validate catalog source records and render selected variants beneath an output root; default to `build/TEMPLATES/` and fail closed on invalid/colliding destinations.
 3. Add `make docs-templates` and `autodoc templates`; keep ordinary `make generate` and CI from materializing ignored output as a side effect.
 4. Reconcile catalog validation, completeness/health, relationship links, generated outlines, package runtime data, and documentation with logical output paths and on-demand rendering.
@@ -58,4 +58,4 @@ Revert only D-003 changes on this branch; leave PR #14/#15 merge commits on `mas
 
 - Compared all 795 generated canonical/blank/example files with the tracked pre-migration variants: **795/795 byte-for-byte identical**. Removed the 795 tracked variants only after this comparison; retained the two README files.
 - The targeted D-003 suite passed (70 tests, 65 subtests); the Make target rendered 265 blank variants to a temporary output tree.
-- `make ci` passed on Python 3.11: 288 tests, 190 subtests, package smoke and evidence hash verification (not signatures). Staging, `pre-commit run --all-files` and `make docs-staged-impact` passed; commit/push and review-PR creation remain.
+- `make ci` passed on Python 3.11: 288 tests, 190 subtests, package smoke and evidence hash verification (not signatures). Staging, `pre-commit run --all-files` and `make docs-staged-impact` passed; commits `71ba468` and `156ba8e` are on the assigned branch; push and review-PR creation remain.
