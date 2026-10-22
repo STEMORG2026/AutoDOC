@@ -1,9 +1,9 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T12:11Z · **Reconciled by:** PRD1 (session `20261022-1145-PRD1`,
+**Last reconciled:** 2026-10-22T12:27Z · **Reconciled by:** PRD1 (session `20261022-1145-PRD1`,
 production-readiness commands and post-merge state) · **Base tip:** `a28616b` on `master` (PR #16
 merged D-003; PR #15 merged at `990113b`); PRD1's `add`/`promote`/`init` work is on
-`arena/production-readiness-autodoc` with `make ci` and package smoke green, awaiting review.
+`arena/production-readiness-autodoc` with `make ci` and package smoke green; PR #18 is open for review.
 
 ## Project
 
@@ -18,7 +18,7 @@ merged D-003; PR #15 merged at `990113b`); PRD1's `add`/`promote`/`init` work is
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
 | Stack | Python 3.11–3.15 declared, **zero runtime dependencies**; build/pytest/pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
 | Docs | 70 controlled Markdown documents (24 generated, 46 human-owned); 28 mapped generated targets in total (four non-Markdown); 265 catalog types can render all 795 variants on demand, none checked in. PRD1 adds single-document instantiation and guarded phase promotion. |
-| Tests | PRD1 worktree `make ci` passes on Python 3.14.8: 301 tests + 190 subtests, wheel/sdist build + clean-install smoke (`check/generate/adopt/init/add/promote/templates`), and unsigned evidence hashes verified (not signatures). Staged impact and pre-commit pass; the commit/PR handoff remains. |
+| Tests | PRD1 worktree `make ci` passes on Python 3.14.8: 301 tests + 190 subtests, wheel/sdist build + clean-install smoke (`check/generate/adopt/init/add/promote/templates`), and unsigned evidence hashes verified (not signatures). Staged impact and pre-commit pass; PR #18 is open and GitHub checks are running. |
 | CI | 5 workflows; required check `AutoDOC guard / check` remains in GitHub ruleset `main` (P-007-A, strict); supplemental Python 3.11–3.15 matrix is non-blocking; nightly freshness warn-only; tag workflow builds snapshot + wheel/sdist artifacts, no PyPI publish |
 
 ## Active agents
@@ -28,7 +28,7 @@ merged D-003; PR #15 merged at `990113b`); PRD1's `add`/`promote`/`init` work is
 add` (one catalog document, root-bounded, preview by default) and `init --phase/--profile`. Runtime
 packaging, user/adoption/architecture/exit-code docs and installed-package smoke are updated.
 Targeted tests pass (25); full `make ci` passes (301 tests + 190 subtests, wheel/sdist and clean
-install smoke, evidence hashes). Staged checks and pre-commit pass; the branch is ready for commit/push and PR review;
+install smoke, evidence hashes). Staged checks and pre-commit pass; commit `6a76106` is pushed and PR #18 is open for review;
 the `0.3.0` / Beta proposal still needs owner sign-off. Do not merge without authorization.
 
 `912C` — session `20261022-1011-912C` (**PAUSED — merged; awaiting explicit owner closure**):
@@ -62,8 +62,8 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 **Current follow-up (2026-10-22).** PR #13 merged at `a704752`; PR #14 placed D-004/D-002 on
 `master` at `7a0fd47`; PR #15's reconciliation merged at `990113b`; D-003 merged in PR #16 at
 `a28616b`. PRD1's production-readiness commands are complete on
-`arena/production-readiness-autodoc`: local `make ci` and package smoke are green, and the review PR
-is the remaining handoff. The owner still needs to decide whether to keep `0.3.0` / Beta and whether
+`arena/production-readiness-autodoc`: local `make ci` and package smoke are green, and PR #18 is open
+for review. The owner still needs to decide whether to keep `0.3.0` / Beta and whether
 to merge. 894B/627F/C4R7/B71a remain paused; 912C is merged but not explicitly closed. D-007/D-009
 and PyPI publishing remain unauthorized/unselected.
 
@@ -128,9 +128,8 @@ and PyPI publishing remain unauthorized/unselected.
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
 1. **PRD1 review:** `autodoc add`, `autodoc promote` and `init --phase/--profile` are implemented
-   and locally verified on `arena/production-readiness-autodoc`. Commit/push the verified branch and
-   open the review PR. Do not merge without explicit
-   owner authorization.
+   and locally verified on `arena/production-readiness-autodoc`; commit `6a76106` is pushed and
+   PR #18 is open. Do not merge without explicit owner authorization.
 2. **Owner verdict:** decide whether to keep the proposed `0.3.0` / Beta version-classifier change.
    No release or PyPI publication is proposed.
 3. **Deferred scope:** D-007 and D-009 remain unselected; D-003 is now merged. Do not infer a new

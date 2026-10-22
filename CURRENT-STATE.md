@@ -35,8 +35,8 @@ target phase's requirement/enforcement delta and writes only the top-level `phas
 `phase_declared`, refusing an unforced write while required documents are unresolved; and
 `autodoc init --phase/--profile` records an explicit initial declaration. Its local `make ci` gate
 passes (301 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands,
-unsigned evidence-hash verification), and the generated metadata was refreshed. The review PR and
-owner verdict on the proposed `0.3.0`/Beta version remain. It also has an installable `autodoc` CLI
+unsigned evidence-hash verification), and the generated metadata was refreshed. Commit `6a76106`
+is pushed and PR #18 is open; the owner verdict on the proposed `0.3.0`/Beta version remains. It also has an installable `autodoc` CLI
 with zero runtime dependencies, wheel/sdist builds, and clean-environment install smoke coverage.
 Its checks validate controlled-document metadata, generated drift, age, source-to-human-review
 impact, and the structure of instantiated migration documents (required sections and unfilled
@@ -79,7 +79,7 @@ remains paused; merging did not close it. PR #15's post-merge state reconciliati
 passed (the PR impact step ran within the guard check; no separate impact status was listed). The
 owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's follow-up
 production-readiness commands are implemented and locally verified on
-`arena/production-readiness-autodoc`, with review and merge pending; 912C remains paused because
+`arena/production-readiness-autodoc`; PR #18 is open, with review and merge pending; 912C remains paused because
 merging did not close it.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes

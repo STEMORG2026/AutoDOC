@@ -32,8 +32,8 @@ unresolved; `autodoc init --phase/--profile` records an initial declaration. The
 gate passes (301 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands,
 unsigned evidence hashes verified), and `make generate` refreshed the generated metadata.
 
-Staged impact, pre-commit and the full `make ci` gate pass; next, commit/push and open the review PR;
-keep it open for owner review. The change proposes `0.3.0` and the Beta classifier but records
+Staged impact, pre-commit and the full `make ci` gate pass; commit `6a76106` is pushed and PR #18
+is open for owner review. The change proposes `0.3.0` and the Beta classifier but records
 no owner approval. D-007, D-009 and further adoption work remain unselected. Do not publish to PyPI
 or close any paused session by inference. Promotion to `beta` remains a deliberate event with the
 same two-row cliff (License `DOC-A10-008`, Changelog `DOC-A15-003`).

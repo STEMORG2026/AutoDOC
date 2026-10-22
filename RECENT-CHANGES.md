@@ -47,6 +47,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 6a76106 2026-10-22 feat: add document instantiation and guarded phase promotion
 - a28616b 2026-10-22 Merge pull request #16 from STEMORG2026/arena/912c4060-autodoc
 - 7604cee 2026-10-22 feat: render catalog template variants on demand
 - ffb10fc 2026-10-22 docs(state): record owner-selected D-003 scope
@@ -66,29 +67,13 @@ auto_generated: false
 - b8ba4c2 2026-10-21 test: verify installed CLI help and usage errors
 - 6af0c03 2026-10-21 feat: ship AutoDOC as an installable CLI
 - 52d1b79 2026-10-21 Merge pull request #11 from STEMORG2026/arena/48a62791-autodoc
-- 37c698a 2026-10-21 chore(state): reconcile migration validation PR
 
 ## Changed paths at update time
 
-- `CHANGELOG.md`
-- `CONTEXT-SNAPSHOT.md`
-- `IMPLEMENTATION-GUIDE.md`
-- `QUICK-START.md`
-- `README.md`
-- `autodoc/cli.py`
-- `docs/00-governance/ADOPTION.md`
-- `docs/00-governance/ENGINE-COVERAGE.md`
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
-- `docs/META/CODE-INVENTORY.md`
-- `docs/META/DEPENDENCIES.md`
-- `docs/META/OUTLINE.md`
-- `docs/META/TEST-INVENTORY.md`
-- `docs/generated/AUTOMATION-REFERENCE.md`
-- `docs/reference/EXIT-CODES.md`
-- `pyproject.toml`
-- `scripts/add-document.py`
-- `scripts/doc-control/library.py`
-- `scripts/init-project.py`
-- `scripts/intelligence/promote.py`
-- … and 14 more; use git diff --cached --name-only.
+- `state/BLOCKERS.md`
+- `state/DASHBOARD.md`
+- `state/INDEX.md`
+- `state/REGISTRY.md`
+- `state/plans/agent-PRD1-production-readiness.md`
+- `state/sessions/20261022-1145-PRD1-production-readiness.md`
 <!-- auto:end -->

@@ -71,9 +71,10 @@ or external state is touched. Promote writes are local, atomic and validated bef
 - New tests pass; `make ci` exits 0 and the isolated wheel/sdist smoke exercises the new commands.
 - State and user docs describe the shipped behavior without claiming owner approval.
 
-## Status — 2026-10-22T12:11Z
+## Status — 2026-10-22T12:27Z
 
 Implementation and local verification are complete: 301 tests + 190 subtests pass, package smoke
-exercises all seven CLI commands, and `make ci` exits 0. The plan remains active only for the review
-handoff (staged checks, commit/push, PR) and owner merge; the session is not closed. The `0.3.0` /
-Beta version-classifier change is a proposal awaiting owner sign-off, not a recorded decision.
+exercises all seven CLI commands, and `make ci` exits 0. Staged impact and pre-commit pass; commit
+`6a76106` is pushed and PR #18 is open for owner review. The plan remains active only for owner
+review/merge; the session is not closed. The `0.3.0` / Beta version-classifier change is a proposal
+awaiting owner sign-off, not a recorded decision.

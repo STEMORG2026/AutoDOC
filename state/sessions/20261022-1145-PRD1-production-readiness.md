@@ -58,11 +58,15 @@ See `state/plans/agent-PRD1-production-readiness.md`.
 - `2026-10-22T12:11Z` [DECISION] Version/classifier are proposed as `0.3.0` / Beta in this change
   but remain owner decisions; no owner approval is recorded. The command behaviour and tests are
   independent of that proposal.
+- `2026-10-22T12:27Z` [HANDOFF] Staged impact, pre-commit and the final `make ci` pass. Committed
+  `6a76106` (`feat: add document instantiation and guarded phase promotion`), pushed the branch and
+  opened PR #18. GitHub checks are running; no merge or session closure.
 
 ## Outcome
 
-**PARTIAL — implementation and verification complete; review PR and owner merge pending.** The
-session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner's word.
+**PARTIAL — implementation, verification, commit/push and PR #18 complete; owner review and merge
+pending.** The session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner's
+word.
 
 ### Accomplished
 
@@ -82,7 +86,7 @@ session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner'
 
 ### Not accomplished
 
-- No commit, push or PR yet at the time this log was written; the next step is the review handoff.
+- PR #18 is open and GitHub checks are running; merge and the owner verdict remain pending.
 - PyPI publication, merging without owner authorization, session closure and an owner verdict on
   the version/classifier proposal remain out of scope.
 - No new ADR: the commands implement already-declared behaviour (phase change is an explicit event;
@@ -127,7 +131,7 @@ session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner'
 
 ### Next steps
 
-1. Stage, run pre-commit and `make docs-staged-impact`, then commit and push this branch.
-2. Open a review PR; keep it open for owner review and do not merge without explicit authorization.
-3. Owner decides whether to keep `0.3.0` / Beta and whether to merge.
-4. If the owner requests follow-up changes, keep this session paused rather than opening a new one.
+1. Review PR #18 after GitHub checks finish.
+2. Owner decides whether to keep `0.3.0` / Beta and whether to merge; do not merge without explicit
+   authorization.
+3. If the owner requests follow-up changes, keep this session paused rather than opening a new one.
