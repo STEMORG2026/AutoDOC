@@ -33,10 +33,12 @@ def runtime_root() -> Path:
     required = (
         "scripts/intelligence/enforce.py",
         "scripts/doc-sync/engine.py",
+        "scripts/doc-control/library.py",
         "scripts/init-project.py",
         "scripts/adopt.py",
         "engine/extractors/facts.py",
         "CONTROL/metadata/CONTEXT-MODEL.json",
+        "CATALOG-A/INDEX.yaml",
         "CATALOG-B/INDEX.yaml",
     )
     checked: set[Path] = set()
@@ -96,6 +98,20 @@ def build_parser() -> argparse.ArgumentParser:
         help="project type recorded in scaffold prompts (default: generic)",
     )
     init.add_argument("--output", type=Path, default=Path.cwd(), help="existing project directory (default: current directory)")
+
+    templates = commands.add_parser("templates", help="render catalog templates on demand into a project build directory")
+    templates.add_argument(
+        "--root", type=Path, default=Path.cwd(),
+        help="project receiving rendered files (default: current directory)",
+    )
+    templates.add_argument(
+        "--output", type=Path,
+        help="output tree root (default: <root>/build/TEMPLATES)",
+    )
+    templates.add_argument(
+        "--variant", choices=["all", "canonical", "blank", "example"], default="all",
+        help="variant to render (default: all three)",
+    )
     return parser
 
 
@@ -161,6 +177,20 @@ def main(argv: Sequence[str] | None = None) -> int:
         return _run_script(
             tool_root / "scripts/init-project.py",
             ["--name", args.name, "--type", args.type, "--output", str(project)],
+        )
+
+    if args.command == "templates":
+        project = _absolute_directory(parser, args.root, "--root")
+        if args.output is None:
+            destination = project / "build" / "TEMPLATES"
+        else:
+            destination = args.output.expanduser()
+            if not destination.is_absolute():
+                destination = project / destination
+        destination = destination.resolve()
+        return _run_script(
+            tool_root / "scripts/doc-control/library.py",
+            ["--variant", args.variant, "--output-dir", str(destination)],
         )
 
     parser.error(f"unknown command: {args.command}")

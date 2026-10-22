@@ -31,15 +31,19 @@ missing tools are reported as L0. Post-merge local `make ci` passed on Python 3.
 subtests; evidence hashes verified, not signatures), and PR #14's required, impact and Python
 3.11–3.15 checks passed. The 894B session remains paused because merging is not explicit closure.
 
-PR #15's post-merge state reconciliation is now merged at `990113b` after the owner explicitly
+PR #15's post-merge state reconciliation is merged at `990113b` after the owner explicitly
 authorized its merge; the required guard/check and Python 3.11–3.15 matrix passed (the PR impact step
 runs within the guard; no separate impact status was listed). The owner selected D-003 after
-settlement (ADR-015). D-003 is now in progress on `arena/912c4060-autodoc`: treat one catalog record
-as the source per type, remove the 795 checked-in canonical/blank/example outputs, and render variants
-on demand under ignored `build/TEMPLATES/`, exposed through Make and the installed CLI. The current
-tree still contains those outputs until the migration lands. D-007, D-009 and remaining CLI
-adoption/promotion work are unselected. Do not publish to PyPI or close any paused session by
-inference.
+settlement (ADR-015). Its implementation is complete in the worktree on `arena/912c4060-autodoc`:
+one catalog record remains the source per type; all 795 prior variants matched the renderer byte for
+byte before removal; Make and the installed CLI now render them on demand under ignored
+`build/TEMPLATES/`. The two explanatory README files remain. The targeted suite passes (70 tests, 65 subtests); the
+Make target separately rendered all 265 blank variants into a temporary tree. After staging,
+`pre-commit run --all-files`, `make docs-staged-impact` and full `make ci` passed on Python 3.11
+(288 tests, 190 subtests, package smoke and unsigned evidence-hash verification). Confirmed that
+`make ci` does not materialize ignored `build/TEMPLATES/`. Next: commit/push this branch and open the
+review PR; keep it open for owner review. D-007, D-009 and further CLI adoption/promotion remain
+unselected. Do not publish to PyPI or close any paused session by inference.
 
 D-007 (evidence signing) and D-009 (external dogfood) remain deferred and non-gating. D-010
 vulnerability scanning remains open/low. C4R7 remains paused after PR #12; B71a remains paused after

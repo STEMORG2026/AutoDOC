@@ -1,6 +1,8 @@
 PYTHON := $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 BASE ?= origin/master
-.PHONY: help setup lint generate check test ci package package-check docs-verify docs-drift docs-metadata docs-ownership docs-inventory docs-freshness docs-sync docs-health docs-stubs docs-catalog docs-profile docs-recommend docs-hint docs-languages docs-triggers docs-links-external docs-explain docs-enforce docs-baseline docs-require-check hooks-install docs-staged-impact evidence check-evidence self-doc report
+TEMPLATE_VARIANT ?= all
+TEMPLATE_OUTPUT ?= build/TEMPLATES
+.PHONY: help setup lint generate check test ci package package-check docs-verify docs-drift docs-metadata docs-ownership docs-inventory docs-freshness docs-sync docs-health docs-stubs docs-catalog docs-profile docs-recommend docs-hint docs-languages docs-triggers docs-links-external docs-explain docs-enforce docs-baseline docs-require-check hooks-install docs-staged-impact docs-templates evidence check-evidence self-doc report
 
 help: ## Show available commands and their purposes
 	@awk '$$0 !~ /^[[:space:]]/ && $$0 !~ /^#/ && index($$0, "## " ) {i=index($$0, "## " ); n=substr($$0,1,i-1); sub(/:[^:]*$$/,"",n); gsub(/\\:/,":",n); gsub(/[[:space:]]+$$/,"",n); printf "%-22s %s\n",n,substr($$0,i+3)}' $(MAKEFILE_LIST)
@@ -15,9 +17,12 @@ lint: ## Check local Markdown links/tribal phrases/key markers and frontmatter (
 	$(PYTHON) scripts/doc-control/guards.py
 	$(PYTHON) scripts/validate/frontmatter_validator.py
 
-generate: ## Regenerate all mapped factual targets and catalog templates
+generate: ## Rebuild catalog indexes and mapped factual targets; template variants are explicit/on-demand
+	$(PYTHON) scripts/doc-control/build_catalogs.py
 	$(PYTHON) scripts/doc-sync/generate-all.py
-	$(PYTHON) scripts/doc-control/library.py
+
+docs-templates: ## Render catalog templates on demand (TEMPLATE_VARIANT=all|canonical|blank|example)
+	$(PYTHON) scripts/doc-control/library.py --variant "$(TEMPLATE_VARIANT)" --output-dir "$(TEMPLATE_OUTPUT)"
 
 docs-drift: ## Check all generated targets without writing (IN SYNC on success)
 	$(PYTHON) scripts/doc-sync/generate-all.py --check

@@ -152,7 +152,8 @@
                 },
                 "template": {
                   "type": "string",
-                  "pattern": "^TEMPLATES/[A-Z-]+/(DOC|DEV)-[AB][0-9]{2}-[0-9]{3}\\.md$"
+                  "pattern": "^TEMPLATES/[A-Z-]+/(DOC|DEV)-[AB][0-9]{2}-[0-9]{3}\\.md$",
+                  "description": "Logical relative render destination, not a checked-in file. Each catalog document record is the single source; canonical, blank and example variants are generated on demand under ignored build/TEMPLATES/."
                 },
                 "phase_min": {
                   "type": ["string", "null"],
@@ -205,7 +206,7 @@
                 },
                 "support": {
                   "enum": ["checked", "template-only", "human"],
-                  "description": "What AutoDOC actually does for this type: checked (the checks below run), template-only (a template exists, nothing is verified), human (no detector is possible; a person must judge)."
+                  "description": "What AutoDOC actually does for this type: checked (the checks below run), template-only (the catalog can render a starter, but nothing is verified), human (no detector is possible; a person must judge)."
                 },
                 "checks": {
                   "type": "array",

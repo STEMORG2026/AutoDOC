@@ -12,6 +12,10 @@ spec = importlib.util.spec_from_file_location(
     'stub_check_migration', ROOT / 'scripts/doc-control/stub_check.py')
 stub_check = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(stub_check)
+library_spec = importlib.util.spec_from_file_location(
+    'template_library_migration', ROOT / 'scripts/doc-control/library.py')
+template_library = importlib.util.module_from_spec(library_spec)
+library_spec.loader.exec_module(template_library)
 
 
 def document(title, status='approved', sections=None):
@@ -48,13 +52,15 @@ class MigrationProseTests(unittest.TestCase):
                 self.assertEqual([], stub_check.migration_findings_for(
                     'migration.md', self.fields(title), document(title)))
 
-    def test_canonical_templates_define_the_detected_prompts(self):
+    def test_canonical_renders_define_the_detected_prompts(self):
+        sources = {
+            doc['template']: doc for doc, _ in template_library.catalog_sources(ROOT)
+        }
         for title, template in stub_check.MIGRATION_TEMPLATES.items():
             with self.subTest(title=title):
-                path = ROOT / template
-                text = path.read_text(encoding='utf-8')
+                text = template_library.render(sources[template], 'canonical')
                 findings = stub_check.migration_findings_for(
-                    path, self.fields(title), text)
+                    template, self.fields(title), text)
                 self.assertEqual(3, len(findings))
                 self.assertTrue(all('canonical template prompt' in item['detail']
                                     for item in findings))

@@ -5,7 +5,7 @@
 | Objective | After reconciling PR #14/#15, implement the owner's D-003 selection: keep one catalog source record per type and render canonical, blank and synthetic-example variants on demand into ignored `build/TEMPLATES/`. |
 | Owner of the work | `912C` (session `20261022-1011-912C`) |
 | Branch | `arena/912c4060-autodoc`, based at PR #15 merge `990113b5c496b833af9e855cb6e3870d816c1cb4` |
-| Status | **IN PROGRESS — D-003 selected by the owner after PR #15 settled; follow-up PR must remain open for owner review** |
+| Status | **IN PROGRESS — implementation, `make ci`, pre-commit and staged impact passed; commit/push and review-PR handoff remain; do not merge without owner authorization** |
 | Opened (UTC) | 2026-10-22T10:39Z |
 
 ## Predecessor work
@@ -53,3 +53,9 @@ Revert only D-003 changes on this branch; leave PR #14/#15 merge commits on `mas
 - `make docs-templates` and installed `autodoc templates` render into the requested project/build directory without consulting the consumer's catalog or files.
 - Validators and reports distinguish renderability from materialized output; normal `make generate`/`make ci` do not write template outputs.
 - `make ci`, the clean package install smoke, pre-commit and staged impact pass; follow-up PR remains open for owner review.
+
+## Execution record — 2026-10-22
+
+- Compared all 795 generated canonical/blank/example files with the tracked pre-migration variants: **795/795 byte-for-byte identical**. Removed the 795 tracked variants only after this comparison; retained the two README files.
+- The targeted D-003 suite passed (70 tests, 65 subtests); the Make target rendered 265 blank variants to a temporary output tree.
+- `make ci` passed on Python 3.11: 288 tests, 190 subtests, package smoke and evidence hash verification (not signatures). Staging, `pre-commit run --all-files` and `make docs-staged-impact` passed; commit/push and review-PR creation remain.

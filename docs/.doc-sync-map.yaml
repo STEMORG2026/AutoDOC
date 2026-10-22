@@ -120,7 +120,7 @@
       "sources": [
         "CATALOG-A/INDEX.yaml",
         "CATALOG-B/INDEX.yaml",
-        "TEMPLATES/**/*.md",
+        "scripts/doc-control/library.py",
         "docs/.doc-sync-map.yaml"
       ],
       "target": "docs/META/COMPLETENESS-REPORT.md",

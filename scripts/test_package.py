@@ -68,7 +68,7 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
     if version.stdout.strip() != f"autodoc {PROJECT_VERSION}":
         raise RuntimeError(f"unexpected installed version output: {version.stdout.strip()!r}")
     help_text = run([str(cli), "--help"], cwd=work, env=environment)
-    if not all(command in help_text.stdout for command in ("check", "generate", "adopt", "init")):
+    if not all(command in help_text.stdout for command in ("check", "generate", "adopt", "init", "templates")):
         raise RuntimeError("installed CLI help omitted one or more supported commands")
     invalid = run([str(cli), "unsupported-command"], cwd=work, expected=2, env=environment)
     if "invalid choice" not in invalid.stderr:
@@ -77,6 +77,11 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
     project = work / "consumer-project"
     project.mkdir()
     (project / "pyproject.toml").write_text("[project]\nname = 'consumer-project'\n", encoding="utf-8")
+
+    run([str(cli), "templates", "--root", str(project), "--variant", "blank"], cwd=work, env=environment)
+    blank_template = project / "build/TEMPLATES/ARCHITECTURE/DOC-A03-001.md.blank"
+    if not blank_template.is_file() or "<!-- Fill in. -->" not in blank_template.read_text(encoding="utf-8"):
+        raise RuntimeError("installed templates command did not render into the selected project build directory")
 
     adopted = run([str(cli), "adopt", "--project-path", str(project)], cwd=work, env=environment)
     if "A10-BUILD" not in adopted.stdout:
@@ -131,8 +136,10 @@ def main() -> int:
             "scripts/intelligence/enforce.py",
             "scripts/doc-sync/engine.py",
             "scripts/doc-control/check_catalog.py",
+            "scripts/doc-control/library.py",
             "engine/extractors/facts.py",
             "CONTROL/metadata/CONTEXT-MODEL.json",
+            "CATALOG-A/INDEX.yaml",
             "CATALOG-B/INDEX.yaml",
         )
         with ZipFile(wheels[0]) as archive:
@@ -154,7 +161,7 @@ def main() -> int:
 
         smoke_installed_cli(wheels[0], work / "installed-smoke")
 
-    print("Package check passed: wheel and sdist built; sdist rebuilt; clean wheel install exercised version/check/generate/adopt/init.")
+    print("Package check passed: wheel and sdist built; sdist rebuilt; clean wheel install exercised version/check/generate/adopt/init/templates.")
     return 0
 
 

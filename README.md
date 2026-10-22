@@ -114,9 +114,11 @@ actual tests and saves **unsigned** artifacts under ignored `evidence/out/`.
 [Catalog navigation](docs/01-catalogs/CATALOG-INDEX.md) ·
 [Tool policy demo](examples/local-tools-example/README.md)
 
-`docs/.doc-sync-map.yaml` is the **single authoritative map**. `TEMPLATES/` has three
-synthetic variants for each catalog type, not 265 implemented project documents. See the
-[license decision](docs/00-governance/LICENSE-DECISION.md) and
+`docs/.doc-sync-map.yaml` is the **single authoritative map**. Each catalog record is the source
+for its type; render canonical, blank or synthetic-example variants on demand with
+`autodoc templates --variant blank` (or `make docs-templates TEMPLATE_VARIANT=blank`). Outputs go to
+ignored `build/TEMPLATES/` and are not committed; they are starter material, not project documents.
+See the [license decision](docs/00-governance/LICENSE-DECISION.md) and
 [manual branch requirements](docs/00-governance/BRANCH-PROTECTION.md). AutoDOC is not renamed.
 
 ## License
