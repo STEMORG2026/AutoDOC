@@ -1,6 +1,6 @@
 # REGISTRY — who is working here and what they own
 
-**Last reconciled:** 2026-10-21T19:02Z (PR #11 merged at `52d1b79`; PR #12 open; local checks and all GitHub jobs pass; C4R7 paused awaiting owner review; B71a remains paused)
+**Last reconciled:** 2026-10-22T03:36Z (PR #11 merged at `52d1b79`; PR #12 open; local checks and all GitHub jobs pass; C4R7 paused awaiting owner review; B71a remains paused)
 
 ## Active — work in flight, or landed and awaiting the owner
 
