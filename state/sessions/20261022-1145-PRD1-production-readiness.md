@@ -63,12 +63,28 @@ See `state/plans/agent-PRD1-production-readiness.md`.
   opened PR #18. All GitHub checks pass; no merge or session closure.
 - `2026-10-22T12:43Z` [CHECKS] PR #18 checks pass: required `AutoDOC guard / check`, `impact`,
   and Python compatibility 3.11–3.15. Owner review and merge remain pending.
+- `2026-10-22T12:52Z` [MERGE] Owner merged PR #18 at `1361ba2`; the merge did not close this
+  session. Local `master` remains at `a28616b` and is behind `origin/master`.
+- `2026-10-22T13:05Z` [DOGFOOD] Built and installed the final wheel, then exercised the installed
+  commands against AutoDOC, `Universal_Software_Auditor`, `ai_infrastructure`, `requests`, Flask and
+  Express in copy-only worktrees. Found the packaged-root defect: `check --repo` resolved
+  `[instantiated]`/`[satisfied_by]` paths against the bundled tool root. Also observed duplicate
+  instance IDs were accepted and `promote` claimed no enforcement change when only the mode changed.
+- `2026-10-22T13:16Z` [FIX] Fixed target-root path resolution, added duplicate-ID refusal and
+  corrected the promote wording, with regression tests. Regenerated inventories and changelog;
+  local `make ci` passes at 304 tests + 190 subtests. Committed `deec574` on
+  `fix/dogfood-packaged-root` and opened PR #19.
+- `2026-10-22T13:20Z` [CHECKS] PR #19's first guard/impact run failed only on the expected
+  living-state co-change gate; reconciled `CURRENT-STATE.md`, `NEXT-ACTION.md`,
+  `RECENT-CHANGES.md`, `state/**` and the architecture note.
+- `2026-10-22T13:28Z` [CHECKS] PR #19 checks pass: required `AutoDOC guard / check`, `impact`, and
+  Python compatibility 3.11–3.15. Owner review and merge remain pending.
 
 ## Outcome
 
-**PARTIAL — implementation, verification, commit/push and PR #18 complete with all GitHub checks
-passing; owner review and merge pending.** The session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner's
-word.
+**PARTIAL — PR #18 merged at `1361ba2`; installed-wheel dogfood fix committed as `deec574` and
+open as PR #19 with all checks passing; owner review and merge pending.** The session is not closed: local rule 8 reserves
+`COMPLETED`/`CLOSED` for the owner's word.
 
 ### Accomplished
 
@@ -82,15 +98,19 @@ word.
 - `autodoc init` accepts optional `--phase` and `--profile`, validates both against the shipped
   model/profiles, and never overwrites an existing `autodoc.toml`.
 - Runtime packaging, CLI help, installed-package smoke, user/adoption/architecture/exit-code docs,
-  changelog and generated metadata are updated. `make ci` is green on the worktree.
-- Full suite: 301 passed, 190 subtests passed. Package smoke: wheel/sdist build, sdist rebuild and
-  clean-wheel exercise of all seven commands passed.
+  changelog and generated metadata are updated. PR #18 merged at `1361ba2`.
+- Installed-wheel dogfood covered AutoDOC, `Universal_Software_Auditor`, `ai_infrastructure`,
+  `requests`, Flask and Express; the packaged-root defect was fixed, duplicate instance IDs are
+  refused, and the promote wording is correct. PR #19 is open.
+- Full suite: 304 passed, 190 subtests passed. Package smoke: wheel/sdist build, sdist rebuild and
+  clean-wheel exercise of all seven commands passed; unsigned evidence hashes verified.
 
 ### Not accomplished
 
-- PR #18 is open with all GitHub checks passing; merge and the owner verdict remain pending.
+- PR #19 is open; merge and the owner verdict remain pending.
 - PyPI publication, merging without owner authorization, session closure and an owner verdict on
   the version/classifier proposal remain out of scope.
+- D-009's external-dogfood evidence has not been formally accepted/recorded by the owner.
 - No new ADR: the commands implement already-declared behaviour (phase change is an explicit event;
   context is declared), so no design decision was made on the owner's behalf.
 
@@ -104,7 +124,7 @@ word.
 | `scripts/init-project.py` | modified | `--phase`/`--profile` declaration writer |
 | `autodoc/cli.py` | modified | `add`/`promote`, init flags, runtime requirements |
 | `setup.py`, `scripts/test_package.py` | modified | Ship and smoke-test the new runtime scripts |
-| `tests/test_promote.py`, `tests/test_add_document.py`, `tests/test_cli.py` | added/modified | Focused behaviour and installed-CLI integration coverage |
+| `tests/test_promote.py`, `tests/test_add_document.py`, `tests/test_enforce.py`, `tests/test_cli.py` | added/modified | Focused behaviour, target-root regression and installed-CLI integration coverage |
 | `README.md`, `QUICK-START.md`, `IMPLEMENTATION-GUIDE.md`, `CHANGELOG.md` | modified | User-facing command/version documentation |
 | `docs/00-governance/{ADOPTION,ENGINE-COVERAGE}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `docs/reference/EXIT-CODES.md` | modified | Adoption, coverage, boundary and exit-code docs |
 | `pyproject.toml` | modified | Version `0.3.0`; Beta classifier proposal |

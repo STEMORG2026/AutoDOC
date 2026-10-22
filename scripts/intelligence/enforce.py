@@ -115,7 +115,8 @@ def collect_findings(profile_document, context, documents, groups, enforcement, 
     policy, not from whether a finding happened to exist, or a repo with a clean drive would
     look as if drift had been checked.
     """
-    findings = list(recommend.findings(documents, context, groups, enforcement))
+    findings = list(recommend.findings(documents, context, groups, enforcement,
+                                        root=root or ROOT))
 
     # The delegated checkers keep their own human output for their own entry points; here their
     # findings are carried as data, so their printing is captured rather than duplicated.

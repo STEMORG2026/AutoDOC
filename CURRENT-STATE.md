@@ -29,15 +29,19 @@ through Make and the installed CLI. Before removal, all 795 generated outputs we
 byte-for-byte with the prior files; all matched. The tracked variants are gone, with two explanatory
 READMEs retained under `TEMPLATES/`.
 
-The PRD1 worktree adds the remaining production-readiness paths: `autodoc add` previews or writes
-one catalog document with a project-qualified ID and current dates; `autodoc promote` shows the
-target phase's requirement/enforcement delta and writes only the top-level `phase` and
+The PRD1 production-readiness paths merged in PR #18 at `1361ba2`: `autodoc add` previews or
+writes one catalog document with a project-qualified ID and current dates; `autodoc promote`
+shows the target phase's requirement/enforcement delta and writes only the top-level `phase` and
 `phase_declared`, refusing an unforced write while required documents are unresolved; and
-`autodoc init --phase/--profile` records an explicit initial declaration. Its local `make ci` gate
-passes (301 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands,
-unsigned evidence-hash verification), and the generated metadata was refreshed. Commit `6a76106`
-is pushed and PR #18 is open with all GitHub checks passing; the owner verdict on the proposed `0.3.0`/Beta version remains. It also has an installable `autodoc` CLI
-with zero runtime dependencies, wheel/sdist builds, and clean-environment install smoke coverage.
+`autodoc init --phase/--profile` records an explicit initial declaration. Installed-wheel dogfood
+then found that `check --repo` resolved `[instantiated]`/`[satisfied_by]` paths against the bundled
+tool root rather than the target project. The fix branch `fix/dogfood-packaged-root` resolves those
+paths against the target root, rejects duplicate instance IDs in `add`, and corrects the `promote`
+empty-delta wording. Its local `make ci` gate passes (304 tests + 190 subtests, wheel/sdist and
+clean-install smoke for all seven commands, unsigned evidence-hash verification), and PR #19 is
+open for owner review. The owner verdict on the proposed `0.3.0`/Beta version remains. AutoDOC also
+has an installable CLI with zero runtime dependencies, wheel/sdist builds, and clean-environment
+install smoke coverage.
 Its checks validate controlled-document metadata, generated drift, age, source-to-human-review
 impact, and the structure of instantiated migration documents (required sections and unfilled
 template prompts, not semantic correctness). A catalog entry represents a possible document, not a
@@ -77,9 +81,10 @@ on Python 3.11 (280 tests and 190 subtests); evidence hashes verify, not signatu
 remains paused; merging did not close it. PR #15's post-merge state reconciliation merged at
 `990113b` after the owner explicitly authorized it; its required guard and Python 3.11–3.15 matrix
 passed (the PR impact step ran within the guard check; no separate impact status was listed). The
-owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's follow-up
-production-readiness commands are implemented and locally verified on
-`arena/production-readiness-autodoc`; PR #18 is open, with review and merge pending; 912C remains paused because
+owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's production-readiness
+commands merged in PR #18 at `1361ba2`. Post-merge installed-wheel dogfood found the packaged-root
+path defect; the fixes are committed as `deec574` on `fix/dogfood-packaged-root` and open as PR
+#19. The owner review and the `0.3.0`/Beta verdict remain pending; 912C remains paused because
 merging did not close it.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes

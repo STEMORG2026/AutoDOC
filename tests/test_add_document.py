@@ -46,6 +46,21 @@ def test_write_creates_the_file_and_refuses_silent_overwrite(tmp_path):
     assert "<!-- Fill in. -->" in target.read_text(encoding="utf-8")
 
 
+def test_an_existing_instance_id_is_not_reused_for_a_second_file(tmp_path):
+    project = tmp_path / "demo"
+    existing = project / "docs/autodoc/foundation.md"
+    existing.parent.mkdir(parents=True)
+    existing.write_text("---\nid: INST-DEMO-DOC-A03-001\n---\n# Existing\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match="already used"):
+        add_module.add("DOC-A03-001", root=project, write=True)
+
+    result = add_module.add(
+        "DOC-A03-001", root=project, instance_id="INST-DEMO-DOC-A03-001-alt", write=True)
+    assert result["written"] is True
+    assert "id: INST-DEMO-DOC-A03-001-alt" in result["content"]
+
+
 def test_output_can_name_an_exact_file_inside_the_project(tmp_path):
     project = tmp_path / "demo"
     project.mkdir()

@@ -22,24 +22,29 @@ auto_generated: false
 # Next action
 
 ## Immediate focus
-PR #16 merged D-003 (`a28616b`); local `master`, `origin/master` and the PRD1 branch base agree, and
-the 795 tracked template variants are gone in favour of on-demand rendering. PRD1 then implemented
-the remaining production-readiness paths on `arena/production-readiness-autodoc`:
-`autodoc add <catalog-id>` instantiates one document with a project-qualified ID and current dates;
-`autodoc promote --to <phase>` previews the catalog/enforcement delta and writes only the top-level
+PR #18 merged PRD1's production-readiness commands at `1361ba2`: `autodoc add <catalog-id>`
+instantiates one document with a project-qualified ID and current dates; `autodoc promote --to
+<phase>` previews the catalog/enforcement delta and writes only the top-level
 `phase`/`phase_declared`, refusing a normal write while target-phase required documents are
-unresolved; `autodoc init --phase/--profile` records an initial declaration. The local `make ci`
-gate passes (301 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands,
-unsigned evidence hashes verified), and `make generate` refreshed the generated metadata.
+unresolved; `autodoc init --phase/--profile` records an initial declaration. Post-merge
+installed-wheel dogfood found that packaged `check --repo` resolved `[instantiated]` and
+`[satisfied_by]` paths against the bundled tool root rather than the target project. The fixes are
+committed as `deec574` on `fix/dogfood-packaged-root`; PR #19 is open with all checks passing; local `make ci` passes
+(304 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands, unsigned
+evidence hashes verified).
 
-Staged impact, pre-commit and the full `make ci` gate pass; commit `6a76106` is pushed and PR #18
-is open for owner review; all GitHub checks pass. The change proposes `0.3.0` and the Beta classifier but records
-no owner approval. D-007, D-009 and further adoption work remain unselected. Do not publish to PyPI
-or close any paused session by inference. Promotion to `beta` remains a deliberate event with the
-same two-row cliff (License `DOC-A10-008`, Changelog `DOC-A15-003`).
+PR #19 also rejects duplicate instance IDs in `add` and corrects the `promote` empty-delta
+wording. Its first guard/impact run failed only because the living-state files had not yet been
+reconciled; that is fixed and all checks now pass. The change proposes `0.3.0` and the Beta classifier but
+records no owner approval. D-007 remains unselected; D-009's external dogfood was executed but its
+formal acceptance/record remains open. Do not publish to PyPI or close any paused session by
+inference. Promotion to `beta` remains a deliberate event with the same two-row cliff (License
+`DOC-A10-008`, Changelog `DOC-A15-003`).
 
-D-007 (evidence signing) and D-009 (external dogfood) remain deferred and non-gating. D-010
-vulnerability scanning remains open/low. PRD1 awaits review; 912C remains paused after PR #16;
+D-007 (evidence signing) remains deferred and non-gating. D-009 (external dogfood) was executed
+against the installed wheel and five additional repositories; its formal owner acceptance/record
+remains open. D-010 vulnerability scanning remains open/low. PRD1 awaits PR #19 review and merge; 912C
+remains paused after PR #16;
 C4R7 remains paused after PR #12; B71a remains paused after PR #11; 627F remains paused after
 PR #13; 894B remains paused after PR #14. Merging did not explicitly close those sessions. The
 release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
@@ -70,8 +75,9 @@ on 2026-10-21 ("continue from this here and also close the session"), their plan
 under `state/archive/plans/2026-10/`, and their closing entries quote the instruction. A90c's
 D-001 session was subsequently closed on 2026-10-21 by the owner's explicit instruction
 "Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
-thread**; D-003 is the owner-selected P-006 follow-up now in progress, while D-007 and D-009 remain
-unselected. Promotion to `beta` stays a deliberate event (cliff 2). D-004 and D-002 were the earlier
+thread**; D-003 merged through PR #16 and its production-readiness follow-up through PR #18,
+while D-007 remains unselected and D-009's dogfood execution awaits formal acceptance. Promotion to
+`beta` stays a deliberate event (cliff 2). D-004 and D-002 were the earlier
 owner-selected follow-up and are now merged by PR #14. One debt item closed on
 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
@@ -113,9 +119,11 @@ ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner
    The installed `autodoc init` creates ten draft foundations and can record an initial
    phase/profile declaration; `autodoc adopt` is a read-only filename heuristic; `autodoc add`
    instantiates one catalog type; and `autodoc promote` applies an explicit declared-phase change
-   after showing its delta. Remaining work in this step: a full phase-scaled adoption/baseline
-   workflow, and dogfood on a repository that is not this one. D-003 template rendering merged in
-   PR #16.
+   after showing its delta. D-003 template rendering merged in PR #16. Installed-wheel dogfood was
+   executed against `Universal_Software_Auditor`, `ai_infrastructure`, `requests`, Flask and
+   Express; it found the packaged-root path defect now fixed in PR #19. Remaining work in this
+   step: a full phase-scaled adoption/baseline workflow and formal acceptance of the D-009
+   evidence.
 7. Done. Event triggers are declared in `CONTROL/metadata/TRIGGERS.json` and verified by
    `triggers.py --check` (in `make ci`): one blocking event, one required check, no undeclared
    workflow, no filtered required check, and no network from a gate. The scheduled workflow reports

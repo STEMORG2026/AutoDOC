@@ -281,7 +281,7 @@ def render(result: dict) -> str:
                          for item in items)
     if not any(delta[key] for key in ("newly_required", "newly_failing",
                                       "no_longer_required", "no_longer_failing")):
-        lines.append("Delta: no catalog requirement or enforcement changes.")
+        lines.append("Delta: no catalog requirement changes.")
     if delta["blocked"]:
         lines.append(f"Blocked: {len(delta['required_missing'])} required document(s) have no "
                      "document and no recorded decision at the target phase.")

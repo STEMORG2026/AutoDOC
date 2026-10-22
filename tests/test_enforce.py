@@ -161,6 +161,30 @@ class BaselineTests(unittest.TestCase):
                          'suppressed findings never fail the run')
 
 
+class TargetRootTests(unittest.TestCase):
+    """Path declarations belong to the project being checked, not the installed tool checkout."""
+
+    def test_instantiated_and_satisfied_by_paths_resolve_against_the_target_repo(self):
+        with tempfile.TemporaryDirectory() as folder:
+            repo = Path(folder)
+            (repo / 'docs').mkdir()
+            (repo / 'docs/charter.md').write_text('# Charter\n')
+            (repo / 'docs/other.md').write_text('# Other\n')
+            config = repo / 'autodoc.toml'
+            config.write_text(
+                'schema = 1\nphase = "build"\n'
+                '[instantiated]\n"DEV-B01-001" = "docs/charter.md"\n'
+                '[satisfied_by]\n"DEV-B01-002" = ["docs/other.md"]\n',
+                encoding='utf-8')
+            args = type('Args', (), {'repo': repo, 'config': config,
+                                     'baseline': repo / 'none.json'})()
+            _, findings, _, _, _, _ = enforce.build(args)
+        config_findings = [finding for finding in findings
+                           if finding['rule'] == 'context.config']
+        self.assertEqual([], config_findings,
+                         'the target repo paths exist; the tool root must not be searched')
+
+
 class EndToEndTests(unittest.TestCase):
     """The shipped repository is advisory: the phase is undeclared and the pins hold its gates."""
 

@@ -68,10 +68,11 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/add-document.py` | 29 | function | `catalog` | `(root: Path=ROOT) -> list[dict]` | — |
 | `scripts/add-document.py` | 33 | function | `find_document` | `(document_id: str, root: Path=ROOT) -> dict` | — |
 | `scripts/add-document.py` | 40 | function | `project_instance_id` | `(root: Path, doc: dict) -> str` | — |
-| `scripts/add-document.py` | 45 | function | `default_target` | `(root: Path, doc: dict) -> Path` | — |
-| `scripts/add-document.py` | 49 | function | `resolve_target` | `(root: Path, doc: dict, output: Path | None) -> Path` | — |
-| `scripts/add-document.py` | 59 | function | `add` | `(document_id: str, *, root: Path=ROOT, output: Path | None=None, variant: str='canonical', instance_id: str | None=None, force: bool=False, write: bool=False, today: date | None=None) -> dict` | — |
-| `scripts/add-document.py` | 105 | function | `main` | `(argv: list[str] | None=None) -> int` | — |
+| `scripts/add-document.py` | 48 | function | `existing_instances` | `(root: Path) -> dict[str, Path]` | Map instance IDs already declared under docs/ to their files. |
+| `scripts/add-document.py` | 70 | function | `default_target` | `(root: Path, doc: dict) -> Path` | — |
+| `scripts/add-document.py` | 74 | function | `resolve_target` | `(root: Path, doc: dict, output: Path | None) -> Path` | — |
+| `scripts/add-document.py` | 84 | function | `add` | `(document_id: str, *, root: Path=ROOT, output: Path | None=None, variant: str='canonical', instance_id: str | None=None, force: bool=False, write: bool=False, today: date | None=None) -> dict` | — |
+| `scripts/add-document.py` | 136 | function | `main` | `(argv: list[str] | None=None) -> int` | — |
 | `scripts/adopt.py` | 24 | function | `scan` | `(project)` | — |
 | `scripts/adopt.py` | 36 | function | `main` | `()` | — |
 | `scripts/doc-control/build_catalogs.py` | 28 | function | `phase_order` | `()` | The declared phase sequence, from the context model, not from a second list here. |
@@ -242,15 +243,15 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/enforce.py` | 78 | function | `repo_scope` | `(root)` | Point the delegated checkers at `root` for one run, then put them back. |
 | `scripts/intelligence/enforce.py` | 102 | function | `repo_relative` | `(location, root)` | A path as the repository sees it. Baseline keys must not depend on where the repo lives. |
 | `scripts/intelligence/enforce.py` | 110 | function | `collect_findings` | `(profile_document, context, documents, groups, enforcement, root=None)` | Gather findings from every enabled family. Returns (findings, families turned off). |
-| `scripts/intelligence/enforce.py` | 163 | function | `load_baseline` | `(path)` | Read and validate the baseline. A malformed baseline is a usage error, never a pass. |
-| `scripts/intelligence/enforce.py` | 179 | function | `apply_baseline` | `(findings, baseline, today=None)` | Split findings into new and suppressed; report baseline entries whose finding is gone. |
-| `scripts/intelligence/enforce.py` | 213 | function | `write_baseline` | `(path, findings, phase, today=None)` | Record current findings. Machine-generated JSON, never round-tripped through TOML. |
-| `scripts/intelligence/enforce.py` | 237 | function | `summarize` | `(findings, suppressed, stale, enforcement)` | Counts and the exit code, stated once. |
-| `scripts/intelligence/enforce.py` | 252 | function | `report` | `(data, findings, suppressed, stale, enforcement, exit_code)` | Markdown: what is enforced, what is new, what the baseline hides, and what it cannot see. |
-| `scripts/intelligence/enforce.py` | 361 | function | `build` | `(args)` | Load context, resolve requirements, collect every family and apply the baseline. |
-| `scripts/intelligence/enforce.py` | 403 | function | `machine_document` | `(data, findings, suppressed, stale, enforcement, summary)` | The JSON shape: everything the terminal text says, not only the prose. |
-| `scripts/intelligence/enforce.py` | 420 | function | `run` | `(args)` | — |
-| `scripts/intelligence/enforce.py` | 456 | function | `main` | `()` | — |
+| `scripts/intelligence/enforce.py` | 164 | function | `load_baseline` | `(path)` | Read and validate the baseline. A malformed baseline is a usage error, never a pass. |
+| `scripts/intelligence/enforce.py` | 180 | function | `apply_baseline` | `(findings, baseline, today=None)` | Split findings into new and suppressed; report baseline entries whose finding is gone. |
+| `scripts/intelligence/enforce.py` | 214 | function | `write_baseline` | `(path, findings, phase, today=None)` | Record current findings. Machine-generated JSON, never round-tripped through TOML. |
+| `scripts/intelligence/enforce.py` | 238 | function | `summarize` | `(findings, suppressed, stale, enforcement)` | Counts and the exit code, stated once. |
+| `scripts/intelligence/enforce.py` | 253 | function | `report` | `(data, findings, suppressed, stale, enforcement, exit_code)` | Markdown: what is enforced, what is new, what the baseline hides, and what it cannot see. |
+| `scripts/intelligence/enforce.py` | 362 | function | `build` | `(args)` | Load context, resolve requirements, collect every family and apply the baseline. |
+| `scripts/intelligence/enforce.py` | 404 | function | `machine_document` | `(data, findings, suppressed, stale, enforcement, summary)` | The JSON shape: everything the terminal text says, not only the prose. |
+| `scripts/intelligence/enforce.py` | 421 | function | `run` | `(args)` | — |
+| `scripts/intelligence/enforce.py` | 457 | function | `main` | `()` | — |
 | `scripts/intelligence/profile.py` | 209 | function | `fact_specs` | `()` | Every fact in the vocabulary, with its detection route. |
 | `scripts/intelligence/profile.py` | 224 | function | `tracked_files` | `(root)` | Tracked files when Git is available (honors .gitignore); otherwise a pruned walk. |
 | `scripts/intelligence/profile.py` | 242 | function | `skipped_dir` | `(relative)` | A path inside a generated, vendored or test-input directory is not project evidence. |
@@ -302,17 +303,17 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/recommend.py` | 322 | function | `evaluate` | `(documents, profile_document, context, enforcement=None, placement=None)` | Resolve every catalog entry into a group, with its severity and reason. |
 | `scripts/intelligence/recommend.py` | 374 | function | `score` | `(documents, groups, enforcement)` | — |
 | `scripts/intelligence/recommend.py` | 398 | function | `because` | `(item, enforcement)` | The context that caused this requirement, in one line: phase plus the predicate values. |
-| `scripts/intelligence/recommend.py` | 405 | function | `findings` | `(documents, context, groups, enforcement=None)` | Return one structured finding per problem: rule, severity, location, reason, fix, cause. |
-| `scripts/intelligence/recommend.py` | 494 | function | `check` | `(documents, context, groups, enforcement=None)` | Fail only what the declared phase says must fail; an undeclared phase never fails. |
-| `scripts/intelligence/recommend.py` | 505 | function | `explain` | `(document, profile_document, context, enforcement=None, placement=None, documents=None, groups=None)` | Return the derivation chain that explains one requirement. |
-| `scripts/intelligence/recommend.py` | 571 | function | `kind_summary` | `(profile_document, context)` | The kind situation: what is declared, what the evidence suggests, and what that means. |
-| `scripts/intelligence/recommend.py` | 593 | function | `kind_line` | `(kinds, groups)` | One line that says what is declared, what is only evidence, and what is still undetermined. |
-| `scripts/intelligence/recommend.py` | 611 | function | `trait_summary` | `(profile_document, context)` | The declared traits: the facts no detector can answer, each answered or still a question. |
-| `scripts/intelligence/recommend.py` | 630 | function | `trait_line` | `(traits, groups)` | One line: each trait's recorded answer, or the open question and what it leaves hanging. |
-| `scripts/intelligence/recommend.py` | 645 | function | `audience_line` | `(audiences)` | State the reader gate and the declaration that controls it. |
-| `scripts/intelligence/recommend.py` | 652 | function | `report` | `(data)` | — |
-| `scripts/intelligence/recommend.py` | 732 | function | `build` | `(args)` | — |
-| `scripts/intelligence/recommend.py` | 760 | function | `main` | `()` | — |
+| `scripts/intelligence/recommend.py` | 405 | function | `findings` | `(documents, context, groups, enforcement=None, root=None)` | Return one structured finding per problem: rule, severity, location, reason, fix, cause. |
+| `scripts/intelligence/recommend.py` | 499 | function | `check` | `(documents, context, groups, enforcement=None)` | Fail only what the declared phase says must fail; an undeclared phase never fails. |
+| `scripts/intelligence/recommend.py` | 510 | function | `explain` | `(document, profile_document, context, enforcement=None, placement=None, documents=None, groups=None)` | Return the derivation chain that explains one requirement. |
+| `scripts/intelligence/recommend.py` | 576 | function | `kind_summary` | `(profile_document, context)` | The kind situation: what is declared, what the evidence suggests, and what that means. |
+| `scripts/intelligence/recommend.py` | 598 | function | `kind_line` | `(kinds, groups)` | One line that says what is declared, what is only evidence, and what is still undetermined. |
+| `scripts/intelligence/recommend.py` | 616 | function | `trait_summary` | `(profile_document, context)` | The declared traits: the facts no detector can answer, each answered or still a question. |
+| `scripts/intelligence/recommend.py` | 635 | function | `trait_line` | `(traits, groups)` | One line: each trait's recorded answer, or the open question and what it leaves hanging. |
+| `scripts/intelligence/recommend.py` | 650 | function | `audience_line` | `(audiences)` | State the reader gate and the declaration that controls it. |
+| `scripts/intelligence/recommend.py` | 657 | function | `report` | `(data)` | — |
+| `scripts/intelligence/recommend.py` | 737 | function | `build` | `(args)` | — |
+| `scripts/intelligence/recommend.py` | 765 | function | `main` | `()` | — |
 | `scripts/intelligence/triggers.py` | 40 | function | `load` | `(path=None)` | — |
 | `scripts/intelligence/triggers.py` | 47 | function | `context_module` | `()` | — |
 | `scripts/intelligence/triggers.py` | 55 | function | `read_workflow` | `(path)` | Read the fields the model claims: workflow name, trigger keys, filters, job names. |
