@@ -21,7 +21,7 @@ auto_generated: false
 ---
 # Recent changes
 
-- Added an installable zero-runtime-dependency CLI with bundled wheel/sdist assets, isolated project-root commands, package smoke checks and Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
+- Merged PR #12 (`08229a0`): installable zero-runtime-dependency CLI, wheel/sdist assets, isolated project-root commands, package smoke tests, and passing Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
 - Added structural validation for canonical migration-document sections and prompts; findings route
   through the existing `placeholders`/`stubs` policy families, so CI retains phase/pin severity.
 - Replaced print-only scripts with deterministic generators, drift and impact checks.
@@ -37,9 +37,26 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 08229a0 2026-10-22 Merge pull request #12 from STEMORG2026/arena/072fcb8c-autodoc
+- aa375ca 2026-10-22 docs(state): refresh package readiness status
+- 3cc89b2 2026-10-22 docs(state): reconcile C4R7 package readiness
 - b8ba4c2 2026-10-21 test: verify installed CLI help and usage errors
 - 6af0c03 2026-10-21 feat: ship AutoDOC as an installable CLI
 - 52d1b79 2026-10-21 Merge pull request #11 from STEMORG2026/arena/48a62791-autodoc
+- 37c698a 2026-10-21 chore(state): reconcile migration validation PR
+- 0d51069 2026-10-21 feat: validate migration document prose structure
+- c4a9d43 2026-10-21 Merge pull request #10 from STEMORG2026/arena/44b2fb68-autodoc
+- 58641ce 2026-10-21 Close the record: PR #8 and PR #9 merged, cold-clone check, and why the merge chain stops
+- 0febe31 2026-10-21 Merge pull request #9 from STEMORG2026/arena/44b2fb68-autodoc
+- a30fc5f 2026-10-21 Reconcile state for D-001: registry, index, dashboard, session handoff
+- 55f70ce 2026-10-21 Record D-001's merge (PR #8, 5bbd7d8) and the post-merge cold-clone check
+- 5bbd7d8 2026-10-21 Merge pull request #8 from STEMORG2026/arena/44b2fb68-autodoc
+- d3ebf4a 2026-10-21 Fix D-001: correct the catalog counts and make them checkable
+- 9e5155d 2026-10-21 Merge pull request #7 from STEMORG2026/arena/83bebb7f-autodoc
+- 629338c 2026-10-21 Record the closing record's merge (PR #6, f0aa0e3)
+- f0aa0e3 2026-10-21 Merge pull request #6 from STEMORG2026/arena/83bebb7f-autodoc
+- 69ea4b4 2026-10-21 Record the rule-10 stranger self-check and close the pass
+- 4fe3405 2026-10-21 Close the eight open sessions on the owner's word
 
 ## Changed paths at update time
 

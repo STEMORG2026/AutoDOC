@@ -1,14 +1,15 @@
 # REGISTRY — who is working here and what they own
 
-**Last reconciled:** 2026-10-22T03:36Z (PR #11 merged at `52d1b79`; PR #12 open; local checks and all GitHub jobs pass; C4R7 paused awaiting owner review; B71a remains paused)
+**Last reconciled:** 2026-10-22T04:45Z (PR #12 merged at `08229a0`; PR #13 carries state reconciliation with checks passing; C4R7 and B71a remain paused)
 
 ## Active — work in flight, or landed and awaiting the owner
 
-C4R7 holds the active package-readiness claim, now **PAUSED awaiting owner review**: PR #12 is open on `arena/072fcb8c-autodoc`, and local checks plus all GitHub jobs pass. B71a (migration prose validation) remains paused for owner review on `arena/48a62791-autodoc`; merging PR #11 did not close it.
+C4R7's package-readiness work is merged (PR #12, `08229a0`) and its session remains **PAUSED awaiting explicit owner closure**; merging did not close it. 627F's post-merge state reconciliation is proposed in PR #13 on `arena/627fcb46-autodoc`; all required and Python 3.11–3.15 checks pass, with owner review and next-scope selection pending. B71a (migration prose validation) remains paused on `arena/48a62791-autodoc`; PR #11 merging did not close it.
 
 | Agent ID | Model / type | Branch | Task (one line) | Started (UTC) | Claimed paths | Status |
 | --- | --- | --- | --- | --- | --- | --- |
-| `C4R7` | Arena.ai Agent Mode | `arena/072fcb8c-autodoc` | Make AutoDOC installable as a zero-runtime-dependency Python CLI/package; build and test wheel/sdist, document limits; do not publish to PyPI | 2026-10-21T18:20Z | `pyproject.toml`, `setup.py`, `MANIFEST.in`, `autodoc/`, `scripts/doc-sync/engine.py`, CLI scripts, `Makefile`, `Taskfile.yaml`, package tests, workflows, usage/architecture docs, `state/**`, living-state files | **PAUSED (awaiting owner)** |
+| `627F` | Arena.ai Agent Mode | `arena/627fcb46-autodoc` | PR #13 post-merge state reconciliation; surface next bounded roadmap choice without choosing a deferred item | 2026-10-22T04:26Z | `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, `state/**` | **PAUSED (awaiting PR #13 review and owner scope selection)** |
+| `C4R7` | Arena.ai Agent Mode | `arena/072fcb8c-autodoc` | Installable zero-runtime-dependency Python CLI/package; wheel/sdist and release guidance; PR #12 merged at `08229a0`; no PyPI publish | 2026-10-21T18:20Z | `pyproject.toml`, `setup.py`, `MANIFEST.in`, `autodoc/`, `scripts/doc-sync/engine.py`, CLI scripts, `Makefile`, `Taskfile.yaml`, package tests, workflows, usage/architecture docs, `state/**`, living-state files | **PAUSED (awaiting explicit owner closure)** |
 | `B71a` | Arena.ai Agent Mode | `arena/48a62791-autodoc` | Integrate structural checks for four canonical migration titles into `stub_check`; findings route through existing `placeholders`/`stubs` families | 2026-10-21T14:59Z | `state/**`, `scripts/doc-control/stub_check.py`, `scripts/intelligence/enforce.py`, `CONTROL/metadata/CONTEXT-MODEL.json`, `autodoc.toml`, `tests/test_migration_prose.py`, `Makefile`, `NEXT-ACTION.md`, `CHANGELOG.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `RECENT-CHANGES.md`, `docs/00-governance/ENGINE-COVERAGE.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `docs/META/**` | **PAUSED (awaiting owner)** |
 
 ## Closed by the owner

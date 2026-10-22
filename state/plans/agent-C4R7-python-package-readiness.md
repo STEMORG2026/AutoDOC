@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Turn AutoDOC's current repository-only scripts into an installable, dependency-free Python CLI with a buildable wheel/sdist and isolated-install smoke coverage. |
 | Owner of the work | `C4R7` (session `20261021-1820-C4R7`) |
-| Status | **PAUSED (awaiting owner review)** |
+| Status | **PAUSED (awaiting explicit owner closure)** |
 | Opened (UTC) | 2026-10-21T18:20Z |
 
 ## Scope
@@ -44,6 +44,6 @@ Remove the `autodoc` entry point and package-data build support, restore the pri
 - `make ci`: **267 tests + 190 subtests passed** on local Python 3.11; evidence hashes verified.
 - `make package-check`: wheel/sdist build, sdist-to-wheel rebuild, and clean installed-wheel smoke (version/help/invalid usage plus check/generate/adopt/init) passed.
 - `make package`: produced the 0.2.0 wheel and sdist. No runtime dependencies were added.
-- Commits `6af0c03` and `b8ba4c2` are pushed on `arena/072fcb8c-autodoc`; PR #12 is open against `master`.
+- Commits `6af0c03` and `b8ba4c2` are on `arena/072fcb8c-autodoc`; PR #12 merged into `master` at `08229a0`.
 - GitHub's required `AutoDOC guard / check`, impact job and supplemental Python 3.11–3.15 matrix all passed. Local Python 3.11 `make ci` also passed.
-- No PyPI publishing or trusted-publishing setup was authorized. C4R7 is paused for owner review; do not close B71a.
+- No PyPI publishing or trusted-publishing setup was authorized. C4R7 remains paused awaiting explicit owner closure; do not close B71a.
