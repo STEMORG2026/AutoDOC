@@ -37,13 +37,13 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- b8ba4c2 2026-10-21 test: verify installed CLI help and usage errors
 - 6af0c03 2026-10-21 feat: ship AutoDOC as an installable CLI
 - 52d1b79 2026-10-21 Merge pull request #11 from STEMORG2026/arena/48a62791-autodoc
 
 ## Changed paths at update time
 
-- `docs/META/CODE-INVENTORY.md`
-- `scripts/test_package.py`
+- `state/ARCHITECTURE.md`
 - `state/DASHBOARD.md`
 - `state/INDEX.md`
 - `state/REGISTRY.md`

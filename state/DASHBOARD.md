@@ -1,14 +1,14 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-21T18:58Z · **Reconciled by:** C4R7 (session `20261021-1820-C4R7`,
-local implementation checks pass; PR #12 checks pending) · **Base tip:** `52d1b79` on `master` (PR #11 merged); PR #12 is open from `arena/072fcb8c-autodoc`.
+**Last reconciled:** 2026-10-21T19:02Z · **Reconciled by:** C4R7 (session `20261021-1820-C4R7`,
+local and remote checks pass; paused awaiting owner review) · **Base tip:** `52d1b79` on `master` (PR #11 merged); PR #12 is open from `arena/072fcb8c-autodoc`.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `52d1b79` (PR #11 merged); C4R7's `arena/072fcb8c-autodoc` has PR #12 open, remote checks pending |
+| Branch | `master` at `52d1b79` (PR #11 merged); C4R7's `arena/072fcb8c-autodoc` has open PR #12, all checks green |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -16,17 +16,17 @@ local implementation checks pass; PR #12 checks pending) · **Base tip:** `52d1b
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
 | Stack | Python 3.11–3.15 declared, **zero runtime dependencies**; build/pytest/pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
 | Docs | 70 controlled instances (28 generated targets, 42 human-owned, `make docs-health` 2026-10-21) · 384 Markdown files tracked |
-| Tests | `make ci`: 267 passed + 190 subtests in 22.72 s (Python 3.11, 2026-10-21); clean wheel/sdist install smoke passed; evidence hashes verified (not signatures) |
+| Tests | Local `make ci`: 267 passed + 190 subtests on Python 3.11; wheel/sdist smoke passed; PR #12 required check, impact and Python 3.11–3.15 matrix all green; evidence hashes verified (not signatures) |
 | CI | 5 workflows; required check `AutoDOC guard / check` remains in GitHub ruleset `main` (P-007-A, strict); supplemental Python 3.11–3.15 matrix is non-blocking; nightly freshness warn-only; tag workflow builds snapshot + wheel/sdist artifacts, no PyPI publish |
 
 ## Active agents
 
-`C4R7` — session `20261021-1820-C4R7` (**IN-PROGRESS; PR #12 checks pending**): added the
-installable zero-runtime-dependency CLI/package, distinct tool/project roots, wheel/sdist build and
-isolated installation smoke tests. Local `make ci` passed (267 tests, 190 subtests); the package
-smoke and artifact builds passed. The 3.11–3.15 compatibility matrix is supplemental/non-blocking;
-the required status remains `AutoDOC guard / check`. No PyPI publication was authorized. Owner
-review is pending.
+`C4R7` — session `20261021-1820-C4R7` (**PAUSED (awaiting owner)**): added the installable
+zero-runtime-dependency CLI/package, distinct tool/project roots, wheel/sdist build and isolated
+installation smoke tests. Local `make ci` passed (267 tests, 190 subtests); the package smoke and
+artifact builds passed. PR #12's required `AutoDOC guard / check`, impact job and supplemental
+Python 3.11–3.15 compatibility matrix all passed on GitHub. No PyPI publication was authorized;
+owner review/merge is pending.
 
 `B71a` — session `20261021-1459-B71a` (**PAUSED (awaiting owner)**): migration-prose validation is
 merged in PR #11 at `52d1b79`; the implementation is structural only. The session remains paused;
@@ -90,12 +90,13 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Owner review:** review and merge the C4R7 installable CLI/package PR #12 after its required
-   check passes. This branch builds wheel/sdist artifacts but does not publish to PyPI. Decide
-   separately whether to configure trusted publishing and authorize an actual registry release.
-2. **Session close decisions:** B71a's PR #11 is merged at `52d1b79`, but the B71a session remains
-   paused until the owner explicitly closes it. C4R7 remains in progress while PR #12 checks are pending; after they pass, the session will be
-   paused awaiting owner review. Merging either PR is not an implicit session close.
+1. **Owner review:** review and merge the C4R7 installable CLI/package PR #12; its required check,
+   impact job, and Python 3.11–3.15 matrix are green. This branch builds wheel/sdist artifacts but
+   does not publish to PyPI. Decide separately whether to configure trusted publishing and authorize
+   an actual registry release.
+2. **Session close decisions:** B71a's PR #11 is merged at `52d1b79`, but B71a remains paused until
+   the owner explicitly closes it. C4R7 is also paused awaiting owner review/closure; merging either
+   PR is not an implicit session close.
 3. Optional follow-ups only, none gating: the P-006 deferrals in `state/DEBT.md` (`audience` consumer
    first if any is picked; JS/TS + Rust toolchains; external dogfood repository; template rendering
    on demand; evidence signing), the one other `open` item (D-010, vulnerability scanning — low,

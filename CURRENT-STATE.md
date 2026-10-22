@@ -49,9 +49,9 @@ roots, wheel/sdist build and clean-venv smoke coverage. Python 3.11–3.15 are d
 supplemental CI matrix is non-blocking, while the required `AutoDOC guard / check` runs `make ci`
 on Python 3.11. Tagged workflows build temporary GitHub Actions artifacts only; the package is
 not published to PyPI and no publication was authorized. The local full check passed (267 tests,
-190 subtests, plus wheel/sdist install smoke). PR #12 is open on this branch; its required check and supplemental compatibility results are
-pending, with owner review after the required check passes. B71a remains paused even though PR #11
-merged.
+190 subtests, plus wheel/sdist install smoke). PR #12 is open on this branch; its required check,
+impact job and supplemental Python 3.11–3.15 matrix all passed on GitHub. Owner review/merge is
+pending. B71a remains paused even though PR #11 merged.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.

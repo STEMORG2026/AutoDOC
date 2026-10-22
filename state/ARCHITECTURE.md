@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-22 (installable CLI/package readiness; C4R7 in progress/awaiting owner review)
+**Last reconciled:** 2026-10-22 (installable CLI/package readiness; C4R7 paused awaiting owner review)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -40,7 +40,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 - **Scale:** 1015 tracked files = 64 `.py`, 361 `.md`, and 265 catalog types × 3 template variants; 68 controlled docs (24 generated, 44 human-owned). **Refreshed 2026-10-21:** 1039 tracked files = 65 `.py`, 384 `.md`; 70 controlled instances (28 generated targets, 42 human-owned) — the counts a reader should cite today.
 - **Demo surface:** SQLite (`EXAMPLE-PROJECT/db/schema.sql`, single `tasks` table, no migrations) and a stdlib threaded HTTP server with three routes (`GET/POST /tasks`, `GET /health`), **no auth**, 1–4096-byte body cap, JSON 400/404 errors.
 - **Readers:** Python only (exact, in-process). No reader for JavaScript/TypeScript, Rust or Go (L0, reported as such).
-- **Gates:** `make ci` passes on Python 3.11 (267 tests + 190 subtests), including catalog checks, guards, drift, impact, isolated wheel/sdist install smoke and evidence hashing. The required status remains `AutoDOC guard / check`; Python 3.11–3.15 matrix jobs are supplemental/non-blocking; nightly freshness is warn-only.
+- **Gates:** local `make ci` passes on Python 3.11 (267 tests + 190 subtests), including catalog checks, guards, drift, impact, isolated wheel/sdist install smoke and evidence hashing. PR #12's required `AutoDOC guard / check`, impact job and supplemental Python 3.11–3.15 matrix all passed remotely; the matrix remains non-blocking. Nightly freshness is warn-only.
 - **Known-issue markers:** none inline (0 TODO/FIXME/XXX/HACK); the known surface is `LIMITATIONS.md` and `ENGINE-COVERAGE.md`.
 
 ## Change log

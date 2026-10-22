@@ -24,11 +24,10 @@ auto_generated: false
 ## Immediate focus
 The user-selected installable Python CLI/package is implemented on C4R7: wheel/sdist builds,
 `autodoc check/generate/adopt/init`, separate tool and target-project roots, and clean-venv smoke
-tests. Local `make ci` passed on Python 3.11 (267 tests, 190 subtests, plus package smoke); the
-supplemental 3.11–3.15 matrix has not yet run in GitHub. The required check remains named
-`AutoDOC guard / check`. Await owner review/merge before tagging a distribution. The release
-workflow builds temporary GitHub Actions artifacts only; PyPI publishing was not authorized and
-requires a separate owner decision/setup.
+tests. Local `make ci` passed on Python 3.11 (267 tests, 190 subtests, plus package smoke); PR #12's
+required `AutoDOC guard / check`, impact job, and supplemental Python 3.11–3.15 matrix all passed
+on GitHub. Owner review/merge is pending. The release workflow builds temporary GitHub Actions
+artifacts only; PyPI publishing was not authorized and requires a separate owner decision/setup.
 
 PR #11 merged at `52d1b79` on 2026-10-21; this did **not** close B71a, which remains paused awaiting
 the owner's explicit close. The migration-prose checks remain structural only, not semantic or
