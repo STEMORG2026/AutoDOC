@@ -60,8 +60,10 @@ and JavaScript have manifest readers today, so dependency questions in other eco
 `unknown` rather than false. The four heuristic content scans are bounded and name their limits;
 the credential scan records file paths and never values. Phase is a declaration: an undeclared
 phase means advisory-only output, and the phase hint never sets enforcement. Kinds and audiences
-are validated and displayed, and kinds drive predicates: `kind:<id>` is three-valued, so an
-undeclared kind leaves its documents **undetermined** until the owner answers. Three facts are
+are validated and displayed. Kind predicates are three-valued, so an undeclared kind leaves its
+documents **undetermined** until the owner answers. A catalog `reader` adds an implicit
+`audience:<reader>` AND predicate: a declared match is true, a non-match in a non-empty audience
+is not-applicable, an empty audience is unknown, and assess-only entries are exempt. Three facts are
 **declaration-only** (`handles_personal_data`, `handles_payments`, `safety_critical`): they are
 facts about the world, so they carry a stated reason instead of a detector, are answered in
 `[facts]`, and their documents are undetermined until they are. A trait is never read from
@@ -70,13 +72,17 @@ evidence, and an unanswered trait is never read as `false`. Profiling this repos
 files, which is exactly why the report demands a recorded decision instead of assuming the
 project owns an API or a database. Generated references are labeled, not trusted: every generator states whether it is `exact` or
 `heuristic` and what it cannot see, and a heuristic generator warns by default. Per-language
-coverage is honest about its reach: Python is extracted in-process with the interpreter's parser,
-Go integrates `go doc -all .` when the toolchain is present, and **every other language is read at
-L0** — file and manifest facts only — because AutoDOC integrates a language's own tool instead of
-reimplementing one. `make docs-languages` prints that situation for this repository, including
-which declared generator cannot run on this machine. A reference produced by an external toolchain
-is printed on demand and never committed: the same repository on two machines would disagree, and
-a generated target that depends on the environment cannot be drift-checked. What runs when is declared, not inferred: `CONTROL/metadata/TRIGGERS.json` names each event,
+coverage is honest about its reach: Python is extracted in-process with the interpreter's parser;
+Go integrates `go doc -all .`; JavaScript integrates JSDoc `-X`; TypeScript integrates TypeDoc
+`--json`; and Rust uses nightly rustdoc JSON through `cargo rustdoc`. These are tool-output
+references, not AutoDOC parsers: local JSDoc/TypeDoc configuration and plugins can affect output
+and may execute code; Rust requires a root Cargo library manifest and offline-resolvable dependencies,
+and build scripts
+or procedural macros may execute in a temporary project copy. The runner scrubs environment
+variables, uses a timeout and does not install tools or packages, but is not an OS security sandbox.
+Missing toolchains leave that language at L0 in that run. `make docs-languages` prints availability
+and limits. External-tool references are printed on demand and never committed: the same repository
+on two machines could disagree, and an environment-dependent generated target cannot be drift-checked. What runs when is declared, not inferred: `CONTROL/metadata/TRIGGERS.json` names each event,
 its commands, what may block and what may only warn, and `triggers.py --check` verifies the
 workflows, the hook and the Makefile against it. The workflow reader is line-based and reads names,
 trigger keys, filters and job names; a job produced by a reusable workflow, or a workflow the

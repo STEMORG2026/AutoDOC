@@ -4,11 +4,13 @@
     Obligations = Catalog x Context -> (applies?, severity, enforcement)
 
 Applicability is decided by a predicate, never by a project-type label. A predicate token is a
-fact name, the sentinel `always` or `assess`, `kind:<id>`, or `obligation:<id>`; a bare list means
-every token must hold, and `{"all": [...], "any": [...]}` states a mixed condition. A fact is
-three-valued, so a predicate over an unknown fact yields *undetermined* — reported separately,
-never counted as satisfied and never failed. Severity comes from the declared phase: an undeclared
-phase is advisory-only, and nothing fails until the owner declares one.
+fact name, the sentinel `always` or `assess`, `kind:<id>`, `obligation:<id>`, or the implicit
+`audience:<reader>` token derived from catalog reader metadata; a bare list means every token must
+hold, and `{"all": [...], "any": [...]}` states a mixed condition. A fact or audience question is
+three-valued, so an unknown yields *undetermined* — reported separately, never counted as satisfied
+and never failed. A declared audience mismatch is not applicable, while an empty audience is
+unknown; assess-only entries are exempt. Severity comes from the declared phase: an undeclared phase
+is advisory-only, and nothing fails until the owner declares one.
 """
 import argparse
 import importlib.util
@@ -22,6 +24,7 @@ CATALOGS = ('CATALOG-A', 'CATALOG-B')
 PHASE_ORDER = ('idea', 'prototype', 'build', 'beta', 'live', 'mature', 'sunset')
 SENTINELS = ('always', 'assess')
 PREFIXES = ('kind:', 'obligation:')
+AUDIENCE_PREFIX = 'audience:'
 PHASE_PREFIX = 'phase>='
 
 
@@ -81,11 +84,24 @@ def catalog():
 
 
 def predicate(document):
-    """Normalise applies_when into (all_tokens, any_tokens)."""
+    """Normalise applies_when, adding a reader-derived audience AND where applicable.
+
+    The catalog's `reader` field adds `audience:<reader>` as an implicit all-token. An explicit
+    non-empty audience list is a closed declaration; its match is true and a non-match false.
+    Empty is unanswered and therefore unknown. The assess sentinel remains human-only and is
+    never gated by audience.
+    """
     applied = document['applies_when']
     if isinstance(applied, dict):
-        return list(applied.get('all', [])), list(applied.get('any', []))
-    return list(applied), []
+        every, any_of = list(applied.get('all', [])), list(applied.get('any', []))
+    else:
+        every, any_of = list(applied), []
+    reader = document.get('reader')
+    if reader and 'assess' not in every + any_of:
+        audience_token = f'{AUDIENCE_PREFIX}{reader}'
+        if audience_token not in every:
+            every.append(audience_token)
+    return every, any_of
 
 
 def token_state(token, facts, context, model=None):
@@ -101,6 +117,12 @@ def token_state(token, facts, context, model=None):
         return 'true'
     if token == 'assess':
         return 'unknown'
+    if token.startswith(AUDIENCE_PREFIX):
+        reader = token[len(AUDIENCE_PREFIX):]
+        audiences = context.get('audience') or []
+        if not audiences:
+            return 'unknown'
+        return 'true' if reader in audiences else 'false'
     if token.startswith('kind:'):
         kind = token.split(':', 1)[1]
         if kind in context['kinds']:
@@ -316,7 +338,9 @@ def evaluate(documents, profile_document, context, enforcement=None, placement=N
         item = {'id': doc_id, 'name': document['name'], 'tier': document['tier'],
                 'effective_tier': placement_of(document, placement),
                 'decision': decision, 'type': document['type'], 'domain': document['domain'],
-                'applies_when': document['applies_when'],
+                'applies_when': document['applies_when'], 'reader': document.get('reader'),
+                'audience_state': detail.get(f"{AUDIENCE_PREFIX}{document['reader']}")
+                                  if document.get('reader') else None,
                 'phase_min': effective_phase_min(document, placement),
                 'why': document.get('tier_reason'), 'severity': severity, 'state': state,
                 'tokens': detail,
@@ -489,6 +513,16 @@ def explain(document, profile_document, context, enforcement=None, placement=Non
     state, detail = state_of(document, facts, context)
     severity = severity_for(document, state, decision, enforcement, context, placement)
     placed = placement_of(document, placement)
+    reader = document.get('reader')
+    audience_token = f'{AUDIENCE_PREFIX}{reader}' if reader else None
+    if audience_token and audience_token in detail:
+        declared_audiences = ', '.join(context.get('audience') or []) or 'none (empty)'
+        audience_explanation = (f'`{audience_token}` = {detail[audience_token]}; declared: '
+                               f'{declared_audiences}')
+    elif 'assess' in predicate(document)[0] + predicate(document)[1]:
+        audience_explanation = 'exempt for assess-only applicability'
+    else:
+        audience_explanation = 'not applied (no catalog reader)'
     lines = [f"{document['id']} — {document['name']}", '',
              f"- Tier: {document['tier']}" + (f" ({document['tier_reason']})" if document.get('tier_reason') else '')
              + (f"; core under profile {placement['id']}" if placed == 'core' and document['tier'] != 'core' else '')
@@ -497,7 +531,8 @@ def explain(document, profile_document, context, enforcement=None, placement=Non
              f"- Current phase: {enforcement['label']}",
              f"- Phase that requires it: {effective_phase_min(document, placement) or 'none (never required before sunset)'}",
              f"- Reader question: {document.get('question') or 'not stated yet (catalog admission backlog)'}",
-             f"- Reader: {document.get('reader') or '—'}",
+             f"- Reader: {reader or '—'}",
+             f"- Audience predicate: {audience_explanation}",
              f"- Support: {document.get('support')}"
              + (f" (checks: {', '.join(document['checks'])})" if document.get('checks') else '')
              + (' — nothing verifies this type' if document.get('support') == 'template-only' else ''),
@@ -515,6 +550,11 @@ def explain(document, profile_document, context, enforcement=None, placement=Non
                          f"{entry['limits']} |")
         elif token in SENTINELS:
             lines.append(f'| `{token}` | sentinel | — | — |')
+        elif token.startswith(AUDIENCE_PREFIX):
+            audiences = context.get('audience') or []
+            declared = ', '.join(audiences) or 'none (empty)'
+            lines.append(f'| `{token}` | {detail[token]} | declared audience: {declared} | '
+                         'match=true; non-match=false; empty=unknown |')
         else:
             declared = (context['kinds'] if token.startswith('kind:') else context['obligations']) \
                 if token.startswith(PREFIXES) else []
@@ -602,12 +642,20 @@ def trait_line(traits, groups):
     return line
 
 
+def audience_line(audiences):
+    """State the reader gate and the declaration that controls it."""
+    declared = ', '.join(audiences or []) or 'none declared'
+    return ('- Declared audiences: ' + declared + '; reader match required, declared non-match is '
+            'not applicable, empty is unknown, and assess-only entries are exempt')
+
+
 def report(data):
     summary, groups, enforcement = data['summary'], data['groups'], data['enforcement']
     profile = data.get('catalog_profile') or {}
     kinds = data.get('kinds') or {}
     lines = ['# AutoDOC requirements', '',
              f"- Phase: {enforcement['label']}",
+             audience_line(data.get('audiences') or []),
              f"- Detected ecosystems: {', '.join(data['ecosystems']['present']) or 'none'}"
              + (f" (readers: {', '.join(data['ecosystems']['readers']) or 'none'}; "
                 f"unread: {', '.join(data['ecosystems']['unread']) or 'none'})"
@@ -627,45 +675,50 @@ def report(data):
              f"- Not applicable, with a recorded reason: {summary['inapplicable_types']}",
              f"- Off at this phase or profile: {summary['off_types']}",
              f"- Catalog types: {summary['catalog_types']}", '']
-    sections = [('required', 'Required now', '| Type | Name | Required since | Severity | Evidence | Why core |',
-                 lambda i: f"| `{i['id']}` | {i['name']} | {i['phase_min']} | "
-                          f"{i['severity_effective']} | "
-                           f"{i['evidence'] or '—'} | {i['why'] or '—'} |"),
+    sections = [('required', 'Required now',
+                 '| Type | Name | Reader | Required since | Severity | Evidence | Why core |',
+                 lambda i: f"| `{i['id']}` | {i['name']} | {i.get('reader') or '—'} | "
+                          f"{i['phase_min']} | {i['severity_effective']} | "
+                          f"{i['evidence'] or '—'} | {i['why'] or '—'} |"),
                 ('reported', 'Applicable, advisory only (no phase declared)',
-                 '| Type | Name | Becomes required at | Evidence | Why core |',
-                 lambda i: f"| `{i['id']}` | {i['name']} | {i['phase_min'] or '—'} | "
-                           f"{i['evidence'] or '—'} | {i['why'] or '—'} |"),
+                 '| Type | Name | Reader | Becomes required at | Evidence | Why core |',
+                 lambda i: f"| `{i['id']}` | {i['name']} | {i.get('reader') or '—'} | "
+                           f"{i['phase_min'] or '—'} | {i['evidence'] or '—'} | {i['why'] or '—'} |"),
                 ('off', 'Not applicable at this phase (off, with the reason)',
-                 '| Type | Name | Reason | Becomes required at |', None),
+                 '| Type | Name | Reader | Reason | Becomes required at |', None),
                 ('recommended', 'Recommended (extended)',
-                 '| Type | Name | Applies when | Evidence |', None),
+                 '| Type | Name | Reader | Applies when | Evidence |', None),
                 ('undetermined', 'Undetermined — a fact could not be detected',
-                 '| Type | Name | Unknown fact | Why it matters |', None),
-                ('acknowledged', 'Acknowledged decisions', '| Type | Name | Decision | Reference |', None)]
+                 '| Type | Name | Reader | Unknown fact | Why it matters |', None),
+                ('acknowledged', 'Acknowledged decisions',
+                 '| Type | Name | Reader | Decision | Reference |', None)]
     for key, title, header, renderer in sections:
         items = groups.get(key) or []
         if not items:
             continue
-        lines += [f'## {title}', '', header, '| --- | --- | --- | --- |']
+        columns = len(header.strip('|').split('|'))
+        separator = '| ' + ' | '.join(['---'] * columns) + ' |'
+        lines += [f'## {title}', '', header, separator]
         for item in items:
             if renderer:
                 lines.append(renderer(item))
             elif key == 'off':
-                lines.append(f"| `{item['id']}` | {item['name']} | "
+                lines.append(f"| `{item['id']}` | {item['name']} | {item.get('reader') or '—'} | "
                              f"{item.get('off_reason') or 'off at this phase'} | "
                              f"{item['phase_min'] or '—'} |")
             elif key == 'recommended':
-                lines.append(f"| `{item['id']}` | {item['name']} | "
+                lines.append(f"| `{item['id']}` | {item['name']} | {item.get('reader') or '—'} | "
                              f"{json.dumps(item['applies_when'])} | {item['evidence'] or '—'} |")
             elif key == 'undetermined':
                 unknown = ', '.join(token for token, value in item['tokens'].items() if value == 'unknown')
-                lines.append(f"| `{item['id']}` | {item['name']} | {unknown} | "
-                             f"{item['why'] or 'applicability unknown'} |")
+                lines.append(f"| `{item['id']}` | {item['name']} | {item.get('reader') or '—'} | "
+                             f"{unknown} | {item['why'] or 'applicability unknown'} |")
             else:
                 reference = (item.get('path') or ', '.join(item.get('locations') or [])
                              or item.get('reason') or '—')
                 stale = ' (predicate now true — re-check)' if item.get('stale_decision') else ''
-                lines.append(f"| `{item['id']}` | {item['name']} | {item['severity']}{stale} | {reference} |")
+                lines.append(f"| `{item['id']}` | {item['name']} | {item.get('reader') or '—'} | "
+                             f"{item['severity']}{stale} | {reference} |")
         lines.append('')
     if not any(groups[name] for name in ('required', 'off', 'recommended', 'reported')):
         lines += ['No applicable requirement was found for this context.', '']
@@ -693,6 +746,7 @@ def build(args):
     unknown = sorted(name for name, entry in profile_document['facts'].items()
                      if entry['value'] == 'unknown')
     return {'version': 2, 'repo': profile_document['repo'], 'phase': context['phase'],
+            'audiences': list(context['audience']),
             'kinds': kind_summary(profile_document, context),
             'traits': trait_summary(profile_document, context),
             'languages': language_summary(profile_document),

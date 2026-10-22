@@ -68,8 +68,9 @@ Authoritative catalogs / source files / Markdown metadata
 - **Human reasoning:** architecture, adoption decisions, policy and next-action text are reviewed
   by a person. A path-based PR impact check can require a co-change, not certify its correctness.
 - **Additional bounded extractors:** `engine/extractors/facts.py` parses Python AST declarations
-  and tests, ATX Markdown headings and PEP 621 manifests. It does not infer behavior, installed
-  dependencies or parse arbitrary TypeScript/OpenAPI. The three catalog views are derived from
+  and tests, ATX Markdown headings and PEP 621 manifests. It does not infer runtime behavior or
+  installed dependencies, and it contains no TypeScript/OpenAPI parser (TypeDoc is an on-demand
+  external reference tool). The three catalog views are derived from
   the original 260 stable IDs (265 today; the five additions kept their IDs), not a duplicated catalog. The task route/SQLite/config
   renderers reject unsupported records rather than producing a deceptively complete reference.
 - **Evidence and release:** CI runs tests and uploads an unsigned, hash-verifiable pack to a run
@@ -103,7 +104,10 @@ Authoritative catalogs / source files / Markdown metadata
   `unknown` is the honest answer when no configured source could be evaluated — a repository
   whose ecosystem has no reader, or one with no manifest at all — and it propagates: a predicate
   over an unknown fact yields **undetermined**, which is reported, never counted as satisfied and
-  never failed. Every fact names its exactness (`exact` or `heuristic`) and its limits.
+  never failed. A catalog `reader` adds an implicit `audience:<reader>` AND token: a matching
+  declared audience is true, a mismatch in a non-empty declaration is false/not-applicable, an
+  empty audience is unknown, and assess-only entries are exempt. Every fact names its exactness
+  (`exact` or `heuristic`) and its limits.
 
 - **Severity scales with the declared phase, never with detection.** The phase sets what a
   violation *does*, family by family:
@@ -154,12 +158,15 @@ Authoritative catalogs / source files / Markdown metadata
   generator warns by default (`generator.heuristic`), and `header()` requires the label so a new
   generator cannot ship unlabeled. Per-language references go further: a language gets a generator
   only where its own tool can be integrated (Python in-process with the interpreter parser, Go via
-  `go doc -all .`), the tool runs inside the repository with a scrubbed environment, offline flags,
-  no shell and a timeout, and a missing, failing or hanging tool is reported with its reason rather
-  than replaced by a hand-rolled parser. A language with no generator is L0 — file and manifest
-  facts only — and every report names it. External-tool references are on demand
-  (`make docs-languages SHOW=<language>`) and never committed, because a drift-checked target that
-  depends on the machine cannot be reproducible.
+  `go doc -all .`, JavaScript via JSDoc `-X`, TypeScript via TypeDoc `--json`, and Rust via nightly
+  rustdoc JSON through `cargo rustdoc`). The runner uses a scrubbed environment, offline flags where
+  supported, no shell and a timeout; Rust runs from a temporary project copy. This is environment
+  isolation, not an OS security sandbox: JSDoc/TypeDoc configuration or plugins and Rust build
+  scripts/procedural macros may execute. A missing, failing or hanging tool is reported with its
+  reason rather than replaced by a hand-rolled
+  parser. A language with no generator is L0 — file and manifest facts only — and every report
+  names it. External-tool references are on demand (`make docs-languages SHOW=<language>`) and
+  never committed, because a drift-checked target that depends on the machine cannot be reproducible.
 
 - **Triggers are declared and verified, never implied** (`CONTROL/metadata/TRIGGERS.json`,
   `scripts/intelligence/triggers.py`, `docs/generated/TRIGGER-REFERENCE.md`). One model states

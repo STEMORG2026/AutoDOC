@@ -48,10 +48,13 @@ def context(**raw):
 
 
 def resolve(**raw):
-    declared = context(**{key: value for key, value in raw.items()
-                          if key in ('phase', 'kinds', 'obligations', 'not_applicable',
-                                     'instantiated', 'satisfied_by', 'severity', 'facts',
-                                     'profile')})
+    declared_values = {key: value for key, value in raw.items()
+                       if key in ('phase', 'audience', 'kinds', 'obligations', 'not_applicable',
+                                  'instantiated', 'satisfied_by', 'severity', 'facts', 'profile')}
+    # Most resolver tests model this repository's explicit audience. D-004 cases override it,
+    # including with [] to exercise the unanswered state.
+    declared_values.setdefault('audience', ['contributors', 'external-users'])
+    declared = context(**declared_values)
     detected = {key: value for key, value in raw.items() if key in profiler.DETECTORS}
     profile = profile_document(**detected)
     for name, entry in (declared.get('facts') or {}).items():
@@ -139,8 +142,10 @@ class ProfileTests(unittest.TestCase):
         self.assertEqual(placement['removed'], [])
 
     def test_the_oss_profile_adds_the_social_documents(self):
-        documents, declared, groups, _ = resolve(phase='build', profile='oss-library',
-                                                is_public='true', has_deploy='true')
+        documents, declared, groups, _ = resolve(
+            phase='build', profile='oss-library',
+            audience=['contributors', 'external-users', 'operators'],
+            is_public='true', has_deploy='true')
         placement = recommend.profile_placement(documents, declared)
         self.assertIn('DOC-A09-009', placement['core'], 'code of conduct comes with the profile')
         self.assertIn('DOC-A09-009', ids(groups, 'required'))
@@ -149,8 +154,10 @@ class ProfileTests(unittest.TestCase):
         self.assertIn('removed by profile oss-library', runbook['off_reason'])
 
     def test_an_internal_service_does_not_need_redistribution_terms(self):
-        documents, declared, groups, _ = resolve(phase='build', profile='internal-service',
-                                                has_deploy='true', is_public='true')
+        documents, declared, groups, _ = resolve(
+            phase='build', profile='internal-service',
+            audience=['contributors', 'external-users', 'operators'],
+            has_deploy='true', is_public='true')
         placement = recommend.profile_placement(documents, declared)
         self.assertNotIn('DOC-A10-008', placement['core'])
         self.assertIn('DOC-A16-005', placement['core'], 'on-call arrives with the profile')
@@ -160,11 +167,14 @@ class ProfileTests(unittest.TestCase):
                          'project')
 
     def test_a_profile_addition_states_when_it_lands(self):
-        documents, declared, groups, _ = resolve(phase='build', profile='internal-service',
-                                                has_deploy='true')
+        documents, declared, groups, _ = resolve(
+            phase='build', profile='internal-service',
+            audience=['contributors', 'external-users', 'operators'], has_deploy='true')
         on_call = find(groups, 'off', 'DOC-A16-005')
         self.assertIn('not required before live', on_call['off_reason'])
-        _, _, groups_live, _ = resolve(phase='live', profile='internal-service', has_deploy='true')
+        _, _, groups_live, _ = resolve(
+            phase='live', profile='internal-service',
+            audience=['contributors', 'external-users', 'operators'], has_deploy='true')
         self.assertIn('DOC-A16-005', ids(groups_live, 'required'))
 
     def test_an_unknown_profile_is_rejected(self):
@@ -227,9 +237,9 @@ class ApplicabilityTests(unittest.TestCase):
                              'no true token and one unknown leaves it undetermined')
 
     def test_obligation_gated_types_need_a_declaration(self):
-        _, _, without, _ = resolve()
+        _, _, without, _ = resolve(audience=['auditors'])
         self.assertIn('DOC-A07-001', ids(without, 'not_applicable'))
-        _, _, with_gdpr, _ = resolve(obligations=['gdpr'])
+        _, _, with_gdpr, _ = resolve(obligations=['gdpr'], audience=['auditors'])
         self.assertIsNotNone(find(with_gdpr, 'recommended', 'DOC-A07-001'),
                              'declaring the obligation makes the type applicable')
 
@@ -238,6 +248,87 @@ class ApplicabilityTests(unittest.TestCase):
         self.assertTrue(groups['assess'])
         self.assertFalse([item for item in groups['assess'] if item['tier'] == 'core'])
         self.assertNotIn('DOC-A24-001', ids(groups, 'required'))
+
+
+class AudienceTests(unittest.TestCase):
+    """D-004: the catalog reader gates applicability through the declared audience."""
+
+    DOCUMENT_ID = 'DOC-A09-009'
+
+    def test_reader_is_an_implicit_and_token_alongside_mixed_predicates(self):
+        every, any_of = recommend.predicate({
+            'reader': 'contributors',
+            'applies_when': {'all': ['is_public'], 'any': ['has_cli', 'has_ui']}})
+        self.assertEqual(every, ['is_public', 'audience:contributors'])
+        self.assertEqual(any_of, ['has_cli', 'has_ui'])
+
+    def test_a_declared_reader_match_adds_a_true_and_token(self):
+        documents, declared, groups, enforcement = resolve(
+            phase='build', profile='oss-library', audience=['contributors'], is_public='true')
+        item = find(groups, 'required', self.DOCUMENT_ID)
+        self.assertIsNotNone(item)
+        self.assertEqual(item['reader'], 'contributors')
+        self.assertEqual(item['audience_state'], 'true')
+        self.assertEqual(item['tokens']['is_public'], 'true')
+        self.assertEqual(item['tokens']['audience:contributors'], 'true')
+        document = next(entry for entry in documents if entry['id'] == self.DOCUMENT_ID)
+        text = recommend.explain(document, profile_document(is_public='true'),
+                                 declared, enforcement, groups=groups)
+        self.assertIn('Audience predicate: `audience:contributors` = true', text)
+        self.assertIn('| `audience:contributors` | true | declared audience: contributors |', text)
+
+    def test_a_nonmatching_declared_audience_is_false_and_nonfailing(self):
+        documents, declared, groups, enforcement = resolve(
+            phase='beta', profile='oss-library', audience=['external-users'], is_public='true')
+        item = find(groups, 'not_applicable', self.DOCUMENT_ID)
+        self.assertIsNotNone(item)
+        self.assertEqual(item['tokens']['is_public'], 'true', 'the base predicate matches')
+        self.assertEqual(item['tokens']['audience:contributors'], 'false',
+                         'reader is an implicit AND, not a replacement for applies_when')
+        errors, warnings = recommend.check(documents, declared, groups, enforcement)
+        self.assertFalse(any(self.DOCUMENT_ID in message for message in errors + warnings))
+
+    def test_an_empty_audience_is_unknown_and_does_not_fail(self):
+        documents, declared, groups, enforcement = resolve(
+            phase='beta', profile='oss-library', audience=[], is_public='true')
+        item = find(groups, 'undetermined', self.DOCUMENT_ID)
+        self.assertIsNotNone(item)
+        self.assertEqual(item['audience_state'], 'unknown')
+        self.assertEqual(item['tokens']['audience:contributors'], 'unknown')
+        errors, warnings = recommend.check(documents, declared, groups, enforcement)
+        self.assertFalse(any(self.DOCUMENT_ID in message for message in errors + warnings))
+
+    def test_assess_only_entries_are_exempt_from_audience_gating(self):
+        document = {'id': 'SYNTH-001', 'applies_when': ['assess'], 'reader': 'auditors'}
+        state, detail = recommend.state_of(document, {}, context(audience=[]))
+        self.assertEqual(state, 'assess')
+        self.assertEqual(detail, {})
+
+    def test_report_line_states_audience_policy(self):
+        line = recommend.audience_line(['contributors', 'external-users'])
+        self.assertIn('contributors, external-users', line)
+        self.assertIn('declared non-match is not applicable', line)
+        self.assertIn('empty is unknown', line)
+        self.assertIn('assess-only entries are exempt', line)
+
+    def test_requirement_report_includes_the_declared_audience(self):
+        groups = {key: [] for key in ('required', 'recommended', 'contextual', 'reported',
+                                      'undetermined', 'assess', 'not_applicable',
+                                      'acknowledged', 'off')}
+        data = {'summary': {'readiness': 'build-ready: 0/0', 'open_core_decisions': 0,
+                            'undetermined_types': 0, 'assess_only_types': 0,
+                            'inapplicable_types': 0, 'off_types': 0, 'catalog_types': 1},
+                'groups': groups, 'enforcement': context_module.enforcement('build'),
+                'catalog_profile': {'name': 'test', 'core_types': 1,
+                                    'default_core_types': 1, 'added': [], 'removed': []},
+                'ecosystems': {'present': [], 'readers': [], 'unread': []},
+                'unknown_facts': [], 'kinds': {'declared': [], 'suggested': [],
+                                               'declared_without_evidence': []},
+                'traits': {'asked': [], 'unanswered': []}, 'languages': {'rows': []},
+                'audiences': ['contributors', 'external-users']}
+        text = recommend.report(data)
+        self.assertIn('- Declared audiences: contributors, external-users', text)
+        self.assertIn('assess-only entries are exempt', text)
 
 
 class DecisionTests(unittest.TestCase):
@@ -400,7 +491,8 @@ class ExplainTests(unittest.TestCase):
         self.assertIn('Recorded decision: not_applicable — no readers', text)
 
     def test_explain_covers_declared_tokens(self):
-        documents, declared, groups, enforcement = resolve(obligations=['gdpr'])
+        documents, declared, groups, enforcement = resolve(
+            obligations=['gdpr'], audience=['auditors'])
         document = next(item for item in documents if item['id'] == 'DOC-A07-001')
         text = recommend.explain(document, profile_document(), declared, enforcement)
         self.assertIn('| `obligation:gdpr` | declared |', text)
@@ -414,7 +506,7 @@ class TraitTests(unittest.TestCase):
                       for name in TRAITS}
 
     def test_an_unanswered_trait_leaves_its_documents_undetermined_never_false(self):
-        _, declared, groups, _ = resolve(phase='build')
+        _, declared, groups, _ = resolve(phase='build', audience=['auditors'])
         self.assertEqual(declared['facts'], {})
         self.assertIn('DOC-A05-009', ids(groups, 'undetermined'),
                       'PII inventory depends on a question nobody answered')
@@ -429,7 +521,7 @@ class TraitTests(unittest.TestCase):
         self.assertIn('document(s) undetermined', line)
 
     def test_declaring_a_trait_answers_the_question_both_ways(self):
-        _, _, answered, _ = resolve(phase='build', facts=self.DECLARED_FALSE)
+        _, _, answered, _ = resolve(phase='build', audience=['auditors'], facts=self.DECLARED_FALSE)
         self.assertIn('DOC-A05-009', ids(answered, 'not_applicable'))
         self.assertIn('DOC-A07-003', ids(answered, 'not_applicable'),
                       'the deeper privacy set follows the same answer')
@@ -440,7 +532,7 @@ class TraitTests(unittest.TestCase):
         self.assertIn('none answered', line)
 
     def test_a_declared_true_trait_activates_its_documents(self):
-        _, _, active, _ = resolve(phase='build', facts={
+        _, _, active, _ = resolve(phase='build', audience=['auditors'], facts={
             'handles_payments': {'value': 'true', 'reason': 'the service takes cards'},
             'handles_personal_data': {'value': 'true', 'reason': 'customer accounts'},
             'safety_critical': {'value': 'true', 'reason': 'controls hospital equipment'}})

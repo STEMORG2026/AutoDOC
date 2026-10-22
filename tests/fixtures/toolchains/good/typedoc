@@ -1,0 +1,14 @@
+#!/bin/sh
+output=''
+while [ "$#" -gt 0 ]; do
+  if [ "$1" = '--json' ]; then
+    shift
+    output="$1"
+  fi
+  shift
+done
+if [ -z "$output" ]; then
+  echo 'missing --json output path' >&2
+  exit 2
+fi
+printf '{"kind":"Project","name":"fixture"}\n' > "$output"

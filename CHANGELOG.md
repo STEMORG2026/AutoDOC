@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Added reader-derived audience applicability: catalog `reader` is an implicit AND token (match=true,
+  non-match in a non-empty declared set=false/not applicable, empty=unknown, `assess` exempt). Added
+  on-demand JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON through `cargo rustdoc`; missing
+  tools are reported as L0 for that run, and fake-tool tests cover the integrations.
 - Added an installable, zero-runtime-dependency `autodoc` CLI (`check`, `generate`, `adopt`,
   `init`) with separate tool/project roots, wheel/sdist builds, clean-venv smoke coverage and
   Python 3.11–3.15 CI. Tagged runs build temporary GitHub Actions artifacts; PyPI publishing is

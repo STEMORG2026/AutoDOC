@@ -48,7 +48,10 @@ Generated docs have stable build-independent metadata; drift, rather than age, v
 ## Limitations
 No script proves that a security audit, backup, SBOM attestation, or human review happened.
 Evidence packs need real CI or service evidence; never fabricate them. The bounded examples and Python/Markdown/manifest extractors do not parse arbitrary-language
-contracts; see `docs/00-governance/ENGINE-COVERAGE.md` for the actual supported sources.
+contracts. Per-language references use a language's own tool on demand (Python AST, Go `go doc`,
+JavaScript JSDoc, TypeDoc for TypeScript, and nightly Rustdoc JSON); missing tools are L0 for that
+run, and external references are not drift-checked. See `docs/00-governance/ENGINE-COVERAGE.md`
+for supported sources and their limits.
 The root agent context documents record human intent and must be reviewed by a person.
 
 CI uploads an unsigned pack of the **test suite it actually ran**, declared project component,
@@ -79,7 +82,7 @@ use `1970-01-01` as a sentinel so freshness warns until a real review updates th
 | Catalog templates | Catalog indices | `library.py --check` | Fail missing or modified generated variants |
 | Catalog schema and rules | Catalog indices + `CATALOG-RULES.json` | `check_catalog.py`, `build_catalogs.py --check` | Fail invalid entries, undetectable predicates, facts with no consumer, and index drift |
 | Declared context | `autodoc.toml` + `CONTEXT-MODEL.json` | `context.py` | Fail unknown phases, kinds, audiences, facts and inert severity rules |
-| Applicability decisions | `autodoc.toml` + profile | `recommend.py --check` | Report or fail applicable core types by declared phase; advisory while no phase is declared |
+| Applicability decisions | `autodoc.toml` + profile + catalog `reader` | `recommend.py --check` | Report or fail applicable core types by declared phase; reader is an implicit AND audience token (match=true, non-match in a non-empty set=false/not applicable, empty=unknown, `assess` exempt) |
 | Fact vocabulary | `profile.py` detectors | `check_catalog.py` | Fail a fact with no detector, no limits, or no consumer |
 | Enforcement policy | `CONTEXT-MODEL.json` + `autodoc.toml` | `enforce.py` | Report or fail each check family at the declared phase's severity, minus recorded baseline |
 | Adoption baseline | `autodoc-baseline.json` | `enforce.py` | Suppress recorded findings, report stale entries, never silently pass a new one |

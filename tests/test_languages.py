@@ -2,8 +2,10 @@
 import importlib.util
 import json
 import os
+import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -109,6 +111,78 @@ class LanguageRunnerTests(unittest.TestCase):
                       'the caller environment is never inherited')
         self.assertNotIn('fixture-secret-value', result['text'])
 
+    def test_javascript_runs_jsdoc_and_returns_its_json_doclets(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'src' / 'fixture.js'
+            source.parent.mkdir()
+            source.write_text('/** @returns {number} */\nfunction value() { return 1; }\n',
+                              encoding='utf-8')
+            result = languages.run('javascript', root, files=[source], path=path_with('good'))
+        self.assertEqual(result['status'], 'generated', result['reason'])
+        self.assertEqual(result['exactness'], 'exact')
+        self.assertEqual(json.loads(result['text']),
+                         [{'kind': 'function', 'name': 'fixture'}])
+
+    def test_typescript_runs_typedoc_and_reads_its_json_file(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / 'src' / 'fixture.ts'
+            source.parent.mkdir()
+            source.write_text('export function value(): number { return 1; }\n',
+                              encoding='utf-8')
+            result = languages.run('typescript', root, files=[source], path=path_with('good'))
+        self.assertEqual(result['status'], 'generated', result['reason'])
+        self.assertEqual(json.loads(result['text']), {'kind': 'Project', 'name': 'fixture'})
+
+    def test_rustdoc_json_requires_nightly_rustc_and_rustdoc(self):
+        ok, reason = languages.available('rust', path=path_with('stable'))
+        self.assertFalse(ok)
+        self.assertIn('requires nightly', reason)
+        self.assertTrue(languages.available('rust', path=path_with('good'))[0])
+
+    def test_rust_runs_cargo_offline_in_a_temporary_project_copy(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / 'src').mkdir()
+            (root / 'Cargo.toml').write_text(
+                '[package]\nname = "fixture"\nversion = "0.1.0"\nedition = "2021"\n',
+                encoding='utf-8')
+            source = root / 'src' / 'lib.rs'
+            source.write_text('pub fn value() -> u8 { 1 }\n', encoding='utf-8')
+            tool_home = root / 'tool-home'
+            cargo_home = tool_home / '.cargo'
+            rustup_home = tool_home / '.rustup'
+            cargo_home.mkdir(parents=True)
+            rustup_home.mkdir()
+            with mock.patch.dict(os.environ, {'HOME': str(tool_home),
+                                              'CARGO_HOME': str(cargo_home),
+                                              'RUSTUP_HOME': str(rustup_home)}):
+                result = languages.run('rust', root, files=[source], path=path_with('good'))
+            self.assertEqual(result['status'], 'generated', result['reason'])
+            artifact = json.loads(result['text'])
+            self.assertNotEqual(Path(artifact['cwd']).resolve(), root.resolve(),
+                                'Cargo should run from the disposable project copy')
+            self.assertEqual(artifact['offline'], 'true')
+            self.assertEqual(artifact['cargo_home'], str(cargo_home.resolve()),
+                             'reuse the offline registry cache, not the scrubbed HOME')
+            self.assertEqual(artifact['rustup_home'], str(rustup_home.resolve()),
+                             'rustup proxies need the installed toolchain despite HOME isolation')
+            self.assertNotEqual(Path(artifact['target_dir']).resolve(), root.resolve(),
+                                'build artifacts stay in the temporary directory')
+            self.assertIn('--offline', artifact['args'])
+            self.assertIn('-Z unstable-options', artifact['args'])
+            self.assertIn('--output-format json', artifact['args'])
+            self.assertFalse((root / 'Cargo.lock').exists(),
+                             'generation must not create a lockfile in the inspected checkout')
+
+    def test_missing_javascript_generator_is_reported_not_replaced(self):
+        result = languages.run('javascript', GO_SERVICE, files=['fixture.js'],
+                               path='/nonexistent-autodoc')
+        self.assertEqual(result['status'], 'unavailable')
+        self.assertIn('`jsdoc` is not on PATH', result['reason'])
+        self.assertIsNone(result['text'])
+
     def test_a_missing_tool_is_unavailable_with_its_name_never_replaced(self):
         result = languages.run('go', GO_SERVICE, files=GO_FILES, path='/nonexistent-autodoc')
         self.assertEqual(result['status'], 'unavailable')
@@ -143,14 +217,16 @@ class LanguageRunnerTests(unittest.TestCase):
 class LanguageCoverageTests(unittest.TestCase):
     """Reports state what each code language gets, so no language is silently unread."""
 
-    def test_rows_state_l0_for_a_language_with_no_generator(self):
+    def test_rows_declare_tool_integrations_and_keep_unimplemented_languages_at_l0(self):
         rows = languages.rows({'python': 4, 'javascript': 2, 'markdown': 9, 'sql': 1})
         self.assertEqual([row['language'] for row in rows], ['javascript', 'python', 'sql'],
                          'only code languages are reported; prose and data formats are not')
         javascript = rows[0]
-        self.assertIsNone(javascript['generator'])
-        self.assertIsNone(javascript['exactness'])
-        self.assertIn('L0', javascript['limits'])
+        self.assertEqual(javascript['generator'], 'javascript')
+        self.assertEqual(javascript['exactness'], 'exact')
+        self.assertEqual(javascript['tool'], 'JSDoc -X')
+        self.assertIsNone(rows[2]['generator'])
+        self.assertIn('L0', rows[2]['limits'])
         self.assertEqual(rows[1]['generator'], 'python')
         self.assertEqual(rows[1]['exactness'], 'exact')
 
@@ -161,6 +237,11 @@ class LanguageCoverageTests(unittest.TestCase):
         self.assertIn('go (declared exact via go doc -all .', line)
         self.assertIn('`go` is not on PATH', line)
         self.assertIn('L0 in this run', line)
+
+    def test_coverage_report_says_a_missing_tool_is_l0_for_this_run(self):
+        report = languages.report(ROOT, path='/nonexistent-autodoc', probe=True)
+        self.assertIn('**javascript**', report)
+        self.assertIn('`jsdoc` is not on PATH — L0 in this run', report)
 
     def test_test_inputs_are_not_counted_as_project_languages(self):
         counts = languages.declarations(languages.tracked_language_files(ROOT), ROOT)
@@ -181,7 +262,8 @@ class LanguageCoverageTests(unittest.TestCase):
         text = (ROOT / 'docs/META/CODE-INVENTORY.md').read_text(encoding='utf-8')
         self.assertIn('## Languages in these sources', text)
         javascript = next(line for line in text.splitlines() if line.startswith('| javascript |'))
-        self.assertIn('| L0 |', javascript)
+        self.assertIn('| javascript |', javascript)
+        self.assertIn('| JSDoc -X | exact |', javascript)
         self.assertIn('## Python declarations (exact, in-process)', text)
         self.assertIn('definitions created at runtime, generated code and non-module sources',
                       text)

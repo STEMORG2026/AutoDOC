@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Reconcile AutoDOC's living state after the owner merged PR #12, preserve the still-paused C4R7/B71a sessions, and surface the next bounded roadmap choices without selecting a deferred owner decision. |
 | Owner of the work | `627F` (session `20261022-0426-627F`) |
-| Status | **PAUSED (awaiting PR #13 review and owner scope selection)** |
+| Status | **PAUSED (PR #13 merged; awaiting explicit session closure)** |
 | Opened (UTC) | 2026-10-22T04:26Z |
 
 ## Scope
@@ -45,4 +45,6 @@ Revert only the post-merge state-reconciliation commit on this branch; the alrea
 - Kept C4R7 and B71a paused; neither merge was treated as a session-close instruction. PyPI remains unauthorized.
 - `make generate`, `make self-doc`, `git diff --cached --check`, and `make ci` passed. CI reported 267 tests and 190 subtests passed; evidence hashes verified (not signatures).
 - No deferred P-006 feature was selected or implemented; waiting for owner scope selection.
-- Committed as `bd44be4` and opened PR #13. GitHub required check and Python 3.11–3.15 matrix all pass; PR #13 remains open and unmerged pending owner review.
+- Committed as `bd44be4` and opened PR #13; the PR's required check and Python 3.11–3.15 matrix passed. The owner authorized merging PR #13, which merged at `a704752e9390352d2dc7a27a5b31238f12b90cda`.
+- After the merge, the owner selected D-004 followed by D-002 and explicitly confirmed D-004's reader/audience semantics. That new implementation is tracked separately in session `20261022-0445-894B`; the merge and scope selection do not close this 627F session.
+- This session's reconciliation outcome is complete, but it remains paused until the owner explicitly closes it. No PyPI publication or C4R7/B71a closure was authorized.

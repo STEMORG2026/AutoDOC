@@ -6,7 +6,8 @@ title, files touched, status, branch.
 
 | Session (file) | ID | Agent | Date (UTC) | Title | Files touched | Status | Branch |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| `state/sessions/20261022-0426-627F-post-pr12-continuation.md` | `20261022-0426-627F` | 627F | 2026-10-22 | Post-merge reconciliation after PR #12; PR #13 open with checks passing; preserve paused C4R7/B71a sessions and no-PyPI boundary | `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, `state/**` | PAUSED (awaiting PR #13 review and owner scope selection) | `arena/627fcb46-autodoc` |
+| `state/sessions/20261022-0445-894B-d004-language-readers.md` | `20261022-0445-894B` | 894B | 2026-10-22 | Owner-selected D-004 reader/audience applicability followed by D-002 JSDoc, TypeDoc and nightly Rustdoc JSON readers; local CI and PR #14 checks pass | `scripts/intelligence/recommend.py`, `scripts/doc-sync/{languages,engine}.py`, tests, fixtures, catalog/context metadata, docs, living-state files, `state/**` | PAUSED (PR #14 open; awaiting owner review) | `arena/894b93ee-autodoc` |
+| `state/sessions/20261022-0426-627F-post-pr12-continuation.md` | `20261022-0426-627F` | 627F | 2026-10-22 | Post-merge reconciliation after PR #12; PR #13 merged at `a704752`; owner selected D-004 then D-002 | `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, `state/**` | PAUSED (awaiting explicit owner closure) | `arena/627fcb46-autodoc` |
 | `state/sessions/20261021-1820-C4R7-python-package-readiness.md` | `20261021-1820-C4R7` | C4R7 | 2026-10-21 | Installable Python CLI/package: wheel/sdist, runtime root boundary, isolated install smoke test; PR #12 merged at `08229a0`, all checks passed; PyPI publishing excluded | `pyproject.toml`, `setup.py`, `MANIFEST.in`, `autodoc/`, scripts, `Makefile`, tests, workflows, usage/architecture docs, `state/**` | PAUSED (awaiting explicit owner closure) | `arena/072fcb8c-autodoc` |
 | `state/sessions/20261021-1459-B71a-migration-prose-validation.md` | `20261021-1459-B71a` | B71a | 2026-10-21 | Migration prose validation integrated into `stub_check.py`; canonical sections/prompts route to existing policy families; PR #11 (`0d51069`) merged at `52d1b79` | `scripts/doc-control/stub_check.py`, `scripts/intelligence/enforce.py`, `CONTROL/metadata/CONTEXT-MODEL.json`, `autodoc.toml`, `tests/test_migration_prose.py`, `Makefile`, `CHANGELOG.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, `docs/**`, `state/**` | PAUSED (awaiting owner) | `arena/48a62791-autodoc` |
 | `state/sessions/20261021-1318-A90c-debt-d001.md` | `20261021-1318-A90c` | A90c | 2026-10-21 | Debt D-001: 11 stale catalog-count claims corrected (260 → 265; 45/194 → 49/192) and a derived-count guard added (`tests/test_catalog_counts.py`) so the numbers fail `make ci` when they drift | `README.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `QUICK-START.md`, `IMPLEMENTATION-GUIDE.md`, `RECENT-CHANGES.md`, `docs/00-governance/{ADOPTION,ENGINE-COVERAGE,LIMITATIONS}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `tests/**`, `state/**` | CLOSED (owner's word, 2026-10-21) | `arena/44b2fb68-autodoc` |
@@ -34,10 +35,10 @@ Work before 2026-10-01 was recorded only in git history, `RECENT-CHANGES.md` and
 
 Sessions older than the current month are compressed into `state/archive/<YYYY-MM>/` and removed
 from this table's live rows (the row stays, the file moves). No session file has been archived yet;
-the ten prior session files remain under `state/sessions/`, and their closed plans are archived
-under `state/archive/plans/2026-10/`. B71a's session is indexed above and paused awaiting owner review.
+all 14 session files remain under `state/sessions/`, and closed plans are archived under
+`state/archive/plans/2026-10/`. Active and paused sessions are indexed above.
 
 ## Keywords
 
 `macp`, `bootstrap`, `audit`, `protocol`, `core-list`, `decision-3`, `charter`, `security`, `conduct`,
-`adr`, `dependencies`, `catalog-counts`, `drift-guard`, `cold-clone`, `continuity`, `pending-decisions`, `session-lifecycle`, `owner-close`, `license`, `enforcement`, `catalog`, `profiles`, `phase`, `recovery`, `protection`, `ruleset`, `branch-protection`, `merge-block`, `signatures`, `codeql`, `P-007` — search these before opening a session file.
+`adr`, `dependencies`, `catalog-counts`, `drift-guard`, `cold-clone`, `continuity`, `pending-decisions`, `session-lifecycle`, `owner-close`, `license`, `enforcement`, `catalog`, `profiles`, `phase`, `recovery`, `protection`, `ruleset`, `branch-protection`, `merge-block`, `signatures`, `codeql`, `P-007`, `D-004`, `D-002`, `audience`, `JSDoc`, `TypeDoc`, `Rustdoc` — search these before opening a session file.

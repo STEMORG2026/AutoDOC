@@ -101,12 +101,14 @@ generator without a label, and the label table is asserted to match the generato
 Per-language references follow the same rule and one more: a language gets a generator only where
 its **own tool** can be integrated — AutoDOC never hand-rolls a parser for a language whose
 toolchain exists — and a language with no generator is reported as **L0** (file and manifest facts
-only) rather than guessed at. The runner executes the tool inside the repository with a scrubbed
-environment, the toolchain's offline flags, no shell and a timeout, and a missing, failing or
-hanging tool is reported with its reason. Python is extracted in-process with the interpreter's
-own parser; Go integrates `go doc -all .`. A reference produced by an external toolchain is
-printed on demand and never committed to a drift-checked target, because the same repository on
-two machines would disagree.
+only) rather than guessed at. The runner uses a scrubbed environment, offline flags where supported,
+no shell and a timeout; Rust runs from a temporary copy to keep normal Cargo outputs and lockfiles
+out of the inspected checkout. This is environment isolation, not an OS security sandbox; JSDoc/
+TypeDoc config or plugins and Rust build scripts/procedural macros may execute. Python is extracted in-process with the interpreter's
+own parser; Go integrates `go doc -all .`; JavaScript uses JSDoc `-X`; TypeScript uses TypeDoc
+`--json`; and Rust uses nightly rustdoc JSON through `cargo rustdoc`. Missing tools are reported
+with their reason. A reference produced by an external toolchain is printed on demand and never
+committed to a drift-checked target, because the same repository on two machines would disagree.
 
 ## The event contract
 `CONTROL/metadata/TRIGGERS.json` is the one place that says when AutoDOC runs: the local hook
@@ -134,10 +136,13 @@ approved documents to `stubs`. The direct checker warns on drafts and fails appr
 no truth, adequacy, completeness or reversibility is inferred. Generated targets are excluded because byte drift validates them, not
 prose volume. The catalog index is validated against `CATALOG-SCHEMA.json` plus rule cross-checks (unknown
 flags, mixed sentinels, core types without a reason or with an undetectable predicate, duplicate
-ids, missing templates, and a vocabulary that no profiler detector backs). Predicate tokens are
-checked against their own vocabularies too: `kind:<id>` must be a declared kind, `phase>=<id>` a
-declared phase, and a kind is either detected from files by a detector that states its limits or
-is explicitly declaration-only with a reason no file can tell.
+ids, missing templates, and a vocabulary that no profiler detector backs). Predicate tokens are checked against their
+own vocabularies too: `kind:<id>` must be a declared kind, `phase>=<id>` a declared phase, and an
+`obligation:<id>` a declared obligation. The resolver derives `audience:<reader>` from the catalog's
+validated `reader`: a matching declared audience is true, a mismatch in a non-empty declared set
+is false/not-applicable, an empty set is unknown, and assess-only entries are exempt. A kind is
+either detected from files by a detector that states its limits or explicitly declaration-only
+with a reason no file can tell.
 CI artifacts contain actual test output; `make evidence` packages a scoped **unsigned** hash-
 verifiable record. `make ci` also checks staged impact locally, or compares HEAD with `BASE`
 when there is no staged change (CI supplies the PR base SHA). It uses pytest; no
@@ -166,12 +171,12 @@ establish runtime semantics or guarantee every dynamic symbol is represented.
 | OpenAPI / AsyncAPI | `NOT_IMPLEMENTED`: no checked-in contract or parser mapping. |
 | General YAML alerts or tool policies | `NOT_IMPLEMENTED`: examples accept only the JSON-compatible YAML subset; YAML syntax without a bounded parser fails. |
 | Arbitrary SQL dialects and DDL | `NOT_IMPLEMENTED`: the SQLite demo parser only handles its declared CREATE TABLE subset; it refuses partial dictionaries. |
-| TypeScript, Docker, Kubernetes and vendor APIs | `NOT_IMPLEMENTED`: no tested extractor or authoritative input/credential integration is configured. |
+| Docker, Kubernetes and vendor APIs | `NOT_IMPLEMENTED`: no tested extractor or authoritative input/credential integration is configured. |
 | External link reachability, live monitoring, signed evidence | `NOT_IMPLEMENTED`: offline guard only checks local links; there are no monitors, signing keys or approval policy. |
 
 ## Not supported / integration needed
-OpenAPI/AsyncAPI and CLI parsing need real contracts plus tests. TypeScript/Docker/Kubernetes
-extractors need project-specific parsers. Cloud cost, deployed services and vendor APIs need
+OpenAPI/AsyncAPI and CLI parsing need real contracts plus tests. Docker/Kubernetes extractors
+need project-specific parsers. Cloud cost, deployed services and vendor APIs need
 scoped credentials and owners. Signed provenance requires key management and a verification
 policy; GitHub issue creation and CODEOWNERS branch protection need owner approval. No
 semantic prose correctness, line coverage or audit certification is claimed. Scope and effort
@@ -179,5 +184,7 @@ are project-dependent; do not quote estimates as measured facts.
 
 ## Known environment constraints
 The go-task binary is not installed in this sandbox. The Taskfile delegates to Make but
-`task ci` was not executable here; `make ci` is the canonical local verification path.
+`task ci` was not executable here; `make ci` is the canonical local verification path. Node
+v22.22.3 is present, but `jsdoc`, `typedoc`, `cargo`, `rustc` and `rustdoc` are not installed here;
+the integrations are tested with fake executables and no toolchain is installed for this change.
 Python 3.11–3.15 are tested in the workflow matrix and `pyproject.toml` declares `>=3.11,<3.16`; runtime extraction uses the standard library. The owner selected Apache-2.0 on 2026-10-01 (`LICENSE`), so release snapshots are gated by the tag and a clean tree. Tagged release runs build wheel/sdist artifacts without publishing them to PyPI.
