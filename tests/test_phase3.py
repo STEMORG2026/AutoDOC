@@ -193,6 +193,11 @@ class Phase3Tests(unittest.TestCase):
         spec.loader.exec_module(module)
         data = module.health()
         self.assertEqual(data['controlled_document_instances'], len(engine.controlled()))
+        self.assertEqual(data['catalog_document_types'], 265)
+        self.assertEqual(data['template_renderable_by_variant'], {
+            'canonical': 265, 'blank': 265, 'example': 265,
+        })
+        self.assertIn('not stored outputs', data['note'])
         self.assertIsInstance(data['drafts_without_updates_over_60_days'], list)
         self.assertTrue(data['drift_free'])
 

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Implemented owner-selected D-003: catalog records render canonical, blank or synthetic-example
+  variants on demand into ignored `build/TEMPLATES/` through Make and the installed `autodoc templates`
+  command. Removed the 795 tracked variants after a byte-for-byte comparison confirmed all generated
+  outputs match the prior files; added renderer, CLI and package coverage.
 - Added reader-derived audience applicability: catalog `reader` is an implicit AND token (match=true,
   non-match in a non-empty declared set=false/not applicable, empty=unknown, `assess` exempt). Added
   on-demand JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON through `cargo rustdoc`; missing

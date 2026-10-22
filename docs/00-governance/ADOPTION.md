@@ -30,11 +30,13 @@ profiles themselves were owner-reviewed on 2026-10-01 (`owner_reviewed` in
 `@Er-Sajan-PLG` is the designated primary owner in `CONTROL/metadata/OWNERSHIP-MATRIX.yaml`;
 no backup, security approver or external auditor has been assigned.
 
-The installable Python distribution exposes this same engine through `autodoc check`,
-`autodoc generate`, `autodoc adopt` and `autodoc init`; it keeps bundled policy/catalog assets
-separate from the project path being checked. It is a CLI, not a hosted service. The package is
-built and tested as wheel/sdist but is not published to PyPI; adoption remains an explicit
-configuration and review process, not an automatic claim that a project is governed.
+The installable Python distribution exposes this engine through `autodoc check`, `generate`,
+`adopt`, `init` and `templates`; it keeps bundled policy/catalog assets separate from the project
+path being checked. `autodoc templates` renders catalog variants on demand into the selected
+project's ignored `build/TEMPLATES/` tree; rendering does not instantiate or adopt a document. It
+is a CLI, not a hosted service. The package is built and tested as wheel/sdist but is not published
+to PyPI; adoption remains an explicit configuration and review process, not an automatic claim
+that a project is governed.
 
 ## Selected document types
 

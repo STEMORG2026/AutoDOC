@@ -63,11 +63,13 @@ dependencies — including vulnerability and licence handling — is in
 ## New project and new documents
 
 `autodoc init --name "My App" --type web-api --output /existing/project` creates ten **draft** foundations without overwrites. The source-checkout equivalent is `python scripts/init-project.py --name "My App" --type web-api --output /existing/project`. The type is recorded in scaffold prompts; the same ten foundation types are created for every type. `1970-01-01` means unverified.
-For a single type, copy its `TEMPLATES/*/*.md.blank` variant, assign a new *instance* ID,
-real owner/reviewer, actual review dates and project-specific facts; then add a source/review
-mapping. Catalog IDs name *types*, not deployed artifacts. To add a type, append a stable ID
-under `CATALOG-A/INDEX.yaml` or `CATALOG-B/INDEX.yaml` and run
-`python scripts/doc-control/library.py` to regenerate its three template variants.
+For a single type, render its blank variant into the target project's ignored build tree with
+`autodoc templates --root /existing/project --variant blank` or, in a source checkout,
+`make docs-templates TEMPLATE_VARIANT=blank`. Copy the matching `build/TEMPLATES/<category>/<ID>.md.blank`,
+assign a new *instance* ID, real owner/reviewer, actual review dates and project-specific facts;
+then add a source/review mapping. Catalog IDs name *types*, not deployed artifacts. To add a type,
+update `CONTROL/metadata/CATALOG-RULES.json` and run `make generate` to rebuild the catalog indexes;
+variants render separately on demand.
 
 ## Add a deterministic extractor
 

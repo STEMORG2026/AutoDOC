@@ -1,32 +1,35 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T10:31Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
-post-merge verification/state reconciliation) · **Base tip:** `7a0fd47` on `master` (PR #14 merged); reconciliation PR #15 is open from `arena/912c4060-autodoc`, checks passing.
+**Last reconciled:** 2026-10-22T11:05Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
+post-merge reconciliation, D-003 implementation and validation) · **Base tip:** `990113b` on `master` (PR #15 merged; PR #14 merged at `7a0fd47`); D-003 is on `arena/912c4060-autodoc`; pre-commit and staged impact pass, commit/push/review-PR handoff pending.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `7a0fd47` (PR #14 merged, including D-004/D-002); post-merge reconciliation PR #15 is open from `arena/912c4060-autodoc` |
+| Branch | `master` at `990113b` (PR #15 state reconciliation merged; D-004/D-002 from PR #14 also present); D-003 implementation is on `arena/912c4060-autodoc`, not yet merged |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
 | Build-ready | **15/15** · open core decisions **0** (owner decision 4 closed the last one, `DOC-A05-001` Data model, as not applicable) |
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
 | Stack | Python 3.11–3.15 declared, **zero runtime dependencies**; build/pytest/pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
-| Docs | 70 controlled instances (28 generated targets, 42 human-owned, `make docs-health` 2026-10-21) · 384 Markdown files tracked |
-| Tests | Post-merge `make ci` on `master` at PR #14 merge `7a0fd47` passed on Python 3.11: 280 tests + 190 subtests; evidence hashes verified (not signatures). PR #14's required check, separate impact job and Python 3.11–3.15 matrix passed. PR #15's required `AutoDOC guard / check` and Python 3.11–3.15 matrix passed; its PR impact step runs within the guard job, with no separate impact status listed. |
+| Docs | 70 controlled instances (28 generated targets, 42 human-owned) · D-003 worktree: 271 source files (73 `.py`, 129 `.md`); 265 catalog types can render all 795 variants on demand, none checked in |
+| Tests | Post-merge `make ci` on `master` at PR #14 merge `7a0fd47` passed: 280 tests + 190 subtests. D-003 staged `make ci` passes on Python 3.11: 288 tests + 190 subtests, package smoke and unsigned evidence hashes verified; targeted suite passes (70 tests + 65 subtests). Pre-commit and staged impact pass. |
 | CI | 5 workflows; required check `AutoDOC guard / check` remains in GitHub ruleset `main` (P-007-A, strict); supplemental Python 3.11–3.15 matrix is non-blocking; nightly freshness warn-only; tag workflow builds snapshot + wheel/sdist artifacts, no PyPI publish |
 
 ## Active agents
 
-`912C` — session `20261022-1011-912C` (**PAUSED (PR #15 open; awaiting owner review)**): verified
-PR #14's merge and reconciled post-merge state on `arena/912c4060-autodoc`. The merged tree passes
-local `make ci` (280 tests, 190 subtests; evidence hashes verified, not signatures). PR #15's required
-`AutoDOC guard / check` and Python 3.11–3.15 matrix pass. The PR impact step runs within the guard
-check; GitHub did not list a separate `impact` status. Next-work options were recorded at this PR's
-handoff; no feature implementation is included in this state-reconciliation PR.
+`912C` — session `20261022-1011-912C` (**IN PROGRESS — owner-selected D-003 after PR #15 merged**):
+verified PR #14 and PR #15 merges and reconciled state on `arena/912c4060-autodoc`. The pre-migration
+tree passed local `make ci` (280 tests, 190 subtests; evidence hashes verified, not signatures).
+PR #15 merged at `990113b` after its required guard/check and Python 3.11–3.15 matrix passed. D-003
+is implemented in the current worktree: all 795 prior variants matched byte-for-byte before removal;
+Make and the installed CLI render one or all variants from catalog records into ignored
+`build/TEMPLATES/`. Targeted tests pass (70 tests, 65 subtests); `make ci` also passes (288 tests,
+190 subtests, package smoke and evidence hashes). Pre-commit and staged impact passed; the review
+PR and commit/push handoff are pending.
 
 `894B` — session `20261022-0445-894B` (**PAUSED (awaiting explicit owner closure)**): implemented
 D-004 audience applicability and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at
@@ -52,10 +55,11 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 
 **Current follow-up (2026-10-22).** PR #13 is merged at `a704752`; the owner selected D-004 then
 D-002 and confirmed the reader/audience semantics (ADR-014). PR #14 merged at `7a0fd47`, placing
-both implementations on `master`. Post-merge reconciliation is in PR #15; all checks pass and owner
-review is pending. The 894B session remains paused awaiting explicit owner closure; merging did not
-close 627F/C4R7/B71a either. Next-work options are persisted in `DECISIONS.md`; PyPI publishing
-remains unauthorized.
+both implementations on `master`. PR #15's state reconciliation merged at `990113b` after explicit
+owner authorization. After that settlement, the owner selected D-003 (ADR-015); its on-demand
+catalog-template rendering is now in progress on `arena/912c4060-autodoc`. The 894B session remains
+paused awaiting explicit owner closure; merging did not close 627F/C4R7/B71a either. D-007/D-009 and
+PyPI publishing remain unauthorized/unselected.
 
 1. **D-001 fixed (2026-10-21).** The catalog counts are no longer remembered: eleven prose claims
    were corrected and `tests/test_catalog_counts.py` derives `265 / 209 / 56 / 24 / 49 / 192` from
@@ -116,12 +120,12 @@ remains unauthorized.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Post-merge reconciliation:** PR #14 is merged at `7a0fd47`; post-merge local `make ci` passes.
-   PR #15 is open from `arena/912c4060-autodoc`; local and GitHub checks pass. Await owner review; do
-   not merge it without explicit authorization.
-2. **Next scope:** the owner asked to continue, but has not chosen a feature. Options are persisted in
-   `state/DECISIONS.md`: D-003, D-007, D-009, CLI adoption/promotion, or hold/another priority. Do not
-   implement a new scope until the owner selects it.
+1. **D-003 review:** PR #15's state reconciliation is merged at `990113b`; the owner selected D-003
+   after settlement. The assigned branch removes the 795 byte-matched variants and exposes catalog-
+   backed on-demand rendering. `make ci`, the Make rendering check, pre-commit and staged impact pass;
+   commit/push and open the review PR. Do not merge without explicit owner authorization.
+2. **Deferred scope:** D-007, D-009 and further CLI adoption/promotion remain unselected. Do not infer
+   a new feature or merge a follow-up PR without owner authorization.
 3. **Session closure and release boundaries:** 894B, 627F, C4R7 and B71a remain paused; only the
    owner may explicitly close them. Package workflows build artifacts only; PyPI/trusted publishing
    needs a separate owner decision. D-010 vulnerability scanning remains low/open; promotion to

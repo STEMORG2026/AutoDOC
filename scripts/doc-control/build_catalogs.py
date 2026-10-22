@@ -19,7 +19,9 @@ TEMPLATE_DIR = {'SPEC': 'SPECIFICATIONS', 'DEC': 'DECISIONS', 'DES': 'ARCHITECTU
 NOTE = ('Inventory of possible documents. Applicability labels are suggestions, not a mandate or '
         'evidence of adoption. Derived fields come from CONTROL/metadata/CATALOG-RULES.json: '
         'severity_by_phase is authored, phase_min is derived from it, and support/checks state '
-        'what AutoDOC can actually verify for the type.')
+        'what AutoDOC can actually verify for the type. The template field is a logical render '
+        'destination; each catalog record is the single source per type, and its canonical, blank '
+        'and example variants are generated on demand under ignored build/TEMPLATES/.')
 
 
 
@@ -107,8 +109,8 @@ def admission(doc_id, rules, applied):
     """Return (question, reader, support, checks, events) for one document id.
 
     Authored for every type a profile can list; derived for the rest, honestly: a type nothing
-    can detect is `human`, and any other never-listed type is `template-only` because a template
-    is all AutoDOC actually provides for it.
+    can detect is `human`, and any other never-listed type is `template-only` because an on-demand
+    starter render is all AutoDOC actually provides for it.
     """
     spec = rules['admission']
     if doc_id in spec['by_id']:

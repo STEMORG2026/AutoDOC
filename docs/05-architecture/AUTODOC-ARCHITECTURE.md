@@ -39,15 +39,15 @@ sdist artifacts only; PyPI publication and GitHub Release creation are not confi
 ## Details and decisions
 
 ```text
-Authoritative catalogs / source files / Markdown metadata
-                 |              |                |
-                 v              v                v
-           library.py      docs/.doc-sync-map   frontmatter_validator.py
-                 |              |                |
-                 v              v                v
-          TEMPLATES/        engine.py          MASTER-INDEX
-                                |
-              generation / drift / PR impact / freshness
+Catalog records / mapped source files / Markdown metadata
+          |                  |                 |
+          v                  v                 v
+     library.py       docs/.doc-sync-map   frontmatter_validator.py
+          |                  |                 |
+          | on demand        v                 v
+          v               engine.py        MASTER-INDEX
+  build/TEMPLATES/           |
+     (ignored)    generation / drift / PR impact / freshness
                                 |
                        pre-commit and CI
 ```
@@ -58,7 +58,10 @@ Authoritative catalogs / source files / Markdown metadata
   so classification is data a reviewer can diff rather than heuristics in Python.
   `CONTROL/metadata/CATALOG-SCHEMA.json` describes the index, and `check_catalog.py` validates it
   with an explicit keyword subset that fails on any keyword it does not implement, then cross-checks
-  tiers, sentinels, templates and the flag vocabulary. `docs/.doc-sync-map.yaml` defines generated,
+  tiers, sentinels, logical template destinations and the flag vocabulary. Each catalog record is
+  the single per-type source; `library.py` renders canonical, blank and synthetic-example variants
+  on demand under ignored `build/TEMPLATES/`. `make docs-templates` and the installed
+  `autodoc templates` command expose this operation. `docs/.doc-sync-map.yaml` defines generated,
   human-review, living-state and changelog rules.
   The task API routes, config, described environment, bounded SQL and alert declaration have
   separate sources; tool examples have explicit authorization sources and no LLM or network.
@@ -188,8 +191,8 @@ Authoritative catalogs / source files / Markdown metadata
 - **The catalog states what it can and cannot verify** (`CATALOG-SCHEMA.json`, `CATALOG-RULES.json`).
   Each type carries the reader question it answers, who reads it, the lifecycle events that make
   it stale, the checks that apply to it, and a `support` level: `checked` (named checks run),
-  `template-only` (a template exists and nothing is verified) or `human` (no detector is
-  possible). An admission rule enforces the combination, so a type cannot claim to be checked
+  `template-only` (the catalog can render a starter but nothing is verified) or `human` (no detector
+  is possible). An admission rule enforces the combination, so a type cannot claim to be checked
   without naming a check, and a type nothing can detect cannot be required of anyone.
   `severity_by_phase` is the authored answer to when a type lands; `phase_min` is derived from it
   by the generator, which is why the two can never disagree.
@@ -251,7 +254,9 @@ is marked, not removed.
 ## Verification and references
 Run `make ci` (including the isolated wheel/sdist build and CLI smoke check),
 `python scripts/doc-sync/check-doc-drift.py`, `python scripts/doc-control/library.py --check`,
-and the metadata, ownership and freshness checks.
+and the metadata, ownership and freshness checks. Render starter variants separately with
+`make docs-templates [TEMPLATE_VARIANT=blank|canonical|example]`; this writes to ignored
+`build/TEMPLATES/`.
 The actual workflow names and fingerprints are in `docs/generated/WORKFLOW-REFERENCE.md`, and the
 event model with the required check is in `docs/generated/TRIGGER-REFERENCE.md` (verify it with
 `python scripts/intelligence/triggers.py --check`).

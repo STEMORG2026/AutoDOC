@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-22 (PR #14 merged at `7a0fd47`; D-004 and D-002 are on `master`; 894B/C4R7/B71a/627F remain paused unless explicitly closed)
+**Last reconciled:** 2026-10-22 (PR #15 merged at `990113b`; D-004/D-002 from PR #14 are on `master`; D-003 implementation, CI, pre-commit and staged impact pass on `arena/912c4060-autodoc`, pending commit/PR handoff; 894B/C4R7/B71a/627F remain paused unless explicitly closed)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -16,7 +16,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 | Intelligence | `scripts/intelligence/*` | `profile` (facts) → `context` (declarations) → `recommend` (applicability) → `enforce` (severity at the declared phase) → `triggers` (when CI runs what) |
 | Doc control | `scripts/doc-control/*` | Catalog build/check, guards, health, evidence packing, release snapshot, link checks, hooks |
 | Machine policy | `CONTROL/metadata/*` | Rules, profiles under review, context model, triggers, schemas — machine-written JSON |
-| Catalog + templates | `CATALOG-A/B/C`, `TEMPLATES/**` | 265 document types, 24 core, 49 extended; templates per type |
+| Catalog + templates | `CATALOG-A/B/C`, catalog renderer, ignored `build/TEMPLATES/` | 265 document types, 24 core, 49 extended; all three variants render on demand from each catalog record |
 | Governed docs | `docs/**` + named root files | Human-owned controlled Markdown with frontmatter, review dates, ownership |
 | Coordination | `state/**` | This protocol's workspace. **Not** part of the product architecture and excluded from `engine.controlled()` |
 
@@ -37,10 +37,10 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 ## Audit facts (Section 7 Step 1, 2026-10-01)
 
 - **Runtime:** Python 3.11–3.15 declared (`>=3.11,<3.16`), **zero runtime dependencies** (stdlib only); dev extras `build>=1,<2`, `pytest>=8,<10`, and `pre-commit>=3,<5`; build backend `setuptools>=77`. The installed CLI ships a wheel/sdist with only its runtime scripts and policy/catalog data.
-- **Scale:** 1015 tracked files = 64 `.py`, 361 `.md`, and 265 catalog types × 3 template variants; 68 controlled docs (24 generated, 44 human-owned). **Refreshed 2026-10-21:** 1039 tracked files = 65 `.py`, 384 `.md`; 70 controlled instances (28 generated targets, 42 human-owned) — the counts a reader should cite today.
+- **Scale:** The pre-migration snapshot on 2026-10-21 had 1039 tracked files (65 `.py`, 384 `.md`) including the 795 template variants. After the D-003 working-tree migration on 2026-10-22, the source tree contains 271 files (73 `.py`, 129 `.md`); 70 controlled instances (28 generated targets, 42 human-owned); and 265 catalog types with 795 renderable outputs, none checked in. Counts exclude ignored `build/` outputs.
 - **Demo surface:** SQLite (`EXAMPLE-PROJECT/db/schema.sql`, single `tasks` table, no migrations) and a stdlib threaded HTTP server with three routes (`GET/POST /tasks`, `GET /health`), **no auth**, 1–4096-byte body cap, JSON 400/404 errors.
 - **Readers:** Python declarations via AST (exact, in-process) and Go references via `go doc -all .`; `master` now includes JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON via `cargo rustdoc`. These external references run on demand, validate tool output, and report missing tools as L0 in that run. Node v22.22.3 is present locally; JSDoc, TypeDoc, Cargo, rustc and rustdoc are absent, so the integrations are validated with fake-tool tests here.
-- **Gates:** the merged tree passes post-merge local `make ci` on Python 3.11 (280 tests + 190 subtests), including catalog checks, guards, drift, impact, package smoke and evidence hashing. PR #13 merged at `a704752`; PR #14 merged at `7a0fd47` after its required `AutoDOC guard / check`, impact job and supplemental Python 3.11–3.15 matrix passed. The supplemental matrix remains non-blocking. Nightly freshness is warn-only.
+- **Gates:** the post-merge tree passed local `make ci` on Python 3.11 (280 tests + 190 subtests). The D-003 worktree also passes `make ci` (288 tests + 190 subtests), including catalog checks, guards, drift, staged-impact check, wheel/sdist package smoke and evidence hashing; hashes are not signatures. PR #13 merged at `a704752`; PR #14 merged at `7a0fd47` and PR #15 at `990113b` after their required checks and declared Python 3.11–3.15 matrices passed. The supplemental matrix remains non-blocking. Nightly freshness is warn-only.
 - **Known-issue markers:** none inline (0 TODO/FIXME/XXX/HACK); the known surface is `LIMITATIONS.md` and `ENGINE-COVERAGE.md`.
 
 ## Change log

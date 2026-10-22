@@ -1,6 +1,6 @@
 # DECISIONS — record of settled choices
 
-**Last reconciled:** 2026-10-22T10:22Z
+**Last reconciled:** 2026-10-22T10:39Z
 
 Entries are append-only. An owner decision that is implemented but not yet recorded in the machine
 files is marked **accepted — recording pending**; an agent never marks an owner decision recorded.
@@ -21,6 +21,7 @@ files is marked **accepted — recording pending**; an agent never marks an owne
 | ADR-012 | **Decision 6 (P-005)**: the declared phase stays `build`; after decision 4 the promotion delta is 2 core rows (License, Changelog), and promotion remains a deliberate event (`autodoc promote`'s delta view is not implemented, so it is a manual edit with those numbers) | Owner | 2026-10-01 | accepted, recorded | `autodoc.toml` (`phase = "build"` unchanged); this file, item P-005 |
 | ADR-013 | **Decision 7 (P-006)**: the five smalls are deferred — `audience` consumer (D-004; first if any is picked), JS/TS + Rust toolchains (D-002), external dogfood repository (D-009), template rendering on demand (D-003), evidence signing (D-007); none gates anything | Owner | 2026-10-01 | accepted, recorded | `state/DEBT.md` |
 | ADR-014 | Owner selected D-004 followed by D-002 after PR #13: catalog `reader` is an implicit AND audience token; match=true, mismatch in a non-empty declared set=false/not applicable, empty=unknown, and `assess` is exempt. D-002 uses JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON through `cargo rustdoc` | Owner | 2026-10-22 | accepted, implemented and merged in PR #14 | `scripts/intelligence/recommend.py`, `scripts/doc-sync/languages.py`, tests and schemas; owner-confirmed semantics; PR #14 merge `7a0fd47` |
+| ADR-015 | Owner selected D-003 after PR #15 was explicitly authorized and merged at `990113b`: render catalog templates on demand into ignored `build/TEMPLATES`; keep the catalog record as the single source per type | Owner | 2026-10-22 | accepted, recorded; implementation in progress on `arena/912c4060-autodoc` | `state/DEBT.md`, `state/plans/agent-912C-pr14-post-merge-reconciliation.md`, PR #15 merge `990113b` |
 ## Pending — owner decisions awaiting a verdict
 
 **Decided 2026-10-01 — the owner stated "proceed with recomendation", adopting all six
@@ -93,27 +94,28 @@ yet, so promotion is a manual `phase`/`phase_declared` edit with these numbers a
 **P-006 — Decision 7: deferred smalls.** Each already lives in `DEBT.md`: `audience` declared but
 unconsumed (D-004 — the remaining "declared without a consumer" hole), JS/TS + Rust toolchains
 (D-002), external dogfood repository (D-009), template rendering on demand instead of 780 committed
-variants (D-003), evidence signing (D-007). None gates anything. *Recommendation: defer all; if one
-is picked now, `audience` first, toolchains second.*
+variants from the 260-type catalog then (D-003), evidence signing (D-007). None gates anything.
+*Recommendation at that time: defer all; if one was picked, `audience` first, toolchains second.*
 
-**Execution update — 2026-10-22:** After PR #13 merged at `a704752`, the owner selected D-004
-followed by D-002 and confirmed ADR-014's reader/audience semantics. PR #14 merged at `7a0fd47`;
-D-004 and D-002 are now implemented on `master`. The remaining P-006 items D-003, D-007 and D-009
-remain deferred and unselected.
+**Execution update — 2026-10-22 (before PR #15 merged):** After PR #13 merged at `a704752`, the
+owner selected D-004 followed by D-002 and confirmed ADR-014's reader/audience semantics. PR #14
+merged at `7a0fd47`; D-004 and D-002 are now implemented on `master`. At that point, the remaining
+P-006 items D-003, D-007 and D-009 were deferred and unselected.
 
-**Pending — choose the next workstream after PR #14 (2026-10-22).** The owner asked to continue but
-has not selected a specific next implementation. Options:
+**Historical options menu — recorded before PR #15 settlement (2026-10-22).** The owner asked to
+continue but had not yet selected a specific next implementation. Options presented:
 
 | Option | Scope | Consideration |
 | --- | --- | --- |
-| D-003 | Render catalog templates on demand instead of committing 780 variants | Repository size and template drift; changes the generation/packaging path |
+| D-003 | Render catalog templates on demand instead of committing 795 variants across 265 types | Repository size and template drift; changes the generation/packaging path |
 | D-007 | Design and implement signed test/build evidence | Provenance and trust; requires an explicit signing/key-management design |
 | D-009 | Dogfood against an external repository | Validates behavior outside AutoDOC; owner must identify/approve the repository and scope |
 | CLI adoption workflow | Phase/profile-aware adoption, plus the planned `promote`/`add` paths | Extends the selected installable-CLI target; requires bounded scope and clear owner decisions |
 | Hold / other | Keep all deferred, or state another priority | No implementation begins until specified |
 
-No option is selected by this record. **Recommendation:** choose one scope explicitly; do not infer
-that merging PR #14 selects any other debt item.
+At the time this menu was recorded, no option had been selected. The owner later selected D-003
+after PR #15 merged; that decision is recorded in ADR-015. This menu remains the historical options
+record, not the current pending decision.
 
 **Added 2026-10-21 by session `20261021-1138-A52ab`** (protection review, owner instruction
 "Cannot merge the commit, I protected the branch and did some changes, have a look at AutoDOC").

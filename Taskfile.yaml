@@ -5,6 +5,7 @@ tasks:
   lint: {cmds: ['make lint']}
   docs:lint: {cmds: ['make lint']}
   docs:generate: {cmds: ['make docs:generate']}
+  docs:templates: {cmds: ['make docs-templates TEMPLATE_VARIANT={{.VARIANT | default "all"}} TEMPLATE_OUTPUT={{.OUTPUT | default "build/TEMPLATES"}}']}
   docs:drift: {cmds: ['make docs:drift']}
   docs:metadata: {cmds: ['make docs:metadata']}
   docs:inventory: {cmds: ['make docs:inventory']}

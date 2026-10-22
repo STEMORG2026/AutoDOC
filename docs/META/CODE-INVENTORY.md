@@ -47,12 +47,12 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `EXAMPLE-PROJECT/src/app.py` | 45 | function | `Handler.do_POST` | `(self)` | — |
 | `EXAMPLE-PROJECT/src/app.py` | 62 | function | `serve` | `(host='0.0.0.0', port=None, db_path=None)` | — |
 | `autodoc/cli.py` | 21 | function | `runtime_root` | `() -> Path` | Locate the bundled AutoDOC scripts and policy data, never the target project. |
-| `autodoc/cli.py` | 57 | function | `_add_check_arguments` | `(parser: argparse.ArgumentParser) -> None` | — |
-| `autodoc/cli.py` | 70 | function | `build_parser` | `() -> argparse.ArgumentParser` | — |
-| `autodoc/cli.py` | 102 | function | `_absolute_directory` | `(parser: argparse.ArgumentParser, value: Path, option: str) -> Path` | — |
-| `autodoc/cli.py` | 109 | function | `_absolute_file` | `(value: Path) -> Path` | — |
-| `autodoc/cli.py` | 113 | function | `_run_script` | `(script: Path, arguments: Sequence[str]) -> int` | Execute an existing script with the same interpreter and preserve its exit code. |
-| `autodoc/cli.py` | 125 | function | `main` | `(argv: Sequence[str] | None=None) -> int` | — |
+| `autodoc/cli.py` | 59 | function | `_add_check_arguments` | `(parser: argparse.ArgumentParser) -> None` | — |
+| `autodoc/cli.py` | 72 | function | `build_parser` | `() -> argparse.ArgumentParser` | — |
+| `autodoc/cli.py` | 118 | function | `_absolute_directory` | `(parser: argparse.ArgumentParser, value: Path, option: str) -> Path` | — |
+| `autodoc/cli.py` | 125 | function | `_absolute_file` | `(value: Path) -> Path` | — |
+| `autodoc/cli.py` | 129 | function | `_run_script` | `(script: Path, arguments: Sequence[str]) -> int` | Execute an existing script with the same interpreter and preserve its exit code. |
+| `autodoc/cli.py` | 141 | function | `main` | `(argv: Sequence[str] | None=None) -> int` | — |
 | `engine/extractors/env_alerts.py` | 7 | function | `environment` | `(path: Path)` | Parse described KEY=value entries; never silently accept undocumented keys. |
 | `engine/extractors/env_alerts.py` | 35 | function | `alerts` | `(path: Path, root: Path)` | JSON-compatible YAML subset; validate actual runbook existence and mandatory fields. |
 | `engine/extractors/facts.py` | 12 | function | `headings` | `(path: Path)` | ATX headings, excluding fenced code (setext headings are not supported). |
@@ -66,35 +66,35 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `engine/extractors/local_policy.py` | 6 | function | `tool_matrix` | `(path: Path)` | — |
 | `scripts/adopt.py` | 24 | function | `scan` | `(project)` | — |
 | `scripts/adopt.py` | 36 | function | `main` | `()` | — |
-| `scripts/doc-control/build_catalogs.py` | 26 | function | `phase_order` | `()` | The declared phase sequence, from the context model, not from a second list here. |
-| `scripts/doc-control/build_catalogs.py` | 31 | function | `load_rules` | `()` | — |
-| `scripts/doc-control/build_catalogs.py` | 38 | function | `kind` | `(name, domain, rules)` | — |
-| `scripts/doc-control/build_catalogs.py` | 53 | function | `phase` | `(domain, rules)` | — |
-| `scripts/doc-control/build_catalogs.py` | 63 | function | `maturity` | `(domain, phase_label, rules)` | — |
-| `scripts/doc-control/build_catalogs.py` | 68 | function | `applies_when` | `(doc_id, domain, rules)` | Explicit override, then the core list's own predicate, then the domain default. |
-| `scripts/doc-control/build_catalogs.py` | 79 | function | `tier` | `(doc_id, rules)` | Return (tier, why, severity_by_phase) for one document id. |
-| `scripts/doc-control/build_catalogs.py` | 96 | function | `phase_min` | `(severity_by_phase, phases)` | The first phase at which this type is not off; None when it never becomes required. |
-| `scripts/doc-control/build_catalogs.py` | 106 | function | `admission` | `(doc_id, rules, applied)` | Return (question, reader, support, checks, events) for one document id. |
-| `scripts/doc-control/build_catalogs.py` | 122 | function | `entries` | `(seed, prefix, rules, order)` | — |
-| `scripts/doc-control/build_catalogs.py` | 151 | function | `render` | `(rules)` | — |
-| `scripts/doc-control/build_catalogs.py` | 157 | function | `run` | `(check=False)` | — |
-| `scripts/doc-control/check_catalog.py` | 42 | function | `load` | `(path)` | — |
-| `scripts/doc-control/check_catalog.py` | 46 | function | `implements` | `(value, expected)` | — |
-| `scripts/doc-control/check_catalog.py` | 58 | function | `validate` | `(instance, schema, path='$', errors=None)` | Validate `instance` and append human-readable errors. Returns the error list. |
-| `scripts/doc-control/check_catalog.py` | 119 | function | `profiler_module` | `()` | The profiler, loaded once: its DETECTORS and KIND_DETECTORS are the detector vocabulary. |
-| `scripts/doc-control/check_catalog.py` | 127 | function | `detector_specs` | `()` | — |
-| `scripts/doc-control/check_catalog.py` | 131 | function | `declared_specs` | `()` | Facts that are declared, never inferred: no detector exists for these on purpose. |
-| `scripts/doc-control/check_catalog.py` | 136 | function | `detectors` | `()` | The closed fact vocabulary, with each fact's detection route. |
-| `scripts/doc-control/check_catalog.py` | 141 | function | `tokens_of` | `(document)` | Every predicate token of one catalog entry, across both predicate forms. |
-| `scripts/doc-control/check_catalog.py` | 149 | function | `phase_order` | `(model=None)` | The declared phase sequence, in order, from the context model. |
-| `scripts/doc-control/check_catalog.py` | 155 | function | `severity_by_phase_errors` | `(document, phases, order)` | Return errors for one entry's severity_by_phase map: known phases, real severities, monotone. |
-| `scripts/doc-control/check_catalog.py` | 179 | function | `first_applicable_phase` | `(mapping, order)` | The first phase a type is not off at; None when it is off from idea onward. |
-| `scripts/doc-control/check_catalog.py` | 187 | function | `kind_errors` | `(model, profiler)` | Every declared kind says how it can be seen: a detector with limits, or a stated reason. |
-| `scripts/doc-control/check_catalog.py` | 222 | function | `fact_errors` | `(profiler, facts, consumers)` | Every fact states how it is answered: file evidence with limits, or a declaration only. |
-| `scripts/doc-control/check_catalog.py` | 256 | function | `admission_errors` | `(rules, model, documents, profiles)` | The admission rule, enforced for every type any profile can list. |
-| `scripts/doc-control/check_catalog.py` | 314 | function | `profile_errors` | `(rules, profiles, documents, phases, order)` | Profiles are deltas of the default core set, and every change states a reason. |
-| `scripts/doc-control/check_catalog.py` | 363 | function | `index_documents` | `(index)` | — |
-| `scripts/doc-control/check_catalog.py` | 367 | function | `check` | `(indices=None)` | Return (errors, warnings) for the schema, the rules and their cross-references. |
+| `scripts/doc-control/build_catalogs.py` | 28 | function | `phase_order` | `()` | The declared phase sequence, from the context model, not from a second list here. |
+| `scripts/doc-control/build_catalogs.py` | 33 | function | `load_rules` | `()` | — |
+| `scripts/doc-control/build_catalogs.py` | 40 | function | `kind` | `(name, domain, rules)` | — |
+| `scripts/doc-control/build_catalogs.py` | 55 | function | `phase` | `(domain, rules)` | — |
+| `scripts/doc-control/build_catalogs.py` | 65 | function | `maturity` | `(domain, phase_label, rules)` | — |
+| `scripts/doc-control/build_catalogs.py` | 70 | function | `applies_when` | `(doc_id, domain, rules)` | Explicit override, then the core list's own predicate, then the domain default. |
+| `scripts/doc-control/build_catalogs.py` | 81 | function | `tier` | `(doc_id, rules)` | Return (tier, why, severity_by_phase) for one document id. |
+| `scripts/doc-control/build_catalogs.py` | 98 | function | `phase_min` | `(severity_by_phase, phases)` | The first phase at which this type is not off; None when it never becomes required. |
+| `scripts/doc-control/build_catalogs.py` | 108 | function | `admission` | `(doc_id, rules, applied)` | Return (question, reader, support, checks, events) for one document id. |
+| `scripts/doc-control/build_catalogs.py` | 124 | function | `entries` | `(seed, prefix, rules, order)` | — |
+| `scripts/doc-control/build_catalogs.py` | 153 | function | `render` | `(rules)` | — |
+| `scripts/doc-control/build_catalogs.py` | 159 | function | `run` | `(check=False)` | — |
+| `scripts/doc-control/check_catalog.py` | 43 | function | `load` | `(path)` | — |
+| `scripts/doc-control/check_catalog.py` | 47 | function | `implements` | `(value, expected)` | — |
+| `scripts/doc-control/check_catalog.py` | 59 | function | `validate` | `(instance, schema, path='$', errors=None)` | Validate `instance` and append human-readable errors. Returns the error list. |
+| `scripts/doc-control/check_catalog.py` | 120 | function | `profiler_module` | `()` | The profiler, loaded once: its DETECTORS and KIND_DETECTORS are the detector vocabulary. |
+| `scripts/doc-control/check_catalog.py` | 128 | function | `detector_specs` | `()` | — |
+| `scripts/doc-control/check_catalog.py` | 132 | function | `declared_specs` | `()` | Facts that are declared, never inferred: no detector exists for these on purpose. |
+| `scripts/doc-control/check_catalog.py` | 137 | function | `detectors` | `()` | The closed fact vocabulary, with each fact's detection route. |
+| `scripts/doc-control/check_catalog.py` | 142 | function | `tokens_of` | `(document)` | Every predicate token of one catalog entry, across both predicate forms. |
+| `scripts/doc-control/check_catalog.py` | 150 | function | `phase_order` | `(model=None)` | The declared phase sequence, in order, from the context model. |
+| `scripts/doc-control/check_catalog.py` | 156 | function | `severity_by_phase_errors` | `(document, phases, order)` | Return errors for one entry's severity_by_phase map: known phases, real severities, monotone. |
+| `scripts/doc-control/check_catalog.py` | 180 | function | `first_applicable_phase` | `(mapping, order)` | The first phase a type is not off at; None when it is off from idea onward. |
+| `scripts/doc-control/check_catalog.py` | 188 | function | `kind_errors` | `(model, profiler)` | Every declared kind says how it can be seen: a detector with limits, or a stated reason. |
+| `scripts/doc-control/check_catalog.py` | 223 | function | `fact_errors` | `(profiler, facts, consumers)` | Every fact states how it is answered: file evidence with limits, or a declaration only. |
+| `scripts/doc-control/check_catalog.py` | 257 | function | `admission_errors` | `(rules, model, documents, profiles)` | The admission rule, enforced for every type any profile can list. |
+| `scripts/doc-control/check_catalog.py` | 315 | function | `profile_errors` | `(rules, profiles, documents, phases, order)` | Profiles are deltas of the default core set, and every change states a reason. |
+| `scripts/doc-control/check_catalog.py` | 364 | function | `index_documents` | `(index)` | — |
+| `scripts/doc-control/check_catalog.py` | 368 | function | `check` | `(indices=None)` | Return (errors, warnings) for the schema, the rules and their cross-references. |
 | `scripts/doc-control/check_external_links.py` | 38 | function | `model_defaults` | `()` | The rate limits declared in the trigger model; the CLI defaults must equal them. |
 | `scripts/doc-control/check_external_links.py` | 49 | function | `controlled_documents` | `(root=ROOT)` | The controlled Markdown set. Templates are excluded: their links are placeholders. |
 | `scripts/doc-control/check_external_links.py` | 65 | function | `extract` | `(text)` | (line, url) pairs from prose, not from fenced code blocks. Order preserved, deduped later. |
@@ -119,11 +119,16 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/doc-control/guards.py` | 49 | function | `_sources` | `(staged=False)` | Yield (path, text) for the files this guard inspects, read from the index when staged. |
 | `scripts/doc-control/guards.py` | 69 | function | `collect` | `(staged=False)` | Return every guard finding as a dict, with the same file selection as check(). |
 | `scripts/doc-control/guards.py` | 77 | function | `check` | `(staged=False)` | — |
-| `scripts/doc-control/health.py` | 15 | function | `health` | `()` | — |
+| `scripts/doc-control/health.py` | 16 | function | `health` | `()` | — |
 | `scripts/doc-control/json_style.py` | 21 | function | `_collapse` | `(text)` | — |
 | `scripts/doc-control/json_style.py` | 55 | function | `dumps` | `(data)` | Serialise `data` as indented JSON with short scalar arrays kept on one line. |
-| `scripts/doc-control/library.py` | 9 | function | `render` | `(doc, variant)` | — |
-| `scripts/doc-control/library.py` | 45 | function | `run` | `(check)` | — |
+| `scripts/doc-control/library.py` | 22 | function | `render` | `(doc: dict, variant: str) -> str` | Render one deterministic Markdown variant from one catalog document record. |
+| `scripts/doc-control/library.py` | 75 | function | `_destination` | `(doc: dict) -> Path` | Return the category-relative build path after validating the catalog's logical target. |
+| `scripts/doc-control/library.py` | 96 | function | `catalog_sources` | `(root: Path=ROOT) -> list[tuple[dict, Path]]` | Load unique catalog entries and their validated category-relative destinations. |
+| `scripts/doc-control/library.py` | 127 | function | `_inside` | `(path: Path, parent: Path) -> bool` | — |
+| `scripts/doc-control/library.py` | 135 | function | `checked_in_outputs` | `(root: Path=ROOT) -> list[Path]` | Return rendered variants found under the source tree; explanatory README files are allowed. |
+| `scripts/doc-control/library.py` | 147 | function | `run` | `(check: bool=False, variant: str='all', output_dir: Path | None=None, *, root: Path=ROOT) -> bool` | Validate catalog sources or render selected variants into an output tree. |
+| `scripts/doc-control/library.py` | 200 | function | `main` | `(argv: Iterable[str] | None=None) -> int` | — |
 | `scripts/doc-control/release_snapshot.py` | 15 | function | `require_license` | `(root=ROOT)` | The release gate: the license text is present, whatever the decision record says. |
 | `scripts/doc-control/release_snapshot.py` | 24 | function | `snapshot` | `(tag, output)` | — |
 | `scripts/doc-control/require-docs-check.py` | 18 | function | `gh` | `(*args, **kwargs)` | — |
@@ -140,50 +145,50 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/doc-control/stub_check.py` | 225 | function | `check` | `()` | — |
 | `scripts/doc-control/test_evidence.py` | 18 | function | `junit_counts` | `(path)` | Use actual JUnit attributes; never infer a count from a console progress bar. |
 | `scripts/doc-control/test_evidence.py` | 32 | function | `main` | `()` | — |
-| `scripts/doc-sync/engine.py` | 23 | function | `safe_path` | `(value)` | — |
-| `scripts/doc-sync/engine.py` | 30 | function | `load_map` | `()` | — |
-| `scripts/doc-sync/engine.py` | 58 | function | `paths` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 140 | function | `header` | `(doc_id, title, source, generator)` | — |
-| `scripts/doc-sync/engine.py` | 156 | function | `api` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 166 | function | `config` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 175 | function | `env` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 181 | function | `sql` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 193 | function | `automation` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 215 | function | `catalog` | `(entry)` | Index catalog domains and stable IDs, without implying adoption of every type. |
-| `scripts/doc-sync/engine.py` | 238 | function | `workflows` | `(entry)` | List workflow declarations with a hash, so any CI edit requires review. |
-| `scripts/doc-sync/engine.py` | 261 | function | `outline` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 277 | function | `code_inventory` | `(entry)` | Per-language inventory: what each language gets, and what it is read at today. |
-| `scripts/doc-sync/engine.py` | 307 | function | `test_inventory` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 317 | function | `dependencies` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 333 | function | `trigger_reference` | `(entry)` | The declared trigger model, rendered by the module that also verifies it. |
-| `scripts/doc-sync/engine.py` | 341 | function | `completeness` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 365 | function | `agent_tools` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 383 | function | `agent_prompts` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 396 | function | `agent_model` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 412 | function | `local_tool_reference` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 422 | function | `environment_reference` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 432 | function | `alert_catalog` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 441 | function | `catalog_facets` | `()` | Partition 260 A/B type IDs into complementary development/system/product views. |
-| `scripts/doc-sync/engine.py` | 457 | function | `catalog_view` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 484 | function | `catalog_navigation` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 496 | function | `human_inventory` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 510 | function | `relationship_graph` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 523 | function | `master_index` | `(entry)` | — |
-| `scripts/doc-sync/engine.py` | 532 | function | `check_supersedes_cycles` | `(links)` | A supersession chain must terminate (related links may intentionally be cyclic). |
-| `scripts/doc-sync/engine.py` | 544 | function | `relationship_visualization` | `(entry)` | Mermaid of real frontmatter and mapped source relationships only. |
-| `scripts/doc-sync/engine.py` | 590 | function | `generate` | `(check=False, only=None, findings=None)` | — |
-| `scripts/doc-sync/engine.py` | 631 | function | `git` | `(*args)` | — |
-| `scripts/doc-sync/engine.py` | 635 | function | `changed` | `(base=None, staged=False)` | — |
-| `scripts/doc-sync/engine.py` | 643 | function | `matches` | `(file, pattern)` | — |
-| `scripts/doc-sync/engine.py` | 647 | function | `impact` | `(base=None, staged=False)` | — |
-| `scripts/doc-sync/engine.py` | 673 | function | `parse_frontmatter` | `(path)` | — |
-| `scripts/doc-sync/engine.py` | 677 | function | `parse_frontmatter_text` | `(text)` | — |
-| `scripts/doc-sync/engine.py` | 695 | function | `controlled` | `()` | — |
-| `scripts/doc-sync/engine.py` | 708 | function | `validate_staged` | `()` | Read Git index blobs, not potentially different worktree copies, for staged metadata. |
-| `scripts/doc-sync/engine.py` | 744 | function | `validate` | `(freshness=False, now=None, findings=None)` | — |
-| `scripts/doc-sync/engine.py` | 826 | function | `replace_block` | `(text, body)` | — |
-| `scripts/doc-sync/engine.py` | 835 | function | `update_state` | `(base=None, staged=False)` | Update observable blocks only; preserve manually reviewed context and next action. |
-| `scripts/doc-sync/engine.py` | 866 | function | `main` | `()` | — |
+| `scripts/doc-sync/engine.py` | 25 | function | `safe_path` | `(value)` | — |
+| `scripts/doc-sync/engine.py` | 32 | function | `load_map` | `()` | — |
+| `scripts/doc-sync/engine.py` | 60 | function | `paths` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 142 | function | `header` | `(doc_id, title, source, generator)` | — |
+| `scripts/doc-sync/engine.py` | 158 | function | `api` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 168 | function | `config` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 177 | function | `env` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 183 | function | `sql` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 195 | function | `automation` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 217 | function | `catalog` | `(entry)` | Index catalog domains and stable IDs, without implying adoption of every type. |
+| `scripts/doc-sync/engine.py` | 240 | function | `workflows` | `(entry)` | List workflow declarations with a hash, so any CI edit requires review. |
+| `scripts/doc-sync/engine.py` | 263 | function | `outline` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 279 | function | `code_inventory` | `(entry)` | Per-language inventory: what each language gets, and what it is read at today. |
+| `scripts/doc-sync/engine.py` | 309 | function | `test_inventory` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 319 | function | `dependencies` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 335 | function | `trigger_reference` | `(entry)` | The declared trigger model, rendered by the module that also verifies it. |
+| `scripts/doc-sync/engine.py` | 343 | function | `completeness` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 376 | function | `agent_tools` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 394 | function | `agent_prompts` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 407 | function | `agent_model` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 423 | function | `local_tool_reference` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 433 | function | `environment_reference` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 443 | function | `alert_catalog` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 452 | function | `catalog_facets` | `()` | Partition A/B catalog IDs into complementary development/system/product views. |
+| `scripts/doc-sync/engine.py` | 468 | function | `catalog_view` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 495 | function | `catalog_navigation` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 507 | function | `human_inventory` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 521 | function | `relationship_graph` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 534 | function | `master_index` | `(entry)` | — |
+| `scripts/doc-sync/engine.py` | 543 | function | `check_supersedes_cycles` | `(links)` | A supersession chain must terminate (related links may intentionally be cyclic). |
+| `scripts/doc-sync/engine.py` | 555 | function | `relationship_visualization` | `(entry)` | Mermaid of real frontmatter and mapped source relationships only. |
+| `scripts/doc-sync/engine.py` | 603 | function | `generate` | `(check=False, only=None, findings=None)` | — |
+| `scripts/doc-sync/engine.py` | 644 | function | `git` | `(*args)` | — |
+| `scripts/doc-sync/engine.py` | 648 | function | `changed` | `(base=None, staged=False)` | — |
+| `scripts/doc-sync/engine.py` | 656 | function | `matches` | `(file, pattern)` | — |
+| `scripts/doc-sync/engine.py` | 660 | function | `impact` | `(base=None, staged=False)` | — |
+| `scripts/doc-sync/engine.py` | 686 | function | `parse_frontmatter` | `(path)` | — |
+| `scripts/doc-sync/engine.py` | 690 | function | `parse_frontmatter_text` | `(text)` | — |
+| `scripts/doc-sync/engine.py` | 708 | function | `controlled` | `()` | — |
+| `scripts/doc-sync/engine.py` | 721 | function | `validate_staged` | `()` | Read Git index blobs, not potentially different worktree copies, for staged metadata. |
+| `scripts/doc-sync/engine.py` | 757 | function | `validate` | `(freshness=False, now=None, findings=None)` | — |
+| `scripts/doc-sync/engine.py` | 839 | function | `replace_block` | `(text, body)` | — |
+| `scripts/doc-sync/engine.py` | 848 | function | `update_state` | `(base=None, staged=False)` | Update observable blocks only; preserve manually reviewed context and next action. |
+| `scripts/doc-sync/engine.py` | 879 | function | `main` | `()` | — |
 | `scripts/doc-sync/languages.py` | 114 | function | `profiler_module` | `()` | The language vocabulary lives in the profiler; this module never keeps a second copy. |
 | `scripts/doc-sync/languages.py` | 122 | function | `generator` | `(language)` | The declared generator for a language, or None when the language is L0. |
 | `scripts/doc-sync/languages.py` | 127 | function | `_probe_names` | `(spec)` | Executables required by this generator, in the order they are reported. |
@@ -294,5 +299,5 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/test_package.py` | 22 | function | `run` | `(command: list[str], *, cwd: Path, expected: int=0, env: dict[str, str] | None=None)` | — |
 | `scripts/test_package.py` | 34 | function | `extract_generated_sdist` | `(archive_path: Path, destination: Path) -> Path` | Extract only ordinary files/directories from the just-built sdist, rejecting path escapes. |
 | `scripts/test_package.py` | 53 | function | `smoke_installed_cli` | `(wheel: Path, work: Path) -> None` | — |
-| `scripts/test_package.py` | 117 | function | `main` | `() -> int` | — |
-| `setup.py` | 27 | function | `runtime_data_files` | `() -> list[tuple[str, list[str]]]` | Return the executable runtime files plus the catalog/context inputs they need. |
+| `scripts/test_package.py` | 122 | function | `main` | `() -> int` | — |
+| `setup.py` | 28 | function | `runtime_data_files` | `() -> list[tuple[str, list[str]]]` | Return the executable runtime files plus the catalog/context inputs they need. |
