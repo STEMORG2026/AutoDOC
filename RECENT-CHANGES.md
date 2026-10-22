@@ -21,7 +21,7 @@ auto_generated: false
 ---
 # Recent changes
 
-- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers on `arena/894b93ee-autodoc`; local `make ci` passed (280 tests, 190 subtests). PR #14 is open and all required GitHub checks pass; it awaits owner review. External tools are absent locally and covered with fake executables.
+- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47`. Post-merge local `make ci` passed (280 tests, 190 subtests), and the required, impact and Python 3.11–3.15 GitHub checks passed. External tools are absent locally and covered with fake executables.
 - Merged PR #12 (`08229a0`): installable zero-runtime-dependency CLI, wheel/sdist assets, isolated project-root commands, package smoke tests, and passing Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
 - Added structural validation for canonical migration-document sections and prompts; findings route
   through the existing `placeholders`/`stubs` policy families, so CI retains phase/pin severity.
@@ -38,6 +38,8 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 7a0fd47 2026-10-22 Merge pull request #14 from STEMORG2026/arena/894b93ee-autodoc
+- bbda691 2026-10-22 docs(state): record D-004 and D-002 PR handoff
 - ea03f0b 2026-10-22 feat: add audience gating and language references
 - a704752 2026-10-22 Merge pull request #13 from STEMORG2026/arena/627fcb46-autodoc
 - 83e3b21 2026-10-22 docs(state): record PR 13 handoff
@@ -56,11 +58,11 @@ auto_generated: false
 - a30fc5f 2026-10-21 Reconcile state for D-001: registry, index, dashboard, session handoff
 - 55f70ce 2026-10-21 Record D-001's merge (PR #8, 5bbd7d8) and the post-merge cold-clone check
 - 5bbd7d8 2026-10-21 Merge pull request #8 from STEMORG2026/arena/44b2fb68-autodoc
-- d3ebf4a 2026-10-21 Fix D-001: correct the catalog counts and make them checkable
-- 9e5155d 2026-10-21 Merge pull request #7 from STEMORG2026/arena/83bebb7f-autodoc
 
 ## Changed paths at update time
 
+- `docs/00-governance/ADOPTION.md`
+- `docs/META/OUTLINE.md`
 - `state/ARCHITECTURE.md`
 - `state/DASHBOARD.md`
 - `state/DEBT.md`
@@ -69,5 +71,7 @@ auto_generated: false
 - `state/REGISTRY.md`
 - `state/plans/README.md`
 - `state/plans/agent-894B-d004-language-readers.md`
+- `state/plans/agent-912C-pr14-post-merge-reconciliation.md`
 - `state/sessions/20261022-0445-894B-d004-language-readers.md`
+- `state/sessions/20261022-1011-912C-pr14-post-merge-reconciliation.md`
 <!-- auto:end -->

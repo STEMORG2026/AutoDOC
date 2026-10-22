@@ -3260,7 +3260,7 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 71: Verification and references
 - L2 line 77: Enforcement decisions (step 6, 2026-10-01)
 - L2 line 88: Applicability decisions (step 3, 2026-10-01)
-- L2 line 114: Phase 3 applicability
+- L2 line 113: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
