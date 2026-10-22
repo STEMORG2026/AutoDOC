@@ -81,7 +81,7 @@ All outputs below have concrete sources in `docs/.doc-sync-map.yaml`; `make gene
 | Fixture repositories | kind x phase x ecosystem matrix | Awkward cases: no manifest, unread ecosystem, docs-only | `test_profile.py` |
 | Enforcement policy | severity per check family per phase | One precedence: override, phase default, report | `test_enforce.py` |
 | Adoption baseline | suppressed findings and stale entries | Keyed by rule and location; never suppresses a new finding | `test_enforce.py` |
-| Installable CLI | `autodoc check/generate/adopt/init` | Bundled tool root is separate from the selected project root; zero runtime dependencies | `test_cli.py`, `scripts/test_package.py` |
+| Installable CLI | `autodoc check/generate/adopt/init/add/promote/templates` | Bundled tool root is separate from the selected project root; zero runtime dependencies; promotion previews its enforcement delta and writes only the declaration values | `test_cli.py`, `test_promote.py`, `test_add_document.py`, `scripts/test_package.py` |
 | Wheel + source distribution | `make package` / `make package-check` | Build both formats, rebuild from sdist, install wheel in a clean venv outside the checkout | `scripts/test_package.py` |
 | Python compatibility | Python 3.11–3.15 | Supplemental matrix; non-blocking. The named required gate runs full `make ci` on Python 3.11 | `.github/workflows/docs-guard.yml` |
 | Exit codes | `0`, `1`, `2` | Documented in `docs/reference/EXIT-CODES.md` | `test_enforce.py` |
@@ -151,7 +151,8 @@ line-coverage plugin/percentage is configured.
 ## Mapped but template-only
 The 265 catalog types can render canonical, blank or synthetic-example variants on demand from
 their catalog records with `make docs-templates` or `autodoc templates`; outputs go to ignored
-`build/TEMPLATES/` and are not stored by default. A type is **not** an instantiated document.
+`build/TEMPLATES/` and are not stored by default. `autodoc add` can instantiate one type directly
+with a project-qualified ID and current dates. A type is **not** an instantiated document.
 A human-authored instance is checked for ownership/freshness only once created under a controlled
 path; source-change review requires an explicit map rule. There is no deterministic extractor for
 ADR rationale, risk acceptance, user guides, incident analysis, security policies or other

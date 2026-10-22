@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path, PurePosixPath
+from typing import Any, cast
 
 from setuptools import setup
 
@@ -11,6 +12,7 @@ ROOT = Path(__file__).resolve().parent
 DATA_PREFIX = PurePosixPath("share/autodoc")
 RUNTIME_FILES = (
     "scripts/adopt.py",
+    "scripts/add-document.py",
     "scripts/init-project.py",
     "scripts/doc-control/check_catalog.py",
     "scripts/doc-control/library.py",
@@ -21,11 +23,12 @@ RUNTIME_FILES = (
     "scripts/intelligence/context.py",
     "scripts/intelligence/enforce.py",
     "scripts/intelligence/profile.py",
+    "scripts/intelligence/promote.py",
     "scripts/intelligence/recommend.py",
 )
 
 
-def runtime_data_files() -> list[tuple[str, list[str]]]:
+def runtime_data_files() -> list[tuple[str, tuple[str, ...]]]:
     """Return the executable runtime files plus the catalog/context inputs they need.
 
     Development scripts, the full documentation tree, examples, tests, Git state, and working
@@ -52,10 +55,11 @@ def runtime_data_files() -> list[tuple[str, list[str]]]:
         relative = source.relative_to(ROOT)
         destination = (DATA_PREFIX / PurePosixPath(relative.parent.as_posix())).as_posix()
         destinations.setdefault(destination, []).append(relative.as_posix())
-    return sorted((destination, sorted(files)) for destination, files in destinations.items())
+    return sorted((destination, tuple(sorted(files)))
+                  for destination, files in destinations.items())
 
 
 # setuptools invokes setup.py from the source root in normal builds; make direct invocations
 # deterministic too, so every file named in data_files remains relative to the distribution.
 os.chdir(ROOT)
-setup(data_files=runtime_data_files())
+setup(data_files=cast(Any, runtime_data_files()))

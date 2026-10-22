@@ -1,6 +1,6 @@
 # BLOCKERS — active blockers and dependencies
 
-**Last reconciled:** 2026-10-21T12:35Z (B-003 cleared — P-007-A applied by the owner; PR #3 and PR #4 merged; post-merge test passed)
+**Last reconciled:** 2026-10-22T12:11Z (no active blockers. B-003 remains cleared; PR #16 merged D-003 at `a28616b`; PRD1's production-readiness commands await review, not a blocker.)
 
 | ID | Blocker | Blocks | Owner who can clear it | Raised |
 | --- | --- | --- | --- | --- |

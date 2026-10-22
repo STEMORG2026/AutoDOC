@@ -28,12 +28,15 @@ def runtime_root() -> Path:
     data_directory = sysconfig.get_path("data")
     if data_directory:
         candidates.append(Path(data_directory) / "share" / "autodoc")
-    candidates.append(Path(site.USER_BASE) / "share" / "autodoc")
+    if site.USER_BASE:
+        candidates.append(Path(site.USER_BASE) / "share" / "autodoc")
 
     required = (
         "scripts/intelligence/enforce.py",
+        "scripts/intelligence/promote.py",
         "scripts/doc-sync/engine.py",
         "scripts/doc-control/library.py",
+        "scripts/add-document.py",
         "scripts/init-project.py",
         "scripts/adopt.py",
         "engine/extractors/facts.py",
@@ -98,6 +101,35 @@ def build_parser() -> argparse.ArgumentParser:
         help="project type recorded in scaffold prompts (default: generic)",
     )
     init.add_argument("--output", type=Path, default=Path.cwd(), help="existing project directory (default: current directory)")
+    init.add_argument("--phase", help="declare the initial phase in autodoc.toml")
+    init.add_argument("--profile", help="declare the catalog profile in autodoc.toml")
+
+    add = commands.add_parser("add", help="instantiate one catalog document in a project")
+    add.add_argument("document", help="catalog type id, for example DOC-A03-001")
+    add.add_argument(
+        "--root", type=Path, default=Path.cwd(),
+        help="project receiving the document (default: current directory)",
+    )
+    add.add_argument("--output", type=Path, help="exact file, relative to --root unless absolute")
+    add.add_argument(
+        "--variant", choices=["canonical", "blank", "example"], default="canonical",
+        help="template variant to instantiate (default: canonical)",
+    )
+    add.add_argument("--instance", dest="instance_id", help="frontmatter instance id")
+    add.add_argument("--write", action="store_true", help="write the file instead of previewing")
+    add.add_argument("--force", action="store_true", help="allow replacing an existing file")
+    add.add_argument("--json", action="store_true", help="print a machine-readable result")
+
+    promote = commands.add_parser("promote", help="preview or apply a declared phase promotion")
+    promote.add_argument("--repo", type=Path, default=Path.cwd(),
+                         help="repository whose facts are evaluated (default: current directory)")
+    promote.add_argument("--config", type=Path, help="context TOML (default: <repo>/autodoc.toml)")
+    promote.add_argument("--to", required=True, help="target phase id")
+    promote.add_argument("--date", help="declaration date in YYYY-MM-DD (default: today)")
+    promote.add_argument("--write", action="store_true", help="apply the promotion instead of previewing")
+    promote.add_argument("--force", action="store_true",
+                         help="allow a demotion, backdate or write with missing required documents")
+    promote.add_argument("--json", action="store_true", help="print a machine-readable result")
 
     templates = commands.add_parser("templates", help="render catalog templates on demand into a project build directory")
     templates.add_argument(
@@ -174,10 +206,36 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "init":
         project = _absolute_directory(parser, args.output, "--output")
-        return _run_script(
-            tool_root / "scripts/init-project.py",
-            ["--name", args.name, "--type", args.type, "--output", str(project)],
-        )
+        command = ["--name", args.name, "--type", args.type, "--output", str(project)]
+        if args.phase:
+            command.extend(("--phase", args.phase))
+        if args.profile:
+            command.extend(("--profile", args.profile))
+        return _run_script(tool_root / "scripts/init-project.py", command)
+
+    if args.command == "add":
+        project = _absolute_directory(parser, args.root, "--root")
+        command = [args.document, "--root", str(project), "--variant", args.variant]
+        if args.output is not None:
+            command.extend(("--output", str(args.output)))
+        if args.instance_id:
+            command.extend(("--instance", args.instance_id))
+        for option in ("write", "force", "json"):
+            if getattr(args, option):
+                command.append("--" + option)
+        return _run_script(tool_root / "scripts/add-document.py", command)
+
+    if args.command == "promote":
+        project = _absolute_directory(parser, args.repo, "--repo")
+        command = ["--repo", str(project), "--to", args.to]
+        if args.config is not None:
+            command.extend(("--config", str(_absolute_file(args.config))))
+        if args.date:
+            command.extend(("--date", args.date))
+        for option in ("write", "force", "json"):
+            if getattr(args, option):
+                command.append("--" + option)
+        return _run_script(tool_root / "scripts/intelligence/promote.py", command)
 
     if args.command == "templates":
         project = _absolute_directory(parser, args.root, "--root")

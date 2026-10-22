@@ -68,7 +68,8 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
     if version.stdout.strip() != f"autodoc {PROJECT_VERSION}":
         raise RuntimeError(f"unexpected installed version output: {version.stdout.strip()!r}")
     help_text = run([str(cli), "--help"], cwd=work, env=environment)
-    if not all(command in help_text.stdout for command in ("check", "generate", "adopt", "init", "templates")):
+    if not all(command in help_text.stdout for command in (
+            "check", "generate", "adopt", "init", "add", "promote", "templates")):
         raise RuntimeError("installed CLI help omitted one or more supported commands")
     invalid = run([str(cli), "unsupported-command"], cwd=work, expected=2, env=environment)
     if "invalid choice" not in invalid.stderr:
@@ -87,10 +88,23 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
     if "A10-BUILD" not in adopted.stdout:
         raise RuntimeError("installed adoption scan did not identify the project manifest")
 
-    run([str(cli), "init", "--name", "Consumer Project", "--type", "cli", "--output", str(project)],
-        cwd=work, env=environment)
+    run([str(cli), "init", "--name", "Consumer Project", "--type", "cli", "--output", str(project),
+         "--phase", "prototype"], cwd=work, env=environment)
     if not (project / "docs/autodoc/problem-statement.md").is_file():
         raise RuntimeError("installed init command did not scaffold the foundation documents")
+    if not (project / "autodoc.toml").is_file():
+        raise RuntimeError("installed init command did not record the phase declaration")
+
+    run([str(cli), "add", "DOC-A03-001", "--root", str(project), "--write"], cwd=work, env=environment)
+    added = project / "docs/autodoc/ARCHITECTURE/DOC-A03-001.md"
+    if not added.is_file() or "INST-CONSUMER-PROJECT-DOC-A03-001" not in added.read_text(encoding="utf-8"):
+        raise RuntimeError("installed add command did not instantiate the selected catalog document")
+
+    run([str(cli), "promote", "--repo", str(project), "--to", "build", "--write"],
+        cwd=work, env=environment)
+    promoted = tomllib.loads((project / "autodoc.toml").read_text(encoding="utf-8"))
+    if promoted["phase"] != "build" or not promoted.get("phase_declared"):
+        raise RuntimeError("installed promote command did not update the declaration")
 
     checked = run([str(cli), "check", "--repo", str(project), "--json"], cwd=work, env=environment)
     report = json.loads(checked.stdout)
@@ -134,9 +148,11 @@ def main() -> int:
         runtime_prefix = f"autodoc-{PROJECT_VERSION}.data/data/share/autodoc/"
         required_runtime = (
             "scripts/intelligence/enforce.py",
+            "scripts/intelligence/promote.py",
             "scripts/doc-sync/engine.py",
             "scripts/doc-control/check_catalog.py",
             "scripts/doc-control/library.py",
+            "scripts/add-document.py",
             "engine/extractors/facts.py",
             "CONTROL/metadata/CONTEXT-MODEL.json",
             "CATALOG-A/INDEX.yaml",
@@ -161,7 +177,7 @@ def main() -> int:
 
         smoke_installed_cli(wheels[0], work / "installed-smoke")
 
-    print("Package check passed: wheel and sdist built; sdist rebuilt; clean wheel install exercised version/check/generate/adopt/init/templates.")
+    print("Package check passed: wheel and sdist built; sdist rebuilt; clean wheel install exercised version/check/generate/adopt/init/add/promote/templates.")
     return 0
 
 

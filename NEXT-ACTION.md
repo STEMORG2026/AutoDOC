@@ -22,32 +22,26 @@ auto_generated: false
 # Next action
 
 ## Immediate focus
-PR #13's post-merge state reconciliation is merged at `a704752`. The owner selected D-004 followed
-by D-002 and confirmed the semantics recorded in ADR-014. PR #14 is now merged at `7a0fd47`; catalog
-`reader` is an implicit AND audience token (match=true, non-match within a non-empty declaration=false /
-not applicable, empty=unknown, `assess` exempt), and the merged readers use JSDoc `-X`, TypeDoc
-`--json`, and nightly Rustdoc JSON through `cargo rustdoc`. These external references remain on-demand;
-missing tools are reported as L0. Post-merge local `make ci` passed on Python 3.11 (280 tests, 190
-subtests; evidence hashes verified, not signatures), and PR #14's required, impact and Python
-3.11–3.15 checks passed. The 894B session remains paused because merging is not explicit closure.
+PR #16 merged D-003 (`a28616b`); local `master`, `origin/master` and the PRD1 branch base agree, and
+the 795 tracked template variants are gone in favour of on-demand rendering. PRD1 then implemented
+the remaining production-readiness paths on `arena/production-readiness-autodoc`:
+`autodoc add <catalog-id>` instantiates one document with a project-qualified ID and current dates;
+`autodoc promote --to <phase>` previews the catalog/enforcement delta and writes only the top-level
+`phase`/`phase_declared`, refusing a normal write while target-phase required documents are
+unresolved; `autodoc init --phase/--profile` records an initial declaration. The local `make ci`
+gate passes (301 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands,
+unsigned evidence hashes verified), and `make generate` refreshed the generated metadata.
 
-PR #15's post-merge state reconciliation is merged at `990113b` after the owner explicitly
-authorized its merge; the required guard/check and Python 3.11–3.15 matrix passed (the PR impact step
-runs within the guard; no separate impact status was listed). The owner selected D-003 after
-settlement (ADR-015). Its implementation is complete in the worktree on `arena/912c4060-autodoc`:
-one catalog record remains the source per type; all 795 prior variants matched the renderer byte for
-byte before removal; Make and the installed CLI now render them on demand under ignored
-`build/TEMPLATES/`. The two explanatory README files remain. The targeted suite passes (70 tests, 65 subtests); the
-Make target separately rendered all 265 blank variants into a temporary tree. After staging,
-`pre-commit run --all-files`, `make docs-staged-impact` and full `make ci` passed on Python 3.11
-(288 tests, 190 subtests, package smoke and unsigned evidence-hash verification). Confirmed that
-`make ci` does not materialize ignored `build/TEMPLATES/`. Next: commit/push this branch and open the
-review PR; keep it open for owner review. D-007, D-009 and further CLI adoption/promotion remain
-unselected. Do not publish to PyPI or close any paused session by inference.
+Staged impact, pre-commit and the full `make ci` gate pass; next, commit/push and open the review PR;
+keep it open for owner review. The change proposes `0.3.0` and the Beta classifier but records
+no owner approval. D-007, D-009 and further adoption work remain unselected. Do not publish to PyPI
+or close any paused session by inference. Promotion to `beta` remains a deliberate event with the
+same two-row cliff (License `DOC-A10-008`, Changelog `DOC-A15-003`).
 
 D-007 (evidence signing) and D-009 (external dogfood) remain deferred and non-gating. D-010
-vulnerability scanning remains open/low. C4R7 remains paused after PR #12; B71a remains paused after
-PR #11; 627F remains paused after PR #13. Merging did not explicitly close those sessions. The
+vulnerability scanning remains open/low. PRD1 awaits review; 912C remains paused after PR #16;
+C4R7 remains paused after PR #12; B71a remains paused after PR #11; 627F remains paused after
+PR #13; 894B remains paused after PR #14. Merging did not explicitly close those sessions. The
 release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
 unauthorized.
 
@@ -90,7 +84,8 @@ ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner
    were added, `priority` was replaced by a hand-picked core tier with detectable `applies_when`
    predicates, and `profile.py` + `recommend.py` evaluate them against recorded decisions.
 3. Done. Context schema, phase ladder and three-valued facts: undeclared phase is advisory, so
-   **nothing fails here yet by design**, and `save`/`promote`-style phase changes are a later step.
+   **nothing fails here yet by design**. `autodoc promote` now performs an explicit phase change
+   with the target delta shown before writing; it does not infer a phase from history.
 4. **Owner decisions pending, in order:**
    - Done: the phase is declared (`build`, 2026-09-30) and kinds too (`library`); the evidence
      for both comes from `make docs-hint` and the declaration is what counts.
@@ -115,11 +110,12 @@ ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner
    and the merged D-002 implementation adds JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON
    through `cargo rustdoc`; these external references are on-demand and report missing tools as L0
    for that run. Local JSDoc, TypeDoc and Rust toolchains are absent; fake executables cover the integrations.
-   The installed `autodoc init` creates ten draft foundations and `autodoc adopt` is a read-only
-   filename heuristic; neither performs a full phase-scaled adoption or baseline write. Remaining
-   work in this step: extend adoption/scaffolding with owner-reviewed phase/profile decisions;
-   implement `promote` and `add`; D-003 template rendering is in progress as a separate selected
-   workstream; and dogfood on a repository that is not this one.
+   The installed `autodoc init` creates ten draft foundations and can record an initial
+   phase/profile declaration; `autodoc adopt` is a read-only filename heuristic; `autodoc add`
+   instantiates one catalog type; and `autodoc promote` applies an explicit declared-phase change
+   after showing its delta. Remaining work in this step: a full phase-scaled adoption/baseline
+   workflow, and dogfood on a repository that is not this one. D-003 template rendering merged in
+   PR #16.
 7. Done. Event triggers are declared in `CONTROL/metadata/TRIGGERS.json` and verified by
    `triggers.py --check` (in `make ci`): one blocking event, one required check, no undeclared
    workflow, no filtered required check, and no network from a gate. The scheduled workflow reports

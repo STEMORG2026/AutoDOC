@@ -23,18 +23,25 @@ auto_generated: false
 
 AutoDOC has a working sync map, standard-library runtime, three authoritative catalog indices,
 265 catalog types, a task API demo and two local tool-policy demonstrations without an LLM or web calls.
-The owner-selected D-003 migration is implemented on `arena/912c4060-autodoc` after PR #15 merged:
-each catalog record remains the single source per type, and canonical, blank and synthetic-example
-variants render on demand into ignored `build/TEMPLATES/` through Make and the installed CLI. Before
-removal, all 795 generated outputs were compared byte-for-byte with the prior files; all matched.
-The tracked variants are now removed, with two explanatory READMEs retained under `TEMPLATES/`.
-The D-003 worktree passes `make ci` on Python 3.11 (288 tests, 190 subtests, package smoke and
-unsigned evidence-hash verification); staged `make docs-staged-impact` and `pre-commit run --all-files`
-also pass. Commit/push and the follow-up review PR remain. It also has an installable `autodoc` CLI with zero runtime dependencies, wheel/sdist builds,
-and clean-environment install smoke coverage. Its checks validate controlled-document metadata,
-generated drift, age, source-to-human-review impact, and the structure of instantiated migration
-documents (required sections and unfilled template prompts, not semantic correctness). A catalog
-entry represents a possible document, not a completed compliance obligation.
+D-003 merged in PR #16 at `a28616b`: each catalog record remains the single source per type, and
+canonical, blank and synthetic-example variants render on demand into ignored `build/TEMPLATES/`
+through Make and the installed CLI. Before removal, all 795 generated outputs were compared
+byte-for-byte with the prior files; all matched. The tracked variants are gone, with two explanatory
+READMEs retained under `TEMPLATES/`.
+
+The PRD1 worktree adds the remaining production-readiness paths: `autodoc add` previews or writes
+one catalog document with a project-qualified ID and current dates; `autodoc promote` shows the
+target phase's requirement/enforcement delta and writes only the top-level `phase` and
+`phase_declared`, refusing an unforced write while required documents are unresolved; and
+`autodoc init --phase/--profile` records an explicit initial declaration. Its local `make ci` gate
+passes (301 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands,
+unsigned evidence-hash verification), and the generated metadata was refreshed. The review PR and
+owner verdict on the proposed `0.3.0`/Beta version remain. It also has an installable `autodoc` CLI
+with zero runtime dependencies, wheel/sdist builds, and clean-environment install smoke coverage.
+Its checks validate controlled-document metadata, generated drift, age, source-to-human-review
+impact, and the structure of instantiated migration documents (required sections and unfilled
+template prompts, not semantic correctness). A catalog entry represents a possible document, not a
+completed compliance obligation.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 
@@ -52,8 +59,8 @@ The release-tag workflow fails closed if `LICENSE` is missing; the owner selecte
 2026-10-01 (`LICENSE`, `pyproject.toml`, `docs/00-governance/LICENSE-DECISION.md`).
 
 The user-selected production target — an installable Python CLI/package, not a hosted service — is
-implemented on C4R7: `autodoc check/generate/adopt/init`, separate bundled tool and target-project
-roots, wheel/sdist build and clean-venv smoke coverage. Python 3.11–3.15 are declared; the
+implemented: `autodoc check/generate/adopt/init/add/promote/templates`, separate bundled tool and
+target-project roots, wheel/sdist build and clean-venv smoke coverage. Python 3.11–3.15 are declared; the
 supplemental CI matrix is non-blocking, while the required `AutoDOC guard / check` runs `make ci`
 on Python 3.11. Tagged workflows build temporary GitHub Actions artifacts only; the package is
 not published to PyPI and no publication was authorized. The local full check passed (267 tests,
@@ -69,8 +76,11 @@ Required, impact and Python 3.11–3.15 GitHub checks passed. A post-merge local
 on Python 3.11 (280 tests and 190 subtests); evidence hashes verify, not signatures. The 894B session
 remains paused; merging did not close it. PR #15's post-merge state reconciliation merged at
 `990113b` after the owner explicitly authorized it; its required guard and Python 3.11–3.15 matrix
-passed (the PR impact step ran within the guard check; no separate impact status was listed). The owner
-then selected D-003; implementation is in progress on `arena/912c4060-autodoc`.
+passed (the PR impact step ran within the guard check; no separate impact status was listed). The
+owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's follow-up
+production-readiness commands are implemented and locally verified on
+`arena/production-readiness-autodoc`, with review and merge pending; 912C remains paused because
+merging did not close it.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.

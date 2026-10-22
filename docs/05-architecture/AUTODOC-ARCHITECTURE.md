@@ -31,9 +31,11 @@ wheel contains the Python package plus only the runtime scripts, catalog indices
 metadata under the Python data directory (`share/autodoc`); it does not copy the full repository
 or its development state. At runtime, the CLI locates that **tool root** separately from the target
 project: `autodoc check --repo PATH` delegates to the existing enforcement policy, and
-`autodoc generate --root PATH` reads that project's sync map. `init` and `adopt` likewise receive
-an explicit existing project directory. This boundary is exercised by a clean-venv install test
-outside the checkout. Runtime dependencies remain empty. The release workflow builds wheel and
+`autodoc generate --root PATH` reads that project's sync map. `init`, `adopt`, `add`, `promote`
+and `templates` likewise receive an explicit existing project directory. `init` can write an
+initial phase/profile declaration, `add` instantiates one catalog type, and `promote` previews the
+catalog delta before editing the top-level phase declarations. This boundary is exercised by a
+clean-venv install test outside the checkout. Runtime dependencies remain empty. The release workflow builds wheel and
 sdist artifacts only; PyPI publication and GitHub Release creation are not configured.
 
 ## Details and decisions
