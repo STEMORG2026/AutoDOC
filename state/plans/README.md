@@ -6,8 +6,10 @@ One file per active session, opened at MACP Step 9 and named `agent-<id>-<topic>
 
 ## Current plans
 
+- `agent-912C-pr14-post-merge-reconciliation.md` — verified merged PR #14, reconciled state, and
+  persisted next-work options; PR #15 is open and checks pass, awaiting owner review.
 - `agent-894B-d004-language-readers.md` — D-004 audience applicability and D-002 language readers;
-  PR #14 is open from `arena/894b93ee-autodoc`, all checks pass, awaiting owner review.
+  PR #14 merged at `7a0fd47`; session paused until the owner explicitly closes it.
 - `agent-627F-post-pr12-continuation.md` — PR #12 state reconciliation; PR #13 merged, owner chose
   the next scope, but the session remains paused until explicit owner closure.
 

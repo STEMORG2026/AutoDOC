@@ -22,17 +22,21 @@ auto_generated: false
 # Next action
 
 ## Immediate focus
-PR #13's post-merge state reconciliation is merged at `a704752` (2026-10-22). The owner then
-selected D-004 followed by D-002 and confirmed the semantics recorded in ADR-014. On the active
-`arena/894b93ee-autodoc` follow-up branch, catalog `reader` is an implicit AND audience token:
-match=true, non-match within a non-empty declaration=false/not applicable, empty=unknown, and
-`assess` is exempt. The branch adds JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON through
-`cargo rustdoc`; external references remain on-demand, and missing tools are reported as L0 in that
-run. After the final code and documentation changes, local `make ci` passed on Python 3.11 (280
-tests, 190 subtests; evidence hashes verified, not signatures). Staged impact and all pre-commit
-hooks also passed. The implementation is committed as `ea03f0b` and pushed only to
-`arena/894b93ee-autodoc`; follow-up PR #14 is open and all required checks pass. Await owner review.
-Do not merge it without explicit authorization.
+PR #13's post-merge state reconciliation is merged at `a704752`. The owner selected D-004 followed
+by D-002 and confirmed the semantics recorded in ADR-014. PR #14 is now merged at `7a0fd47`; catalog
+`reader` is an implicit AND audience token (match=true, non-match within a non-empty declaration=false /
+not applicable, empty=unknown, `assess` exempt), and the merged readers use JSDoc `-X`, TypeDoc
+`--json`, and nightly Rustdoc JSON through `cargo rustdoc`. These external references remain on-demand;
+missing tools are reported as L0. Post-merge local `make ci` passed on Python 3.11 (280 tests, 190
+subtests; evidence hashes verified, not signatures), and PR #14's required, impact and Python
+3.11–3.15 checks passed. The 894B session remains paused because merging is not explicit closure.
+
+The owner has not selected the next deferred work. D-003 (on-demand templates), D-007 (evidence
+signing), D-009 (external dogfood), and the remaining CLI adoption/promotion work are still unselected.
+Post-merge reconciliation is proposed in PR #15 from `arena/912c4060-autodoc`; local checks and all
+required GitHub checks pass. Await owner review. Review the persisted options in `state/DECISIONS.md`
+and choose a scope before implementation. Do not merge PR #15 without authorization, publish to
+PyPI, or close any paused session by inference.
 
 D-003 (on-demand templates), D-007 (evidence signing) and D-009 (external dogfood) remain deferred
 and non-gating. D-010 vulnerability scanning remains open/low. C4R7 remains paused after PR #12;
@@ -66,8 +70,8 @@ under `state/archive/plans/2026-10/`, and their closing entries quote the instru
 D-001 session was subsequently closed on 2026-10-21 by the owner's explicit instruction
 "Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
 thread**; the remaining unselected P-006 follow-ups in `state/DEBT.md` are D-003, D-007 and D-009,
-and promotion to `beta` stays a deliberate event (cliff 2). D-004 and D-002 are the owner-selected
-active follow-up on `arena/894b93ee-autodoc`, in PR #14 awaiting owner review/merge. One debt item closed on
+and promotion to `beta` stays a deliberate event (cliff 2). D-004 and D-002 were the owner-selected
+follow-up and are now merged by PR #14. One debt item closed on
 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
 ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner.
@@ -92,19 +96,18 @@ ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner
      (`has_public_api_surface`, `has_http_api`, `has_persistent_state`, `has_env`, `has_ai`)
      are declared false with reasons in `autodoc.toml`, and the detector no longer matches
      its own source.
-   - Kinds, traits and the selected D-004 reader gate are implemented on the current branch:
+   - Kinds, traits and the selected D-004 reader gate are implemented on `master` after PR #14:
      `kind:` and `phase>=` are three-valued; `handles_personal_data`, `handles_payments`,
      `safety_critical` remain declaration-only. A catalog `reader` is an implicit AND audience
      token (match=true, non-match in a non-empty declaration=false/not applicable, empty=unknown;
-     `assess` exempt), confirmed by the owner and recorded in ADR-014. This follow-up is pending
-     review/merge; do not describe the audience implementation as landed on `master` yet.
+     `assess` exempt), confirmed by the owner and recorded in ADR-014.
 5. Done. Enforcement is one policy: `scripts/intelligence/enforce.py` runs obligations and the
    structural families at the severity the declared phase sets, with a baseline for adoption,
    documented exit codes, a pre-push hook and a dry-run branch-protection helper. `make ci` runs it.
 6. Partly done. Per-language references: Python is extracted in-process (exact), Go uses `go doc`,
-   and the active D-002 branch adds JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON through
-   `cargo rustdoc`; these external references are on-demand and report missing tools as L0 for that
-   run. Local JSDoc, TypeDoc and Rust toolchains are absent; fake executables cover the integrations.
+   and the merged D-002 implementation adds JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON
+   through `cargo rustdoc`; these external references are on-demand and report missing tools as L0
+   for that run. Local JSDoc, TypeDoc and Rust toolchains are absent; fake executables cover the integrations.
    The installed `autodoc init` creates ten draft foundations and `autodoc adopt` is a read-only
    filename heuristic; neither performs a full phase-scaled adoption or baseline write. Remaining
    work in this step: extend adoption/scaffolding with owner-reviewed phase/profile decisions;
