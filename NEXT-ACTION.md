@@ -31,18 +31,21 @@ missing tools are reported as L0. Post-merge local `make ci` passed on Python 3.
 subtests; evidence hashes verified, not signatures), and PR #14's required, impact and Python
 3.11–3.15 checks passed. The 894B session remains paused because merging is not explicit closure.
 
-The owner has not selected the next deferred work. D-003 (on-demand templates), D-007 (evidence
-signing), D-009 (external dogfood), and the remaining CLI adoption/promotion work are still unselected.
-Post-merge reconciliation is proposed in PR #15 from `arena/912c4060-autodoc`; local checks and all
-required GitHub checks pass. Await owner review. Review the persisted options in `state/DECISIONS.md`
-and choose a scope before implementation. Do not merge PR #15 without authorization, publish to
-PyPI, or close any paused session by inference.
+PR #15's post-merge state reconciliation is now merged at `990113b` after the owner explicitly
+authorized its merge; the required guard/check and Python 3.11–3.15 matrix passed (the PR impact step
+runs within the guard; no separate impact status was listed). The owner selected D-003 after
+settlement (ADR-015). D-003 is now in progress on `arena/912c4060-autodoc`: treat one catalog record
+as the source per type, remove the 795 checked-in canonical/blank/example outputs, and render variants
+on demand under ignored `build/TEMPLATES/`, exposed through Make and the installed CLI. The current
+tree still contains those outputs until the migration lands. D-007, D-009 and remaining CLI
+adoption/promotion work are unselected. Do not publish to PyPI or close any paused session by
+inference.
 
-D-003 (on-demand templates), D-007 (evidence signing) and D-009 (external dogfood) remain deferred
-and non-gating. D-010 vulnerability scanning remains open/low. C4R7 remains paused after PR #12;
-B71a remains paused after PR #11; 627F remains paused after PR #13. Merging did not explicitly close
-those sessions. The release workflow builds temporary GitHub Actions artifacts only; PyPI
-publishing remains unauthorized.
+D-007 (evidence signing) and D-009 (external dogfood) remain deferred and non-gating. D-010
+vulnerability scanning remains open/low. C4R7 remains paused after PR #12; B71a remains paused after
+PR #11; 627F remains paused after PR #13. Merging did not explicitly close those sessions. The
+release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
+unauthorized.
 
 PR #11 merged at `52d1b79` on 2026-10-21; this did **not** close B71a, which remains paused awaiting
 the owner's explicit close. The migration-prose checks remain structural only, not semantic or
@@ -69,9 +72,9 @@ on 2026-10-21 ("continue from this here and also close the session"), their plan
 under `state/archive/plans/2026-10/`, and their closing entries quote the instruction. A90c's
 D-001 session was subsequently closed on 2026-10-21 by the owner's explicit instruction
 "Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
-thread**; the remaining unselected P-006 follow-ups in `state/DEBT.md` are D-003, D-007 and D-009,
-and promotion to `beta` stays a deliberate event (cliff 2). D-004 and D-002 were the owner-selected
-follow-up and are now merged by PR #14. One debt item closed on
+thread**; D-003 is the owner-selected P-006 follow-up now in progress, while D-007 and D-009 remain
+unselected. Promotion to `beta` stays a deliberate event (cliff 2). D-004 and D-002 were the earlier
+owner-selected follow-up and are now merged by PR #14. One debt item closed on
 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
 ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner.
@@ -111,8 +114,8 @@ ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner
    The installed `autodoc init` creates ten draft foundations and `autodoc adopt` is a read-only
    filename heuristic; neither performs a full phase-scaled adoption or baseline write. Remaining
    work in this step: extend adoption/scaffolding with owner-reviewed phase/profile decisions;
-   implement `promote` and `add`; render templates on demand instead of committing 780 variants;
-   and dogfood on a repository that is not this one.
+   implement `promote` and `add`; D-003 template rendering is in progress as a separate selected
+   workstream; and dogfood on a repository that is not this one.
 7. Done. Event triggers are declared in `CONTROL/metadata/TRIGGERS.json` and verified by
    `triggers.py --check` (in `make ci`): one blocking event, one required check, no undeclared
    workflow, no filtered required check, and no network from a gate. The scheduled workflow reports

@@ -15,16 +15,19 @@ follow-up PR is authorized by that request.
   Git-derived living state. The local `.venv` is absent and will be recreated with `make setup`.
 - The earlier 894B session remains paused. PR #14 merging does not close it; this session will
   update its post-merge record without marking it closed.
-- D-004 and D-002 are now merged. D-003, D-007 and D-009 remain deferred and unselected. Ask the
-  owner to choose a next workstream after presenting persisted options; do not pick one by inference.
+- At the PR #15 handoff on 2026-10-22T10:22Z, D-003, D-007 and D-009 were deferred and
+  unselected. After PR #15 settled, the owner selected D-003; that follow-on decision and plan are
+  recorded below. D-007 and D-009 remain unselected.
 - PyPI publication remains unauthorized. Do not close 627F, C4R7, B71a, or 894B without the owner's
   explicit instruction.
 
 ## Claimed paths
 
-- `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`
-- `docs/00-governance/ADOPTION.md` (correct the stale pre-merge status of D-004/D-002)
-- `state/**` (post-merge status reconciliation, pending next-work decision, session/plan records)
+- `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, `CONTEXT-SNAPSHOT.md`
+- `docs/00-governance/ADOPTION.md` and other template usage/architecture docs
+- `scripts/doc-control/library.py`, `scripts/doc-control/check_catalog.py`, `scripts/doc-control/health.py`,
+  `scripts/doc-sync/engine.py`, `autodoc/cli.py`, `setup.py`, `MANIFEST.in`, `Makefile`
+- `CATALOG-A/B/INDEX.yaml` render-path validation, `TEMPLATES/` outputs/readmes, tests, and `state/**`
 
 ## Plan
 
@@ -56,7 +59,20 @@ See `state/plans/agent-912C-pr14-post-merge-reconciliation.md`.
   separate `impact` status. The session is paused awaiting owner review; next-work options are
   persisted, but no option has been selected.
 
+- `2026-10-22T10:31Z` [PROGRESS] Corrected the PR #15 check record: its PR impact step ran within
+  `AutoDOC guard / check`; GitHub listed no separate `impact` status. Committed `a3bc86d`, pushed it,
+  and verified the required guard and Python 3.11–3.15 checks passed on the updated head.
+- `2026-10-22T10:35Z` [OWNER / MERGE] The owner explicitly authorized merging PR #15 after reviewing
+  its status. `gh pr merge 15 --merge` succeeded; PR #15 merged at `990113b`. Fetched `origin` and
+  fast-forwarded this assigned branch to that merge commit without switching branches.
+- `2026-10-22T10:39Z` [DECISION] After settlement, the owner selected D-003. Measured the pre-migration
+  tree: 265 catalog types, 795 generated variant files, and two explanatory README files. The
+  selection and execution plan are persisted in the state-only handoff before any D-003 code change.
+
 ## Handoff
 
-PR #15 is open with all checks passing. This session is **PAUSED awaiting owner review and next-scope
-selection**. Do not merge PR #15 or implement an unselected follow-up without further owner direction.
+PR #15 is merged at `990113b`; this session is **IN PROGRESS** on owner-selected D-003, not closed.
+The catalog record remains the planned single source per type; variants will render on demand into
+ignored `build/TEMPLATES/`. Keep work on `arena/912c4060-autodoc`; D-007, D-009, PyPI publication and
+closure of other paused sessions remain unauthorized. Do not merge the D-003 follow-up PR without
+explicit owner authorization.
