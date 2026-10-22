@@ -1,6 +1,6 @@
 # DEBT — technical debt worth acting on
 
-**Last reconciled:** 2026-10-22T10:19Z (D-004 and D-002 fixed by PR #14 merge `7a0fd47`; remaining D-003/D-007/D-009 deferred and unselected)
+**Last reconciled:** 2026-10-22T10:22Z (D-004 and D-002 fixed by PR #14 merge `7a0fd47`; remaining D-003/D-007/D-009 deferred and unselected)
 
 Only debt the maintainers would actually fix; a wish list belongs elsewhere. Statuses: `open`,
 `queued (<decision>)`, `in progress (active branch; pending merge)`, `accepted (by design)`,

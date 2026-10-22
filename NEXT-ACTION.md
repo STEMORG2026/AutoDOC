@@ -33,8 +33,10 @@ subtests; evidence hashes verified, not signatures), and PR #14's required, impa
 
 The owner has not selected the next deferred work. D-003 (on-demand templates), D-007 (evidence
 signing), D-009 (external dogfood), and the remaining CLI adoption/promotion work are still unselected.
-Review the persisted options in `state/DECISIONS.md` and choose a scope before implementation. Do not
-publish to PyPI or close any paused session by inference.
+Post-merge reconciliation is proposed in PR #15 from `arena/912c4060-autodoc`; local checks and all
+required GitHub checks pass. Await owner review. Review the persisted options in `state/DECISIONS.md`
+and choose a scope before implementation. Do not merge PR #15 without authorization, publish to
+PyPI, or close any paused session by inference.
 
 D-003 (on-demand templates), D-007 (evidence signing) and D-009 (external dogfood) remain deferred
 and non-gating. D-010 vulnerability scanning remains open/low. C4R7 remains paused after PR #12;

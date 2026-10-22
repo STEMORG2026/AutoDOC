@@ -1,6 +1,6 @@
 # DECISIONS — record of settled choices
 
-**Last reconciled:** 2026-10-22T10:19Z
+**Last reconciled:** 2026-10-22T10:22Z
 
 Entries are append-only. An owner decision that is implemented but not yet recorded in the machine
 files is marked **accepted — recording pending**; an agent never marks an owner decision recorded.

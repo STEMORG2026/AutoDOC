@@ -59,7 +59,8 @@ by D-002 and confirmed the audience rule recorded in ADR-014. Both implementatio
 `master` through PR #14, merged at `7a0fd47224751be04dfdc6275d2381028a6064fd` on 2026-10-22.
 Required, impact and Python 3.11–3.15 GitHub checks passed. A post-merge local `make ci` also passed
 on Python 3.11 (280 tests and 190 subtests); evidence hashes verify, not signatures. The 894B session
-remains paused; merging did not close it.
+remains paused; merging did not close it. Post-merge state reconciliation and next-work options are
+in PR #15 from `arena/912c4060-autodoc`; it is open for owner review.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.
