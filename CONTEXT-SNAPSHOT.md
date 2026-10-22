@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-21
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # AutoDOC context snapshot
@@ -40,4 +40,7 @@ decision; the license is Apache-2.0 (`LICENSE`), so release snapshots require on
 at the same commit.
 
 ## Commands
-`make generate`, `make check`, `make test`; see `docs/.doc-sync-map.yaml` and `README.md`.
+`make generate`, `make check`, `make test`; see `docs/.doc-sync-map.yaml` and `README.md`. The
+installed CLI exposes `check`, `generate`, `adopt`, `init` (optionally with `--phase`/`--profile`),
+`add` (one catalog document), `promote` (explicit phase change with its delta), and `templates`
+(on-demand catalog variants).

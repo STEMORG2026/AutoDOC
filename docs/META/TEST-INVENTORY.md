@@ -28,6 +28,10 @@ AST-discovered Python tests, not a report of execution or coverage.
 
 | File | Line | Test |
 | --- | ---: | --- |
+| `tests/test_add_document.py` | 16 | `test_preview_uses_project_instance_and_todays_date_without_writing` |
+| `tests/test_add_document.py` | 31 | `test_write_creates_the_file_and_refuses_silent_overwrite` |
+| `tests/test_add_document.py` | 49 | `test_output_can_name_an_exact_file_inside_the_project` |
+| `tests/test_add_document.py` | 60 | `test_unknown_ids_and_paths_outside_the_project_are_rejected` |
 | `tests/test_adoption.py` | 15 | `AdoptionTests.test_new_project_scaffold_is_safe_to_rerun` |
 | `tests/test_adoption.py` | 28 | `AdoptionTests.test_owned_documents_are_within_declared_scope` |
 | `tests/test_adoption.py` | 38 | `AdoptionTests.test_adoption_is_read_only` |
@@ -64,10 +68,11 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_catalog_counts.py` | 126 | `CatalogCountTests.test_a_stale_number_is_caught_and_history_is_escapable` |
 | `tests/test_catalog_counts.py` | 137 | `CatalogCountTests.test_the_ambiguous_bare_core_count_is_not_read` |
 | `tests/test_cli.py` | 29 | `test_version_and_help_are_available_without_a_checkout_cwd` |
-| `tests/test_cli.py` | 39 | `test_generate_uses_explicit_project_root` |
-| `tests/test_cli.py` | 77 | `test_templates_render_from_bundled_catalog_into_selected_project_build` |
-| `tests/test_cli.py` | 92 | `test_check_adopt_and_init_operate_on_selected_project` |
-| `tests/test_cli.py` | 110 | `test_adoption_scan_skips_dependency_and_build_trees` |
+| `tests/test_cli.py` | 40 | `test_generate_uses_explicit_project_root` |
+| `tests/test_cli.py` | 78 | `test_templates_render_from_bundled_catalog_into_selected_project_build` |
+| `tests/test_cli.py` | 93 | `test_check_adopt_and_init_operate_on_selected_project` |
+| `tests/test_cli.py` | 111 | `test_adoption_scan_skips_dependency_and_build_trees` |
+| `tests/test_cli.py` | 122 | `test_add_and_promote_operate_on_selected_project` |
 | `tests/test_context.py` | 22 | `ContextTests.test_missing_file_is_an_empty_advisory_context` |
 | `tests/test_context.py` | 31 | `ContextTests.test_bare_reason_string_is_normalised` |
 | `tests/test_context.py` | 37 | `ContextTests.test_table_reason_form_is_accepted` |
@@ -239,6 +244,14 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_profile.py` | 174 | `FixtureMatrixTests.test_a_typed_library_surface_is_not_an_http_api` |
 | `tests/test_profile.py` | 185 | `FixtureMatrixTests.test_content_scan_records_the_file_not_the_value` |
 | `tests/test_profile.py` | 190 | `FixtureMatrixTests.test_the_detector_never_matches_its_own_source` |
+| `tests/test_promote.py` | 43 | `test_preview_reports_the_beta_cliff_without_writing` |
+| `tests/test_promote.py` | 55 | `test_write_refuses_missing_required_documents_without_force` |
+| `tests/test_promote.py` | 63 | `test_forced_write_changes_only_the_two_declarations` |
+| `tests/test_promote.py` | 81 | `test_forward_promotion_to_a_warn_phase_writes_cleanly` |
+| `tests/test_promote.py` | 90 | `test_same_phase_is_a_noop` |
+| `tests/test_promote.py` | 99 | `test_demotion_and_backdating_need_force` |
+| `tests/test_promote.py` | 106 | `test_missing_declarations_are_inserted_after_schema` |
+| `tests/test_promote.py` | 118 | `test_unknown_phase_and_future_date_are_usage_errors` |
 | `tests/test_resolver.py` | 85 | `PhaseScalingTests.test_undeclared_phase_is_advisory_and_never_fails` |
 | `tests/test_resolver.py` | 95 | `PhaseScalingTests.test_prototype_reports_without_warning` |
 | `tests/test_resolver.py` | 101 | `PhaseScalingTests.test_build_warns_but_does_not_fail` |

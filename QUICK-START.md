@@ -25,14 +25,15 @@ release run, create an environment, and install the wheel by path:
 ```sh
 python -m venv .venv
 . .venv/bin/activate                 # Windows: .venv\\Scripts\\activate
-python -m pip install /path/to/autodoc-0.2.0-py3-none-any.whl
+python -m pip install /path/to/autodoc-0.3.0-py3-none-any.whl
 autodoc --version
 autodoc check --repo /path/to/project
 autodoc generate --root /path/to/project --check
 ```
 
-Available commands are `check`, `generate`, `adopt` (read-only heuristic scan), and `init` (draft
-scaffold in an existing directory). The 3.11–3.15 CI compatibility matrix is supplemental and
+Available commands are `check`, `generate`, `adopt` (read-only heuristic scan), `init` (draft
+scaffold and optional phase/profile declaration), `add` (one catalog document), `promote` (preview
+or apply a phase change), and `templates` (render catalog variants). The 3.11–3.15 CI compatibility matrix is supplemental and
 non-blocking; the configured required gate runs full `make ci` on Python 3.11. The installed tool
 assets are separate from the selected project root. `check` honors that project's `autodoc.toml` and baseline; an undeclared phase is
 advisory unless severity is pinned. `generate` needs the target project's
@@ -62,14 +63,34 @@ dependencies — including vulnerability and licence handling — is in
 
 ## New project and new documents
 
-`autodoc init --name "My App" --type web-api --output /existing/project` creates ten **draft** foundations without overwrites. The source-checkout equivalent is `python scripts/init-project.py --name "My App" --type web-api --output /existing/project`. The type is recorded in scaffold prompts; the same ten foundation types are created for every type. `1970-01-01` means unverified.
-For a single type, render its blank variant into the target project's ignored build tree with
-`autodoc templates --root /existing/project --variant blank` or, in a source checkout,
-`make docs-templates TEMPLATE_VARIANT=blank`. Copy the matching `build/TEMPLATES/<category>/<ID>.md.blank`,
-assign a new *instance* ID, real owner/reviewer, actual review dates and project-specific facts;
-then add a source/review mapping. Catalog IDs name *types*, not deployed artifacts. To add a type,
-update `CONTROL/metadata/CATALOG-RULES.json` and run `make generate` to rebuild the catalog indexes;
+`autodoc init --name "My App" --type web-api --output /existing/project` creates ten **draft** foundations without overwrites. The source-checkout equivalent is `python scripts/init-project.py --name "My App" --type web-api --output /existing/project`. The type is recorded in scaffold prompts; the same ten foundation types are created for every type. `1970-01-01` means unverified. Add `--phase build` and/or `--profile oss-library` to record an explicit initial declaration in `autodoc.toml`; an existing context file is never overwritten.
+
+For a single type, use `autodoc add DOC-A03-001 --root /existing/project` to preview and `--write`
+to create `docs/autodoc/<category>/<ID>.md` with a project-qualified instance ID and current
+creation dates. Existing files require `--force`, so authoring is never silently overwritten.
+`autodoc add` does not record the document as satisfying the type; add it to `[instantiated]` only
+after a human confirms the content and ownership. To browse all starter variants instead, render
+them with `autodoc templates --root /existing/project --variant blank` or, in a source checkout,
+`make docs-templates TEMPLATE_VARIANT=blank`; outputs go to ignored `build/TEMPLATES/`.
+Catalog IDs name *types*, not deployed artifacts. To add a type, update
+`CONTROL/metadata/CATALOG-RULES.json` and run `make generate` to rebuild the catalog indexes;
 variants render separately on demand.
+
+## Promote the declared phase
+
+Phase changes are explicit owner events, never inferred. Preview the requirement and enforcement
+delta first:
+
+```sh
+autodoc promote --repo /existing/project --to beta
+autodoc promote --repo /existing/project --to beta --write
+```
+
+The preview exits `1` and refuses to write while a target-phase required document has no document
+and no recorded decision. Add the documents or record the decision in `autodoc.toml`, then rerun.
+`--force` permits a demotion, a backdated declaration, or a write with missing required documents;
+it never hides the remaining findings. `promote` changes only the top-level `phase` and
+`phase_declared` values and preserves the rest of the file.
 
 ## Add a deterministic extractor
 

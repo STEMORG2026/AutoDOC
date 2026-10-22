@@ -31,7 +31,7 @@ Per-language inventory of the mapped sources. Every generator declares its exact
 | Language | Files | Generator | Tool | Exactness | What it can and cannot see |
 | --- | ---: | --- | --- | --- | --- |
 | javascript | 1 | javascript | JSDoc -X | exact | JSDoc JSON doclets for the explicitly matched JavaScript/JSX files; it reports what the tool recognizes and does not infer runtime behavior. Local JSDoc config or plugins may affect output and may execute code; AutoDOC installs nothing. |
-| python | 40 | python | ast (the CPython parser) | exact | Module-level declarations, signatures and first docstring lines from parsed source: definitions created at runtime, generated code and non-module sources are invisible. |
+| python | 42 | python | ast (the CPython parser) | exact | Module-level declarations, signatures and first docstring lines from parsed source: definitions created at runtime, generated code and non-module sources are invisible. |
 
 ## Python declarations (exact, in-process)
 
@@ -47,12 +47,12 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `EXAMPLE-PROJECT/src/app.py` | 45 | function | `Handler.do_POST` | `(self)` | — |
 | `EXAMPLE-PROJECT/src/app.py` | 62 | function | `serve` | `(host='0.0.0.0', port=None, db_path=None)` | — |
 | `autodoc/cli.py` | 21 | function | `runtime_root` | `() -> Path` | Locate the bundled AutoDOC scripts and policy data, never the target project. |
-| `autodoc/cli.py` | 59 | function | `_add_check_arguments` | `(parser: argparse.ArgumentParser) -> None` | — |
-| `autodoc/cli.py` | 72 | function | `build_parser` | `() -> argparse.ArgumentParser` | — |
-| `autodoc/cli.py` | 118 | function | `_absolute_directory` | `(parser: argparse.ArgumentParser, value: Path, option: str) -> Path` | — |
-| `autodoc/cli.py` | 125 | function | `_absolute_file` | `(value: Path) -> Path` | — |
-| `autodoc/cli.py` | 129 | function | `_run_script` | `(script: Path, arguments: Sequence[str]) -> int` | Execute an existing script with the same interpreter and preserve its exit code. |
-| `autodoc/cli.py` | 141 | function | `main` | `(argv: Sequence[str] | None=None) -> int` | — |
+| `autodoc/cli.py` | 62 | function | `_add_check_arguments` | `(parser: argparse.ArgumentParser) -> None` | — |
+| `autodoc/cli.py` | 75 | function | `build_parser` | `() -> argparse.ArgumentParser` | — |
+| `autodoc/cli.py` | 150 | function | `_absolute_directory` | `(parser: argparse.ArgumentParser, value: Path, option: str) -> Path` | — |
+| `autodoc/cli.py` | 157 | function | `_absolute_file` | `(value: Path) -> Path` | — |
+| `autodoc/cli.py` | 161 | function | `_run_script` | `(script: Path, arguments: Sequence[str]) -> int` | Execute an existing script with the same interpreter and preserve its exit code. |
+| `autodoc/cli.py` | 173 | function | `main` | `(argv: Sequence[str] | None=None) -> int` | — |
 | `engine/extractors/env_alerts.py` | 7 | function | `environment` | `(path: Path)` | Parse described KEY=value entries; never silently accept undocumented keys. |
 | `engine/extractors/env_alerts.py` | 35 | function | `alerts` | `(path: Path, root: Path)` | JSON-compatible YAML subset; validate actual runbook existence and mandatory fields. |
 | `engine/extractors/facts.py` | 12 | function | `headings` | `(path: Path)` | ATX headings, excluding fenced code (setext headings are not supported). |
@@ -64,6 +64,14 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `engine/extractors/facts.py` | 142 | function | `demo_routes` | `(path: Path)` | Only routes actually dispatched by the educational task API. |
 | `engine/extractors/facts.py` | 163 | function | `config_properties` | `(path: Path)` | Validate the demo's bounded JSON config before rendering reference and .env. |
 | `engine/extractors/local_policy.py` | 6 | function | `tool_matrix` | `(path: Path)` | — |
+| `scripts/add-document.py` | 17 | function | `load_module` | `(name: str, path: Path)` | — |
+| `scripts/add-document.py` | 29 | function | `catalog` | `(root: Path=ROOT) -> list[dict]` | — |
+| `scripts/add-document.py` | 33 | function | `find_document` | `(document_id: str, root: Path=ROOT) -> dict` | — |
+| `scripts/add-document.py` | 40 | function | `project_instance_id` | `(root: Path, doc: dict) -> str` | — |
+| `scripts/add-document.py` | 45 | function | `default_target` | `(root: Path, doc: dict) -> Path` | — |
+| `scripts/add-document.py` | 49 | function | `resolve_target` | `(root: Path, doc: dict, output: Path | None) -> Path` | — |
+| `scripts/add-document.py` | 59 | function | `add` | `(document_id: str, *, root: Path=ROOT, output: Path | None=None, variant: str='canonical', instance_id: str | None=None, force: bool=False, write: bool=False, today: date | None=None) -> dict` | — |
+| `scripts/add-document.py` | 105 | function | `main` | `(argv: list[str] | None=None) -> int` | — |
 | `scripts/adopt.py` | 24 | function | `scan` | `(project)` | — |
 | `scripts/adopt.py` | 36 | function | `main` | `()` | — |
 | `scripts/doc-control/build_catalogs.py` | 28 | function | `phase_order` | `()` | The declared phase sequence, from the context model, not from a second list here. |
@@ -122,13 +130,15 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/doc-control/health.py` | 16 | function | `health` | `()` | — |
 | `scripts/doc-control/json_style.py` | 21 | function | `_collapse` | `(text)` | — |
 | `scripts/doc-control/json_style.py` | 55 | function | `dumps` | `(data)` | Serialise `data` as indented JSON with short scalar arrays kept on one line. |
-| `scripts/doc-control/library.py` | 22 | function | `render` | `(doc: dict, variant: str) -> str` | Render one deterministic Markdown variant from one catalog document record. |
-| `scripts/doc-control/library.py` | 75 | function | `_destination` | `(doc: dict) -> Path` | Return the category-relative build path after validating the catalog's logical target. |
-| `scripts/doc-control/library.py` | 96 | function | `catalog_sources` | `(root: Path=ROOT) -> list[tuple[dict, Path]]` | Load unique catalog entries and their validated category-relative destinations. |
-| `scripts/doc-control/library.py` | 127 | function | `_inside` | `(path: Path, parent: Path) -> bool` | — |
-| `scripts/doc-control/library.py` | 135 | function | `checked_in_outputs` | `(root: Path=ROOT) -> list[Path]` | Return rendered variants found under the source tree; explanatory README files are allowed. |
-| `scripts/doc-control/library.py` | 147 | function | `run` | `(check: bool=False, variant: str='all', output_dir: Path | None=None, *, root: Path=ROOT) -> bool` | Validate catalog sources or render selected variants into an output tree. |
-| `scripts/doc-control/library.py` | 200 | function | `main` | `(argv: Iterable[str] | None=None) -> int` | — |
+| `scripts/doc-control/library.py` | 23 | function | `render` | `(doc: dict, variant: str, *, instance: str | None=None, today: date | None=None) -> str` | Render one deterministic Markdown variant from one catalog document record. |
+| `scripts/doc-control/library.py` | 90 | function | `render_instance` | `(doc: dict, variant: str='canonical', *, instance_id: str | None=None, today: date | None=None) -> str` | Render a document intended for a project, using a real id and creation date. |
+| `scripts/doc-control/library.py` | 107 | function | `destination` | `(doc: dict) -> Path` | The validated category-relative destination of one catalog document. |
+| `scripts/doc-control/library.py` | 112 | function | `_destination` | `(doc: dict) -> Path` | Return the category-relative build path after validating the catalog's logical target. |
+| `scripts/doc-control/library.py` | 133 | function | `catalog_sources` | `(root: Path=ROOT) -> list[tuple[dict, Path]]` | Load unique catalog entries and their validated category-relative destinations. |
+| `scripts/doc-control/library.py` | 164 | function | `_inside` | `(path: Path, parent: Path) -> bool` | — |
+| `scripts/doc-control/library.py` | 172 | function | `checked_in_outputs` | `(root: Path=ROOT) -> list[Path]` | Return rendered variants found under the source tree; explanatory README files are allowed. |
+| `scripts/doc-control/library.py` | 184 | function | `run` | `(check: bool=False, variant: str='all', output_dir: Path | None=None, *, root: Path=ROOT) -> bool` | Validate catalog sources or render selected variants into an output tree. |
+| `scripts/doc-control/library.py` | 237 | function | `main` | `(argv: Iterable[str] | None=None) -> int` | — |
 | `scripts/doc-control/release_snapshot.py` | 15 | function | `require_license` | `(root=ROOT)` | The release gate: the license text is present, whatever the decision record says. |
 | `scripts/doc-control/release_snapshot.py` | 24 | function | `snapshot` | `(tag, output)` | — |
 | `scripts/doc-control/require-docs-check.py` | 18 | function | `gh` | `(*args, **kwargs)` | — |
@@ -206,7 +216,10 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/doc-sync/languages.py` | 396 | function | `tracked_language_files` | `(root)` | Tracked files that are project evidence: generated, vendored and test inputs are skipped. |
 | `scripts/doc-sync/languages.py` | 406 | function | `report` | `(root=ROOT, path=None, probe=True)` | The terminal view: one line per code language, with the limits spelled out. |
 | `scripts/doc-sync/languages.py` | 423 | function | `main` | `()` | — |
-| `scripts/init-project.py` | 14 | function | `main` | `()` | — |
+| `scripts/init-project.py` | 16 | function | `load_module` | `(name, relative)` | — |
+| `scripts/init-project.py` | 25 | function | `declaration_values` | `(phase, profile)` | — |
+| `scripts/init-project.py` | 37 | function | `write_context` | `(target, phase, profile)` | — |
+| `scripts/init-project.py` | 61 | function | `main` | `()` | — |
 | `scripts/intelligence/context.py` | 32 | function | `load_module` | `(name, path)` | — |
 | `scripts/intelligence/context.py` | 40 | function | `load_model` | `()` | — |
 | `scripts/intelligence/context.py` | 47 | function | `load` | `(path)` | Read a raw context file; a missing file is an empty context. |
@@ -253,6 +266,23 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/profile.py` | 495 | function | `evaluate` | `(spec, files, ecosystems, cache, root, evidence)` | Three-valued evaluation: true if anything matched, unknown if nothing could run. |
 | `scripts/intelligence/profile.py` | 525 | function | `profile` | `(root, declared=None)` | Return a deterministic three-valued profile of the repository rooted at `root`. |
 | `scripts/intelligence/profile.py` | 573 | function | `summary` | `(document)` | Boolean projection for callers that only need the values that are true. |
+| `scripts/intelligence/promote.py` | 30 | function | `load_module` | `(name: str, path: Path)` | — |
+| `scripts/intelligence/promote.py` | 43 | function | `phase_order` | `() -> tuple[str, ...]` | — |
+| `scripts/intelligence/promote.py` | 47 | function | `_top_level` | `(lines: list[str]) -> list[bool]` | — |
+| `scripts/intelligence/promote.py` | 57 | function | `_find_scalar` | `(lines: list[str], key: str) -> tuple[int, re.Match[str]] | None` | — |
+| `scripts/intelligence/promote.py` | 71 | function | `_newline_for` | `(text: str) -> str` | — |
+| `scripts/intelligence/promote.py` | 75 | function | `_set_scalar` | `(text: str, key: str, value: str) -> str` | — |
+| `scripts/intelligence/promote.py` | 101 | function | `_validate_text` | `(text: str, context_module) -> dict` | — |
+| `scripts/intelligence/promote.py` | 110 | function | `_unchanged_outside_allowed` | `(before: dict, after: dict) -> None` | — |
+| `scripts/intelligence/promote.py` | 118 | function | `rewrite_context` | `(text: str, phase: str, declared: str) -> str` | — |
+| `scripts/intelligence/promote.py` | 126 | function | `write_atomic` | `(path: Path, text: str) -> None` | — |
+| `scripts/intelligence/promote.py` | 144 | function | `_snapshot` | `(documents: list[dict], profile_document: dict, context: dict, phase: str) -> dict` | — |
+| `scripts/intelligence/promote.py` | 154 | function | `_items` | `(items: list[dict]) -> list[dict]` | — |
+| `scripts/intelligence/promote.py` | 159 | function | `_difference` | `(after: list[dict], before: list[dict]) -> list[dict]` | — |
+| `scripts/intelligence/promote.py` | 164 | function | `build_delta` | `(before: dict, after: dict) -> dict` | — |
+| `scripts/intelligence/promote.py` | 179 | function | `promote` | `(*, repo: Path, config: Path, target: str, declared: str, write: bool=False, force: bool=False) -> tuple[int, dict]` | — |
+| `scripts/intelligence/promote.py` | 263 | function | `render` | `(result: dict) -> str` | — |
+| `scripts/intelligence/promote.py` | 303 | function | `main` | `(argv: list[str] | None=None) -> int` | — |
 | `scripts/intelligence/recommend.py` | 31 | function | `load_module` | `(name, relative)` | — |
 | `scripts/intelligence/recommend.py` | 43 | function | `languages_module` | `()` | The per-language generator registry, loaded on first use. |
 | `scripts/intelligence/recommend.py` | 59 | function | `language_summary` | `(profile_document, probe=True)` | — |
@@ -299,5 +329,5 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/test_package.py` | 22 | function | `run` | `(command: list[str], *, cwd: Path, expected: int=0, env: dict[str, str] | None=None)` | — |
 | `scripts/test_package.py` | 34 | function | `extract_generated_sdist` | `(archive_path: Path, destination: Path) -> Path` | Extract only ordinary files/directories from the just-built sdist, rejecting path escapes. |
 | `scripts/test_package.py` | 53 | function | `smoke_installed_cli` | `(wheel: Path, work: Path) -> None` | — |
-| `scripts/test_package.py` | 122 | function | `main` | `() -> int` | — |
-| `setup.py` | 28 | function | `runtime_data_files` | `() -> list[tuple[str, list[str]]]` | Return the executable runtime files plus the catalog/context inputs they need. |
+| `scripts/test_package.py` | 136 | function | `main` | `() -> int` | — |
+| `setup.py` | 31 | function | `runtime_data_files` | `() -> list[tuple[str, tuple[str, ...]]]` | Return the executable runtime files plus the catalog/context inputs they need. |

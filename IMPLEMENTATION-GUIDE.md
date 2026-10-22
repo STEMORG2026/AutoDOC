@@ -3,10 +3,21 @@
 ## Select, instantiate, connect
 
 1. Filter the catalogs by project phase and risk; record exclusions rather than materializing every starter.
-2. Render a blank or canonical variant on demand with `autodoc templates --root /existing/project --variant blank`
-   (or `make docs-templates TEMPLATE_VARIANT=blank` in this checkout). Copy the matching file from
-   `build/TEMPLATES/`, then add full metadata per
-   `CONTROL/metadata/FRONT-MATTER-SCHEMA.json` and a **new instance ID**, not the catalog ID.
+   Declare an initial phase/profile with `autodoc init --phase build --profile oss-library` (or add
+   the values to `autodoc.toml`). Later changes are explicit events: `autodoc promote --to beta`
+   previews the newly required and newly failing types, and `--write` applies the declaration only
+   when target-phase required documents exist or a decision is recorded. Use `--force` only for a
+   deliberate demotion, backdate, or known-incomplete promotion; the preview and write share the
+   same delta.
+2. Instantiate one type with `autodoc add DOC-A03-001 --root /existing/project` (add `--write` to
+   create `docs/autodoc/<category>/<ID>.md` with a project-qualified instance ID and current
+   creation dates), or render a blank or canonical variant on demand with
+   `autodoc templates --root /existing/project --variant blank` (or
+   `make docs-templates TEMPLATE_VARIANT=blank` in this checkout) and copy the matching file from
+   `build/TEMPLATES/`. Replace the placeholder owner/reviewer and content, then add full metadata per
+   `CONTROL/metadata/FRONT-MATTER-SCHEMA.json`; keep the **new instance ID**, not the catalog ID.
+   `add` never records the document as satisfying the catalog type — confirm the content first, then
+   add it to `[instantiated]`.
    The built-in dependency-free parser accepts one scalar per line and JSON-compatible inline
    arrays for `related`; nested YAML and multiline scalar values need a custom parser.
 3. Declare the authoritative source, generator and committed target in `docs/.doc-sync-map.yaml`.

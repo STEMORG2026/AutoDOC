@@ -10,6 +10,7 @@ import argparse
 import json
 import re
 import sys
+from datetime import date, timedelta
 from pathlib import Path, PurePosixPath
 from typing import Iterable
 
@@ -19,8 +20,19 @@ VARIANT_SUFFIX = {"canonical": "", "blank": ".blank", "example": ".example"}
 TEMPLATE_DIR = PurePosixPath("TEMPLATES")
 
 
-def render(doc: dict, variant: str) -> str:
-    """Render one deterministic Markdown variant from one catalog document record."""
+def render(
+    doc: dict,
+    variant: str,
+    *,
+    instance: str | None = None,
+    today: date | None = None,
+) -> str:
+    """Render one deterministic Markdown variant from one catalog document record.
+
+    ``instance`` and ``today`` let the authoring path produce a real declaration without changing
+    the template previews: the defaults keep the original sample values, while ``add`` supplies a
+    project-qualified id and the creation date.
+    """
     if variant not in VARIANTS:
         raise ValueError(f"unknown template variant: {variant!r}")
     if not isinstance(doc, dict):
@@ -32,14 +44,17 @@ def render(doc: dict, variant: str) -> str:
         raise ValueError(f"{id_}: catalog document name must be a non-empty string")
     if not isinstance(document_type, str) or not document_type.strip():
         raise ValueError(f"{id_}: catalog document type must be a non-empty string")
-    instance = f"SAMPLE-{id_}" if variant == "example" else "REPLACE-WITH-UNIQUE-INSTANCE-ID"
+    instance = instance or (
+        f"SAMPLE-{id_}" if variant == "example" else "REPLACE-WITH-UNIQUE-INSTANCE-ID")
+    effective = today or date(2026, 9, 26)
+    review = effective + timedelta(days=90)
     header = (
         f'---\nid: {instance}\ntitle: "{name}"\ntype: {doc["type"]}\n'
         'owner: "@assign-owner"\nreviewer: "@assign-reviewer"\nclassification: internal\n'
-        'status: draft\nversion: "0.1"\neffective_date: 2026-09-26\n'
-        'next_review: 2026-12-25\nsource_of_truth: human\nsupersedes: null\n'
+        f'status: draft\nversion: "0.1"\neffective_date: {effective.isoformat()}\n'
+        f'next_review: {review.isoformat()}\nsource_of_truth: human\nsupersedes: null\n'
         'related: []\ncriticality: high\nreview_days: 90\nlast_verified: 1970-01-01\n'
-        'last_reviewed: 1970-01-01\nlast_updated: 2026-09-26\nauto_generated: false\n---\n\n'
+        f'last_reviewed: 1970-01-01\nlast_updated: {effective.isoformat()}\nauto_generated: false\n---\n\n'
     )
     if variant == "example":
         body = (
@@ -70,6 +85,28 @@ def render(doc: dict, variant: str) -> str:
             'approval; explain how to check the claims and when they must be reviewed.\n'
         )
     return header + f"# {name}\n\n" + body
+
+
+def render_instance(
+    doc: dict,
+    variant: str = "canonical",
+    *,
+    instance_id: str | None = None,
+    today: date | None = None,
+) -> str:
+    """Render a document intended for a project, using a real id and creation date."""
+    if instance_id is not None:
+        instance_id = instance_id.strip()
+        if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", instance_id):
+            raise ValueError(
+                "instance id must start with a letter or digit and contain only "
+                "letters, digits, dots, underscores or hyphens")
+    return render(doc, variant, instance=instance_id, today=today or date.today())
+
+
+def destination(doc: dict) -> Path:
+    """The validated category-relative destination of one catalog document."""
+    return _destination(doc)
 
 
 def _destination(doc: dict) -> Path:

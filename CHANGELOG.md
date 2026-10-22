@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Added `autodoc add <catalog-id>`: previews or writes one catalog-derived document with a
+  project-qualified instance ID and creation date, refuses silent overwrites, and keeps the
+  destination inside the selected project.
+- Added `autodoc promote --to <phase>`: previews the catalog's newly required and newly failing
+  types, refuses a write while a target-phase required document lacks a document or decision,
+  preserves the rest of `autodoc.toml`, and writes only the top-level `phase` and
+  `phase_declared` values. Demotions, backdates and forced incomplete promotions require
+  `--force`, and the remaining findings stay visible.
+- Extended `autodoc init` with `--phase` and `--profile` declarations while preserving existing
+  files, and shipped the new runtime scripts through the wheel/sdist smoke test.
 - Implemented owner-selected D-003: catalog records render canonical, blank or synthetic-example
   variants on demand into ignored `build/TEMPLATES/` through Make and the installed `autodoc templates`
   command. Removed the 795 tracked variants after a byte-for-byte comparison confirmed all generated

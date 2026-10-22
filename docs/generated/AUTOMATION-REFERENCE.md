@@ -87,6 +87,7 @@ Every mapping states its generator's exactness and limits, so a reader can judge
 - `scripts/intelligence/context.py`
 - `scripts/intelligence/enforce.py`
 - `scripts/intelligence/profile.py`
+- `scripts/intelligence/promote.py`
 - `scripts/intelligence/recommend.py`
 - `scripts/intelligence/triggers.py`
 - `scripts/validate/frontmatter_validator.py`

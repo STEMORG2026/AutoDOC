@@ -33,7 +33,8 @@ def test_version_and_help_are_available_without_a_checkout_cwd(tmp_path):
     assert version.returncode == 0
     assert version.stdout.strip() == f"autodoc {PROJECT_VERSION}"
     assert help_result.returncode == 0
-    assert all(command in help_result.stdout for command in ("check", "generate", "adopt", "init", "templates"))
+    assert all(command in help_result.stdout for command in (
+        "check", "generate", "adopt", "init", "add", "promote", "templates"))
 
 
 def test_generate_uses_explicit_project_root(tmp_path):
@@ -116,3 +117,29 @@ def test_adoption_scan_skips_dependency_and_build_trees(tmp_path):
     (hidden / "pyproject.toml").write_text("[project]\n", encoding="utf-8")
 
     assert scan(project) == []
+
+
+def test_add_and_promote_operate_on_selected_project(tmp_path):
+    project = tmp_path / "consumer"
+    project.mkdir()
+
+    initialized = run_cli(
+        "init", "--name", "Consumer", "--type", "cli", "--output", project,
+        "--phase", "prototype", cwd=tmp_path)
+    assert initialized.returncode == 0, initialized.stderr
+    assert (project / "autodoc.toml").is_file()
+
+    added = run_cli("add", "DOC-A03-001", "--root", project, "--write", cwd=tmp_path)
+    assert added.returncode == 0, added.stderr
+    document = project / "docs/autodoc/ARCHITECTURE/DOC-A03-001.md"
+    assert document.is_file()
+
+    preview = run_cli("promote", "--repo", project, "--to", "build", "--json", cwd=tmp_path)
+    assert preview.returncode == 0, preview.stderr
+    result = json.loads(preview.stdout)
+    assert result["changed"] is True
+    assert result["written"] is False
+
+    written = run_cli("promote", "--repo", project, "--to", "build", "--write", cwd=tmp_path)
+    assert written.returncode == 0, written.stderr
+    assert tomllib.loads((project / "autodoc.toml").read_text(encoding="utf-8"))["phase"] == "build"

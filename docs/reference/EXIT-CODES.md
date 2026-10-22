@@ -47,6 +47,8 @@ non-`1` exit (`tests/test_enforcement_contract.py`).
 | `scripts/doc-sync/engine.py freshness` | No critical review overdue | A critical document is overdue | Missing or invalid frontmatter |
 | `scripts/doc-control/guards.py`, `stub_check.py` | Clean | Findings | — (a crash is not a code path, it is a bug) |
 | `scripts/intelligence/context.py` | Declared context and model are valid | — | Any rejected declaration |
+| `autodoc add` | Preview was produced, or the file was written | The destination exists and `--force` was not supplied | Unknown catalog id, unsafe destination, or unreadable project root |
+| `autodoc promote` | Preview or write succeeded with no blocked required document | The target phase has a required document with no document/decision, or a forced write leaves those findings | Invalid context, unknown phase, future/backdated declaration without `--force`, or a refused demotion |
 | `scripts/intelligence/triggers.py --check` | The declared event model matches the workflows, hook and Makefile | — (the model has no findings to report; it either matches or it does not) | An undeclared workflow, an unresolvable declared command, a filtered required check, or an unreadable model; `3` if the tool itself fails |
 | `scripts/doc-control/check_external_links.py` | Warn-only: every checked link was reachable or restricted, or skipped by design | With `--strict`, a missing or errored link | Usage or configuration error; `3` if the tool itself fails |
 | `scripts/doc-sync/languages.py --show` | The requested reference was generated | The language has no generator, or its tool is unavailable, failed, or timed out | Usage or configuration error; `3` if the tool itself fails |

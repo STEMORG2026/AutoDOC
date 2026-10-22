@@ -42,7 +42,7 @@ the `autodoc-python-distribution` artifact of a tagged GitHub Actions release ru
 ```sh
 python -m venv .venv
 . .venv/bin/activate                 # Windows: .venv\\Scripts\\activate
-python -m pip install /path/to/autodoc-0.2.0-py3-none-any.whl
+python -m pip install /path/to/autodoc-0.3.0-py3-none-any.whl
 autodoc --version
 autodoc check --repo /path/to/project
 autodoc generate --root /path/to/project --check
@@ -50,18 +50,27 @@ autodoc generate --root /path/to/project --check
 
 The package declares Python **3.11–3.15** support and has no runtime dependencies. CI runs the test
 suite across that range in a supplemental, non-blocking matrix; the named required gate runs full
-`make ci` on Python 3.11. Its installable commands are `check`, `generate`, `adopt`, and `init`;
-check/generation always operate on the selected project root, separately from AutoDOC's bundled
-policy and catalog assets. `init` requires
-an existing directory and writes draft scaffolds; `adopt` is a read-only filename heuristic.
-AutoDOC is **not published to PyPI**; the release workflow builds temporary CI artifacts and does
-not publish or create a GitHub Release. Do not use `pip install autodoc` as an installation path.
+`make ci` on Python 3.11. Its installable commands are `check`, `generate`, `adopt`, `init`, `add`,
+`promote`, and `templates`; every command operates on the selected project root, separately from
+AutoDOC's bundled policy and catalog assets. `init` requires an existing directory, writes draft
+scaffolds, and can record an initial phase/profile declaration; `adopt` is a read-only filename
+heuristic; `add` instantiates one catalog type; `promote` previews the enforcement delta before
+changing the declared phase. AutoDOC is **not published to PyPI**; the release workflow builds
+temporary CI artifacts and does not publish or create a GitHub Release. Do not use
+`pip install autodoc` as an installation path.
 
 `autodoc check` applies the target project's `autodoc.toml` and baseline. With no declared phase,
 checks are advisory unless a severity is explicitly pinned. `autodoc generate` expects a
 `docs/.doc-sync-map.yaml` in the target project; use `--check` for read-only drift checking. These
 commands validate declared structure and bounded extracted facts, not semantic correctness or
 regulatory compliance.
+
+`autodoc add DOC-A03-001 --root /path/to/project` previews one catalog document and `--write`
+creates it under `docs/autodoc/`; existing files are never replaced without `--force`.
+`autodoc promote --repo /path/to/project --to beta` previews the requirement and enforcement
+changes; `--write` applies them only when the target-phase required documents exist or a decision
+is recorded, unless `--force` explicitly overrides that guard. A declaration is never inferred
+from repository history.
 
 `make docs-recommend` reports which catalog types apply to this repository, why, and which
 decisions are recorded in `autodoc.toml`; `make docs-catalog` validates the catalog rules,
@@ -118,6 +127,8 @@ actual tests and saves **unsigned** artifacts under ignored `evidence/out/`.
 for its type; render canonical, blank or synthetic-example variants on demand with
 `autodoc templates --variant blank` (or `make docs-templates TEMPLATE_VARIANT=blank`). Outputs go to
 ignored `build/TEMPLATES/` and are not committed; they are starter material, not project documents.
+To place one type directly in a project with a real instance ID and creation date, use
+`autodoc add <catalog-id> --root <project> --write`.
 See the [license decision](docs/00-governance/LICENSE-DECISION.md) and
 [manual branch requirements](docs/00-governance/BRANCH-PROTECTION.md). AutoDOC is not renamed.
 

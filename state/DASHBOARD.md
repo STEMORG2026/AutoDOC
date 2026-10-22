@@ -1,35 +1,41 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T11:05Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
-post-merge reconciliation, D-003 implementation and validation) · **Base tip:** `990113b` on `master` (PR #15 merged; PR #14 merged at `7a0fd47`); D-003 is on `arena/912c4060-autodoc`; pre-commit and staged impact pass, commit/push/review-PR handoff pending.
+**Last reconciled:** 2026-10-22T12:43Z · **Reconciled by:** PRD1 (session `20261022-1145-PRD1`,
+production-readiness commands and post-merge state) · **Base tip:** `a28616b` on `master` (PR #16
+merged D-003; PR #15 merged at `990113b`); PRD1's `add`/`promote`/`init` work is on
+`arena/production-readiness-autodoc` with `make ci` and package smoke green; PR #18 is open for review.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `990113b` (PR #15 state reconciliation merged; D-004/D-002 from PR #14 also present); D-003 implementation is on `arena/912c4060-autodoc`, not yet merged |
+| Branch | `master` at `a28616b` (PR #16 merged D-003; D-004/D-002 and PR #15 reconciliation also present); PRD1's `add`/`promote`/`init` work is on `arena/production-readiness-autodoc`, not yet merged |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
 | Build-ready | **15/15** · open core decisions **0** (owner decision 4 closed the last one, `DOC-A05-001` Data model, as not applicable) |
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
 | Stack | Python 3.11–3.15 declared, **zero runtime dependencies**; build/pytest/pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
-| Docs | 70 controlled instances (28 generated targets, 42 human-owned) · D-003 worktree: 271 source files (73 `.py`, 129 `.md`); 265 catalog types can render all 795 variants on demand, none checked in |
-| Tests | Post-merge `make ci` on `master` at PR #14 merge `7a0fd47` passed: 280 tests + 190 subtests. D-003 staged `make ci` passes on Python 3.11: 288 tests + 190 subtests, package smoke and unsigned evidence hashes verified; targeted suite passes (70 tests + 65 subtests). Pre-commit and staged impact pass. |
+| Docs | 70 controlled Markdown documents (24 generated, 46 human-owned); 28 mapped generated targets in total (four non-Markdown); 265 catalog types can render all 795 variants on demand, none checked in. PRD1 adds single-document instantiation and guarded phase promotion. |
+| Tests | PRD1 worktree `make ci` passes on Python 3.14.8: 301 tests + 190 subtests, wheel/sdist build + clean-install smoke (`check/generate/adopt/init/add/promote/templates`), and unsigned evidence hashes verified (not signatures). Staged impact and pre-commit pass; PR #18 is open and all GitHub checks pass (guard, impact, Python 3.11–3.15). |
 | CI | 5 workflows; required check `AutoDOC guard / check` remains in GitHub ruleset `main` (P-007-A, strict); supplemental Python 3.11–3.15 matrix is non-blocking; nightly freshness warn-only; tag workflow builds snapshot + wheel/sdist artifacts, no PyPI publish |
 
 ## Active agents
 
-`912C` — session `20261022-1011-912C` (**IN PROGRESS — owner-selected D-003 after PR #15 merged**):
-verified PR #14 and PR #15 merges and reconciled state on `arena/912c4060-autodoc`. The pre-migration
-tree passed local `make ci` (280 tests, 190 subtests; evidence hashes verified, not signatures).
-PR #15 merged at `990113b` after its required guard/check and Python 3.11–3.15 matrix passed. D-003
-is implemented in the current worktree: all 795 prior variants matched byte-for-byte before removal;
-Make and the installed CLI render one or all variants from catalog records into ignored
-`build/TEMPLATES/`. Targeted tests pass (70 tests, 65 subtests); `make ci` also passes (288 tests,
-190 subtests, package smoke and evidence hashes). Pre-commit and staged impact passed; the review
-PR and commit/push handoff are pending.
+`PRD1` — session `20261022-1145-PRD1` (**PAUSED — awaiting owner review/merge**): implemented
+`autodoc promote` (preview/apply phase deltas, guarded write, force-only demotion/backdate), `autodoc
+add` (one catalog document, root-bounded, preview by default) and `init --phase/--profile`. Runtime
+packaging, user/adoption/architecture/exit-code docs and installed-package smoke are updated.
+Targeted tests pass (25); full `make ci` passes (301 tests + 190 subtests, wheel/sdist and clean
+install smoke, evidence hashes). Staged checks and pre-commit pass; commit `6a76106` is pushed and PR #18 is open, with all checks passing;
+the `0.3.0` / Beta proposal still needs owner sign-off. Do not merge without authorization.
+
+`912C` — session `20261022-1011-912C` (**PAUSED — merged; awaiting explicit owner closure**):
+D-003's on-demand catalog-template rendering merged in PR #16 at `a28616b`. The implementation kept
+one catalog record per type, byte-matched and removed the 795 tracked variants, and exposes Make and
+installed-CLI rendering into ignored `build/TEMPLATES/`. PR #15's reconciliation remains at
+`990113b`; merging did not close the session.
 
 `894B` — session `20261022-0445-894B` (**PAUSED (awaiting explicit owner closure)**): implemented
 D-004 audience applicability and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at
@@ -53,13 +59,13 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 
 ## Alerts
 
-**Current follow-up (2026-10-22).** PR #13 is merged at `a704752`; the owner selected D-004 then
-D-002 and confirmed the reader/audience semantics (ADR-014). PR #14 merged at `7a0fd47`, placing
-both implementations on `master`. PR #15's state reconciliation merged at `990113b` after explicit
-owner authorization. After that settlement, the owner selected D-003 (ADR-015); its on-demand
-catalog-template rendering is now in progress on `arena/912c4060-autodoc`. The 894B session remains
-paused awaiting explicit owner closure; merging did not close 627F/C4R7/B71a either. D-007/D-009 and
-PyPI publishing remain unauthorized/unselected.
+**Current follow-up (2026-10-22).** PR #13 merged at `a704752`; PR #14 placed D-004/D-002 on
+`master` at `7a0fd47`; PR #15's reconciliation merged at `990113b`; D-003 merged in PR #16 at
+`a28616b`. PRD1's production-readiness commands are complete on
+`arena/production-readiness-autodoc`: local `make ci` and package smoke are green, and PR #18 is open
+for review with all checks passing. The owner still needs to decide whether to keep `0.3.0` / Beta and whether
+to merge. 894B/627F/C4R7/B71a remain paused; 912C is merged but not explicitly closed. D-007/D-009
+and PyPI publishing remain unauthorized/unselected.
 
 1. **D-001 fixed (2026-10-21).** The catalog counts are no longer remembered: eleven prose claims
    were corrected and `tests/test_catalog_counts.py` derives `265 / 209 / 56 / 24 / 49 / 192` from
@@ -98,6 +104,7 @@ PyPI publishing remain unauthorized/unselected.
 
 | Date | Work | Commits |
 | --- | --- | --- |
+| 2026-10-22 | **D-003 on-demand catalog templates merged:** 265 types render canonical/blank/example variants into ignored `build/TEMPLATES`; 795 tracked variants removed after byte-match; no session closure or PyPI publication | PR #16 → `a28616b` |
 | 2026-10-22 | **D-004 audience applicability and D-002 language readers merged:** owner-confirmed `reader` semantics; JSDoc, TypeDoc and nightly Rustdoc readers; no session closure or PyPI publication | PR #14 → `7a0fd47` |
 | 2026-10-22 | **Post-merge state reconciliation merged:** package readiness reflected after PR #12; C4R7/B71a preserved as paused; no PyPI publication | PR #13 → `a704752` |
 | 2026-10-22 | **Installable CLI/package merged:** zero-runtime-dependency `autodoc` CLI, wheel/sdist packaging, isolated install smoke, Python 3.11–3.15 matrix; no PyPI publish | PR #12 → `08229a0` |
@@ -120,16 +127,17 @@ PyPI publishing remain unauthorized/unselected.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **D-003 review:** PR #15's state reconciliation is merged at `990113b`; the owner selected D-003
-   after settlement. The assigned branch removes the 795 byte-matched variants and exposes catalog-
-   backed on-demand rendering. `make ci`, the Make rendering check, pre-commit and staged impact pass;
-   commit/push and open the review PR. Do not merge without explicit owner authorization.
-2. **Deferred scope:** D-007, D-009 and further CLI adoption/promotion remain unselected. Do not infer
-   a new feature or merge a follow-up PR without owner authorization.
-3. **Session closure and release boundaries:** 894B, 627F, C4R7 and B71a remain paused; only the
-   owner may explicitly close them. Package workflows build artifacts only; PyPI/trusted publishing
-   needs a separate owner decision. D-010 vulnerability scanning remains low/open; promotion to
-   `beta` remains a deliberate event with cliff 2.
+1. **PRD1 review:** `autodoc add`, `autodoc promote` and `init --phase/--profile` are implemented
+   and locally verified on `arena/production-readiness-autodoc`; commit `6a76106` is pushed and
+   PR #18 is open with all checks passing. Do not merge without explicit owner authorization.
+2. **Owner verdict:** decide whether to keep the proposed `0.3.0` / Beta version-classifier change.
+   No release or PyPI publication is proposed.
+3. **Deferred scope:** D-007 and D-009 remain unselected; D-003 is now merged. Do not infer a new
+   feature or merge a follow-up PR without owner authorization.
+4. **Session closure and release boundaries:** PRD1 awaits review; 912C, 894B, 627F, C4R7 and B71a
+   remain paused/awaiting explicit owner closure. Package workflows build artifacts only;
+   PyPI/trusted publishing needs a separate owner decision. D-010 vulnerability scanning remains
+   low/open; promotion to `beta` remains a deliberate event with cliff 2.
 
 This dashboard summarizes; it never overrides `NEXT-ACTION.md` or an owner instruction. Sessions
 are closed only by the owner.
