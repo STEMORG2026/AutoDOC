@@ -21,7 +21,7 @@ auto_generated: false
 ---
 # Recent changes
 
-- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47`. Post-merge local `make ci` passed (280 tests, 190 subtests), and the required, impact and Python 3.11–3.15 GitHub checks passed. PR #15 is open for post-merge state reconciliation; its checks pass. External tools are absent locally and covered with fake executables.
+- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47`. Post-merge local `make ci` passed (280 tests, 190 subtests). PR #15 state reconciliation merged at `990113b` after explicit owner authorization; its required guard/check and Python 3.11–3.15 matrix passed, with the impact step inside the guard job. After settlement, the owner selected D-003: on-demand rendering of 265 catalog types into ignored `build/TEMPLATES` is now in progress. External tools are absent locally and covered with fake executables.
 - Merged PR #12 (`08229a0`): installable zero-runtime-dependency CLI, wheel/sdist assets, isolated project-root commands, package smoke tests, and passing Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
 - Added structural validation for canonical migration-document sections and prompts; findings route
   through the existing `placeholders`/`stubs` policy families, so CI retains phase/pin severity.
@@ -38,6 +38,8 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 990113b 2026-10-22 Merge pull request #15 from STEMORG2026/arena/912c4060-autodoc
+- a3bc86d 2026-10-22 docs(state): clarify PR15 impact check status
 - ed0a4d3 2026-10-22 docs(state): record PR15 review handoff
 - d9641d3 2026-10-22 chore(state): reconcile PR 14 merge
 - 7a0fd47 2026-10-22 Merge pull request #14 from STEMORG2026/arena/894b93ee-autodoc
@@ -56,11 +58,15 @@ auto_generated: false
 - 0d51069 2026-10-21 feat: validate migration document prose structure
 - c4a9d43 2026-10-21 Merge pull request #10 from STEMORG2026/arena/44b2fb68-autodoc
 - 58641ce 2026-10-21 Close the record: PR #8 and PR #9 merged, cold-clone check, and why the merge chain stops
-- 0febe31 2026-10-21 Merge pull request #9 from STEMORG2026/arena/44b2fb68-autodoc
-- a30fc5f 2026-10-21 Reconcile state for D-001: registry, index, dashboard, session handoff
 
 ## Changed paths at update time
 
 - `state/DASHBOARD.md`
+- `state/DEBT.md`
+- `state/DECISIONS.md`
+- `state/INDEX.md`
+- `state/REGISTRY.md`
+- `state/plans/README.md`
+- `state/plans/agent-912C-pr14-post-merge-reconciliation.md`
 - `state/sessions/20261022-1011-912C-pr14-post-merge-reconciliation.md`
 <!-- auto:end -->
