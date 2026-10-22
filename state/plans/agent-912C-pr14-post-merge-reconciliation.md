@@ -5,7 +5,7 @@
 | Objective | After reconciling PR #14/#15, implement the owner's D-003 selection: keep one catalog source record per type and render canonical, blank and synthetic-example variants on demand into ignored `build/TEMPLATES/`. |
 | Owner of the work | `912C` (session `20261022-1011-912C`) |
 | Branch | `arena/d5317c9e-autodoc`, based at PR #15 merge `990113b5c496b833af9e855cb6e3870d816c1cb4` |
-| Status | **IN PROGRESS — implementation, `make ci`, pre-commit and staged impact passed; PR #17 is open/mergeable (impact passed; guard and compatibility checks pending); PR #16 is superseded and closed; do not merge without owner authorization** |
+| Status | **IN PROGRESS — implementation, `make ci`, pre-commit and staged impact passed; PR #17 is open/mergeable and all checks passed on `af1e68c` (a state-only update triggers a fresh run); PR #16 remains open/mergeable on the earlier branch per the no-close instruction, with all checks passed; do not merge or close either PR without owner authorization** |
 | Opened (UTC) | 2026-10-22T10:39Z |
 
 ## Predecessor work
@@ -58,4 +58,4 @@ Revert only D-003 changes on this branch; leave PR #14/#15 merge commits on `mas
 
 - Compared all 795 generated canonical/blank/example files with the tracked pre-migration variants: **795/795 byte-for-byte identical**. Removed the 795 tracked variants only after this comparison; retained the two README files.
 - The targeted D-003 suite passed (70 tests, 65 subtests); the Make target rendered 265 blank variants to a temporary output tree.
-- `make ci` passed on Python 3.11: 288 tests, 190 subtests, package smoke and evidence hash verification (not signatures). Staging, `pre-commit run --all-files` and `make docs-staged-impact` passed; commits `71ba468`, `156ba8e` and `7fa962b` are pushed on the assigned branch. PR #17 is open/mergeable (impact passed; guard and compatibility checks pending); superseded PR #16 is closed. Do not merge without owner authorization.
+- `make ci` passed on Python 3.11: 288 tests, 190 subtests, package smoke and evidence hash verification (not signatures). Staging, `pre-commit run --all-files` and `make docs-staged-impact` passed; commits `71ba468`, `156ba8e`, `7fa962b` and `af1e68c` are pushed on the assigned branch. PR #17 is open/mergeable and all checks passed on `af1e68c` (a state-only update triggers a fresh run); PR #16 remains open/mergeable on the earlier branch per the no-close instruction, with all checks passed after reopening. Do not merge or close either PR without owner authorization.

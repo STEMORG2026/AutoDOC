@@ -1,7 +1,7 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T11:23Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
-post-merge reconciliation, D-003 implementation and validation) · **Base tip:** `990113b` on `master` (PR #15 merged; PR #14 merged at `7a0fd47`); D-003 is on `arena/d5317c9e-autodoc`; PR #17 is OPEN/MERGEABLE (impact passed; guard and Python compatibility checks pending). PR #16 from the superseded branch is closed; do not merge without explicit owner authorization.
+**Last reconciled:** 2026-10-22T11:29Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
+post-merge reconciliation, D-003 implementation and validation) · **Base tip:** `990113b` on `master` (PR #15 merged; PR #14 merged at `7a0fd47`); D-003 is on `arena/d5317c9e-autodoc`; PR #17 is OPEN/MERGEABLE and all checks passed on `af1e68c` before this state-only update triggers a fresh run. PR #16 remains OPEN/MERGEABLE on the earlier branch per the no-close instruction; all checks passed after reopening. No merge or close is authorized.
 
 ## Project
 
@@ -30,9 +30,10 @@ installed CLI render one or all variants from catalog records into ignored `buil
 Targeted tests pass (70 tests, 65 subtests); `make ci` also passes (288 tests, 190 subtests, package
 smoke and evidence hashes). Pre-commit and staged impact passed. The active assigned branch is now
 `arena/d5317c9e-autodoc`; the selected-scope and implementation commits were cherry-picked there as
-`71ba468` and `156ba8e`, then pushed with state reconciliation `7fa962b`. PR #17 is open/mergeable;
-impact passed and the guard/Python compatibility checks are pending. PR #16 from the superseded
-branch is closed. Do not merge without explicit owner authorization.
+`71ba468` and `156ba8e`, then pushed with state reconciliation `7fa962b` and PR-handoff record
+`af1e68c`. PR #17 is open/mergeable; all checks passed on `af1e68c`, and this state-only update
+triggers a fresh run. PR #16 remains open/mergeable on the earlier branch per the no-close instruction;
+all checks passed after reopening. Do not merge or close either PR without explicit owner authorization.
 
 `894B` — session `20261022-0445-894B` (**PAUSED (awaiting explicit owner closure)**): implemented
 D-004 audience applicability and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at
@@ -61,8 +62,9 @@ D-002 and confirmed the reader/audience semantics (ADR-014). PR #14 merged at `7
 both implementations on `master`. PR #15's state reconciliation merged at `990113b` after explicit
 owner authorization. After that settlement, the owner selected D-003 (ADR-015); its on-demand
 catalog-template rendering is implemented on the assigned branch `arena/d5317c9e-autodoc` and under
-review in PR #17 (open/mergeable; impact passed, guard and Python compatibility checks pending).
-PR #16 from the superseded branch is closed. The 894B session remains paused awaiting
+review in PR #17 (open/mergeable; all checks passed on `af1e68c` before this state-only update triggers
+a fresh run). PR #16 remains open/mergeable on the earlier branch per the no-close instruction; all
+checks passed after reopening. The 894B session remains paused awaiting
 explicit owner closure; merging did not close 627F/C4R7/B71a either. D-007/D-009 and PyPI publishing
 remain unauthorized/unselected.
 
@@ -128,9 +130,10 @@ remain unauthorized/unselected.
 1. **D-003 review:** PR #15's state reconciliation is merged at `990113b`; the owner selected D-003
    after settlement. The assigned branch removes the 795 byte-matched variants and exposes catalog-
    backed on-demand rendering. `make ci`, the Make rendering check, pre-commit and staged impact pass;
-   PR #17 is open and mergeable from `arena/d5317c9e-autodoc` (impact passed; guard and Python
-   compatibility checks pending). PR #16 is closed as superseded. Await owner review; do not merge
-   without explicit owner authorization.
+   PR #17 is open/mergeable from `arena/d5317c9e-autodoc`; all checks passed on `af1e68c` before
+   this state-only update triggers a fresh run. PR #16 remains open/mergeable on the earlier branch
+   per the no-close instruction; all checks passed after reopening. Await owner review; do not merge
+   or close either PR without explicit authorization.
 2. **Deferred scope:** D-007, D-009 and further CLI adoption/promotion remain unselected. Do not infer
    a new feature or merge a follow-up PR without owner authorization.
 3. **Session closure and release boundaries:** 894B, 627F, C4R7 and B71a remain paused; only the

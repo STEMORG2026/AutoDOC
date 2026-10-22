@@ -21,7 +21,7 @@ auto_generated: false
 ---
 # Recent changes
 
-- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47`. Post-merge local `make ci` passed (280 tests, 190 subtests). PR #15 state reconciliation merged at `990113b` after explicit owner authorization; its required guard/check and Python 3.11–3.15 matrix passed, with the impact step inside the guard job. The owner then selected D-003: the 265 catalog types now render canonical, blank and synthetic-example variants on demand into ignored `build/TEMPLATES` through Make and the installed CLI. All 795 old outputs matched byte-for-byte before removal; the two explanatory READMEs remain. Targeted tests passed (70 tests, 65 subtests); `make ci` passed (288 tests, 190 subtests, package smoke, evidence hashes verified—not signatures), and the Make rendering target produced all 265 blank variants in a temporary tree. `pre-commit run --all-files` and `make docs-staged-impact` passed; full `make ci` passed on the staged tree. Commits `71ba468`, `156ba8e` and `7fa962b` are pushed on the assigned branch; PR #17 is open/mergeable (impact passed, required guard and Python compatibility checks pending). PR #16 from the superseded branch is closed; no merge is authorized. External tools are absent locally and covered with fake executables.
+- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47`. Post-merge local `make ci` passed (280 tests, 190 subtests). PR #15 state reconciliation merged at `990113b` after explicit owner authorization; its required guard/check and Python 3.11–3.15 matrix passed, with the impact step inside the guard job. The owner then selected D-003: the 265 catalog types now render canonical, blank and synthetic-example variants on demand into ignored `build/TEMPLATES` through Make and the installed CLI. All 795 old outputs matched byte-for-byte before removal; the two explanatory READMEs remain. Targeted tests passed (70 tests, 65 subtests); `make ci` passed (288 tests, 190 subtests, package smoke, evidence hashes verified—not signatures), and the Make rendering target produced all 265 blank variants in a temporary tree. `pre-commit run --all-files` and `make docs-staged-impact` passed; full `make ci` passed on the staged tree. Commits `71ba468`, `156ba8e`, `7fa962b` and `af1e68c` are pushed on the assigned branch; PR #17 is open/mergeable and all checks passed on `af1e68c` (guard, impact and Python compatibility); this additional state-only update triggers another run. PR #16 remains open/mergeable on the earlier branch per the no-close instruction; all its checks passed after reopening. Both PRs carry the same tree. No merge or close is authorized. External tools are absent locally and covered with fake executables.
 - Merged PR #12 (`08229a0`): installable zero-runtime-dependency CLI, wheel/sdist assets, isolated project-root commands, package smoke tests, and passing Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
 - Added structural validation for canonical migration-document sections and prompts; findings route
   through the existing `placeholders`/`stubs` policy families, so CI retains phase/pin severity.
@@ -38,6 +38,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- af1e68c 2026-10-22 chore(state): record D-003 PR handoff
 - 7fa962b 2026-10-22 chore(state): reconcile D-003 onto assigned branch
 - 156ba8e 2026-10-22 feat: render catalog template variants on demand
 - 71ba468 2026-10-22 docs(state): record owner-selected D-003 scope
@@ -57,7 +58,6 @@ auto_generated: false
 - b8ba4c2 2026-10-21 test: verify installed CLI help and usage errors
 - 6af0c03 2026-10-21 feat: ship AutoDOC as an installable CLI
 - 52d1b79 2026-10-21 Merge pull request #11 from STEMORG2026/arena/48a62791-autodoc
-- 37c698a 2026-10-21 chore(state): reconcile migration validation PR
 
 ## Changed paths at update time
 

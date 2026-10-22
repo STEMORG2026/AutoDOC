@@ -10,7 +10,7 @@ follow-up PR is authorized by that request.
 
 ## Coordination and decisions
 
-- Current assigned branch: `arena/d5317c9e-autodoc`. The D-003 scope and implementation commits prepared earlier on `arena/912c4060-autodoc` were cherry-picked onto this assigned branch as `71ba468` and `156ba8e`; the resulting implementation tree is byte-for-byte the same as `7604cee`. State reconciliation `7fa962b` was committed and pushed. PR #17 is OPEN/MERGEABLE (impact passed; guard and Python compatibility checks pending); superseded PR #16 is closed. No merge is authorized.
+- Current assigned branch: `arena/d5317c9e-autodoc`. The D-003 scope and implementation commits prepared earlier on `arena/912c4060-autodoc` were cherry-picked onto this assigned branch as `71ba468` and `156ba8e`; the resulting implementation tree is byte-for-byte the same as `7604cee`. State commits `7fa962b` and `af1e68c` were pushed. PR #17 is OPEN/MERGEABLE with all seven checks passing on `af1e68c`; this state-only update will trigger a fresh PR #17 run. PR #16 remains OPEN/MERGEABLE on the earlier branch per the no-close instruction; all its checks passed after reopening. No merge or close is authorized.
 - Git history was shallow at startup; `git fetch --unshallow origin` succeeded before reading
   Git-derived living state. The local `.venv` is absent and will be recreated with `make setup`.
 - The earlier 894B session remains paused. PR #14 merging does not close it; this session will
@@ -83,7 +83,9 @@ See `state/plans/agent-912C-pr14-post-merge-reconciliation.md`.
   verification (not signatures). Duplicate catalog-name warnings remain non-fatal.
 - `2026-10-22T11:02Z` [VERIFY] Staged all 840 changes (44 modifications, 795 variant deletions, one new test); `.venv/bin/pre-commit run --all-files`, `make docs-staged-impact`, and full staged `make ci` passed. `make ci` left ignored `build/TEMPLATES/` unmaterialized.
 - `2026-10-22T11:05Z` [PENDING AT THEN] The original work branch was `arena/912c4060-autodoc`; this plan was superseded when the active assignment was reconciled to `arena/d5317c9e-autodoc`. See the branch handoff and PR status below.
-- `2026-10-22T11:23Z` [BRANCH HANDOFF / REVIEW] Cherry-picked the selected-scope and implementation commits from the earlier work branch onto the assigned branch as `71ba468` and `156ba8e`; verified the implementation tree hash is identical to `7604cee`. Reconciled state in `7fa962b`, pushed only `arena/d5317c9e-autodoc`, opened PR #17, and closed superseded PR #16. PR #17 is OPEN/MERGEABLE; `impact` passed and `AutoDOC guard / check` plus Python 3.11–3.15 checks were pending at last check. No merge was performed or authorized. Full `make ci`, pre-commit and staged impact checks passed on the D-003 tree/state.
+- `2026-10-22T11:23Z` [BRANCH HANDOFF / REVIEW] Cherry-picked the selected-scope and implementation commits from the earlier work branch onto the assigned branch as `71ba468` and `156ba8e`; verified the implementation tree hash is identical to `7604cee`. Reconciled state in `7fa962b`, pushed only `arena/d5317c9e-autodoc`, opened PR #17, and briefly closed PR #16 before re-reading the explicit no-close instruction. PR #17 is OPEN/MERGEABLE; `impact` passed and `AutoDOC guard / check` plus Python 3.11–3.15 checks were pending at last check. No merge was performed. Full `make ci`, pre-commit and staged impact checks passed on the D-003 tree/state.
+- `2026-10-22T11:26Z` [CORRECTION / VERIFY] Reopened PR #16; it remains OPEN on `arena/912c4060-autodoc` as instructed. Updated PR #17's body to state that #16 remains open and that #17 is the assigned-branch review path. All seven PR #17 checks pass on `af1e68c` and it remains OPEN/MERGEABLE. PR #16's checks were pending after reopening. No PR was merged or closed after the correction.
+- `2026-10-22T11:29Z` [VERIFY] `gh pr checks 16 --watch` completed with all seven checks passing; PR #16 is OPEN/MERGEABLE. PR #17's guard, impact and Python 3.11–3.15 checks also passed on `af1e68c`; it is OPEN/MERGEABLE. The current state-only reconciliation is about to be pushed and will trigger another PR #17 run. No merge or close was performed.
 
 ## Handoff
 
@@ -92,7 +94,8 @@ Implementation, full `make ci`, pre-commit and staged impact passed on the tree 
 `arena/d5317c9e-autodoc` (`156ba8e`; tree identical to `7604cee`), after the two selected-scope and
 implementation commits were cherry-picked from the earlier work branch. All 795 prior variants
 matched byte-for-byte before removal, and rendering happens on demand from catalog records into
-ignored `build/TEMPLATES/`. PR #17 is OPEN/MERGEABLE from the assigned branch; its impact check passed
-and the guard/compatibility checks were pending at last check. PR #16 from the earlier branch is
-closed as superseded. D-007, D-009, PyPI publication and closure of other paused sessions remain
-unauthorized. Do not merge PR #17 without explicit owner authorization.
+ignored `build/TEMPLATES/`. PR #17 is OPEN/MERGEABLE from the assigned branch; all checks passed on
+`af1e68c`, before this state-only update triggers a fresh run. PR #16 remains OPEN/MERGEABLE on the
+earlier branch per the no-close instruction; all checks passed after reopening. D-007, D-009, PyPI
+publication and closure of other paused sessions remain unauthorized. Do not merge or close either PR
+without explicit owner authorization.
