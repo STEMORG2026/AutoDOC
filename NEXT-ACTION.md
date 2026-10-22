@@ -22,12 +22,17 @@ auto_generated: false
 # Next action
 
 ## Immediate focus
-The user-selected installable Python CLI/package is implemented on C4R7: wheel/sdist builds,
-`autodoc check/generate/adopt/init`, separate tool and target-project roots, and clean-venv smoke
-tests. Local `make ci` passed on Python 3.11 (267 tests, 190 subtests, plus package smoke); PR #12's
-required `AutoDOC guard / check`, impact job, and supplemental Python 3.11–3.15 matrix all passed
-on GitHub. Owner review/merge is pending. The release workflow builds temporary GitHub Actions
-artifacts only; PyPI publishing was not authorized and requires a separate owner decision/setup.
+The user-selected installable Python CLI/package is implemented and merged by PR #12 at
+`08229a0` (2026-10-22): wheel/sdist builds, `autodoc check/generate/adopt/init`, distinct tool and
+target-project roots, and clean-venv smoke tests. Local `make ci` passed (267 tests, 190 subtests);
+the required `AutoDOC guard / check`, impact job and supplemental Python 3.11–3.15 matrix all
+passed on GitHub. C4R7 remains paused; merging did not explicitly close the session. The release
+workflow builds temporary GitHub Actions artifacts only; PyPI publishing was not authorized.
+
+No follow-up from the five non-gating P-006 deferrals has been selected. D-004 (`audience` consumer)
+is first if any P-006 item is chosen; other listed work includes JS/TS + Rust toolchains, external
+repository dogfood, on-demand template rendering and evidence signing. Ask the owner to choose the
+next bounded item; do not implement one or publish to PyPI by inference.
 
 PR #11 merged at `52d1b79` on 2026-10-21; this did **not** close B71a, which remains paused awaiting
 the owner's explicit close. The migration-prose checks remain structural only, not semantic or

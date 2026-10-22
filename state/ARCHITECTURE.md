@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-22 (installable CLI/package readiness; C4R7 paused awaiting owner review)
+**Last reconciled:** 2026-10-22 (PR #12 merged; C4R7 paused awaiting explicit owner closure; post-merge continuation on `arena/627fcb46-autodoc`)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -39,7 +39,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 - **Runtime:** Python 3.11–3.15 declared (`>=3.11,<3.16`), **zero runtime dependencies** (stdlib only); dev extras `build>=1,<2`, `pytest>=8,<10`, and `pre-commit>=3,<5`; build backend `setuptools>=77`. The installed CLI ships a wheel/sdist with only its runtime scripts and policy/catalog data.
 - **Scale:** 1015 tracked files = 64 `.py`, 361 `.md`, and 265 catalog types × 3 template variants; 68 controlled docs (24 generated, 44 human-owned). **Refreshed 2026-10-21:** 1039 tracked files = 65 `.py`, 384 `.md`; 70 controlled instances (28 generated targets, 42 human-owned) — the counts a reader should cite today.
 - **Demo surface:** SQLite (`EXAMPLE-PROJECT/db/schema.sql`, single `tasks` table, no migrations) and a stdlib threaded HTTP server with three routes (`GET/POST /tasks`, `GET /health`), **no auth**, 1–4096-byte body cap, JSON 400/404 errors.
-- **Readers:** Python only (exact, in-process). No reader for JavaScript/TypeScript, Rust or Go (L0, reported as such).
+- **Readers:** Python declarations via AST (exact, in-process) and Go references via `go doc -all .` when the toolchain is present; JavaScript/TypeScript and Rust remain L0 (no generator declared).
 - **Gates:** local `make ci` passes on Python 3.11 (267 tests + 190 subtests), including catalog checks, guards, drift, impact, isolated wheel/sdist install smoke and evidence hashing. PR #12's required `AutoDOC guard / check`, impact job and supplemental Python 3.11–3.15 matrix all passed remotely; the matrix remains non-blocking. Nightly freshness is warn-only.
 - **Known-issue markers:** none inline (0 TODO/FIXME/XXX/HACK); the known surface is `LIMITATIONS.md` and `ENGINE-COVERAGE.md`.
 
@@ -47,7 +47,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 
 | Date | Change |
 | --- | --- |
-| 2026-10-22 | C4R7 added the installable `autodoc` CLI, isolated wheel/sdist packaging and smoke tests, separate tool/project roots, version metadata and temporary tag-run distribution artifacts; PyPI publishing remains unauthorized/unconfigured. PR review is pending; B71a remains paused after PR #11 merged. |
+| 2026-10-22 | C4R7 added the installable `autodoc` CLI, isolated wheel/sdist packaging and smoke tests, separate tool/project roots, version metadata and temporary tag-run distribution artifacts; PR #12 merged at `08229a0`. PyPI publishing remains unauthorized/unconfigured; C4R7 and B71a remain paused until explicit owner closure. |
 | 2026-10-01 | Decision 3 closed the open core decisions: new `docs/00-governance/PROJECT-CHARTER.md`, `docs/adr/` (first ADR), `SECURITY.md`, `CODE_OF_CONDUCT.md`; module contracts, test strategy, dependency setup and dependency policy now have named homes (`autodoc.toml` declarations); readiness 15/16 at commit `1a65f5d`. |
 | 2026-10-01 | Full MACP transcription landed (Sections 2–7 + REMEMBER verbatim) and the Section 7 Step 1 audit completed; `state/` files reconciled at `d26d798`. |
 | 2026-10-01 | `state/` added as the MACP coordination layer (`docs/00-governance/MACP.md`). It is deliberately outside the controlled-document set; `guards.py` still scans its Markdown for links, tribal phrases and key markers. |
