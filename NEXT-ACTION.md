@@ -41,9 +41,10 @@ byte before removal; Make and the installed CLI now render them on demand under 
 Make target separately rendered all 265 blank variants into a temporary tree. After staging,
 `pre-commit run --all-files`, `make docs-staged-impact` and full `make ci` passed on Python 3.11
 (288 tests, 190 subtests, package smoke and unsigned evidence-hash verification). Confirmed that
-`make ci` does not materialize ignored `build/TEMPLATES/`. Commits `71ba468` and `156ba8e` are on the
-assigned branch; push them and open a review PR for owner review. Do not merge without explicit owner
-authorization. D-007, D-009 and further CLI adoption/promotion remain
+`make ci` does not materialize ignored `build/TEMPLATES/`. Commits `71ba468`, `156ba8e` and the state
+reconciliation `7fa962b` are pushed on `arena/d5317c9e-autodoc`; PR #17 is open and mergeable. Its
+impact check passed; the guard and Python 3.11–3.15 checks are pending. PR #16 from the superseded
+branch is closed. Await owner review; do not merge without explicit owner authorization. D-007, D-009 and further CLI adoption/promotion remain
 unselected. Do not publish to PyPI or close any paused session by inference.
 
 D-007 (evidence signing) and D-009 (external dogfood) remain deferred and non-gating. D-010

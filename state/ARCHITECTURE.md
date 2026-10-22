@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-22 (PR #15 merged at `990113b`; D-004/D-002 from PR #14 are on `master`; D-003 implementation, CI, pre-commit and staged impact pass on `arena/d5317c9e-autodoc`, pending push/PR handoff; 894B/C4R7/B71a/627F remain paused unless explicitly closed)
+**Last reconciled:** 2026-10-22 (PR #15 merged at `990113b`; D-004/D-002 from PR #14 are on `master`; D-003 implementation, CI, pre-commit and staged impact pass on `arena/d5317c9e-autodoc`; PR #17 is open/mergeable (impact passed, guard and compatibility checks pending), and PR #16 was closed as superseded; 894B/C4R7/B71a/627F remain paused unless explicitly closed)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),

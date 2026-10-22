@@ -1,14 +1,14 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T11:17Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
-post-merge reconciliation, D-003 implementation and validation) · **Base tip:** `990113b` on `master` (PR #15 merged; PR #14 merged at `7a0fd47`); D-003 is on the assigned branch `arena/d5317c9e-autodoc` at local HEAD `156ba8e`; validation passed, push and review-PR handoff pending.
+**Last reconciled:** 2026-10-22T11:23Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
+post-merge reconciliation, D-003 implementation and validation) · **Base tip:** `990113b` on `master` (PR #15 merged; PR #14 merged at `7a0fd47`); D-003 is on `arena/d5317c9e-autodoc`; PR #17 is OPEN/MERGEABLE (impact passed; guard and Python compatibility checks pending). PR #16 from the superseded branch is closed; do not merge without explicit owner authorization.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `990113b` (PR #15 state reconciliation merged; D-004/D-002 from PR #14 also present); D-003 implementation is on `arena/d5317c9e-autodoc` at `156ba8e`, not yet merged |
+| Branch | `master` at `990113b` (PR #15 state reconciliation merged; D-004/D-002 from PR #14 also present); D-003 is on `arena/d5317c9e-autodoc`, under review in PR #17 |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -30,7 +30,9 @@ installed CLI render one or all variants from catalog records into ignored `buil
 Targeted tests pass (70 tests, 65 subtests); `make ci` also passes (288 tests, 190 subtests, package
 smoke and evidence hashes). Pre-commit and staged impact passed. The active assigned branch is now
 `arena/d5317c9e-autodoc`; the selected-scope and implementation commits were cherry-picked there as
-`71ba468` and `156ba8e`. Push and correct-branch review-PR handoff are pending.
+`71ba468` and `156ba8e`, then pushed with state reconciliation `7fa962b`. PR #17 is open/mergeable;
+impact passed and the guard/Python compatibility checks are pending. PR #16 from the superseded
+branch is closed. Do not merge without explicit owner authorization.
 
 `894B` — session `20261022-0445-894B` (**PAUSED (awaiting explicit owner closure)**): implemented
 D-004 audience applicability and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at
@@ -58,10 +60,11 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 D-002 and confirmed the reader/audience semantics (ADR-014). PR #14 merged at `7a0fd47`, placing
 both implementations on `master`. PR #15's state reconciliation merged at `990113b` after explicit
 owner authorization. After that settlement, the owner selected D-003 (ADR-015); its on-demand
-catalog-template rendering is implemented on the assigned branch `arena/d5317c9e-autodoc` at
-`156ba8e`, pending push and review-PR creation. The 894B session remains paused awaiting explicit
-owner closure; merging did not close 627F/C4R7/B71a either. D-007/D-009 and PyPI publishing remain
-unauthorized/unselected.
+catalog-template rendering is implemented on the assigned branch `arena/d5317c9e-autodoc` and under
+review in PR #17 (open/mergeable; impact passed, guard and Python compatibility checks pending).
+PR #16 from the superseded branch is closed. The 894B session remains paused awaiting
+explicit owner closure; merging did not close 627F/C4R7/B71a either. D-007/D-009 and PyPI publishing
+remain unauthorized/unselected.
 
 1. **D-001 fixed (2026-10-21).** The catalog counts are no longer remembered: eleven prose claims
    were corrected and `tests/test_catalog_counts.py` derives `265 / 209 / 56 / 24 / 49 / 192` from
@@ -125,7 +128,8 @@ unauthorized/unselected.
 1. **D-003 review:** PR #15's state reconciliation is merged at `990113b`; the owner selected D-003
    after settlement. The assigned branch removes the 795 byte-matched variants and exposes catalog-
    backed on-demand rendering. `make ci`, the Make rendering check, pre-commit and staged impact pass;
-   push commits `71ba468`/`156ba8e` from `arena/d5317c9e-autodoc` and open the review PR. Do not merge
+   PR #17 is open and mergeable from `arena/d5317c9e-autodoc` (impact passed; guard and Python
+   compatibility checks pending). PR #16 is closed as superseded. Await owner review; do not merge
    without explicit owner authorization.
 2. **Deferred scope:** D-007, D-009 and further CLI adoption/promotion remain unselected. Do not infer
    a new feature or merge a follow-up PR without owner authorization.

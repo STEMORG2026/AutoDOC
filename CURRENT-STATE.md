@@ -30,7 +30,7 @@ removal, all 795 generated outputs were compared byte-for-byte with the prior fi
 The tracked variants are now removed, with two explanatory READMEs retained under `TEMPLATES/`.
 The D-003 worktree passes `make ci` on Python 3.11 (288 tests, 190 subtests, package smoke and
 unsigned evidence-hash verification); staged `make docs-staged-impact` and `pre-commit run --all-files`
-also pass. Commit/push and the follow-up review PR remain. It also has an installable `autodoc` CLI with zero runtime dependencies, wheel/sdist builds,
+also pass. Commits `71ba468`, `156ba8e` and `7fa962b` are pushed on `arena/d5317c9e-autodoc`; PR #17 is open and mergeable, with impact passed and the guard/Python compatibility checks pending. Earlier PR #16 from the superseded branch is closed. No merge is authorized. It also has an installable `autodoc` CLI with zero runtime dependencies, wheel/sdist builds,
 and clean-environment install smoke coverage. Its checks validate controlled-document metadata,
 generated drift, age, source-to-human-review impact, and the structure of instantiated migration
 documents (required sections and unfilled template prompts, not semantic correctness). A catalog
@@ -70,7 +70,7 @@ on Python 3.11 (280 tests and 190 subtests); evidence hashes verify, not signatu
 remains paused; merging did not close it. PR #15's post-merge state reconciliation merged at
 `990113b` after the owner explicitly authorized it; its required guard and Python 3.11–3.15 matrix
 passed (the PR impact step ran within the guard check; no separate impact status was listed). The owner
-then selected D-003; implementation is complete on the assigned branch `arena/d5317c9e-autodoc`, pending push and review-PR handoff.
+then selected D-003; implementation is published on `arena/d5317c9e-autodoc` in PR #17, open and awaiting checks and owner review.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.
