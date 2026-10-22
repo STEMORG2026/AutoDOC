@@ -201,7 +201,7 @@
                     "successors",
                     null
                   ],
-                  "description": "Who reads it, from the context model's audience vocabulary."
+                  "description": "Who reads it, from the context model's audience vocabulary. When non-null, this reader gates applicability through an implicit audience:<reader> AND predicate; assess-only entries are exempt."
                 },
                 "support": {
                   "enum": ["checked", "template-only", "human"],

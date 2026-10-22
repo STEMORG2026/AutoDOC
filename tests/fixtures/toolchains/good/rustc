@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$1" = '--version' ]; then
+  echo 'rustc 1.95.0-nightly (fixture)'
+  exit 0
+fi
+echo 'unexpected rustc invocation' >&2
+exit 2

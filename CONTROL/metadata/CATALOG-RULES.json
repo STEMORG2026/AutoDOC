@@ -655,7 +655,7 @@
     "default": ["assess"]
   },
   "admission": {
-    "note": "The admission rule: a type listed by any profile states the reader question it answers, who reads it, and how it is supported, with named checks or an explicit template-only/human label. Types outside every profile carry a derived support level and no authored question, which the catalog reports as its admission backlog.",
+    "note": "The admission rule: a type listed by any profile states the reader question it answers, who reads it, and how it is supported, with named checks or an explicit template-only/human label. The reader also gates applicability through the context audience (implicit audience:<reader> AND): match=true, a non-match in a non-empty declaration=false/not-applicable, and an empty declaration=unknown; assess-only entries are exempt. Types outside every profile carry a derived support level and no authored question, which the catalog reports as its admission backlog.",
     "support": ["checked", "template-only", "human"],
     "checks": [
       "presence",

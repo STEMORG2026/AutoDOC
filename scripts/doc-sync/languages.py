@@ -3,11 +3,13 @@
 
 A language gets a generator only where integrating its canonical tool is honest. Each entry
 declares the tool, how it runs, its `exactness` and its `limits` — the same shape the fact
-detectors use. The runner is sandboxed on purpose: the tool runs inside the repository, with a
-scrubbed environment (never the caller's), the toolchain's offline flags, no shell and a timeout.
-A missing or failing tool is reported with its reason; it is never replaced by a hand-rolled
-parser, an empty document, or silence. A language with no declared generator is reported as L0 —
-file and manifest facts only — and never guessed at.
+detectors use. Subprocesses run with a scrubbed environment, tool-specific offline settings where
+available, no shell and a timeout; Rust input is copied to a temporary project so normal Cargo
+artifacts and lockfiles stay out of the inspected checkout. This is environment isolation, not an
+OS security sandbox. A missing or failing tool is
+reported with its reason; it is never replaced by a hand-rolled parser, an empty document, or
+silence. A language with no declared generator is reported as L0 — file and manifest facts only —
+and never guessed at.
 
 Committed generated content must be reproducible, so a reference produced by an external
 toolchain is printed on demand (`--show`) and never written to a drift-checked target: the same
@@ -33,9 +35,10 @@ from extractors.facts import python_api  # noqa: E402 - path is set up above
 
 DEFAULT_TIMEOUT = 30
 
-# The registry. `probe` is the executable that must exist for the generator to run; an
-# in-process generator ships with AutoDOC and needs no probe. `env` is what the toolchain needs
-# to work offline: AutoDOC never installs a toolchain, fetches modules or opens a network path.
+# The registry. `probe` (or `probes`) names the executable(s) that must exist; an in-process
+# generator ships with AutoDOC and needs no probe. `env` supplies tool-specific offline settings
+# where supported. AutoDOC never installs a toolchain or package; the runner is not an OS network
+# or filesystem sandbox.
 GENERATORS = {
     'python': {
         'tool': 'ast (the CPython parser)',
@@ -58,6 +61,49 @@ GENERATORS = {
         'env': {'GOPROXY': 'off', 'GOFLAGS': '-mod=readonly', 'GOTOOLCHAIN': 'local',
                 'GOTELEMETRY': 'off'},
     },
+    'javascript': {
+        'tool': 'JSDoc -X',
+        'mode': 'subprocess',
+        'argv': ['jsdoc', '-X', '{files}'],
+        'probe': 'jsdoc',
+        'output': 'stdout',
+        'json_output': True,
+        'exactness': 'exact',
+        'limits': 'JSDoc JSON doclets for the explicitly matched JavaScript/JSX files; it reports '
+                  'what the tool recognizes and does not infer runtime behavior. Local JSDoc config '
+                  'or plugins may affect output and may execute code; AutoDOC installs nothing.',
+    },
+    'typescript': {
+        'tool': 'TypeDoc --json',
+        'mode': 'subprocess',
+        'argv': ['typedoc', '--json', '{output}', '--entryPointStrategy', 'resolve', '{files}'],
+        'probe': 'typedoc',
+        'output': 'file',
+        'json_output': True,
+        'exactness': 'exact',
+        'limits': 'TypeDoc JSON for the explicitly matched TypeScript entry points; it uses local '
+                  'project configuration and dependencies, does not infer runtime behavior, and '
+                  'never installs packages. Configuration/plugins may execute code; AutoDOC '
+                  'itself does not fetch dependencies.',
+    },
+    'rust': {
+        'tool': 'cargo rustdoc (nightly JSON)',
+        'mode': 'subprocess',
+        'argv': ['cargo', 'rustdoc', '--offline', '--manifest-path', '{root}/Cargo.toml',
+                 '--lib', '--', '-Z', 'unstable-options', '--output-format', 'json',
+                 '--out-dir', '{outdir}'],
+        'probes': ['cargo', 'rustc', 'rustdoc'],
+        'nightly': True,
+        'output': 'directory',
+        'json_output': True,
+        'copy_project': True,
+        'exactness': 'exact',
+        'limits': 'Rustdoc JSON for the root crate library target; it requires nightly rustc and '
+                  'rustdoc, a Cargo manifest, and offline-resolvable dependencies. Cargo build '
+                  'scripts and procedural macros may run in the temporary project copy; output is '
+                  'toolchain-versioned, and no toolchain or dependency is installed.',
+        'env': {'CARGO_NET_OFFLINE': 'true'},
+    },
 }
 
 NO_GENERATOR = ('No generator is declared for this language: it is read at L0 — file and '
@@ -78,6 +124,13 @@ def generator(language):
     return GENERATORS.get(language)
 
 
+def _probe_names(spec):
+    """Executables required by this generator, in the order they are reported."""
+    if spec.get('probes'):
+        return spec['probes']
+    return [spec['probe']] if spec.get('probe') else []
+
+
 def available(language, path=None):
     """Return (True, None) when the generator can run here, else (False, reason)."""
     spec = GENERATORS.get(language)
@@ -85,19 +138,111 @@ def available(language, path=None):
         return False, NO_GENERATOR
     if spec['mode'] == 'in-process':
         return True, None
-    found = shutil.which(spec['probe'], path=path if path is not None else os.environ.get('PATH'))
-    if not found:
-        return False, f'`{spec["probe"]}` is not on PATH'
+    search_path = path if path is not None else os.environ.get('PATH', '')
+    tools = {}
+    for name in _probe_names(spec):
+        found = shutil.which(name, path=search_path)
+        if not found:
+            return False, f'`{name}` is not on PATH'
+        tools[name] = found
+    if spec.get('nightly'):
+        for name in ('rustc', 'rustdoc'):
+            try:
+                version = subprocess.run([tools[name], '--version'], capture_output=True,
+                                         text=True, timeout=5, shell=False, check=False)
+            except (OSError, subprocess.TimeoutExpired):
+                return False, f'could not verify that `{name}` is a nightly toolchain'
+            detail = (version.stdout + version.stderr).strip()
+            if version.returncode != 0 or 'nightly' not in detail.lower():
+                return False, f'`{name}` JSON output requires nightly; found {detail or "no version"}'
     return True, None
 
 
 def runner_env(spec, sandbox, path=None):
-    """A scrubbed environment: no inherited variables, offline flags, caches in a temp sandbox."""
+    """Build a minimal environment with tool-specific offline settings and temporary home paths."""
     env = {'PATH': path if path is not None else os.environ.get('PATH', ''),
            'HOME': str(sandbox), 'TMPDIR': str(sandbox),
            'LANG': os.environ.get('LANG', 'C.UTF-8')}
     env.update(spec.get('env', {}))
     return env
+
+
+def _relative_files(files, root):
+    """Keep source paths as separate root-relative argv items where possible."""
+    root = Path(root).resolve()
+    result = []
+    for item in files:
+        path = Path(item)
+        if path.is_absolute():
+            try:
+                path = path.relative_to(root)
+            except ValueError:
+                pass
+        result.append(str(path))
+    return result
+
+
+def _copy_project(root, destination):
+    """Copy Rust inputs while excluding VCS state, build output, and package environments."""
+    ignored = shutil.ignore_patterns('.git', '.venv', '.tox', '.nox', '.pytest_cache',
+                                     '.mypy_cache', '__pycache__', 'node_modules', 'target',
+                                     'dist', 'build', 'coverage', '.next', '.cache')
+    shutil.copytree(root, destination, symlinks=True, ignore=ignored)
+
+
+def _command(spec, root, source_root, files, sandbox):
+    """Expand declared path placeholders into argv without shell interpolation."""
+    output = sandbox / 'typedoc.json'
+    output_dir = sandbox / 'rustdoc-json'
+    output_dir.mkdir(parents=True, exist_ok=True)
+    argv = []
+    for item in spec['argv']:
+        if item == '{files}':
+            argv.extend(_relative_files(files, source_root))
+            continue
+        argv.append(item.replace('{root}', str(root)).replace('{output}', str(output))
+                    .replace('{outdir}', str(output_dir)))
+    return argv, output, output_dir
+
+
+def _reference_output(spec, proc, output, output_dir):
+    """Read the selected tool's output, rejecting missing or empty reference artifacts."""
+    mode = spec.get('output', 'stdout')
+    if mode == 'stdout':
+        text = proc.stdout
+    elif mode == 'file':
+        if not output.is_file():
+            return None, f'`{spec["tool"]}` did not create its JSON output file'
+        text = output.read_text(encoding='utf-8')
+    elif mode == 'directory':
+        json_files = sorted(output_dir.glob('*.json'))
+        if not json_files:
+            return None, f'`{spec["tool"]}` created no JSON reference in its output directory'
+        chunks = []
+        for path in json_files:
+            raw = path.read_text(encoding='utf-8')
+            if spec.get('json_output'):
+                try:
+                    json.loads(raw)
+                except json.JSONDecodeError as error:
+                    return None, f'`{spec["tool"]}` created invalid JSON in {path.name}: {error}'
+            chunks.append(raw if len(json_files) == 1 else f'## {path.name}\n{raw}')
+        text = '\n\n'.join(chunks)
+    else:
+        return None, f'unknown reference output mode: {mode}'
+    if not text.strip():
+        return None, f'`{spec["tool"]}` produced an empty reference'
+    if spec.get('json_output') and mode == 'stdout':
+        try:
+            json.loads(text)
+        except json.JSONDecodeError as error:
+            return None, f'`{spec["tool"]}` emitted invalid JSON: {error}'
+    if spec.get('json_output') and mode == 'file':
+        try:
+            json.loads(text)
+        except json.JSONDecodeError as error:
+            return None, f'`{spec["tool"]}` created invalid JSON: {error}'
+    return text, None
 
 
 def run(language, root, files=None, timeout=DEFAULT_TIMEOUT, path=None, env=None):
@@ -106,9 +251,10 @@ def run(language, root, files=None, timeout=DEFAULT_TIMEOUT, path=None, env=None
     Statuses: `generated` (text is the reference), `unavailable` (no generator, or its tool is
     not installed), `timed_out`, `no-files` (generator exists, nothing to read), `failed`.
     """
-    root = Path(root)
+    root = Path(root).resolve()
+    files = list(files or [])
     spec = GENERATORS.get(language)
-    result = {'language': language, 'files': len(files or []), 'timeout': timeout,
+    result = {'language': language, 'files': len(files), 'timeout': timeout,
               'status': None, 'reason': None, 'text': None,
               'tool': spec['tool'] if spec else None,
               'exactness': spec['exactness'] if spec else None,
@@ -121,29 +267,58 @@ def run(language, root, files=None, timeout=DEFAULT_TIMEOUT, path=None, env=None
             return {**result, 'status': 'no-files', 'reason': 'no files of this language were read'}
         return {**result, 'status': 'generated', 'text': reference(language, files, root)}
     if not files:
-        # A toolchain asked to document nothing would either fail or print an empty page, and
-        # neither is a reference. Say there was nothing to read instead of running the tool.
         return {**result, 'status': 'no-files', 'reason': 'no files of this language were matched'}
+    if language == 'rust' and not (root / 'Cargo.toml').is_file():
+        return {**result, 'status': 'failed',
+                'reason': 'Rustdoc JSON requires a root Cargo.toml manifest'}
+
     sandbox = Path(tempfile.mkdtemp(prefix='autodoc-language-'))
     try:
-        proc = subprocess.run(spec['argv'], cwd=root, env=env or runner_env(spec, sandbox, path),
-                              timeout=timeout, shell=False, capture_output=True, text=True,
-                              check=False)
+        execution_root = sandbox / 'project' if spec.get('copy_project') else root
+        if spec.get('copy_project'):
+            _copy_project(root, execution_root)
+        argv, output, output_dir = _command(spec, execution_root, root, files, sandbox)
+        run_env = dict(env) if env is not None else runner_env(spec, sandbox, path)
+        if language == 'rust':
+            search_path = run_env.get('PATH') or os.environ.get('PATH', '')
+            user_home = Path(os.environ.get('HOME') or Path.home()).expanduser()
+            configured_cargo_home = os.environ.get('CARGO_HOME')
+            cargo_home = Path(configured_cargo_home).expanduser() if configured_cargo_home \
+                else user_home / '.cargo'
+            configured_rustup_home = os.environ.get('RUSTUP_HOME')
+            rustup_home = Path(configured_rustup_home).expanduser() if configured_rustup_home \
+                else user_home / '.rustup'
+            run_env.update({'CARGO_HOME': str(cargo_home.resolve() if cargo_home.is_dir()
+                                              else sandbox / 'cargo-home'),
+                            'CARGO_TARGET_DIR': str(sandbox / 'cargo-target'),
+                            'CARGO_NET_OFFLINE': 'true'})
+            if rustup_home.is_dir():
+                run_env['RUSTUP_HOME'] = str(rustup_home.resolve())
+            for name in ('rustc', 'rustdoc'):
+                found = shutil.which(name, path=search_path)
+                if found:
+                    run_env[name.upper()] = found
+            rustup_toolchain = os.environ.get('RUSTUP_TOOLCHAIN', '')
+            if 'nightly' in rustup_toolchain.lower():
+                run_env['RUSTUP_TOOLCHAIN'] = rustup_toolchain
+        proc = subprocess.run(argv, cwd=execution_root, env=run_env, timeout=timeout,
+                              shell=False, capture_output=True, text=True, check=False)
+        if proc.returncode != 0:
+            tail = [line for line in (proc.stderr or proc.stdout or '').strip().splitlines() if line]
+            return {**result, 'status': 'failed',
+                    'reason': f'`{spec["tool"]}` exited {proc.returncode}'
+                              + (f': {tail[-1].strip()}' if tail else '')}
+        text, reason = _reference_output(spec, proc, output, output_dir)
+        if reason:
+            return {**result, 'status': 'failed', 'reason': reason}
+        return {**result, 'status': 'generated', 'text': text}
     except subprocess.TimeoutExpired:
         return {**result, 'status': 'timed_out',
                 'reason': f'`{spec["tool"]}` did not finish within {timeout}s'}
-    except OSError as error:
+    except (OSError, UnicodeError) as error:
         return {**result, 'status': 'failed', 'reason': f'could not run `{spec["tool"]}`: {error}'}
     finally:
         shutil.rmtree(sandbox, ignore_errors=True)
-    if proc.returncode != 0:
-        tail = [line for line in (proc.stderr or proc.stdout or '').strip().splitlines() if line]
-        return {**result, 'status': 'failed',
-                'reason': f'`{spec["tool"]}` exited {proc.returncode}'
-                          + (f': {tail[-1].strip()}' if tail else '')}
-    if not proc.stdout.strip():
-        return {**result, 'status': 'failed', 'reason': f'`{spec["tool"]}` printed nothing'}
-    return {**result, 'status': 'generated', 'text': proc.stdout}
 
 
 def reference(language, files, root):
@@ -239,7 +414,7 @@ def report(root=ROOT, path=None, probe=True):
         status = 'L0 — no generator declared'
         if row['generator']:
             status = (f"available ({row['exactness']} via {row['tool']})" if row.get('available')
-                      else f"declared, but {row['reason']}")
+                      else f"declared, but {row['reason']} — L0 in this run")
         lines.append(f"- **{row['language']}** — {row['files']} file(s), {status}")
         lines.append(f"  - what it can and cannot see: {row['limits']}")
     return '\n'.join(lines) + '\n'

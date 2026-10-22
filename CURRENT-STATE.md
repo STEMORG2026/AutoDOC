@@ -54,6 +54,12 @@ not published to PyPI and no publication was authorized. The local full check pa
 GitHub. C4R7 remains paused because merging is not an explicit session-close instruction. B71a
 also remains paused after PR #11 merged.
 
+PR #13's post-merge reconciliation is also merged at `a704752`. The owner then selected D-004
+followed by D-002 and confirmed the audience rule recorded in ADR-014. The implementations described
+below are on the active follow-up branch `arena/894b93ee-autodoc`, not yet merged to `master`.
+Its full local `make ci` passes on Python 3.11 (280 tests and 190 subtests); evidence hashes verify,
+not signatures. The follow-up PR and its remote checks are still pending.
+
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.
 
@@ -82,17 +88,23 @@ declaration in `autodoc.toml` is what gates documents. This repository declares 
 it ships — which turned three undetermined kind-gated documents into two not-applicable and one
 applicable. Requirements resolve as Catalog x Context: a declared context in `autodoc.toml` (phase, audience,
 kinds, declared duties) against fifteen file-detected facts and three declared traits, so a
-fact that cannot be read makes a type **undetermined** rather than silently satisfied. Severity scales with phase, per column:
-`build` warns about required docs and fails structural breakage with drift and freshness off;
-`beta` adds drift and freshness as warnings; `live` and `mature` fail all four; `sunset` shrinks
-to the sunset profile. This repository declares `build` (2026-09-30), so its 16 applicable
-core types are surveyed against that phase: 7 are acknowledged, and the missing required ones
-warn rather than fail. Generated references are labeled too: each generator declares `exact` or
+fact that cannot be read makes a type **undetermined** rather than silently satisfied. On the active
+D-004 follow-up branch, a catalog `reader` adds an implicit AND token `audience:<reader>`: a declared
+match is true, a non-match within a non-empty audience set is false/not applicable, an empty audience
+is unknown, and `assess`-only entries are exempt. Severity scales with phase, per column: `build`
+warns about required docs and fails structural breakage with drift and freshness off; `beta` adds
+drift and freshness as warnings; `live` and `mature` fail all four; `sunset` shrinks to the sunset
+profile. This repository declares `build` (2026-09-30) and is currently build-ready **15/15**, with 0 open
+core decisions; missing required documents warn rather than fail at this phase. Generated references are labeled too: each generator declares `exact` or
 `heuristic` and what it cannot see, the label travels with the file, and a heuristic generator
-warns by default. Per-language references integrate the language's own tool (`ast` for Python,
-`go doc` for Go), run it inside the repository with a scrubbed environment and a timeout, and
-report a missing tool instead of replacing it; `make docs-languages` shows what each language gets
-here, with every other language named as L0. Traits follow the same rule: `handles_personal_data`, `handles_payments`
+warns by default. Per-language references integrate the language's own tool: Python uses `ast`, Go uses `go doc`,
+and the active D-002 branch adds JavaScript JSDoc `-X`, TypeScript TypeDoc `--json`, and nightly
+Rustdoc JSON through `cargo rustdoc`. The external tools run on demand with a scrubbed environment,
+timeout, output validation and offline settings where supported; Rust runs from a temporary project
+copy, but this is not an OS security sandbox. Missing tools are reported as L0 in that run. Here
+Node v22.22.3 is present, but JSDoc, TypeDoc, Cargo, rustc and rustdoc are absent; fake executables
+exercise the new integrations. `make docs-languages` reports availability and limits for the
+languages this repository actually contains. Traits follow the same rule: `handles_personal_data`, `handles_payments`
 and `safety_critical` are declared in `[facts]`, never inferred — no detector exists for a fact
 about the world — and an unanswered trait leaves the documents that depend on it undetermined.
 This repository answers all three `false` with a reason, so the PII inventory, cardholder data

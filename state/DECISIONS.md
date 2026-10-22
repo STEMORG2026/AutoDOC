@@ -1,6 +1,6 @@
 # DECISIONS — record of settled choices
 
-**Last reconciled:** 2026-10-21T11:57Z
+**Last reconciled:** 2026-10-22T08:09Z
 
 Entries are append-only. An owner decision that is implemented but not yet recorded in the machine
 files is marked **accepted — recording pending**; an agent never marks an owner decision recorded.
@@ -20,6 +20,7 @@ files is marked **accepted — recording pending**; an agent never marks an owne
 | ADR-011 | **Decision 5 (P-004)**: branch protection on `master` carries one required check — payload `{"strict": true, "contexts": ["AutoDOC guard / check"]}`, applied by the owner with `APPLY=1 make docs-require-check`; the check name is verified live on PR #2 | Owner | 2026-10-01 | **accepted, recorded — carried by ruleset `main`** (P-007-A decided and applied 2026-10-21 by the owner; verified live: `deletion`, `non_fast_forward`, `required_status_checks` → `AutoDOC guard / check` `strict: true`, and nothing else). The classic payload from `APPLY=1 make docs-require-check` is superseded (same guarantee as a ruleset rule) and stays a dry-run reference | `Makefile` target `docs-require-check`, `docs/00-governance/BRANCH-PROTECTION.md`; ruleset `main` (id `25542481`) read back 2026-10-21 after the owner's edit; P-007 below; session `20261021-1138-A52ab` |
 | ADR-012 | **Decision 6 (P-005)**: the declared phase stays `build`; after decision 4 the promotion delta is 2 core rows (License, Changelog), and promotion remains a deliberate event (`autodoc promote`'s delta view is not implemented, so it is a manual edit with those numbers) | Owner | 2026-10-01 | accepted, recorded | `autodoc.toml` (`phase = "build"` unchanged); this file, item P-005 |
 | ADR-013 | **Decision 7 (P-006)**: the five smalls are deferred — `audience` consumer (D-004; first if any is picked), JS/TS + Rust toolchains (D-002), external dogfood repository (D-009), template rendering on demand (D-003), evidence signing (D-007); none gates anything | Owner | 2026-10-01 | accepted, recorded | `state/DEBT.md` |
+| ADR-014 | Owner selected D-004 followed by D-002 after PR #13: catalog `reader` is an implicit AND audience token; match=true, mismatch in a non-empty declared set=false/not applicable, empty=unknown, and `assess` is exempt. D-002 uses JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON through `cargo rustdoc` | Owner | 2026-10-22 | accepted — implemented on `arena/894b93ee-autodoc`, pending PR review/merge | `scripts/intelligence/recommend.py`, `scripts/doc-sync/languages.py`, tests and schemas; the owner confirmed the D-004 semantics in-session |
 ## Pending — owner decisions awaiting a verdict
 
 **Decided 2026-10-01 — the owner stated "proceed with recomendation", adopting all six
@@ -94,6 +95,11 @@ unconsumed (D-004 — the remaining "declared without a consumer" hole), JS/TS +
 (D-002), external dogfood repository (D-009), template rendering on demand instead of 780 committed
 variants (D-003), evidence signing (D-007). None gates anything. *Recommendation: defer all; if one
 is picked now, `audience` first, toolchains second.*
+
+**Execution update — 2026-10-22:** After PR #13 merged at `a704752`, the owner selected D-004
+followed by D-002 and confirmed ADR-014's reader/audience semantics. The implementation is in the
+active `arena/894b93ee-autodoc` follow-up; do not treat it as merged until its PR lands. The remaining
+P-006 items remain deferred.
 
 **Added 2026-10-21 by session `20261021-1138-A52ab`** (protection review, owner instruction
 "Cannot merge the commit, I protected the branch and did some changes, have a look at AutoDOC").

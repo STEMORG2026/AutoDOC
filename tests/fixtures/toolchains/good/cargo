@@ -1,0 +1,17 @@
+#!/bin/sh
+outdir=''
+previous=''
+for argument in "$@"; do
+  if [ "$previous" = '--out-dir' ]; then
+    outdir="$argument"
+  fi
+  previous="$argument"
+done
+if [ -z "$outdir" ]; then
+  echo 'missing --out-dir' >&2
+  exit 2
+fi
+mkdir -p "$outdir"
+printf '{"crate":"fixture","cwd":"%s","offline":"%s","cargo_home":"%s","rustup_home":"%s","target_dir":"%s","args":"%s"}\n' \
+  "$(pwd)" "${CARGO_NET_OFFLINE:-unset}" "${CARGO_HOME:-unset}" \
+  "${RUSTUP_HOME:-unset}" "${CARGO_TARGET_DIR:-unset}" "$*" > "$outdir/fixture.json"

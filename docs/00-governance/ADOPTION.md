@@ -103,6 +103,14 @@ declared false with reasons in `autodoc.toml`, because the only evidence for the
 synthetic `EXAMPLE-PROJECT` and example projects — and the listener detector no longer matches
 its own source (which is why `has_network_listener` needed no override).
 
+On the active owner-selected follow-up branch `arena/894b93ee-autodoc`, D-004 consumes catalog
+`reader` metadata as an implicit AND token: a matching declared audience is true; a mismatch within
+a non-empty audience set is not applicable; an empty audience is unknown; and `assess` remains
+exempt. ADR-014 records the owner-confirmed rule. The same branch adds on-demand JSDoc `-X`,
+TypeDoc `--json`, and nightly Rustdoc JSON via `cargo rustdoc`; these are tool outputs, not custom
+parsers, and missing toolchains remain L0 in that run. This follow-up is pending review/merge and
+must not be described as landed on `master` yet.
+
 ## Phase 3 applicability
 Environment and alert references are exercised only by the task demo. The local tool-policy
 example is not an adopted service and creates no new production on-call obligations. Its

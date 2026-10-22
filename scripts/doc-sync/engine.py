@@ -292,11 +292,11 @@ def code_inventory(entry):
              'by an external toolchain is printed on demand (`make docs-languages SHOW=<language>`) '
              'and never committed, because the same repository on two machines would disagree.', '',
              '## Languages in these sources', '',
-             '| Language | Files | Generator | Exactness | What it can and cannot see |',
-             '| --- | ---: | --- | --- | --- |']
+             '| Language | Files | Generator | Tool | Exactness | What it can and cannot see |',
+             '| --- | ---: | --- | --- | --- | --- |']
     for row in rows:
         lines.append(f"| {row['language']} | {row['files']} | {row['generator'] or 'L0'} | "
-                     f"{row['exactness'] or '—'} | {row['limits']} |")
+                     f"{row['tool'] or '—'} | {row['exactness'] or '—'} | {row['limits']} |")
     for row in rows:
         spec = languages.GENERATORS.get(row['generator'] or '')
         if spec and spec['mode'] == 'in-process':

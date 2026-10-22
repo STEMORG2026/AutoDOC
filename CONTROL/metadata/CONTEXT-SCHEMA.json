@@ -32,7 +32,8 @@
       "uniqueItems": true,
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Explicit closed audience set used by catalog reader predicates. A non-empty set excludes readers not named; an empty set leaves reader-gated applicability unknown."
     },
     "kinds": {
       "type": "array",

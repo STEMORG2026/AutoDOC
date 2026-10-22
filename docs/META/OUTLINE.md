@@ -3260,7 +3260,7 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 71: Verification and references
 - L2 line 77: Enforcement decisions (step 6, 2026-10-01)
 - L2 line 88: Applicability decisions (step 3, 2026-10-01)
-- L2 line 106: Phase 3 applicability
+- L2 line 114: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -3353,13 +3353,13 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 24: How confidence is established
 - L2 line 59: Implemented and tested
 - L2 line 92: The generation contract
-- L2 line 111: The event contract
-- L2 line 124: Implemented validators
-- L2 line 146: Mapped but template-only
-- L2 line 154: Partially supported
-- L2 line 162: Explicitly not implemented
-- L2 line 172: Not supported / integration needed
-- L2 line 180: Known environment constraints
+- L2 line 113: The event contract
+- L2 line 126: Implemented validators
+- L2 line 151: Mapped but template-only
+- L2 line 159: Partially supported
+- L2 line 167: Explicitly not implemented
+- L2 line 177: Not supported / integration needed
+- L2 line 185: Known environment constraints
 
 ## `docs/00-governance/EVIDENCE-SIGNING.md`
 
@@ -3406,9 +3406,9 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
 - L2 line 39: Details and decisions
-- L2 line 225: Module contracts
-- L2 line 244: Verification and references
-- L2 line 253: Phase 3 trust boundaries
+- L2 line 232: Module contracts
+- L2 line 251: Verification and references
+- L2 line 260: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 

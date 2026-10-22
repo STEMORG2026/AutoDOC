@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ "$1" = '--version' ]; then
+  echo 'rustc 1.95.0 (fixture stable)'
+  exit 0
+fi
+exit 2

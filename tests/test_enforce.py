@@ -219,7 +219,7 @@ class EndToEndTests(unittest.TestCase):
     def test_readiness_is_relative_to_the_declared_phase(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as folder:
             config = Path(folder) / 'autodoc.toml'
-            config.write_text('schema = 1\nphase = "beta"\n')
+            config.write_text('schema = 1\nphase = "beta"\naudience = ["contributors", "external-users"]\n')
             data, _, _, _, _, _ = self.build(config, Path(folder) / 'none.json')
         self.assertTrue(data['readiness'].startswith('beta-ready:'))
         text = enforce.report(data, [], [], [], data['enforcement'], 0)
@@ -256,7 +256,7 @@ class EndToEndTests(unittest.TestCase):
     def test_a_declared_phase_turns_the_same_repository_into_failures(self):
         with tempfile.TemporaryDirectory(dir=ROOT) as folder:
             config = Path(folder) / 'autodoc.toml'
-            config.write_text('version = 1\nphase = "beta"\n')
+            config.write_text('version = 1\nphase = "beta"\naudience = ["contributors", "external-users"]\n')
             data, findings, _, _, enforcement, summary = self.build(config, Path(folder) / 'none.json')
         self.assertTrue(enforcement['declared'])
         self.assertEqual(summary['exit_code'], 1)

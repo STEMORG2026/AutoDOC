@@ -28,10 +28,10 @@ Per-language inventory of the mapped sources. Every generator declares its exact
 
 ## Languages in these sources
 
-| Language | Files | Generator | Exactness | What it can and cannot see |
-| --- | ---: | --- | --- | --- |
-| javascript | 1 | L0 | — | No generator is declared for this language: it is read at L0 — file and manifest facts only — because AutoDOC integrates a language's own tool and never hand-rolls a parser for it. |
-| python | 40 | python | exact | Module-level declarations, signatures and first docstring lines from parsed source: definitions created at runtime, generated code and non-module sources are invisible. |
+| Language | Files | Generator | Tool | Exactness | What it can and cannot see |
+| --- | ---: | --- | --- | --- | --- |
+| javascript | 1 | javascript | JSDoc -X | exact | JSDoc JSON doclets for the explicitly matched JavaScript/JSX files; it reports what the tool recognizes and does not infer runtime behavior. Local JSDoc config or plugins may affect output and may execute code; AutoDOC installs nothing. |
+| python | 40 | python | ast (the CPython parser) | exact | Module-level declarations, signatures and first docstring lines from parsed source: definitions created at runtime, generated code and non-module sources are invisible. |
 
 ## Python declarations (exact, in-process)
 
@@ -184,18 +184,23 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/doc-sync/engine.py` | 826 | function | `replace_block` | `(text, body)` | — |
 | `scripts/doc-sync/engine.py` | 835 | function | `update_state` | `(base=None, staged=False)` | Update observable blocks only; preserve manually reviewed context and next action. |
 | `scripts/doc-sync/engine.py` | 866 | function | `main` | `()` | — |
-| `scripts/doc-sync/languages.py` | 68 | function | `profiler_module` | `()` | The language vocabulary lives in the profiler; this module never keeps a second copy. |
-| `scripts/doc-sync/languages.py` | 76 | function | `generator` | `(language)` | The declared generator for a language, or None when the language is L0. |
-| `scripts/doc-sync/languages.py` | 81 | function | `available` | `(language, path=None)` | Return (True, None) when the generator can run here, else (False, reason). |
-| `scripts/doc-sync/languages.py` | 94 | function | `runner_env` | `(spec, sandbox, path=None)` | A scrubbed environment: no inherited variables, offline flags, caches in a temp sandbox. |
-| `scripts/doc-sync/languages.py` | 103 | function | `run` | `(language, root, files=None, timeout=DEFAULT_TIMEOUT, path=None, env=None)` | Run one language's generator. Returns a result record; never raises for tool failure. |
-| `scripts/doc-sync/languages.py` | 149 | function | `reference` | `(language, files, root)` | Render one language's reference in Markdown. Only in-process renderers exist today. |
-| `scripts/doc-sync/languages.py` | 169 | function | `declarations` | `(entry, root=None)` | The language counts of a set of files, from the one shared vocabulary. |
-| `scripts/doc-sync/languages.py` | 181 | function | `rows` | `(counts, path=None, probe=False)` | Per-language rows for the code languages present. |
-| `scripts/doc-sync/languages.py` | 207 | function | `line` | `(rows_)` | One report line: what each code language gets here, and what it does not get today. |
-| `scripts/doc-sync/languages.py` | 221 | function | `tracked_language_files` | `(root)` | Tracked files that are project evidence: generated, vendored and test inputs are skipped. |
-| `scripts/doc-sync/languages.py` | 231 | function | `report` | `(root=ROOT, path=None, probe=True)` | The terminal view: one line per code language, with the limits spelled out. |
-| `scripts/doc-sync/languages.py` | 248 | function | `main` | `()` | — |
+| `scripts/doc-sync/languages.py` | 114 | function | `profiler_module` | `()` | The language vocabulary lives in the profiler; this module never keeps a second copy. |
+| `scripts/doc-sync/languages.py` | 122 | function | `generator` | `(language)` | The declared generator for a language, or None when the language is L0. |
+| `scripts/doc-sync/languages.py` | 127 | function | `_probe_names` | `(spec)` | Executables required by this generator, in the order they are reported. |
+| `scripts/doc-sync/languages.py` | 134 | function | `available` | `(language, path=None)` | Return (True, None) when the generator can run here, else (False, reason). |
+| `scripts/doc-sync/languages.py` | 161 | function | `runner_env` | `(spec, sandbox, path=None)` | Build a minimal environment with tool-specific offline settings and temporary home paths. |
+| `scripts/doc-sync/languages.py` | 170 | function | `_relative_files` | `(files, root)` | Keep source paths as separate root-relative argv items where possible. |
+| `scripts/doc-sync/languages.py` | 185 | function | `_copy_project` | `(root, destination)` | Copy Rust inputs while excluding VCS state, build output, and package environments. |
+| `scripts/doc-sync/languages.py` | 193 | function | `_command` | `(spec, root, source_root, files, sandbox)` | Expand declared path placeholders into argv without shell interpolation. |
+| `scripts/doc-sync/languages.py` | 208 | function | `_reference_output` | `(spec, proc, output, output_dir)` | Read the selected tool's output, rejecting missing or empty reference artifacts. |
+| `scripts/doc-sync/languages.py` | 248 | function | `run` | `(language, root, files=None, timeout=DEFAULT_TIMEOUT, path=None, env=None)` | Run one language's generator. Returns a result record; never raises for tool failure. |
+| `scripts/doc-sync/languages.py` | 324 | function | `reference` | `(language, files, root)` | Render one language's reference in Markdown. Only in-process renderers exist today. |
+| `scripts/doc-sync/languages.py` | 344 | function | `declarations` | `(entry, root=None)` | The language counts of a set of files, from the one shared vocabulary. |
+| `scripts/doc-sync/languages.py` | 356 | function | `rows` | `(counts, path=None, probe=False)` | Per-language rows for the code languages present. |
+| `scripts/doc-sync/languages.py` | 382 | function | `line` | `(rows_)` | One report line: what each code language gets here, and what it does not get today. |
+| `scripts/doc-sync/languages.py` | 396 | function | `tracked_language_files` | `(root)` | Tracked files that are project evidence: generated, vendored and test inputs are skipped. |
+| `scripts/doc-sync/languages.py` | 406 | function | `report` | `(root=ROOT, path=None, probe=True)` | The terminal view: one line per code language, with the limits spelled out. |
+| `scripts/doc-sync/languages.py` | 423 | function | `main` | `()` | — |
 | `scripts/init-project.py` | 14 | function | `main` | `()` | — |
 | `scripts/intelligence/context.py` | 32 | function | `load_module` | `(name, path)` | — |
 | `scripts/intelligence/context.py` | 40 | function | `load_model` | `()` | — |
@@ -243,35 +248,36 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/profile.py` | 495 | function | `evaluate` | `(spec, files, ecosystems, cache, root, evidence)` | Three-valued evaluation: true if anything matched, unknown if nothing could run. |
 | `scripts/intelligence/profile.py` | 525 | function | `profile` | `(root, declared=None)` | Return a deterministic three-valued profile of the repository rooted at `root`. |
 | `scripts/intelligence/profile.py` | 573 | function | `summary` | `(document)` | Boolean projection for callers that only need the values that are true. |
-| `scripts/intelligence/recommend.py` | 28 | function | `load_module` | `(name, relative)` | — |
-| `scripts/intelligence/recommend.py` | 40 | function | `languages_module` | `()` | The per-language generator registry, loaded on first use. |
-| `scripts/intelligence/recommend.py` | 56 | function | `language_summary` | `(profile_document, probe=True)` | — |
-| `scripts/intelligence/recommend.py` | 68 | function | `language_line` | `(summary)` | — |
-| `scripts/intelligence/recommend.py` | 72 | function | `catalog` | `()` | Return every catalog entry as a dict in stable id order. |
-| `scripts/intelligence/recommend.py` | 83 | function | `predicate` | `(document)` | Normalise applies_when into (all_tokens, any_tokens). |
-| `scripts/intelligence/recommend.py` | 91 | function | `token_state` | `(token, facts, context, model=None)` | Return 'true', 'false' or 'unknown' for one predicate token. |
-| `scripts/intelligence/recommend.py` | 126 | function | `state_of` | `(document, facts, context, model=None)` | Return (state, detail) where state is applicable, not-applicable, undetermined or assess. |
-| `scripts/intelligence/recommend.py` | 153 | function | `profile_placement` | `(documents, context)` | Which types are core under the declared profile, as data rather than a guess. |
-| `scripts/intelligence/recommend.py` | 176 | function | `placement_of` | `(document, placement)` | The tier this type has *here*: core, removed-by-profile, or its catalog tier. |
-| `scripts/intelligence/recommend.py` | 185 | function | `severity_for` | `(document, state, decision, enforcement, context, placement)` | Return the severity of one requirement under the declared phase and profile. |
-| `scripts/intelligence/recommend.py` | 216 | function | `effective_phase_min` | `(document, placement)` | The phase a type actually becomes required at, profile additions included. |
-| `scripts/intelligence/recommend.py` | 227 | function | `off_reason` | `(document, placement, enforcement)` | Why a type is off at this phase, so the skip is never a silent one. |
-| `scripts/intelligence/recommend.py` | 244 | function | `score_profile` | `(placement)` | How the selected profile changed the core set, so the report can state it. |
-| `scripts/intelligence/recommend.py` | 251 | function | `enforced_reason` | `(item, enforcement)` | Why this item is or is not enforced, in the terms the decision was made in. |
-| `scripts/intelligence/recommend.py` | 280 | function | `effective_severity` | `(item, enforcement, context)` | Map a semantic level to the severity the declared phase enforces. |
-| `scripts/intelligence/recommend.py` | 300 | function | `evaluate` | `(documents, profile_document, context, enforcement=None, placement=None)` | Resolve every catalog entry into a group, with its severity and reason. |
-| `scripts/intelligence/recommend.py` | 350 | function | `score` | `(documents, groups, enforcement)` | — |
-| `scripts/intelligence/recommend.py` | 374 | function | `because` | `(item, enforcement)` | The context that caused this requirement, in one line: phase plus the predicate values. |
-| `scripts/intelligence/recommend.py` | 381 | function | `findings` | `(documents, context, groups, enforcement=None)` | Return one structured finding per problem: rule, severity, location, reason, fix, cause. |
-| `scripts/intelligence/recommend.py` | 470 | function | `check` | `(documents, context, groups, enforcement=None)` | Fail only what the declared phase says must fail; an undeclared phase never fails. |
-| `scripts/intelligence/recommend.py` | 481 | function | `explain` | `(document, profile_document, context, enforcement=None, placement=None, documents=None, groups=None)` | Return the derivation chain that explains one requirement. |
-| `scripts/intelligence/recommend.py` | 531 | function | `kind_summary` | `(profile_document, context)` | The kind situation: what is declared, what the evidence suggests, and what that means. |
-| `scripts/intelligence/recommend.py` | 553 | function | `kind_line` | `(kinds, groups)` | One line that says what is declared, what is only evidence, and what is still undetermined. |
-| `scripts/intelligence/recommend.py` | 571 | function | `trait_summary` | `(profile_document, context)` | The declared traits: the facts no detector can answer, each answered or still a question. |
-| `scripts/intelligence/recommend.py` | 590 | function | `trait_line` | `(traits, groups)` | One line: each trait's recorded answer, or the open question and what it leaves hanging. |
-| `scripts/intelligence/recommend.py` | 605 | function | `report` | `(data)` | — |
-| `scripts/intelligence/recommend.py` | 679 | function | `build` | `(args)` | — |
-| `scripts/intelligence/recommend.py` | 706 | function | `main` | `()` | — |
+| `scripts/intelligence/recommend.py` | 31 | function | `load_module` | `(name, relative)` | — |
+| `scripts/intelligence/recommend.py` | 43 | function | `languages_module` | `()` | The per-language generator registry, loaded on first use. |
+| `scripts/intelligence/recommend.py` | 59 | function | `language_summary` | `(profile_document, probe=True)` | — |
+| `scripts/intelligence/recommend.py` | 71 | function | `language_line` | `(summary)` | — |
+| `scripts/intelligence/recommend.py` | 75 | function | `catalog` | `()` | Return every catalog entry as a dict in stable id order. |
+| `scripts/intelligence/recommend.py` | 86 | function | `predicate` | `(document)` | Normalise applies_when, adding a reader-derived audience AND where applicable. |
+| `scripts/intelligence/recommend.py` | 107 | function | `token_state` | `(token, facts, context, model=None)` | Return 'true', 'false' or 'unknown' for one predicate token. |
+| `scripts/intelligence/recommend.py` | 148 | function | `state_of` | `(document, facts, context, model=None)` | Return (state, detail) where state is applicable, not-applicable, undetermined or assess. |
+| `scripts/intelligence/recommend.py` | 175 | function | `profile_placement` | `(documents, context)` | Which types are core under the declared profile, as data rather than a guess. |
+| `scripts/intelligence/recommend.py` | 198 | function | `placement_of` | `(document, placement)` | The tier this type has *here*: core, removed-by-profile, or its catalog tier. |
+| `scripts/intelligence/recommend.py` | 207 | function | `severity_for` | `(document, state, decision, enforcement, context, placement)` | Return the severity of one requirement under the declared phase and profile. |
+| `scripts/intelligence/recommend.py` | 238 | function | `effective_phase_min` | `(document, placement)` | The phase a type actually becomes required at, profile additions included. |
+| `scripts/intelligence/recommend.py` | 249 | function | `off_reason` | `(document, placement, enforcement)` | Why a type is off at this phase, so the skip is never a silent one. |
+| `scripts/intelligence/recommend.py` | 266 | function | `score_profile` | `(placement)` | How the selected profile changed the core set, so the report can state it. |
+| `scripts/intelligence/recommend.py` | 273 | function | `enforced_reason` | `(item, enforcement)` | Why this item is or is not enforced, in the terms the decision was made in. |
+| `scripts/intelligence/recommend.py` | 302 | function | `effective_severity` | `(item, enforcement, context)` | Map a semantic level to the severity the declared phase enforces. |
+| `scripts/intelligence/recommend.py` | 322 | function | `evaluate` | `(documents, profile_document, context, enforcement=None, placement=None)` | Resolve every catalog entry into a group, with its severity and reason. |
+| `scripts/intelligence/recommend.py` | 374 | function | `score` | `(documents, groups, enforcement)` | — |
+| `scripts/intelligence/recommend.py` | 398 | function | `because` | `(item, enforcement)` | The context that caused this requirement, in one line: phase plus the predicate values. |
+| `scripts/intelligence/recommend.py` | 405 | function | `findings` | `(documents, context, groups, enforcement=None)` | Return one structured finding per problem: rule, severity, location, reason, fix, cause. |
+| `scripts/intelligence/recommend.py` | 494 | function | `check` | `(documents, context, groups, enforcement=None)` | Fail only what the declared phase says must fail; an undeclared phase never fails. |
+| `scripts/intelligence/recommend.py` | 505 | function | `explain` | `(document, profile_document, context, enforcement=None, placement=None, documents=None, groups=None)` | Return the derivation chain that explains one requirement. |
+| `scripts/intelligence/recommend.py` | 571 | function | `kind_summary` | `(profile_document, context)` | The kind situation: what is declared, what the evidence suggests, and what that means. |
+| `scripts/intelligence/recommend.py` | 593 | function | `kind_line` | `(kinds, groups)` | One line that says what is declared, what is only evidence, and what is still undetermined. |
+| `scripts/intelligence/recommend.py` | 611 | function | `trait_summary` | `(profile_document, context)` | The declared traits: the facts no detector can answer, each answered or still a question. |
+| `scripts/intelligence/recommend.py` | 630 | function | `trait_line` | `(traits, groups)` | One line: each trait's recorded answer, or the open question and what it leaves hanging. |
+| `scripts/intelligence/recommend.py` | 645 | function | `audience_line` | `(audiences)` | State the reader gate and the declaration that controls it. |
+| `scripts/intelligence/recommend.py` | 652 | function | `report` | `(data)` | — |
+| `scripts/intelligence/recommend.py` | 732 | function | `build` | `(args)` | — |
+| `scripts/intelligence/recommend.py` | 760 | function | `main` | `()` | — |
 | `scripts/intelligence/triggers.py` | 40 | function | `load` | `(path=None)` | — |
 | `scripts/intelligence/triggers.py` | 47 | function | `context_module` | `()` | — |
 | `scripts/intelligence/triggers.py` | 55 | function | `read_workflow` | `(path)` | Read the fields the model claims: workflow name, trigger keys, filters, job names. |

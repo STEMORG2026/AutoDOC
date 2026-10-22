@@ -27,8 +27,9 @@ profile = "oss-library"
 audience = ["contributors", "external-users"]
 # external-users | contributors | operators | auditors | successors.
 # This repository is read by the people who use the tool and the people who work on it; declaring
-# the audience is a commitment, not a detection, and it is what the catalog's `reader` field is
-# checked against.
+# the audience is a commitment, not a detection. A catalog `reader` is an implicit applicability
+# AND: a match applies, a declared non-match does not, and an empty audience remains unknown;
+# assess-only entries are exempt.
 kinds = ["library"]
 # What this project is, from CONTROL/metadata/CONTEXT-MODEL.json. `make docs-hint` suggested
 # application and library: the library evidence is this package's own manifest, while the
