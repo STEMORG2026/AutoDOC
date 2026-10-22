@@ -68,11 +68,27 @@ See `state/plans/agent-912C-pr14-post-merge-reconciliation.md`.
 - `2026-10-22T10:39Z` [DECISION] After settlement, the owner selected D-003. Measured the pre-migration
   tree: 265 catalog types, 795 generated variant files, and two explanatory README files. The
   selection and execution plan are persisted in the state-only handoff before any D-003 code change.
+- `2026-10-22T10:54Z` [VERIFY] Rendered all 795 catalog-derived outputs into ignored `build/TEMPLATES/`
+  and compared them byte-for-byte with the checked-in variants: **795/795 identical**. Only after
+  that comparison, removed the 795 tracked outputs and retained both explanatory README files.
+- `2026-10-22T10:58Z` [IMPLEMENTATION] Added catalog-record rendering with variant/output selection,
+  safe logical destination validation, Make and installed-CLI entry points, runtime packaging for
+  both catalog indexes and the renderer, on-demand health/completeness/relationship reporting, and
+  documentation/tests. Normal `make generate` does not render templates; it now rebuilds catalog
+  indexes before mapped documentation. Updated the migration-prose test to use canonical renders
+  rather than physical Markdown files.
+- `2026-10-22T11:02Z` [VERIFY] Targeted D-003 suite passed (70 tests, 65 subtests); Make target
+  rendered 265 blank variants into a temporary output tree; full `make ci` passed on Python 3.11
+  (288 tests, 190 subtests), including the isolated wheel/sdist package smoke and evidence hash
+  verification (not signatures). Duplicate catalog-name warnings remain non-fatal.
+- `2026-10-22T11:02Z` [VERIFY] Staged all 840 changes (44 modifications, 795 variant deletions, one new test); `.venv/bin/pre-commit run --all-files`, `make docs-staged-impact`, and full staged `make ci` passed. `make ci` left ignored `build/TEMPLATES/` unmaterialized.
+- `2026-10-22T11:05Z` [PENDING] Commit/push only `arena/912c4060-autodoc` and open the D-003 review PR. Do not merge it without explicit owner authorization.
 
 ## Handoff
 
 PR #15 is merged at `990113b`; this session is **IN PROGRESS** on owner-selected D-003, not closed.
-The catalog record remains the planned single source per type; variants will render on demand into
-ignored `build/TEMPLATES/`. Keep work on `arena/912c4060-autodoc`; D-007, D-009, PyPI publication and
-closure of other paused sessions remain unauthorized. Do not merge the D-003 follow-up PR without
-explicit owner authorization.
+Implementation, full `make ci`, pre-commit and staged impact are complete on `arena/912c4060-autodoc`;
+795 prior variants matched byte-for-byte before removal, and rendering happens on demand from catalog
+records into ignored `build/TEMPLATES/`. Commit/push and opening the review PR remain. D-007, D-009,
+PyPI publication and closure of other paused sessions remain unauthorized. Do not merge the D-003
+follow-up PR without explicit owner authorization.

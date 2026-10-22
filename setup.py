@@ -13,6 +13,7 @@ RUNTIME_FILES = (
     "scripts/adopt.py",
     "scripts/init-project.py",
     "scripts/doc-control/check_catalog.py",
+    "scripts/doc-control/library.py",
     "scripts/doc-control/guards.py",
     "scripts/doc-control/stub_check.py",
     "scripts/doc-sync/engine.py",

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "note": "Inventory of possible documents. Applicability labels are suggestions, not a mandate or evidence of adoption. Derived fields come from CONTROL/metadata/CATALOG-RULES.json: severity_by_phase is authored, phase_min is derived from it, and support/checks state what AutoDOC can actually verify for the type.",
+  "note": "Inventory of possible documents. Applicability labels are suggestions, not a mandate or evidence of adoption. Derived fields come from CONTROL/metadata/CATALOG-RULES.json: severity_by_phase is authored, phase_min is derived from it, and support/checks state what AutoDOC can actually verify for the type. The template field is a logical render destination; each catalog record is the single source per type, and its canonical, blank and example variants are generated on demand under ignored build/TEMPLATES/.",
   "domains": [
     {
       "domain": "A01-PRODUCT",

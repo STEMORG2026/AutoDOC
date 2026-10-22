@@ -21,7 +21,7 @@ auto_generated: false
 ---
 # Recent changes
 
-- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47`. Post-merge local `make ci` passed (280 tests, 190 subtests). PR #15 state reconciliation merged at `990113b` after explicit owner authorization; its required guard/check and Python 3.11–3.15 matrix passed, with the impact step inside the guard job. After settlement, the owner selected D-003: on-demand rendering of 265 catalog types into ignored `build/TEMPLATES` is now in progress. External tools are absent locally and covered with fake executables.
+- After PR #13 merged at `a704752`, implemented the owner-selected D-004 audience gate and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47`. Post-merge local `make ci` passed (280 tests, 190 subtests). PR #15 state reconciliation merged at `990113b` after explicit owner authorization; its required guard/check and Python 3.11–3.15 matrix passed, with the impact step inside the guard job. The owner then selected D-003: the 265 catalog types now render canonical, blank and synthetic-example variants on demand into ignored `build/TEMPLATES` through Make and the installed CLI. All 795 old outputs matched byte-for-byte before removal; the two explanatory READMEs remain. Targeted tests passed (70 tests, 65 subtests); `make ci` passed (288 tests, 190 subtests, package smoke, evidence hashes verified—not signatures), and the Make rendering target produced all 265 blank variants in a temporary tree. `pre-commit run --all-files` and `make docs-staged-impact` passed; full `make ci` passed on the staged tree. Commit/push and the follow-up review PR remain. External tools are absent locally and covered with fake executables.
 - Merged PR #12 (`08229a0`): installable zero-runtime-dependency CLI, wheel/sdist assets, isolated project-root commands, package smoke tests, and passing Python 3.11–3.15 CI; tagged runs build temporary artifacts without PyPI publication.
 - Added structural validation for canonical migration-document sections and prompts; findings route
   through the existing `placeholders`/`stubs` policy families, so CI retains phase/pin severity.
@@ -38,6 +38,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- ffb10fc 2026-10-22 docs(state): record owner-selected D-003 scope
 - 990113b 2026-10-22 Merge pull request #15 from STEMORG2026/arena/912c4060-autodoc
 - a3bc86d 2026-10-22 docs(state): clarify PR15 impact check status
 - ed0a4d3 2026-10-22 docs(state): record PR15 review handoff
@@ -57,16 +58,28 @@ auto_generated: false
 - 37c698a 2026-10-21 chore(state): reconcile migration validation PR
 - 0d51069 2026-10-21 feat: validate migration document prose structure
 - c4a9d43 2026-10-21 Merge pull request #10 from STEMORG2026/arena/44b2fb68-autodoc
-- 58641ce 2026-10-21 Close the record: PR #8 and PR #9 merged, cold-clone check, and why the merge chain stops
 
 ## Changed paths at update time
 
-- `state/DASHBOARD.md`
-- `state/DEBT.md`
-- `state/DECISIONS.md`
-- `state/INDEX.md`
-- `state/REGISTRY.md`
-- `state/plans/README.md`
-- `state/plans/agent-912C-pr14-post-merge-reconciliation.md`
-- `state/sessions/20261022-1011-912C-pr14-post-merge-reconciliation.md`
+- `CATALOG-A/INDEX.yaml`
+- `CATALOG-B/INDEX.yaml`
+- `CHANGELOG.md`
+- `CONTRIBUTING.md`
+- `CONTROL/metadata/CATALOG-SCHEMA.json`
+- `CONTROL/policies/DOCUMENTATION-POLICY.md`
+- `IMPLEMENTATION-GUIDE.md`
+- `Makefile`
+- `QUICK-START.md`
+- `README.md`
+- `TEMPLATES/AGENT-CONTEXT/README.md`
+- `TEMPLATES/GENERATED/README.md`
+- `Taskfile.yaml`
+- `autodoc/cli.py`
+- `docs/.doc-sync-map.yaml`
+- `docs/00-governance/ADOPTION.md`
+- `docs/00-governance/ENGINE-COVERAGE.md`
+- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
+- `docs/META/CODE-INVENTORY.md`
+- `docs/META/COMPLETENESS-REPORT.md`
+- … and 22 more; use git diff --cached --name-only.
 <!-- auto:end -->

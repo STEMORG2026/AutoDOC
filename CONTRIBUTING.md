@@ -1,10 +1,10 @@
 # Contributing
 
 Keep the AutoDOC name and stable catalog IDs. Add catalog entries without renumbering old IDs.
-After editing the catalog, run `python scripts/doc-control/library.py` to update template variants.
-After editing source maps, generators or example sources, run
-`python scripts/doc-sync/generate-all.py`. Review source-to-human impact and update living-state
-files when code changes. Run `make ci`; it includes pytest, the wheel/sdist build, a wheel installed
+Edit `CONTROL/metadata/CATALOG-RULES.json` and run `make generate` to rebuild catalog indexes and
+mapped documentation. Render canonical, blank or synthetic-example template variants separately,
+on demand, with `make docs-templates`; never commit the generated files under `build/TEMPLATES/`.
+Review source-to-human impact and update living-state files when code changes. Run `make ci`; it includes pytest, the wheel/sdist build, a wheel installed
 in a clean environment outside the checkout, and package CLI smoke commands. Use `make package`
 to create local distributions under ignored `dist/`. Do not claim external evidence (audits, tests
 or backups) without actual artifacts.

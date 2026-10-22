@@ -33,7 +33,7 @@ def test_version_and_help_are_available_without_a_checkout_cwd(tmp_path):
     assert version.returncode == 0
     assert version.stdout.strip() == f"autodoc {PROJECT_VERSION}"
     assert help_result.returncode == 0
-    assert all(command in help_result.stdout for command in ("check", "generate", "adopt", "init"))
+    assert all(command in help_result.stdout for command in ("check", "generate", "adopt", "init", "templates"))
 
 
 def test_generate_uses_explicit_project_root(tmp_path):
@@ -72,6 +72,21 @@ def test_generate_uses_explicit_project_root(tmp_path):
     assert target.is_file()
     assert "8080" in target.read_text(encoding="utf-8")
     assert checked.returncode == 0, checked.stderr
+
+
+def test_templates_render_from_bundled_catalog_into_selected_project_build(tmp_path):
+    project = tmp_path / "consumer"
+    project.mkdir()
+
+    rendered = run_cli("templates", "--root", project, "--variant", "blank", cwd=tmp_path)
+
+    target = project / "build/TEMPLATES/ARCHITECTURE/DOC-A03-001.md.blank"
+    assert rendered.returncode == 0, rendered.stderr
+    assert target.is_file()
+    text = target.read_text(encoding="utf-8")
+    assert "id: REPLACE-WITH-UNIQUE-INSTANCE-ID" in text
+    assert "<!-- Fill in. -->" in text
+    assert not (project / "TEMPLATES").exists()
 
 
 def test_check_adopt_and_init_operate_on_selected_project(tmp_path):

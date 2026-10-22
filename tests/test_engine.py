@@ -54,14 +54,17 @@ class EngineTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'Missing source'):
                     engine.load_map()
 
-    def test_catalog_template_coverage(self):
+    def test_catalog_template_paths_are_logical_build_destinations(self):
         for catalog in ('CATALOG-A', 'CATALOG-B'):
             data = json.loads((ROOT / catalog / 'INDEX.yaml').read_text())
             for domain in data['domains']:
                 for doc in domain['documents']:
-                    path = ROOT / doc['template']
-                    for suffix in ('', '.example', '.blank'):
-                        self.assertTrue(Path(str(path) + suffix).is_file())
+                    relative = Path(doc['template'])
+                    self.assertEqual(relative.parts[0], 'TEMPLATES')
+                    self.assertEqual(relative.name, doc['id'] + '.md')
+                    self.assertFalse((ROOT / relative).exists())
+                    for suffix in ('.blank', '.example'):
+                        self.assertFalse(Path(str(ROOT / relative) + suffix).exists())
 
 
     def test_self_hosted_sources_have_generated_references(self):

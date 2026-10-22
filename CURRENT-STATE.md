@@ -23,11 +23,14 @@ auto_generated: false
 
 AutoDOC has a working sync map, standard-library runtime, three authoritative catalog indices,
 265 catalog types, a task API demo and two local tool-policy demonstrations without an LLM or web calls.
-The owner-selected D-003 migration is in progress after PR #15 merged: the catalog record remains
-the single source per type, with canonical, blank and synthetic-example variants to be rendered on
-demand into ignored `build/TEMPLATES/`. Until the implementation lands, the tree still contains 795
-generated variant files.
-It now also has an installable `autodoc` CLI with zero runtime dependencies, wheel/sdist builds,
+The owner-selected D-003 migration is implemented on `arena/912c4060-autodoc` after PR #15 merged:
+each catalog record remains the single source per type, and canonical, blank and synthetic-example
+variants render on demand into ignored `build/TEMPLATES/` through Make and the installed CLI. Before
+removal, all 795 generated outputs were compared byte-for-byte with the prior files; all matched.
+The tracked variants are now removed, with two explanatory READMEs retained under `TEMPLATES/`.
+The D-003 worktree passes `make ci` on Python 3.11 (288 tests, 190 subtests, package smoke and
+unsigned evidence-hash verification); staged `make docs-staged-impact` and `pre-commit run --all-files`
+also pass. Commit/push and the follow-up review PR remain. It also has an installable `autodoc` CLI with zero runtime dependencies, wheel/sdist builds,
 and clean-environment install smoke coverage. Its checks validate controlled-document metadata,
 generated drift, age, source-to-human-review impact, and the structure of instantiated migration
 documents (required sections and unfilled template prompts, not semantic correctness). A catalog
@@ -41,7 +44,8 @@ default branch, the schedule and a release tag, and `triggers.py --check` holds 
 in `make ci`. The pull request is the only blocking event; the one check that opens the network is
 scheduled, rate-limited and warn-only.
 
-A health command measures catalog template triples, instantiated docs, deadlines and drift.
+A health command measures canonical/blank/example renderability from catalog records, instantiated docs,
+deadlines and drift; it does not write template outputs.
 The human inventory, relationship graph, catalog views and code/test/dependency outlines are generated.
 CI packages actual test-run evidence without claiming a signed build or license approval.
 The release-tag workflow fails closed if `LICENSE` is missing; the owner selected Apache-2.0 on

@@ -6,7 +6,8 @@ JSON Schema keyword subset and FAILS on any keyword it does not implement, so th
 never contain a constraint that silently does not run. Beyond schema shape, this enforces the
 admission rules that keep the catalog honest:
 
-* every catalog id is unique, has a template, and appears at most once in a tier list;
+* every catalog id is unique, has a safe logical template render destination, and appears at most
+  once in a tier list;
 * a core type carries a reason and a phase at which it becomes required, and never an
   `assess`-only predicate (a requirement nobody can detect is not a requirement);
 * every predicate token is a detectable fact, a sentinel, a declared kind, or a declared duty;
@@ -21,7 +22,7 @@ import importlib.util
 import json
 import re
 import sys
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA = ROOT / 'CONTROL/metadata/CATALOG-SCHEMA.json'
@@ -384,8 +385,19 @@ def check(indices=None):
             seen_ids.add(doc['id'])
             documents[doc['id']] = doc
             names.setdefault(doc['name'], []).append(doc['id'])
-            if not (ROOT / doc['template']).is_file():
-                errors.append(f'{doc["id"]}: missing template {doc["template"]}')
+            template = doc.get('template')
+            if not isinstance(template, str) or '\\' in template:
+                errors.append(f'{doc["id"]}: template must be a relative POSIX render destination')
+            else:
+                destination = PurePosixPath(template)
+                if (destination.is_absolute() or '..' in destination.parts or '.' in destination.parts or
+                        template != destination.as_posix() or len(destination.parts) != 3 or
+                        destination.parts[0] != 'TEMPLATES' or
+                        not re.fullmatch(r'[A-Z-]+', destination.parts[1]) or
+                        destination.name != f'{doc["id"]}.md'):
+                    errors.append(
+                        f'{doc["id"]}: template must be a logical TEMPLATES/<category>/{doc["id"]}.md destination'
+                    )
             applied = tokens_of(doc)
             for token in applied:
                 consumers.setdefault(token, []).append(doc['id'])

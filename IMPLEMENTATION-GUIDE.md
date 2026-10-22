@@ -2,8 +2,10 @@
 
 ## Select, instantiate, connect
 
-1. Filter the catalogs by project phase and risk; record exclusions rather than copying 265 empty docs.
-2. Copy a `TEMPLATES/` blank or canonical file. Add full metadata per
+1. Filter the catalogs by project phase and risk; record exclusions rather than materializing every starter.
+2. Render a blank or canonical variant on demand with `autodoc templates --root /existing/project --variant blank`
+   (or `make docs-templates TEMPLATE_VARIANT=blank` in this checkout). Copy the matching file from
+   `build/TEMPLATES/`, then add full metadata per
    `CONTROL/metadata/FRONT-MATTER-SCHEMA.json` and a **new instance ID**, not the catalog ID.
    The built-in dependency-free parser accepts one scalar per line and JSON-compatible inline
    arrays for `related`; nested YAML and multiline scalar values need a custom parser.

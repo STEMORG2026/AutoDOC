@@ -149,12 +149,13 @@ when there is no staged change (CI supplies the PR base SHA). It uses pytest; no
 line-coverage plugin/percentage is configured.
 
 ## Mapped but template-only
-The 265 types have canonical/blank/synthetic-example templates, but a type is **not** an
-instantiated document. A human-authored instance is checked for ownership/freshness only once
-created under a controlled path; source-change review requires an explicit map rule. There is
-no deterministic extractor for ADR rationale, risk acceptance, user guides, incident analysis,
-security policies or other judgment-heavy catalog entries. Do not treat template completeness
-as production documentation coverage.
+The 265 catalog types can render canonical, blank or synthetic-example variants on demand from
+their catalog records with `make docs-templates` or `autodoc templates`; outputs go to ignored
+`build/TEMPLATES/` and are not stored by default. A type is **not** an instantiated document.
+A human-authored instance is checked for ownership/freshness only once created under a controlled
+path; source-change review requires an explicit map rule. There is no deterministic extractor for
+ADR rationale, risk acceptance, user guides, incident analysis, security policies or other
+judgment-heavy catalog entries. Do not treat template renderability as production documentation coverage.
 
 ## Partially supported
 The task API source is a JSON registry, **not** OpenAPI. SQL is a deliberately narrow SQLite

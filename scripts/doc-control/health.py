@@ -10,14 +10,18 @@ sys.path.insert(0, str(ROOT / 'scripts/doc-sync'))
 import engine
 sys.path.insert(0, str(ROOT / 'scripts/doc-control'))
 import stub_check
+import library as template_library
 
 
 def health():
     entries = [doc for catalog in ('CATALOG-A', 'CATALOG-B')
                for domain in json.loads((ROOT / catalog / 'INDEX.yaml').read_text())['domains']
                for doc in domain['documents']]
-    complete = sum(all(Path(str(ROOT / doc['template']) + suffix).is_file()
-                       for suffix in ('', '.blank', '.example')) for doc in entries)
+    render_sources = {doc['id']: doc for doc, _ in template_library.catalog_sources(ROOT)}
+    renderable = {
+        variant: sum(bool(template_library.render(render_sources[doc['id']], variant)) for doc in entries)
+        for variant in template_library.VARIANTS
+    }
     controlled = engine.controlled()
     stale, old_drafts = [], []
     today = date.today()
@@ -33,14 +37,14 @@ def health():
             old_drafts.append(str(path.relative_to(ROOT)))
     approved_stubs, draft_stubs = stub_check.scan()
     return {'created_at_utc': datetime.now(timezone.utc).isoformat(),
-            'catalog_document_types': len(entries), 'template_triples_present': complete,
+            'catalog_document_types': len(entries), 'template_renderable_by_variant': renderable,
             'controlled_document_instances': len(controlled), 'overdue_human_reviews': stale,
             'drafts_without_updates_over_60_days': old_drafts,
             'substantive_documents': len(controlled) - len(approved_stubs) - len(draft_stubs),
             'approved_stub_documents': approved_stubs, 'draft_stub_documents': draft_stubs,
             'generated_targets': len(engine.load_map()['generated']),
             'drift_free': engine.generate(check=True),
-            'note': 'Counts files, deadlines and structural stubs, not semantic correctness or compliance status.'}
+            'note': 'Counts catalog-backed variant renderability, deadlines and structural stubs, not stored outputs, semantic correctness or compliance status.'}
 
 
 if __name__ == '__main__':
@@ -58,8 +62,12 @@ if __name__ == '__main__':
         args.markdown_output.parent.mkdir(parents=True, exist_ok=True)
         lines = ['# AutoDOC health — ' + date.today().isoformat(), '',
                  'Runtime report from checked-out files; not a signed compliance assessment.', '',
-                 f'- Catalog types: {data["catalog_document_types"]}',
-                 f'- Template triples present: {data["template_triples_present"]}',
+                 f'- Catalog types with template sources: {data["catalog_document_types"]}',
+                 f'- Renderable variants (canonical / blank / example): '
+                 f'{data["template_renderable_by_variant"]["canonical"]} / '
+                 f'{data["template_renderable_by_variant"]["blank"]} / '
+                 f'{data["template_renderable_by_variant"]["example"]}',
+                 '- Template outputs are generated on demand; this report does not materialize them.',
                  f'- Controlled documents: {data["controlled_document_instances"]}',
                  f'- Substantive documents: {data["substantive_documents"]}',
                  f'- Approved stub documents: {len(data["approved_stub_documents"])}',

@@ -13,7 +13,9 @@ TOOL_ROOT = Path(__file__).resolve().parents[2]
 ROOT = TOOL_ROOT
 sys.path.insert(0, str(TOOL_ROOT / "engine"))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+sys.path.insert(0, str(TOOL_ROOT / "scripts/doc-control"))
 import languages  # noqa: E402 - the registry sits beside this module
+import library as template_library  # noqa: E402 - the catalog-backed template renderer
 from extractors.env_alerts import environment, alerts
 from extractors.local_policy import tool_matrix
 from extractors.facts import headings, python_symbols, python_tests, python_dependencies, sqlite_tables, demo_routes, config_properties
@@ -97,7 +99,7 @@ GENERATOR_LABELS = {
                      'Declared requirements; resolved, inherited or vendored dependencies are not '
                      'seen.'},
     'completeness': {'exactness': 'exact', 'limits':
-                     'Counts of catalog entries, templates and mapped targets.'},
+                     'Counts catalog-backed renderability and mapped targets, not materialized files, adoption or compliance.'},
     'human_inventory': {'exactness': 'heuristic', 'limits':
                         'Documents are discovered by the controlled path convention; a controlled '
                         'document living outside those directories is not listed.'},
@@ -339,21 +341,30 @@ def trigger_reference(entry):
 
 
 def completeness(entry):
+    render_sources = {
+        doc['id']: doc for doc, _ in template_library.catalog_sources(ROOT)
+    }
+    variants = template_library.VARIANTS
     lines = [header('DOC-COV-001', 'Template and automation completeness', 'CATALOG-A/INDEX.yaml', generator='completeness'),
              '# Template and automation completeness', '',
-             'File coverage is not project adoption or compliance evidence. Template examples are synthetic.', '',
-             '| Catalog domain | Types | Canonical | Blank | Example |', '| --- | ---: | ---: | ---: | ---: |']
+             'Counts catalog-backed renders, not stored files, project adoption or compliance evidence. '
+             'Variants are materialized only on request under ignored `build/TEMPLATES/`; examples are synthetic.', '',
+             '| Catalog domain | Types | Canonical renderable | Blank renderable | Example renderable |',
+             '| --- | ---: | ---: | ---: | ---: |']
     total = [0, 0, 0, 0]
     for catalog_name in ('CATALOG-A', 'CATALOG-B'):
         catalog_data = json.loads((ROOT / catalog_name / 'INDEX.yaml').read_text())
         for domain in catalog_data['domains']:
             docs = domain['documents']
-            counts = [len(docs)] + [sum(Path(str(ROOT / d['template']) + suffix).is_file()
-                                    for d in docs) for suffix in ('', '.blank', '.example')]
+            counts = [len(docs)] + [sum(
+                bool(template_library.render(render_sources[doc['id']], variant))
+                for doc in docs
+            ) for variant in variants]
             total = [a + b for a, b in zip(total, counts)]
             lines.append(f'| {domain["domain"]} | ' + ' | '.join(map(str, counts)) + ' |')
     lines.extend(['', f'**Totals:** {total[0]} types; {total[1]} canonical, {total[2]} blank, '
-                  f'{total[3]} synthetic example templates.', '',
+                  f'{total[3]} synthetic-example renders are available. No output files are written by this report.', '',
+                  '**On-demand rendering:** `make docs-templates` or `autodoc templates` writes to `build/TEMPLATES/`.', '',
                   f'**Mapped generated targets:** {len(load_map()["generated"])}. '
                   'A target can serve several types; no per-type extractor coverage is implied.', '',
                   '**Not yet implemented:** arbitrary TypeScript types, arbitrary SQL dialects, '
@@ -439,7 +450,7 @@ def alert_catalog(entry):
     return '\n'.join(lines) + '\n'
 
 def catalog_facets():
-    """Partition 260 A/B type IDs into complementary development/system/product views."""
+    """Partition A/B catalog IDs into complementary development/system/product views."""
     result = {'A': [], 'B': [], 'C': []}
     system = {3, 4, 5, 6, 7, 8, 12, 13, 14, 21}
     development = {1, 2, 9, 11}
@@ -558,13 +569,15 @@ def relationship_visualization(entry):
         catalog_data = json.loads((ROOT / catalog_name / 'INDEX.yaml').read_text())
         for domain in catalog_data['domains']:
             for doc in domain['documents']:
-                links.extend((doc['id'], doc['template'] + suffix, 'template') for suffix in ('', '.blank', '.example'))
+                render_path = 'build/' + doc['template']
+                links.extend((doc['id'], render_path + suffix, 'template') for suffix in ('', '.blank', '.example'))
     import hashlib
     nodes = sorted({node for a, b, _ in links for node in (a, b)})
     ids = {node: 'n' + hashlib.sha256(node.encode()).hexdigest()[:16] for node in nodes}
     lines = [header('DOC-REL-001', 'Mapped document relationships', 'docs/.doc-sync-map.yaml', generator='relationship_visualization'),
              '# Mapped document relationships', '',
-             'Directed links are derived from frontmatter, mapped generators and catalog templates. '
+             'Directed links are derived from frontmatter, mapped generators and catalog template render destinations. '
+             'Template edges point into ignored `build/TEMPLATES/` and materialize only on request. '
              'Absence of an edge is not evidence of independence. All controlled docs are indexed by the master index.', '',
              '```mermaid', 'flowchart LR']
     for node in nodes:
