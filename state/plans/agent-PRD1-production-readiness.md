@@ -75,6 +75,6 @@ or external state is touched. Promote writes are local, atomic and validated bef
 
 Implementation and local verification are complete: 301 tests + 190 subtests pass, package smoke
 exercises all seven CLI commands, and `make ci` exits 0. Staged impact and pre-commit pass; commit
-`6a76106` is pushed and PR #18 is open for owner review. The plan remains active only for owner
-review/merge; the session is not closed. The `0.3.0` / Beta version-classifier change is a proposal
+`6a76106` is pushed and PR #18 is open for owner review; all GitHub checks pass. The plan remains
+active only for owner review/merge; the session is not closed. The `0.3.0` / Beta version-classifier change is a proposal
 awaiting owner sign-off, not a recorded decision.

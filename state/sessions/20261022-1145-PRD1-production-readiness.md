@@ -60,12 +60,14 @@ See `state/plans/agent-PRD1-production-readiness.md`.
   independent of that proposal.
 - `2026-10-22T12:27Z` [HANDOFF] Staged impact, pre-commit and the final `make ci` pass. Committed
   `6a76106` (`feat: add document instantiation and guarded phase promotion`), pushed the branch and
-  opened PR #18. GitHub checks are running; no merge or session closure.
+  opened PR #18. All GitHub checks pass; no merge or session closure.
+- `2026-10-22T12:43Z` [CHECKS] PR #18 checks pass: required `AutoDOC guard / check`, `impact`,
+  and Python compatibility 3.11–3.15. Owner review and merge remain pending.
 
 ## Outcome
 
-**PARTIAL — implementation, verification, commit/push and PR #18 complete; owner review and merge
-pending.** The session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner's
+**PARTIAL — implementation, verification, commit/push and PR #18 complete with all GitHub checks
+passing; owner review and merge pending.** The session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner's
 word.
 
 ### Accomplished
@@ -86,7 +88,7 @@ word.
 
 ### Not accomplished
 
-- PR #18 is open and GitHub checks are running; merge and the owner verdict remain pending.
+- PR #18 is open with all GitHub checks passing; merge and the owner verdict remain pending.
 - PyPI publication, merging without owner authorization, session closure and an owner verdict on
   the version/classifier proposal remain out of scope.
 - No new ADR: the commands implement already-declared behaviour (phase change is an explicit event;

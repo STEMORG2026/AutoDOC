@@ -47,6 +47,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 67180ea 2026-10-22 docs(state): record PR 18 review handoff
 - 6a76106 2026-10-22 feat: add document instantiation and guarded phase promotion
 - a28616b 2026-10-22 Merge pull request #16 from STEMORG2026/arena/912c4060-autodoc
 - 7604cee 2026-10-22 feat: render catalog template variants on demand
@@ -66,7 +67,6 @@ auto_generated: false
 - 3cc89b2 2026-10-22 docs(state): reconcile C4R7 package readiness
 - b8ba4c2 2026-10-21 test: verify installed CLI help and usage errors
 - 6af0c03 2026-10-21 feat: ship AutoDOC as an installable CLI
-- 52d1b79 2026-10-21 Merge pull request #11 from STEMORG2026/arena/48a62791-autodoc
 
 ## Changed paths at update time
 

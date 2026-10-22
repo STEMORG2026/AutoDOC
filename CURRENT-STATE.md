@@ -36,7 +36,7 @@ target phase's requirement/enforcement delta and writes only the top-level `phas
 `autodoc init --phase/--profile` records an explicit initial declaration. Its local `make ci` gate
 passes (301 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands,
 unsigned evidence-hash verification), and the generated metadata was refreshed. Commit `6a76106`
-is pushed and PR #18 is open; the owner verdict on the proposed `0.3.0`/Beta version remains. It also has an installable `autodoc` CLI
+is pushed and PR #18 is open with all GitHub checks passing; the owner verdict on the proposed `0.3.0`/Beta version remains. It also has an installable `autodoc` CLI
 with zero runtime dependencies, wheel/sdist builds, and clean-environment install smoke coverage.
 Its checks validate controlled-document metadata, generated drift, age, source-to-human-review
 impact, and the structure of instantiated migration documents (required sections and unfilled
