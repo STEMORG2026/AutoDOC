@@ -38,6 +38,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- ed0a4d3 2026-10-22 docs(state): record PR15 review handoff
 - d9641d3 2026-10-22 chore(state): reconcile PR 14 merge
 - 7a0fd47 2026-10-22 Merge pull request #14 from STEMORG2026/arena/894b93ee-autodoc
 - bbda691 2026-10-22 docs(state): record D-004 and D-002 PR handoff
@@ -57,16 +58,9 @@ auto_generated: false
 - 58641ce 2026-10-21 Close the record: PR #8 and PR #9 merged, cold-clone check, and why the merge chain stops
 - 0febe31 2026-10-21 Merge pull request #9 from STEMORG2026/arena/44b2fb68-autodoc
 - a30fc5f 2026-10-21 Reconcile state for D-001: registry, index, dashboard, session handoff
-- 55f70ce 2026-10-21 Record D-001's merge (PR #8, 5bbd7d8) and the post-merge cold-clone check
 
 ## Changed paths at update time
 
 - `state/DASHBOARD.md`
-- `state/DEBT.md`
-- `state/DECISIONS.md`
-- `state/INDEX.md`
-- `state/REGISTRY.md`
-- `state/plans/README.md`
-- `state/plans/agent-912C-pr14-post-merge-reconciliation.md`
 - `state/sessions/20261022-1011-912C-pr14-post-merge-reconciliation.md`
 <!-- auto:end -->

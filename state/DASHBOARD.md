@@ -1,6 +1,6 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T10:22Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
+**Last reconciled:** 2026-10-22T10:31Z · **Reconciled by:** 912C (session `20261022-1011-912C`,
 post-merge verification/state reconciliation) · **Base tip:** `7a0fd47` on `master` (PR #14 merged); reconciliation PR #15 is open from `arena/912c4060-autodoc`, checks passing.
 
 ## Project
@@ -16,7 +16,7 @@ post-merge verification/state reconciliation) · **Base tip:** `7a0fd47` on `mas
 | Promotion cliff | Promoting to `beta` today would fail **2** core rows (License `DOC-A10-008`, Changelog `DOC-A15-003`); both gated on `is_public` |
 | Stack | Python 3.11–3.15 declared, **zero runtime dependencies**; build/pytest/pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
 | Docs | 70 controlled instances (28 generated targets, 42 human-owned, `make docs-health` 2026-10-21) · 384 Markdown files tracked |
-| Tests | Post-merge `make ci` on `master` at PR #14 merge `7a0fd47` passed on Python 3.11: 280 tests + 190 subtests; evidence hashes verified (not signatures). PR #14 and PR #15 required checks, impact job and Python 3.11–3.15 matrix passed. |
+| Tests | Post-merge `make ci` on `master` at PR #14 merge `7a0fd47` passed on Python 3.11: 280 tests + 190 subtests; evidence hashes verified (not signatures). PR #14's required check, separate impact job and Python 3.11–3.15 matrix passed. PR #15's required `AutoDOC guard / check` and Python 3.11–3.15 matrix passed; its PR impact step runs within the guard job, with no separate impact status listed. |
 | CI | 5 workflows; required check `AutoDOC guard / check` remains in GitHub ruleset `main` (P-007-A, strict); supplemental Python 3.11–3.15 matrix is non-blocking; nightly freshness warn-only; tag workflow builds snapshot + wheel/sdist artifacts, no PyPI publish |
 
 ## Active agents
@@ -24,8 +24,9 @@ post-merge verification/state reconciliation) · **Base tip:** `7a0fd47` on `mas
 `912C` — session `20261022-1011-912C` (**PAUSED (PR #15 open; awaiting owner review)**): verified
 PR #14's merge and reconciled post-merge state on `arena/912c4060-autodoc`. The merged tree passes
 local `make ci` (280 tests, 190 subtests; evidence hashes verified, not signatures). PR #15's required
-check, impact job and Python 3.11–3.15 matrix pass. Next-work options are persisted; no feature was
-selected or implemented.
+`AutoDOC guard / check` and Python 3.11–3.15 matrix pass. The PR impact step runs within the guard
+check; GitHub did not list a separate `impact` status. Next-work options were recorded at this PR's
+handoff; no feature implementation is included in this state-reconciliation PR.
 
 `894B` — session `20261022-0445-894B` (**PAUSED (awaiting explicit owner closure)**): implemented
 D-004 audience applicability and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at

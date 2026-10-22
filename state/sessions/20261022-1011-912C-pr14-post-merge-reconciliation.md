@@ -51,9 +51,10 @@ See `state/plans/agent-912C-pr14-post-merge-reconciliation.md`.
   integrations remain covered by fake-tool tests.
 - `2026-10-22T10:22Z` [HANDOFF] Committed `d9641d3` (`chore(state): reconcile PR 14 merge`), pushed
   only `arena/912c4060-autodoc`, and opened PR #15:
-  https://github.com/STEMORG2026/AutoDOC/pull/15. Required `AutoDOC guard / check`, impact, and
-  Python 3.11–3.15 checks all pass. The session is paused awaiting owner review; next-work options
-  are persisted, but no option has been selected.
+  https://github.com/STEMORG2026/AutoDOC/pull/15. The required `AutoDOC guard / check` and Python
+  3.11–3.15 checks pass. The PR impact step runs within the guard check; GitHub did not list a
+  separate `impact` status. The session is paused awaiting owner review; next-work options are
+  persisted, but no option has been selected.
 
 ## Handoff
 
