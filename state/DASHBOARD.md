@@ -1,8 +1,9 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-23T07:10Z · **Reconciled by:** BETA (session `20261023-0612-BETA`,
-post-merge reconciliation) · **Base tip:** `8f9c709` on `master` (PR #24 merged the beta
-promotion); post-merge `make ci` passes 307 tests + 188 subtests. BETA is **PAUSED — merged;
+**Last reconciled:** 2026-10-23T08:03Z · **Reconciled by:** EVOLVE (session
+`20261023-0751-EVOLVE`) · **Base tip:** `249c2aa` on `master` (PR #25 merged the post-PR24
+reconciliation); the `feat/autodoc-evolve` branch adds the safe `autodoc evolve` command and
+passes 315 tests + 188 subtests in local pytest, not yet merged. BETA is **PAUSED — merged;
 awaiting explicit owner closure**, as are PRD2, PRD1 and 912C; release, tag, PyPI and session
 closure remain owner-only.
 
@@ -11,7 +12,7 @@ closure remain owner-only.
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `8f9c709` (PR #24 merged the beta promotion; local `master` synced). No implementation branch is active; this state-only reconciliation branch awaits review |
+| Branch | `master` at `249c2aa` (PR #25 merged the post-PR24 state reconciliation); active implementation branch `feat/autodoc-evolve` for the owner-requested `autodoc evolve` command |
 | Declared phase | `beta` (strict) — declared 2026-10-23, never inferred; promotion merged in PR #24 |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -19,10 +20,18 @@ closure remain owner-only.
 | Promotion cliff | **Cleared:** `autodoc promote --to beta` exited 0 with `Delta: no catalog requirement changes`; the beta declaration reports 17/17. PR #24 wrote `phase = "beta"` and `phase_declared = "2026-10-23"`; release remains separate |
 | Stack | Python 3.11–3.15 declared, **zero runtime dependencies**; build/pytest/pre-commit for dev; SQLite and a 3-route HTTP server only in the synthetic demo |
 | Docs | 70 controlled Markdown documents (24 generated, 46 human-owned); 28 mapped generated targets in total (four non-Markdown); 265 catalog types can render all 795 variants on demand, none checked in. PRD1 adds single-document instantiation and guarded phase promotion. |
-| Tests | Post-merge `master` `make ci` passes on Python 3.14.8: 307 tests + 188 subtests, wheel/sdist build + clean-install smoke (`check/generate/adopt/init/add/promote/templates`), and unsigned evidence hashes verified (not signatures). `make audit` (pip-audit 2.10.1) reports `No known vulnerabilities found` in the installed development environment. |
+| Tests | Post-PR25 `master` passes 307 tests + 188 subtests; `feat/autodoc-evolve` passes 315 tests + 188 subtests in local pytest, including eight new `evolve`/CLI tests. The merge gate also runs wheel/sdist build + clean-install smoke (`check/generate/adopt/init/add/promote/evolve/templates`) and unsigned evidence hashes (not signatures). `make audit` (pip-audit 2.10.1) reports `No known vulnerabilities found` in the installed development environment. |
 | CI | 5 workflows; required check `AutoDOC guard / check` remains in GitHub ruleset `main` (P-007-A, strict); supplemental Python 3.11–3.15 matrix is non-blocking; nightly freshness warn-only; tag workflow builds snapshot + wheel/sdist artifacts, no PyPI publish |
 
 ## Active agents
+
+`EVOLVE` — session `20261023-0751-EVOLVE` (**ACTIVE — implementation on `feat/autodoc-evolve`**):
+adds the owner-requested `autodoc evolve` command from `master` `249c2aa`. It plans safe
+documentation evolution with no writes by default, refreshes generated drift with `--write`, and
+creates missing required documents only as unregistered `draft` instances with
+`--write --allow-add`; it never edits the phase, profile, decisions, approvals or catalog. Local
+pytest passes 315 tests + 188 subtests. PR not yet opened; no release, tag, PyPI publication,
+phase change or session closure.
 
 `BETA` — session `20261023-0612-BETA` (**PAUSED — merged; awaiting explicit owner closure**):
 wrote the owner-authorized `beta` declaration (2026-10-23), removed severity pins that duplicated
@@ -77,9 +86,11 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 
 **Current follow-up (2026-10-23).** PR #21 merged the production-readiness closeout at
 `f8e2c76`; PR #22 reconciled the state at `f040105`; PR #23 made the shipped-phase tests follow
-the declaration at `3fda35b`; PR #24 merged the beta promotion at `8f9c709`, and post-merge
-`make ci` passes with `beta-ready: 17/17`. The owner still needs to decide the `0.3.0` / Beta
-release and close sessions. 894B/627F/C4R7/B71a remain paused; 912C, PRD1, PRD2 and BETA are
+the declaration at `3fda35b`; PR #24 merged the beta promotion at `8f9c709`; PR #25 reconciled
+the state at `249c2aa`, and post-merge `autodoc check` remains `beta-ready: 17/17`. EVOLVE is now
+implementing the owner-requested `autodoc evolve` command on `feat/autodoc-evolve`; local pytest
+passes 315 tests + 188 subtests, not yet merged. The owner still needs to decide the `0.3.0` /
+Beta release and close sessions. 894B/627F/C4R7/B71a remain paused; 912C, PRD1, PRD2 and BETA are
 merged but not explicitly closed. D-007 and PyPI publishing remain unauthorized; D-009's external
 dogfood was executed but its formal acceptance/record remains open. D-010's operator-run scanner
 now exists; its formal close still needs the owner or a recorded verification.
@@ -121,6 +132,8 @@ now exists; its formal close still needs the owner or a recorded verification.
 
 | Date | Work | Commits |
 | --- | --- | --- |
+| 2026-10-23 | **Post-PR24 state reconciliation merged:** records the beta merge, PR #20 correction (`f2e8698`), and paused-session status | PR #25 → `249c2aa` |
+| 2026-10-23 | **`autodoc evolve` implementation started:** read-only plan, generated refresh with `--write`, draft-only creation with `--allow-add`, maturity signals and JSON/check modes; local pytest 315 tests + 188 subtests; PR pending | `feat/autodoc-evolve` |
 | 2026-10-23 | **Beta promotion merged:** `phase = "beta"`, declaration date 2026-10-23; duplicate pins removed; beta-ready 17/17; post-merge `make ci` passes 307 tests + 188 subtests; no tag, release or closure | PR #24 → `8f9c709` |
 | 2026-10-23 | **Phase-agnostic shipped checks merged:** tests derive the declared phase, label and severity table from `autodoc.toml`; no phase or release change | PR #23 → `3fda35b` |
 | 2026-10-23 | **Post-PR21 state reconciliation merged:** records PR #21, PRD2 paused, and the post-merge gate; no phase or release change | PR #22 → `f040105` |
@@ -151,14 +164,17 @@ now exists; its formal close still needs the owner or a recorded verification.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Owner release decision:** decide whether to keep the proposed `0.3.0` / Beta version
+1. **Review `autodoc evolve`:** EVOLVE is implementing the owner-requested command on
+   `feat/autodoc-evolve`; local pytest passes 315 tests + 188 subtests. The owner merges the PR;
+   no release or session closure is included.
+2. **Owner release decision:** decide whether to keep the proposed `0.3.0` / Beta version
    metadata, and whether to tag or publish. No release or PyPI publication is proposed by this
    branch.
-2. **Deferred scope:** D-007 remains unselected; D-009's external dogfood was executed but its
+3. **Deferred scope:** D-007 remains unselected; D-009's external dogfood was executed but its
    formal acceptance/record remains open. D-010's `make audit` mechanism is implemented; record its
    first accepted run if the owner wants the debt formally closed. No implementation work is
    pending for the closeout scope.
-3. **Session closure and release boundaries:** BETA, PRD2, PRD1 and 912C are merged but not
+4. **Session closure and release boundaries:** BETA, PRD2, PRD1 and 912C are merged but not
    closed; 894B, 627F, C4R7 and B71a remain paused/awaiting explicit owner closure. Only the owner
    closes sessions. Package workflows build artifacts only; PyPI/trusted publishing needs a
    separate owner decision. The beta phase write is complete; it is not a release.

@@ -46,12 +46,13 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 1: Quick start
 - L2 line 20: Install the CLI
-- L2 line 44: Dependencies and versions
-- L2 line 56: Adopt an existing project
-- L2 line 64: New project and new documents
-- L2 line 79: Promote the declared phase
-- L2 line 95: Add a deterministic extractor
-- L2 line 102: Interpret a failure
+- L2 line 45: Dependencies and versions
+- L2 line 57: Adopt an existing project
+- L2 line 65: New project and new documents
+- L2 line 80: Promote the declared phase
+- L2 line 96: Evolve an existing project
+- L2 line 116: Add a deterministic extractor
+- L2 line 123: Interpret a failure
 
 ## `README.md`
 
@@ -59,9 +60,9 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 11: What it does
 - L2 line 27: Quick start (Python 3.11+)
 - L3 line 37: Installable CLI
-- L2 line 104: Status
-- L2 line 117: Navigate
-- L2 line 135: License
+- L2 line 109: Status
+- L2 line 122: Navigate
+- L2 line 140: License
 
 ## `TEMPLATES/AGENT-CONTEXT/README.md`
 
@@ -75,13 +76,13 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC self-adoption and applicability
 - L2 line 24: Purpose and scope
-- L2 line 44: Selected document types
-- L2 line 59: Rollout and success criteria
-- L2 line 66: Non-applicability and gaps
-- L2 line 76: Verification and references
-- L2 line 82: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 93: Applicability decisions (step 3, 2026-10-01)
-- L2 line 118: Phase 3 applicability
+- L2 line 45: Selected document types
+- L2 line 60: Rollout and success criteria
+- L2 line 67: Non-applicability and gaps
+- L2 line 77: Verification and references
+- L2 line 83: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 94: Applicability decisions (step 3, 2026-10-01)
+- L2 line 119: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -177,10 +178,11 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 117: The event contract
 - L2 line 130: Implemented validators
 - L2 line 155: Mapped but template-only
-- L2 line 165: Partially supported
-- L2 line 173: Explicitly not implemented
-- L2 line 183: Not supported / integration needed
-- L2 line 191: Known environment constraints
+- L2 line 165: Safe evolution
+- L2 line 177: Partially supported
+- L2 line 185: Explicitly not implemented
+- L2 line 195: Not supported / integration needed
+- L2 line 203: Known environment constraints
 
 ## `docs/00-governance/EVIDENCE-SIGNING.md`
 
@@ -226,10 +228,10 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
-- L2 line 46: Details and decisions
-- L2 line 244: Module contracts
-- L2 line 263: Verification and references
-- L2 line 274: Phase 3 trust boundaries
+- L2 line 47: Details and decisions
+- L2 line 245: Module contracts
+- L2 line 264: Verification and references
+- L2 line 275: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 
@@ -276,9 +278,9 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: Exit codes
 - L2 line 40: Where each code comes from
-- L2 line 56: What a code does not say
-- L2 line 64: Baseline entries
-- L2 line 80: Hooks and gates
+- L2 line 57: What a code does not say
+- L2 line 65: Baseline entries
+- L2 line 81: Hooks and gates
 
 ## `docs/templates/adr-template.md`
 

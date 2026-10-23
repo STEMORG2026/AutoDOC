@@ -33,11 +33,12 @@ or its development state. At runtime, the CLI locates that **tool root** separat
 project: `autodoc check --repo PATH` delegates to the existing enforcement policy and resolves
 the project's `[instantiated]`/`[satisfied_by]` paths against `PATH`, while the bundled tool root
 supplies catalog data only. `autodoc generate --root PATH` reads that project's sync map. `init`,
-`adopt`, `add`, `promote` and `templates` likewise receive an explicit existing project directory.
+`adopt`, `add`, `promote`, `evolve` and `templates` likewise receive an explicit existing project directory.
 `init` can write an initial phase/profile declaration; `add` instantiates one catalog type and
 rejects an instance ID already declared by another controlled document unless `--instance` names a
-distinct ID; and `promote` previews the catalog delta before editing the top-level phase
-declarations. This boundary is exercised by a clean-venv install test outside the checkout.
+distinct ID; `promote` previews the catalog delta before editing the top-level phase
+declarations; and `evolve` plans safe generated refreshes and draft-only gap filling without
+granting compliance. This boundary is exercised by a clean-venv install test outside the checkout.
 Runtime dependencies remain empty. An optional `audit` extra supplies `pip-audit` for the
 operator-run `make audit`; it is never imported by shipped code and is not part of the offline
 `make ci` gate. The release workflow builds wheel and sdist artifacts only; PyPI publication and

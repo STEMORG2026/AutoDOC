@@ -1,6 +1,6 @@
 # BLOCKERS — active blockers and dependencies
 
-**Last reconciled:** 2026-10-23T07:10Z (no active blockers. B-003 remains cleared; PR #21 merged the production-readiness closeout at `f8e2c76`; PR #23 merged the phase-agnostic shipped checks at `3fda35b`; PR #24 merged the beta promotion at `8f9c709`, and post-merge `make ci` passes with beta-ready 17/17. Release/version and session-closure decisions remain owner-gated, not blockers.)
+**Last reconciled:** 2026-10-23T08:03Z (no active blockers. B-003 remains cleared; PR #24 merged the beta promotion at `8f9c709`; PR #25 reconciled state at `249c2aa`; EVOLVE is implementing `autodoc evolve` on `feat/autodoc-evolve` with local pytest 315 tests + 188 subtests. Release/version and session-closure decisions remain owner-gated, not blockers.)
 
 | ID | Blocker | Blocks | Owner who can clear it | Raised |
 | --- | --- | --- | --- | --- |

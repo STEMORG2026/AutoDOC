@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-23 (PR #24 merged the beta promotion at `8f9c709`. BETA/PRD1/PRD2/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
+**Last reconciled:** 2026-10-23T08:03Z (master `249c2aa` after PR #25; EVOLVE is implementing `autodoc evolve` on `feat/autodoc-evolve`. BETA/PRD1/PRD2/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -13,7 +13,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 | --- | --- | --- |
 | CLI + distribution | `autodoc/`, `setup.py`, `MANIFEST.in` | `autodoc` console command over existing scripts; wheel data under `share/autodoc`; project roots are explicit and separate from bundled tool assets |
 | Sync engine | `scripts/doc-sync/*` | Sources → deterministic generators → mapped targets; drift, impact, freshness checks |
-| Intelligence | `scripts/intelligence/*` | `profile` (facts) → `context` (declarations) → `recommend` (applicability) → `enforce` (severity at the declared phase) → `triggers` (when CI runs what) |
+| Intelligence | `scripts/intelligence/*` | `profile` (facts) → `context` (declarations) → `recommend` (applicability) → `enforce` (severity at the declared phase) → `triggers` (when CI runs what); `evolve` composes the same layers into a read-only plan and draft-only apply |
 | Doc control | `scripts/doc-control/*` | Catalog build/check, guards, health, evidence packing, release snapshot, link checks, hooks |
 | Machine policy | `CONTROL/metadata/*` | Rules, profiles under review, context model, triggers, schemas — machine-written JSON |
 | Catalog + templates | `CATALOG-A/B/C`, catalog renderer, ignored `build/TEMPLATES/` | 265 document types, 24 core, 49 extended; all three variants render on demand from each catalog record |
@@ -25,6 +25,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 - **Documentation:** mapped source → generator (labeled `exact` or `heuristic`) → target; `docs-drift` fails the build when a target is stale. The installed `autodoc` CLI resolves its bundled tool root separately from `check --repo` and `generate --root` project paths.
 - **Applicability:** three-valued facts → profile → `recommend`; a catalog `reader` adds the implicit AND token `audience:<reader>` (match=true, non-match in a non-empty audience=false/not-applicable, empty=unknown, `assess` exempt) → decision states (`[instantiated]`, `[satisfied_by]`, `[not_applicable]`, open, off, undetermined) at the declared phase's severity.
 - **Gating:** `CONTROL/metadata/TRIGGERS.json` declares which events run what; one blocking event, one required status check (`AutoDOC guard / check`), network checks scheduled and warn-only.
+- **Evolution:** `autodoc evolve` plans from the same context/profile/catalog/enforcement layers. `--write` refreshes only declared generated targets; `--write --allow-add` creates missing required documents as unregistered drafts. Undetermined facts, structural findings and existing-but-unregistered documents are reports for a human decision, never guesses or overwrites.
 
 ## Invariants worth knowing before touching anything
 
@@ -47,6 +48,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 
 | Date | Change |
 | --- | --- |
+| 2026-10-23 | EVOLVE started the owner-requested `autodoc evolve` command on `feat/autodoc-evolve`: read-only planning, generated refresh, draft-only missing documents, maturity/JSON/check modes; local pytest passes 315 tests + 188 subtests; PR pending, no release or closure. |
 | 2026-10-23 | BETA's owner-authorized `beta` declaration (2026-10-23) merged in PR #24 at `8f9c709`; duplicate severity pins were removed and phase-dependent docs/tests/state updated. Post-merge `make ci` passes with beta-ready 17/17; no release or closure. |
 | 2026-10-23 | PR #23 made the shipped-phase tests derive from `autodoc.toml`, so a promotion no longer fails CI on hard-coded `build` assertions. |
 | 2026-10-23 | PRD2's closeout merged in PR #21 at `f8e2c76`: `LICENSE`/`CHANGELOG.md` are beta document homes, the optional `audit` extra plus `make audit` are documented, and readiness treats unverifiable declared paths as open; beta promotion previews clean but no phase write, release or closure is included. |

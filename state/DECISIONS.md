@@ -1,6 +1,6 @@
 # DECISIONS — record of settled choices
 
-**Last reconciled:** 2026-10-23T07:10Z
+**Last reconciled:** 2026-10-23T08:03Z
 
 Entries are append-only. An owner decision that is implemented but not yet recorded in the machine
 files is marked **accepted — recording pending**; an agent never marks an owner decision recorded.
@@ -23,6 +23,8 @@ files is marked **accepted — recording pending**; an agent never marks an owne
 | ADR-014 | Owner selected D-004 followed by D-002 after PR #13: catalog `reader` is an implicit AND audience token; match=true, mismatch in a non-empty declared set=false/not applicable, empty=unknown, and `assess` is exempt. D-002 uses JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON through `cargo rustdoc` | Owner | 2026-10-22 | accepted, implemented and merged in PR #14 | `scripts/intelligence/recommend.py`, `scripts/doc-sync/languages.py`, tests and schemas; owner-confirmed semantics; PR #14 merge `7a0fd47` |
 | ADR-016 | **Beta promotion:** the owner authorized proceeding with the phase write after the beta preview was blocker-free and PR #23 made the shipped-phase tests phase-agnostic. `phase` becomes `beta` with `phase_declared = 2026-10-23`; the `stubs` and `freshness.review` pins are removed because they duplicate beta defaults, leaving `tribal` and `freshness.critical` stricter than beta. Merging the promotion PR is the phase-write event; no tag, PyPI publication or session closure is included | Owner (“merged, proceed”) | 2026-10-23 | **accepted, recorded — merged in PR #24** | `autodoc.toml`, PR #24 merge `8f9c709`, session `20261023-0612-BETA` |
 | ADR-015 | Owner selected D-003 after PR #15 was explicitly authorized and merged at `990113b`: render catalog templates on demand into ignored `build/TEMPLATES`; keep the catalog record as the single source per type | Owner | 2026-10-22 | accepted, recorded; implemented and merged in PR #16 | `state/DEBT.md`, `state/plans/agent-912C-pr14-post-merge-reconciliation.md`, PR #16 merge `a28616b` |
+| ADR-017 | **Autoevolution:** the owner asked AutoDOC to auto-evolve while documenting mature projects, selected both scopes as separate commands, and authorized `autodoc evolve` first. The command plans from the same context/profile/catalog/enforcement layers; `--write` refreshes generated drift, and `--write --allow-add` creates missing required documents only as unregistered `draft` instances. It never edits the phase, profile, decisions, approvals or catalog, and never overwrites an existing document. `evolve-catalog` remains a separate, unopened scope | Owner (“that could be the new feature i want to add”, “Both, separate commands”, “yes”) | 2026-10-23 | accepted — implementation in progress on `feat/autodoc-evolve`; not yet merged | session `20261023-0751-EVOLVE`, plan `agent-EVOLVE-evolve-command.md`, `scripts/intelligence/evolve.py` |
+
 ## Pending — owner decisions awaiting a verdict
 
 **Decided 2026-10-01 — the owner stated "proceed with recomendation", adopting all six

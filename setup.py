@@ -22,6 +22,7 @@ RUNTIME_FILES = (
     "scripts/doc-sync/languages.py",
     "scripts/intelligence/context.py",
     "scripts/intelligence/enforce.py",
+    "scripts/intelligence/evolve.py",
     "scripts/intelligence/profile.py",
     "scripts/intelligence/promote.py",
     "scripts/intelligence/recommend.py",

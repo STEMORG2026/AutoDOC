@@ -74,6 +74,7 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_cli.py` | 93 | `test_check_adopt_and_init_operate_on_selected_project` |
 | `tests/test_cli.py` | 111 | `test_adoption_scan_skips_dependency_and_build_trees` |
 | `tests/test_cli.py` | 122 | `test_add_and_promote_operate_on_selected_project` |
+| `tests/test_cli.py` | 148 | `test_evolve_plans_safe_actions_and_checks_pending_work` |
 | `tests/test_context.py` | 22 | `ContextTests.test_missing_file_is_an_empty_advisory_context` |
 | `tests/test_context.py` | 31 | `ContextTests.test_bare_reason_string_is_normalised` |
 | `tests/test_context.py` | 37 | `ContextTests.test_table_reason_form_is_accepted` |
@@ -136,6 +137,13 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_engine.py` | 91 | `EngineTests.test_self_review_rules_are_enforced` |
 | `tests/test_engine.py` | 101 | `EngineTests.test_rejects_map_target_outside_checkout` |
 | `tests/test_engine.py` | 111 | `EngineTests.test_critical_stale_fails` |
+| `tests/test_evolve.py` | 32 | `test_plan_is_read_only_and_finds_required_documents` |
+| `tests/test_evolve.py` | 50 | `test_write_without_allow_add_does_not_create_documents` |
+| `tests/test_evolve.py` | 61 | `test_allow_add_creates_drafts_but_never_registers_them` |
+| `tests/test_evolve.py` | 82 | `test_existing_unregistered_document_is_reported_not_overwritten` |
+| `tests/test_evolve.py` | 98 | `test_generated_drift_is_planned_and_refreshed` |
+| `tests/test_evolve.py` | 129 | `test_configuration_errors_block_every_write` |
+| `tests/test_evolve.py` | 148 | `test_maturity_uses_observable_signals` |
 | `tests/test_example.py` | 35 | `APIIntegrationTests.test_registry_and_data` |
 | `tests/test_external_links.py` | 36 | `ExtractionTests.test_prose_links_are_read_and_fenced_code_is_not` |
 | `tests/test_external_links.py` | 43 | `ExtractionTests.test_trailing_punctuation_is_stripped_and_duplicates_keep_their_first_home` |

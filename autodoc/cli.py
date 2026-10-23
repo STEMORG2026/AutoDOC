@@ -33,6 +33,7 @@ def runtime_root() -> Path:
 
     required = (
         "scripts/intelligence/enforce.py",
+        "scripts/intelligence/evolve.py",
         "scripts/intelligence/promote.py",
         "scripts/doc-sync/engine.py",
         "scripts/doc-control/library.py",
@@ -130,6 +131,20 @@ def build_parser() -> argparse.ArgumentParser:
     promote.add_argument("--force", action="store_true",
                          help="allow a demotion, backdate or write with missing required documents")
     promote.add_argument("--json", action="store_true", help="print a machine-readable result")
+
+    evolve = commands.add_parser("evolve", help="plan safe documentation updates for a project")
+    evolve.add_argument("--repo", type=Path, default=Path.cwd(),
+                        help="project to evolve (default: current directory)")
+    evolve.add_argument("--config", type=Path, help="context TOML (default: <repo>/autodoc.toml)")
+    evolve.add_argument("--baseline", type=Path,
+                        help="baseline JSON (default: <repo>/autodoc-baseline.json)")
+    evolve.add_argument("--write", action="store_true",
+                        help="apply safe actions (generated refresh, and drafts with --allow-add)")
+    evolve.add_argument("--allow-add", action="store_true",
+                        help="with --write, create missing required documents as drafts")
+    evolve.add_argument("--check", action="store_true",
+                        help="exit 1 when an action is pending, without writing")
+    evolve.add_argument("--json", action="store_true", help="print a machine-readable plan")
 
     templates = commands.add_parser("templates", help="render catalog templates on demand into a project build directory")
     templates.add_argument(
@@ -236,6 +251,18 @@ def main(argv: Sequence[str] | None = None) -> int:
             if getattr(args, option):
                 command.append("--" + option)
         return _run_script(tool_root / "scripts/intelligence/promote.py", command)
+
+    if args.command == "evolve":
+        project = _absolute_directory(parser, args.repo, "--repo")
+        command = ["--repo", str(project)]
+        for option in ("config", "baseline"):
+            value = getattr(args, option)
+            if value is not None:
+                command.extend(("--" + option, str(_absolute_file(value))))
+        for option in ("write", "allow_add", "check", "json"):
+            if getattr(args, option):
+                command.append("--" + option.replace("_", "-"))
+        return _run_script(tool_root / "scripts/intelligence/evolve.py", command)
 
     if args.command == "templates":
         project = _absolute_directory(parser, args.root, "--root")

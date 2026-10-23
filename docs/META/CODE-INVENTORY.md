@@ -31,7 +31,7 @@ Per-language inventory of the mapped sources. Every generator declares its exact
 | Language | Files | Generator | Tool | Exactness | What it can and cannot see |
 | --- | ---: | --- | --- | --- | --- |
 | javascript | 1 | javascript | JSDoc -X | exact | JSDoc JSON doclets for the explicitly matched JavaScript/JSX files; it reports what the tool recognizes and does not infer runtime behavior. Local JSDoc config or plugins may affect output and may execute code; AutoDOC installs nothing. |
-| python | 42 | python | ast (the CPython parser) | exact | Module-level declarations, signatures and first docstring lines from parsed source: definitions created at runtime, generated code and non-module sources are invisible. |
+| python | 43 | python | ast (the CPython parser) | exact | Module-level declarations, signatures and first docstring lines from parsed source: definitions created at runtime, generated code and non-module sources are invisible. |
 
 ## Python declarations (exact, in-process)
 
@@ -47,12 +47,12 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `EXAMPLE-PROJECT/src/app.py` | 45 | function | `Handler.do_POST` | `(self)` | — |
 | `EXAMPLE-PROJECT/src/app.py` | 62 | function | `serve` | `(host='0.0.0.0', port=None, db_path=None)` | — |
 | `autodoc/cli.py` | 21 | function | `runtime_root` | `() -> Path` | Locate the bundled AutoDOC scripts and policy data, never the target project. |
-| `autodoc/cli.py` | 62 | function | `_add_check_arguments` | `(parser: argparse.ArgumentParser) -> None` | — |
-| `autodoc/cli.py` | 75 | function | `build_parser` | `() -> argparse.ArgumentParser` | — |
-| `autodoc/cli.py` | 150 | function | `_absolute_directory` | `(parser: argparse.ArgumentParser, value: Path, option: str) -> Path` | — |
-| `autodoc/cli.py` | 157 | function | `_absolute_file` | `(value: Path) -> Path` | — |
-| `autodoc/cli.py` | 161 | function | `_run_script` | `(script: Path, arguments: Sequence[str]) -> int` | Execute an existing script with the same interpreter and preserve its exit code. |
-| `autodoc/cli.py` | 173 | function | `main` | `(argv: Sequence[str] | None=None) -> int` | — |
+| `autodoc/cli.py` | 63 | function | `_add_check_arguments` | `(parser: argparse.ArgumentParser) -> None` | — |
+| `autodoc/cli.py` | 76 | function | `build_parser` | `() -> argparse.ArgumentParser` | — |
+| `autodoc/cli.py` | 165 | function | `_absolute_directory` | `(parser: argparse.ArgumentParser, value: Path, option: str) -> Path` | — |
+| `autodoc/cli.py` | 172 | function | `_absolute_file` | `(value: Path) -> Path` | — |
+| `autodoc/cli.py` | 176 | function | `_run_script` | `(script: Path, arguments: Sequence[str]) -> int` | Execute an existing script with the same interpreter and preserve its exit code. |
+| `autodoc/cli.py` | 188 | function | `main` | `(argv: Sequence[str] | None=None) -> int` | — |
 | `engine/extractors/env_alerts.py` | 7 | function | `environment` | `(path: Path)` | Parse described KEY=value entries; never silently accept undocumented keys. |
 | `engine/extractors/env_alerts.py` | 35 | function | `alerts` | `(path: Path, root: Path)` | JSON-compatible YAML subset; validate actual runbook existence and mandatory fields. |
 | `engine/extractors/facts.py` | 12 | function | `headings` | `(path: Path)` | ATX headings, excluding fenced code (setext headings are not supported). |
@@ -252,6 +252,19 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/enforce.py` | 407 | function | `machine_document` | `(data, findings, suppressed, stale, enforcement, summary)` | The JSON shape: everything the terminal text says, not only the prose. |
 | `scripts/intelligence/enforce.py` | 424 | function | `run` | `(args)` | — |
 | `scripts/intelligence/enforce.py` | 460 | function | `main` | `()` | — |
+| `scripts/intelligence/evolve.py` | 40 | function | `_load` | `(name: str, path: Path)` | — |
+| `scripts/intelligence/evolve.py` | 55 | function | `_git` | `(repo: Path, *args: str) -> str | None` | — |
+| `scripts/intelligence/evolve.py` | 67 | function | `_matches` | `(repo: Path, patterns: tuple[str, ...]) -> bool` | — |
+| `scripts/intelligence/evolve.py` | 71 | function | `maturity` | `(repo: Path) -> dict` | Report observable maturity signals. The level is advisory, never a phase declaration. |
+| `scripts/intelligence/evolve.py` | 103 | function | `_context` | `(repo: Path, config: Path | None) -> tuple[Path, dict]` | — |
+| `scripts/intelligence/evolve.py` | 114 | function | `_target` | `(document: dict) -> str` | — |
+| `scripts/intelligence/evolve.py` | 118 | function | `_finding` | `(item: dict) -> dict` | — |
+| `scripts/intelligence/evolve.py` | 124 | function | `build_plan` | `(repo: Path, config: Path | None=None, baseline: Path | None=None) -> dict` | Build a read-only plan. This function never writes to the project. |
+| `scripts/intelligence/evolve.py` | 236 | function | `apply_plan` | `(result: dict, repo: Path, allow_add: bool=False) -> tuple[int, dict]` | Apply the safe parts of a plan. Returns (exit code, result). |
+| `scripts/intelligence/evolve.py` | 279 | function | `evolve` | `(*, repo: Path, config: Path | None=None, baseline: Path | None=None, write: bool=False, allow_add: bool=False) -> tuple[int, dict]` | — |
+| `scripts/intelligence/evolve.py` | 289 | function | `_maturity_line` | `(document: dict) -> str` | — |
+| `scripts/intelligence/evolve.py` | 301 | function | `render` | `(result: dict) -> str` | — |
+| `scripts/intelligence/evolve.py` | 371 | function | `main` | `(argv: list[str] | None=None) -> int` | — |
 | `scripts/intelligence/profile.py` | 209 | function | `fact_specs` | `()` | Every fact in the vocabulary, with its detection route. |
 | `scripts/intelligence/profile.py` | 224 | function | `tracked_files` | `(root)` | Tracked files when Git is available (honors .gitignore); otherwise a pruned walk. |
 | `scripts/intelligence/profile.py` | 242 | function | `skipped_dir` | `(relative)` | A path inside a generated, vendored or test-input directory is not project evidence. |
@@ -331,5 +344,5 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/test_package.py` | 22 | function | `run` | `(command: list[str], *, cwd: Path, expected: int=0, env: dict[str, str] | None=None)` | — |
 | `scripts/test_package.py` | 34 | function | `extract_generated_sdist` | `(archive_path: Path, destination: Path) -> Path` | Extract only ordinary files/directories from the just-built sdist, rejecting path escapes. |
 | `scripts/test_package.py` | 53 | function | `smoke_installed_cli` | `(wheel: Path, work: Path) -> None` | — |
-| `scripts/test_package.py` | 136 | function | `main` | `() -> int` | — |
-| `setup.py` | 31 | function | `runtime_data_files` | `() -> list[tuple[str, tuple[str, ...]]]` | Return the executable runtime files plus the catalog/context inputs they need. |
+| `scripts/test_package.py` | 141 | function | `main` | `() -> int` | — |
+| `setup.py` | 32 | function | `runtime_data_files` | `() -> list[tuple[str, tuple[str, ...]]]` | Return the executable runtime files plus the catalog/context inputs they need. |
