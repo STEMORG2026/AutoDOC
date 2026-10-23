@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 auto_generated: false
 ---
 # AutoDOC self-adoption and applicability
@@ -99,10 +99,10 @@ domain prefixes). A type's `applies_when` is a predicate over **three-valued fac
 `make docs-profile`, never a project-type label; the 72 types with no detectable predicate are
 marked `assess` and are never auto-recommended. `make docs-recommend` joins the profile with
 `autodoc.toml`, and severity scales with the declared phase — undeclared is advisory; this
-repository declares `build`. `recommend.py --check` fails only what the declared phase requires.
+repository declares `beta`. `recommend.py --check` fails only what the declared phase requires.
 **The core list and the phase ladder were owner-reviewed on 2026-10-01** (see the
 `owner_reviewed` note in the machine files). Every applicable core type is recorded: the resolver
-reports 15/15 build-ready with 0 open decisions. The demo-only facts
+reports 17/17 beta-ready with 0 open decisions. The demo-only facts
 (`has_public_api_surface`, `has_http_api`, `has_persistent_state`, `has_env`, `has_ai`) are
 declared false with reasons in `autodoc.toml`, because the only evidence for them was the
 synthetic `EXAMPLE-PROJECT` and example projects — and the listener detector no longer matches

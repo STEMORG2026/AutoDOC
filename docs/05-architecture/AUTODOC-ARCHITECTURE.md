@@ -217,10 +217,10 @@ Catalog records / mapped source files / Markdown metadata
   instructions and freshness — resolves its severity through the same precedence: an explicit
   `[severity]` override in `autodoc.toml`, then the declared phase's enforcement block, then
   `report`. An undeclared phase reports everything and fails nothing. This repository declares
-  `phase = "build"` and keeps four pins that are deliberately stricter than that block (`stubs`,
-  `tribal`, both `freshness.*`); a pin that merely repeated the phase default was removed as
-  noise. Findings carry rule id, severity, location, reason, fix hint and the context that caused
-  them ("phase=build and has_public_api_surface=true"); the machine output carries the same as
+  `phase = "beta"` and keeps two pins that are deliberately stricter than that block (`tribal`
+  and `freshness.critical`); pins that merely repeated the phase default were removed as noise.
+  Findings carry rule id, severity, location, reason, fix hint and the context that caused
+  them ("phase=beta and has_public_api_surface=true"); the machine output carries the same as
   `because`, `enforced` (true/false) and `enforced_reason`, and the report states the capability
   level that ran. Undetermined items are reported and never failed.
 

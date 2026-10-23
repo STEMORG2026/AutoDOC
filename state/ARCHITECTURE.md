@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-23 (PR #21 merged PRD2's closeout at `f8e2c76`: beta document homes, operator-run audit and readiness fixes; PRD1/PRD2/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
+**Last reconciled:** 2026-10-23 (PR #23 merged phase-agnostic shipped checks at `3fda35b`; BETA's owner-authorized beta promotion PR is open. PRD1/PRD2/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -47,6 +47,8 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 
 | Date | Change |
 | --- | --- |
+| 2026-10-23 | BETA writes the owner-authorized `beta` declaration (2026-10-23), removes severity pins that duplicate beta defaults, and updates phase-dependent docs/tests/state; the promotion PR is open and reports 17/17, with no release or closure. |
+| 2026-10-23 | PR #23 made the shipped-phase tests derive from `autodoc.toml`, so a promotion no longer fails CI on hard-coded `build` assertions. |
 | 2026-10-23 | PRD2's closeout merged in PR #21 at `f8e2c76`: `LICENSE`/`CHANGELOG.md` are beta document homes, the optional `audit` extra plus `make audit` are documented, and readiness treats unverifiable declared paths as open; beta promotion previews clean but no phase write, release or closure is included. |
 | 2026-10-22 | PR #18 merged `autodoc add`, guarded `autodoc promote` and `init --phase/--profile` at `1361ba2`. Installed-wheel dogfood then found target-root path resolution, duplicate instance-ID and promote-wording defects; PR #19 merged the fixes at `06ccb0a`, and post-merge `make ci` plus master CI passed. No release or session closure was authorized. |
 | 2026-10-22 | Owner selected D-004 followed by D-002 after PR #13 merged at `a704752`; the audience rule and JSDoc/TypeDoc/nightly Rustdoc JSON readers merged to `master` in PR #14 at `7a0fd47`; post-merge local CI passed. No PyPI publication or session closure was authorized. |
