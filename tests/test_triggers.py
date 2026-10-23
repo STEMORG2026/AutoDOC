@@ -105,8 +105,10 @@ class TriggerViewTests(unittest.TestCase):
         rows = triggers.phase_rows()
         self.assertEqual(rows['phase'], declared['phase'])
         by_family = {row['family']: row for row in rows['rows']}
+        self.assertEqual(by_family['tribal']['severity'], checks['tribal'])
+        self.assertIn('autodoc.toml', by_family['tribal']['source'])
         self.assertEqual(by_family['stubs']['severity'], checks['stubs'])
-        self.assertIn('autodoc.toml', by_family['stubs']['source'])
+        self.assertIn('phase default', by_family['stubs']['source'])
         self.assertEqual(by_family['drift']['severity'], checks['drift'])
         self.assertIn('phase default', by_family['drift']['source'],
                       'a family with no override is attributed to the phase')

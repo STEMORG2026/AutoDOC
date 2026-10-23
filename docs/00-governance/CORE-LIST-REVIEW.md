@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-10-01
 last_reviewed: 2026-10-01
-last_updated: 2026-10-01
+last_updated: 2026-10-23
 auto_generated: false
 ---
 # Core list review — full context for the owner decision
@@ -46,8 +46,8 @@ Core decides that a type belongs to the essential set. Two further switches deci
 | Phase block | Core row | Extended row | Structural checks (drift, stubs, placeholders, links, secrets, freshness) |
 | --- | --- | --- | --- |
 | idea / prototype (advisory) | report | report | all report; drift and freshness off |
-| build (warn) — this repository | warn | report | placeholders, links and secrets fail; drift and freshness off |
-| beta (strict) | **fail** | warn | drift and freshness warn; the rest fail |
+| build (warn) | warn | report | placeholders, links and secrets fail; drift and freshness off |
+| beta (strict) — this repository | **fail** | warn | drift and freshness warn; the rest fail |
 | live / mature (full) | **fail** | warn | everything fails |
 | sunset | fail | off | only the sunset documents stay active |
 

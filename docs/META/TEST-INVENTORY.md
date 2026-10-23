@@ -329,9 +329,9 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_triggers.py` | 81 | `TriggerModelTests.test_a_workflow_the_reader_cannot_parse_is_unverified_not_passed` |
 | `tests/test_triggers.py` | 87 | `TriggerModelTests.test_exactly_one_gate_and_one_required_check` |
 | `tests/test_triggers.py` | 101 | `TriggerViewTests.test_phase_rows_state_the_declared_phase_and_where_each_severity_came_from` |
-| `tests/test_triggers.py` | 114 | `TriggerViewTests.test_the_view_states_the_gate_the_network_limits_and_the_reader_limits` |
-| `tests/test_triggers.py` | 123 | `TriggerViewTests.test_the_cli_exits_two_on_a_model_that_does_not_match_the_wiring` |
-| `tests/test_triggers.py` | 144 | `TriggerExitCodeTests.test_a_bad_model_is_a_configuration_error` |
-| `tests/test_triggers.py` | 150 | `TriggerExitCodeTests.test_a_crash_is_a_tool_failure` |
-| `tests/test_triggers.py` | 162 | `GeneratedReferenceTests.test_the_trigger_reference_is_generated_and_labeled` |
-| `tests/test_triggers.py` | 169 | `GeneratedReferenceTests.test_the_reference_is_the_only_generated_copy_of_the_model` |
+| `tests/test_triggers.py` | 116 | `TriggerViewTests.test_the_view_states_the_gate_the_network_limits_and_the_reader_limits` |
+| `tests/test_triggers.py` | 125 | `TriggerViewTests.test_the_cli_exits_two_on_a_model_that_does_not_match_the_wiring` |
+| `tests/test_triggers.py` | 146 | `TriggerExitCodeTests.test_a_bad_model_is_a_configuration_error` |
+| `tests/test_triggers.py` | 152 | `TriggerExitCodeTests.test_a_crash_is_a_tool_failure` |
+| `tests/test_triggers.py` | 164 | `GeneratedReferenceTests.test_the_trigger_reference_is_generated_and_labeled` |
+| `tests/test_triggers.py` | 171 | `GeneratedReferenceTests.test_the_reference_is_the_only_generated_copy_of_the_model` |

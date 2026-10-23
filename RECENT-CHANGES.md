@@ -16,11 +16,19 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 auto_generated: false
 ---
 # Recent changes
 
+- Promoted the declared phase from `build` to `beta` on 2026-10-23 after the owner authorized the
+  write and `autodoc promote --to beta` previewed no catalog requirement changes. The declaration
+  reports `beta-ready: 17/17`; `make ci` passes 307 tests + 188 subtests with package smoke and
+  evidence hashes, and `make audit` reports no known vulnerabilities. Removed the `stubs` and
+  `freshness.review` pins because beta already sets those severities; `tribal` and
+  `freshness.critical` remain deliberately stricter. Updated README, ADOPTION, CORE-LIST-REVIEW,
+  architecture, tests and state. No tag, PyPI publication, version change or session closure is
+  included.
 - Closed the remaining beta document delta on the PRD2 closeout branch: `LICENSE` and
   `CHANGELOG.md` are recorded as the homes for `DOC-A10-008` and `DOC-A15-003`, so `autodoc promote
   --to beta` previews with no requirement blockers while the declared phase stays `build`. Added
@@ -64,6 +72,10 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 3fda35b 2026-10-23 Merge pull request #23 from STEMORG2026/test/phase-agnostic-shipped-checks
+- 9ae8131 2026-10-23 test: derive shipped-phase assertions from the declaration
+- f040105 2026-10-23 Merge pull request #22 from STEMORG2026/docs/post-pr21-reconciliation
+- a7a8e07 2026-10-23 docs(state): reconcile PR 21 merge
 - f8e2c76 2026-10-23 Merge pull request #21 from STEMORG2026/feat/production-readiness-closeout
 - 28188c3 2026-10-23 docs(state): record PR 21 open and checks passing
 - a24c46a 2026-10-23 feat: close production-readiness gaps
@@ -80,19 +92,25 @@ auto_generated: false
 - 6a76106 2026-10-22 feat: add document instantiation and guarded phase promotion
 - a28616b 2026-10-22 Merge pull request #16 from STEMORG2026/arena/912c4060-autodoc
 - 7604cee 2026-10-22 feat: render catalog template variants on demand
-- ffb10fc 2026-10-22 docs(state): record owner-selected D-003 scope
-- 990113b 2026-10-22 Merge pull request #15 from STEMORG2026/arena/912c4060-autodoc
-- a3bc86d 2026-10-22 docs(state): clarify PR15 impact check status
-- ed0a4d3 2026-10-22 docs(state): record PR15 review handoff
 
 ## Changed paths at update time
 
+- `README.md`
+- `autodoc.toml`
+- `docs/00-governance/ADOPTION.md`
+- `docs/00-governance/CORE-LIST-REVIEW.md`
+- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
+- `docs/META/TEST-INVENTORY.md`
+- `docs/generated/TRIGGER-REFERENCE.md`
 - `state/ARCHITECTURE.md`
 - `state/BLOCKERS.md`
 - `state/DASHBOARD.md`
 - `state/DEBT.md`
+- `state/DECISIONS.md`
 - `state/INDEX.md`
 - `state/REGISTRY.md`
-- `state/plans/agent-PRD2-production-closeout.md`
-- `state/sessions/20261022-1415-PRD2-production-closeout.md`
+- `state/plans/agent-BETA-beta-promotion.md`
+- `state/sessions/20261023-0612-BETA-beta-promotion.md`
+- `tests/test_enforce.py`
+- `tests/test_triggers.py`
 <!-- auto:end -->

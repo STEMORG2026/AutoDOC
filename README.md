@@ -87,10 +87,10 @@ is undeclared the answer is "cannot tell yet". **Profile and phase are declarati
 count as core for this kind of project (`default`, `startup`, `oss-library`, `internal-service`,
 `regulated`); each addition states the phases it is off in, and the report shows the resulting
 core set. **Phase is a declaration.** With no `phase` the output is advisory and nothing fails, unless a
-`[severity]` pin says otherwise. This repository declares `phase = "build"`: missing required
-documents warn (a baseline is allowed), recommended ones are informational, structural breakage
-fails, and drift and freshness are off. `beta` adds drift and freshness as warnings; `live` and
-`mature` fail all four columns; `sunset` shrinks to the sunset profile.
+`[severity]` pin says otherwise. This repository declares `phase = "beta"`: missing required
+documents fail, recommended ones warn, structural breakage fails, and drift and freshness warn.
+`build` is the preceding warn-only phase; `live` and `mature` fail all four columns; `sunset`
+shrinks to the sunset profile.
 
 `make docs-enforce` is the single gate: requirements, drift, stubs, placeholders, local links,
 committed key markers, tribal instructions and freshness each resolve their severity from

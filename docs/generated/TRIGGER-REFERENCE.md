@@ -49,21 +49,21 @@ When AutoDOC runs, what each event is allowed to do, and what it never does. Gen
 | `freshness` | `.github/workflows/docs-staleness.yml` | `schedule`, `workflow_dispatch` | no | — | `python scripts/doc-sync/check-doc-drift.py`<br>`python scripts/doc-control/guards.py`<br>`python scripts/doc-control/check_ownership.py`<br>`python scripts/doc-sync/engine.py freshness`<br>`python scripts/doc-control/health.py`<br>`python scripts/doc-control/check_external_links.py` |
 | `snapshot` | `.github/workflows/release.yml` | `push`, `workflow_dispatch` | no | tag | `python scripts/doc-control/release_snapshot.py --tag "$TAG"`<br>`make package` |
 
-## What the gate enforces at the declared phase (`build (warn)`)
+## What the gate enforces at the declared phase (`beta (strict)`)
 
 The pull-request gate runs the same checks as `make ci`, at the severity the declared phase sets. `off` means the check does not run at this phase; `report` means it is printed and never fails; `warn` fails nothing; `error` fails the gate.
 
 | Check family | Severity | Source |
 | --- | --- | --- |
-| `drift` | off | phase default (build (warn)) |
-| `stubs` | warn | autodoc.toml [severity] |
-| `placeholders` | error | phase default (build (warn)) |
-| `links.local` | error | phase default (build (warn)) |
-| `secrets.inline` | error | phase default (build (warn)) |
+| `drift` | warn | phase default (beta (strict)) |
+| `stubs` | error | phase default (beta (strict)) |
+| `placeholders` | error | phase default (beta (strict)) |
+| `links.local` | error | phase default (beta (strict)) |
+| `secrets.inline` | error | phase default (beta (strict)) |
 | `tribal` | report | autodoc.toml [severity] |
-| `generator.heuristic` | warn | phase default (build (warn)) |
-| `freshness.critical` | off | autodoc.toml [severity] |
-| `freshness.review` | off | autodoc.toml [severity] |
+| `generator.heuristic` | warn | phase default (beta (strict)) |
+| `freshness.critical` | warn | autodoc.toml [severity] |
+| `freshness.review` | warn | phase default (beta (strict)) |
 
 ## Never
 

@@ -4,15 +4,15 @@
 
 schema = 1
 
-phase = "build"
+phase = "beta"
 #
-# Phase is a declaration, never an automatic transition. `make docs-hint` suggested `build`
-# (source files and a README exist, no tags, under a year of history) and the owner confirmed
-# it. Under build: missing required documents warn (a baseline is allowed), recommended ones are
-# informational, structural breakage fails, and drift and freshness are off.
+# Phase is a declaration, never an automatic transition. The owner promoted build -> beta on
+# 2026-10-23 after `autodoc promote --to beta` previewed no catalog requirement changes.
+# Under beta: required documents fail, recommended ones warn, structural breakage fails, and
+# drift and freshness warn.
 #   idea | prototype | build | beta | live | mature | sunset
 
-phase_declared = "2026-09-30"
+phase_declared = "2026-10-23"
 # Date the current phase was declared. The report shows how old the declaration is and suggests
 # a review once it is over a year old; `autodoc promote` will write it. A date without a phase
 # is rejected.
@@ -126,14 +126,11 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 # a pin that merely repeats the phase block is noise, and one that contradicts it hides the
 # phase (the report lists pins, and the phase block is stated in the same report).
 #
-# `stubs` and `tribal` are stricter than the build default on purpose: an approved document
-# with no authored content (including a migration doc left on its canonical prompts) is a broken
-# promise, and an instruction nobody outside can follow should not pass review. `freshness.*` is
-# off under build, but this repository keeps review dates and an
-# SLA policy, so overdue reviews are enforced here. `recommend.*` is deliberately not pinned:
-# every core decision is now recorded (owner decision 4, 2026-10-01), so the phase default is
-# what applies and a pin would only duplicate it.
-stubs = "error"
+# `tribal` and `freshness.critical` are stricter than the beta default on purpose: an
+# instruction nobody outside can follow should not pass review, and a critical document past its
+# review date is a broken promise here even though beta only warns. `stubs` and
+# `freshness.review` are not pinned because beta already sets them to error and warn; a pin that
+# merely repeats the phase block is noise. `recommend.*` is deliberately not pinned: every core
+# decision is recorded (owner decision 4, 2026-10-01), so the phase default is what applies.
 tribal = "error"
 "freshness.critical" = "error"
-"freshness.review" = "warn"

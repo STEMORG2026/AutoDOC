@@ -1,6 +1,6 @@
 # BLOCKERS — active blockers and dependencies
 
-**Last reconciled:** 2026-10-22T14:20Z (no active blockers. B-003 remains cleared; PR #19 merged the installed-wheel dogfood fixes at `06ccb0a`; PR #20 merged the post-PR19 state reconciliation at `f2e8698`; PRD2's closeout merged in PR #21 at `f8e2c76`, and post-merge `make ci` passes; its beta preview is blocker-free. Writing the beta promotion, release/version and session-closure decisions remain owner-gated, not blockers.)
+**Last reconciled:** 2026-10-23T06:12Z (no active blockers. B-003 remains cleared; PR #21 merged the production-readiness closeout at `f8e2c76`; PR #23 merged the phase-agnostic shipped checks at `3fda35b`; BETA's beta promotion PR is open and reports 17/17. The owner's merge, release/version and session-closure decisions remain owner-gated, not blockers.)
 
 | ID | Blocker | Blocks | Owner who can clear it | Raised |
 | --- | --- | --- | --- | --- |

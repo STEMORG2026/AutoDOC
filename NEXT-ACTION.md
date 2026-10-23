@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 auto_generated: false
 ---
 # Next action
@@ -27,8 +27,9 @@ dogfood fixes at `06ccb0a`; PR #20 merged the post-PR19 state reconciliation at 
 merged PRD2's closeout at `f8e2c76`, and post-merge `make ci` passes. The closeout records the
 existing `LICENSE` and `CHANGELOG.md` as the homes for the two
 beta-gated core rows (`DOC-A10-008`, `DOC-A15-003`), so the installed `autodoc promote --to beta`
-preview exits 0 with `Delta: no catalog requirement changes`. The phase is still `build`; writing
-the promotion is a deliberate owner action. The merge also adds the optional `audit` extra and
+preview exits 0 with `Delta: no catalog requirement changes`. The owner then authorized the
+promotion: BETA's open PR writes `phase = "beta"` and reports `beta-ready: 17/17`. The closeout
+also adds the optional `audit` extra and
 operator-run `make audit`, fixes readiness so a missing declared path is counted as open rather
 than acknowledged, and defaults `enforce.collect_findings()` to the tool checkout. `make ci` passes
 (307 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands, unsigned
@@ -37,8 +38,8 @@ evidence hashes verified); `make audit` with pip-audit 2.10.1 reports no known v
 The proposed `0.3.0` and Beta classifier record no owner approval. D-007 remains unselected;
 D-009's external dogfood was executed but its formal acceptance/record remains open. D-010's
 mechanism is implemented and its first run is recorded in `state/DEBT.md`; formal closure remains
-owner-optional. Do not publish to PyPI, write the beta promotion, or close any paused session by
-inference.
+owner-optional. Do not publish to PyPI or close any paused session by inference; the beta
+promotion PR awaits the owner's merge.
 
 D-007 (evidence signing) remains deferred and non-gating. D-009 (external dogfood) was executed
 against the installed wheel and five additional repositories; its formal owner acceptance/record
@@ -63,7 +64,7 @@ Release snapshots are no longer gated on the licence; they still require a `vX.Y
 out at the same commit. Done: the core list and the five profiles are owner-reviewed
 (2026-10-01) — `owner_reviewed` is recorded in `CONTROL/metadata/CATALOG-RULES.json` and
 `PROFILES.json`, `docs/00-governance/CORE-LIST-REVIEW.md` is `approved`, and every applicable
-core decision is closed (the resolver reports 17/17 build-ready with 0 open and 0 invalid under
+core decision is closed (the resolver reports 17/17 beta-ready with 0 open and 0 invalid under
 the `oss-library` profile). Remaining
 (updated 2026-10-21, after the fix): **nothing on protection** — the owner applied P-007-A
 (ruleset `main` carries `deletion`, `non_fast_forward` and required check `AutoDOC guard /
@@ -78,8 +79,8 @@ D-001 session was subsequently closed on 2026-10-21 by the owner's explicit inst
 "Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
 thread**; D-003 merged through PR #16 and its production-readiness follow-up through PR #18,
 while D-007 remains unselected and D-009's dogfood execution awaits formal acceptance. Promotion to
-`beta` stays a deliberate event (preview now shows no requirement blockers), pending the owner's
-write. D-004 and D-002 were the earlier
+`beta` is written in BETA's open promotion PR (preview showed no requirement blockers); the
+phase-write event is the owner's merge. D-004 and D-002 were the earlier
 owner-selected follow-up and are now merged by PR #14. One debt item closed on
 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
@@ -101,7 +102,7 @@ vulnerabilities.
    - Done (2026-10-01): the 24-type core list and the phasing in `CATALOG-RULES.json` are
      owner-reviewed, and all 12 applicable core decisions are recorded (`[instantiated]`,
      `[satisfied_by]`; the last one closed by declaring `has_persistent_state` false with a
-     reason) — the resolver reports 17/17 build-ready with 0 open and 0 invalid. Three core types
+     reason) — the resolver reports 17/17 beta-ready with 0 open and 0 invalid. Three core types
      (`PII inventory`, `Cardholder data flow`, `Hazard analysis`) remain gated by declared
      traits and apply only once the owner answers. The demo-only facts
      (`has_public_api_surface`, `has_http_api`, `has_persistent_state`, `has_env`, `has_ai`)

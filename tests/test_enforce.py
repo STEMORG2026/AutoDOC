@@ -316,7 +316,7 @@ class EndToEndTests(unittest.TestCase):
     def test_pins_are_deliberate_policy_not_a_second_copy_of_the_phase_block(self):
         """Review point: a pin that repeats the phase default is noise, so only the rest remain."""
         context = context_module.normalise(context_module.load(ROOT / 'autodoc.toml'))
-        phase_defaults = context_module.enforcement('build')['checks']
+        phase_defaults = context_module.enforcement(context['phase'])['checks']
         for rule, pinned in context['severity'].items():
             with self.subTest(rule):
                 self.assertNotEqual(pinned, phase_defaults[rule],
