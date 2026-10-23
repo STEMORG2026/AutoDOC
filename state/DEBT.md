@@ -1,6 +1,6 @@
 # DEBT — technical debt worth acting on
 
-**Last reconciled:** 2026-10-23T08:57Z (master `c0f90e0` after PR #26; EVOLVE merged `autodoc evolve` and awaits explicit owner closure. D-009 was executed but formal acceptance is pending; D-007 remains queued)
+**Last reconciled:** 2026-10-23T10:26Z (master `4230703` after PR #27; EVOLVE's `autodoc evolve` session is CLOSED by the owner. D-009 was executed but formal acceptance is pending; D-007 remains queued)
 
 Only debt the maintainers would actually fix; a wish list belongs elsewhere. Statuses: `open`,
 `queued (<decision>)`, `in progress (active branch; pending merge)`, `accepted (by design)`,

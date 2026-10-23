@@ -27,8 +27,9 @@ auto_generated: false
   only as unregistered `status: draft` instances with `--write --allow-add`. It reports
   undetermined facts, structural findings and existing-but-unregistered documents for a human,
   never overwrites an existing file, and never edits the phase/profile/decisions/catalog. Local
-  pytest passes 315 tests + 188 subtests; PR #26 merged at `c0f90e0`; EVOLVE paused awaiting
-  explicit owner closure. No release or session closure.
+  pytest passes 315 tests + 188 subtests; PR #26 merged at `c0f90e0`, and PR #27 reconciled state
+  at `4230703`. The owner closed EVOLVE's session on 2026-10-23 and its plan is archived; no
+  release or tag was made.
 - Promoted the declared phase from `build` to `beta` on 2026-10-23 after the owner authorized the
   write and `autodoc promote --to beta` previewed no catalog requirement changes. The declaration
   reports `beta-ready: 17/17`; `make ci` passes 307 tests + 188 subtests with package smoke and
@@ -81,6 +82,8 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 4230703 2026-10-23 Merge pull request #27 from STEMORG2026/docs/post-pr26-reconciliation
+- 824b3eb 2026-10-23 docs(state): reconcile PR 26 merge
 - c0f90e0 2026-10-23 Merge pull request #26 from STEMORG2026/feat/autodoc-evolve
 - e649ab1 2026-10-23 docs(state): record EVOLVE PR 26
 - 32a9cdd 2026-10-23 feat: add safe autodoc evolve command
@@ -99,8 +102,6 @@ auto_generated: false
 - a97b320 2026-10-22 docs(state): reconcile PR 19 merge
 - 06ccb0a 2026-10-22 Merge pull request #19 from STEMORG2026/fix/dogfood-packaged-root
 - a1ff829 2026-10-22 Merge branch 'master' into fix/dogfood-packaged-root
-- 681dca9 2026-10-22 docs(state): record PR 19 checks passing
-- 1a584d7 2026-10-22 docs(state): reconcile PR 18 merge and PR 19 dogfood
 
 ## Changed paths at update time
 
@@ -111,6 +112,7 @@ auto_generated: false
 - `state/DECISIONS.md`
 - `state/INDEX.md`
 - `state/REGISTRY.md`
-- `state/plans/agent-EVOLVE-evolve-command.md`
+- `state/archive/plans/2026-10/README.md`
+- `state/archive/plans/2026-10/agent-EVOLVE-evolve-command.md`
 - `state/sessions/20261023-0751-EVOLVE-evolve-command.md`
 <!-- auto:end -->

@@ -60,8 +60,8 @@ enforcement layers, refreshes generated drift only with `--write`, and creates m
 documents only as unregistered `draft` instances with `--write --allow-add`. It never registers or
 approves a draft, overwrites an existing document, edits `autodoc.toml`, or changes the
 phase/profile/decisions/catalog. Undetermined facts and structural findings are reports for a
-human. Post-merge `make ci` passes 315 tests + 188 subtests; EVOLVE is paused awaiting the owner’s
-explicit closure. No release, tag or PyPI publication is included.
+human. Post-merge `make ci` passes 315 tests + 188 subtests; the owner closed EVOLVE's session on
+2026-10-23 and its plan is archived. No release, tag or PyPI publication is included.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 

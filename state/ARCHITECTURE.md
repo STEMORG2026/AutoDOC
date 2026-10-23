@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-23T08:57Z (master `c0f90e0` after PR #26; EVOLVE merged `autodoc evolve` and awaits explicit owner closure. BETA/PRD1/PRD2/912C also await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
+**Last reconciled:** 2026-10-23T10:26Z (master `4230703` after PR #27; EVOLVE's `autodoc evolve` session is CLOSED by the owner. BETA/PRD1/PRD2/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -48,7 +48,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 
 | Date | Change |
 | --- | --- |
-| 2026-10-23 | EVOLVE's owner-requested `autodoc evolve` command merged in PR #26 at `c0f90e0`: read-only planning, generated refresh, draft-only missing documents, maturity/JSON/check modes; post-merge `make ci` passes 315 tests + 188 subtests; no release or closure. |
+| 2026-10-23 | EVOLVE's owner-requested `autodoc evolve` command merged in PR #26 at `c0f90e0`: read-only planning, generated refresh, draft-only missing documents, maturity/JSON/check modes; post-merge `make ci` passes 315 tests + 188 subtests. The owner closed the session on 2026-10-23; its plan is archived. No release or tag. |
 | 2026-10-23 | BETA's owner-authorized `beta` declaration (2026-10-23) merged in PR #24 at `8f9c709`; duplicate severity pins were removed and phase-dependent docs/tests/state updated. Post-merge `make ci` passes with beta-ready 17/17; no release or closure. |
 | 2026-10-23 | PR #23 made the shipped-phase tests derive from `autodoc.toml`, so a promotion no longer fails CI on hard-coded `build` assertions. |
 | 2026-10-23 | PRD2's closeout merged in PR #21 at `f8e2c76`: `LICENSE`/`CHANGELOG.md` are beta document homes, the optional `audit` extra plus `make audit` are documented, and readiness treats unverifiable declared paths as open; beta promotion previews clean but no phase write, release or closure is included. |
