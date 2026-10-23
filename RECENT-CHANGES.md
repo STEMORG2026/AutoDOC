@@ -27,7 +27,7 @@ auto_generated: false
   only as unregistered `status: draft` instances with `--write --allow-add`. It reports
   undetermined facts, structural findings and existing-but-unregistered documents for a human,
   never overwrites an existing file, and never edits the phase/profile/decisions/catalog. Local
-  pytest passes 315 tests + 188 subtests; PR pending, no release or session closure.
+  pytest passes 315 tests + 188 subtests; PR #26 open, no release or session closure.
 - Promoted the declared phase from `build` to `beta` on 2026-10-23 after the owner authorized the
   write and `autodoc promote --to beta` previewed no catalog requirement changes. The declaration
   reports `beta-ready: 17/17`; `make ci` passes 307 tests + 188 subtests with package smoke and
@@ -80,6 +80,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 32a9cdd 2026-10-23 feat: add safe autodoc evolve command
 - 249c2aa 2026-10-23 Merge pull request #25 from STEMORG2026/docs/post-pr24-reconciliation
 - 26e73ab 2026-10-23 docs(state): reconcile PR 24 merge
 - 8f9c709 2026-10-23 Merge pull request #24 from STEMORG2026/chore/promote-beta
@@ -99,29 +100,16 @@ auto_generated: false
 - 1a584d7 2026-10-22 docs(state): reconcile PR 18 merge and PR 19 dogfood
 - deec574 2026-10-22 fix: resolve packaged check paths and dogfood guards
 - 1361ba2 2026-10-22 Merge pull request #18 from STEMORG2026/arena/production-readiness-autodoc
-- adee921 2026-10-22 docs(state): record PR 18 checks passing
 
 ## Changed paths at update time
 
-- `CHANGELOG.md`
-- `QUICK-START.md`
-- `README.md`
-- `autodoc/cli.py`
-- `docs/00-governance/ADOPTION.md`
-- `docs/00-governance/ENGINE-COVERAGE.md`
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
-- `docs/META/CODE-INVENTORY.md`
-- `docs/META/OUTLINE.md`
-- `docs/META/TEST-INVENTORY.md`
-- `docs/generated/AUTOMATION-REFERENCE.md`
-- `docs/reference/EXIT-CODES.md`
-- `scripts/intelligence/evolve.py`
-- `scripts/test_package.py`
-- `setup.py`
 - `state/ARCHITECTURE.md`
 - `state/BLOCKERS.md`
 - `state/DASHBOARD.md`
 - `state/DEBT.md`
 - `state/DECISIONS.md`
-- … and 6 more; use git diff --cached --name-only.
+- `state/INDEX.md`
+- `state/REGISTRY.md`
+- `state/plans/agent-EVOLVE-evolve-command.md`
+- `state/sessions/20261023-0751-EVOLVE-evolve-command.md`
 <!-- auto:end -->

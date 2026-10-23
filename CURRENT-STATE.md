@@ -60,7 +60,7 @@ catalog and enforcement layers, refreshes generated drift only with `--write`, a
 required documents only as unregistered `draft` instances with `--write --allow-add`. It never
 registers or approves a draft, overwrites an existing document, edits `autodoc.toml`, or changes
 the phase/profile/decisions/catalog. Undetermined facts and structural findings are reports for a
-human. Local pytest passes 315 tests + 188 subtests; the PR is pending and no release, tag, PyPI
+human. Local pytest passes 315 tests + 188 subtests; PR #26 is open and no release, tag, PyPI
 publication or session closure is included.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.

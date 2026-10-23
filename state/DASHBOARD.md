@@ -1,6 +1,6 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-23T08:03Z · **Reconciled by:** EVOLVE (session
+**Last reconciled:** 2026-10-23T08:47Z · **Reconciled by:** EVOLVE (session
 `20261023-0751-EVOLVE`) · **Base tip:** `249c2aa` on `master` (PR #25 merged the post-PR24
 reconciliation); the `feat/autodoc-evolve` branch adds the safe `autodoc evolve` command and
 passes 315 tests + 188 subtests in local pytest, not yet merged. BETA is **PAUSED — merged;
@@ -30,7 +30,7 @@ adds the owner-requested `autodoc evolve` command from `master` `249c2aa`. It pl
 documentation evolution with no writes by default, refreshes generated drift with `--write`, and
 creates missing required documents only as unregistered `draft` instances with
 `--write --allow-add`; it never edits the phase, profile, decisions, approvals or catalog. Local
-pytest passes 315 tests + 188 subtests. PR not yet opened; no release, tag, PyPI publication,
+pytest passes 315 tests + 188 subtests. PR #26 is open; no release, tag, PyPI publication,
 phase change or session closure.
 
 `BETA` — session `20261023-0612-BETA` (**PAUSED — merged; awaiting explicit owner closure**):
@@ -87,8 +87,8 @@ at 14:59Z; its plan is archived. The nine earlier sessions remain closed.
 **Current follow-up (2026-10-23).** PR #21 merged the production-readiness closeout at
 `f8e2c76`; PR #22 reconciled the state at `f040105`; PR #23 made the shipped-phase tests follow
 the declaration at `3fda35b`; PR #24 merged the beta promotion at `8f9c709`; PR #25 reconciled
-the state at `249c2aa`, and post-merge `autodoc check` remains `beta-ready: 17/17`. EVOLVE is now
-implementing the owner-requested `autodoc evolve` command on `feat/autodoc-evolve`; local pytest
+the state at `249c2aa`, and post-merge `autodoc check` remains `beta-ready: 17/17`. EVOLVE opened
+PR #26 for the owner-requested `autodoc evolve` command on `feat/autodoc-evolve`; local pytest
 passes 315 tests + 188 subtests, not yet merged. The owner still needs to decide the `0.3.0` /
 Beta release and close sessions. 894B/627F/C4R7/B71a remain paused; 912C, PRD1, PRD2 and BETA are
 merged but not explicitly closed. D-007 and PyPI publishing remain unauthorized; D-009's external
@@ -133,7 +133,7 @@ now exists; its formal close still needs the owner or a recorded verification.
 | Date | Work | Commits |
 | --- | --- | --- |
 | 2026-10-23 | **Post-PR24 state reconciliation merged:** records the beta merge, PR #20 correction (`f2e8698`), and paused-session status | PR #25 → `249c2aa` |
-| 2026-10-23 | **`autodoc evolve` implementation started:** read-only plan, generated refresh with `--write`, draft-only creation with `--allow-add`, maturity signals and JSON/check modes; local pytest 315 tests + 188 subtests; PR pending | `feat/autodoc-evolve` |
+| 2026-10-23 | **`autodoc evolve` implementation started:** read-only plan, generated refresh with `--write`, draft-only creation with `--allow-add`, maturity signals and JSON/check modes; local pytest 315 tests + 188 subtests; PR #26 open | `feat/autodoc-evolve` |
 | 2026-10-23 | **Beta promotion merged:** `phase = "beta"`, declaration date 2026-10-23; duplicate pins removed; beta-ready 17/17; post-merge `make ci` passes 307 tests + 188 subtests; no tag, release or closure | PR #24 → `8f9c709` |
 | 2026-10-23 | **Phase-agnostic shipped checks merged:** tests derive the declared phase, label and severity table from `autodoc.toml`; no phase or release change | PR #23 → `3fda35b` |
 | 2026-10-23 | **Post-PR21 state reconciliation merged:** records PR #21, PRD2 paused, and the post-merge gate; no phase or release change | PR #22 → `f040105` |
@@ -164,9 +164,9 @@ now exists; its formal close still needs the owner or a recorded verification.
 
 ## Next actions (source of truth: `NEXT-ACTION.md`)
 
-1. **Review `autodoc evolve`:** EVOLVE is implementing the owner-requested command on
-   `feat/autodoc-evolve`; local pytest passes 315 tests + 188 subtests. The owner merges the PR;
-   no release or session closure is included.
+1. **Review `autodoc evolve`:** EVOLVE opened PR #26 for the owner-requested command on
+   `feat/autodoc-evolve`; local pytest passes 315 tests + 188 subtests. The owner reviews and
+   merges the PR; no release or session closure is included.
 2. **Owner release decision:** decide whether to keep the proposed `0.3.0` / Beta version
    metadata, and whether to tag or publish. No release or PyPI publication is proposed by this
    branch.

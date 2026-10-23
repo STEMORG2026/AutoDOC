@@ -53,5 +53,5 @@ See `state/plans/agent-EVOLVE-evolve-command.md`.
 
 ## Outcome
 
-**ACTIVE — implementation in progress on `feat/autodoc-evolve`; PR not yet opened.** No release,
+**ACTIVE — PR #26 open on `feat/autodoc-evolve`; awaiting owner review/merge.** No release,
 tag, PyPI publication, phase change or session closure is included.
