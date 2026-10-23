@@ -77,10 +77,12 @@ class ContextTests(unittest.TestCase):
                             for problem in context_module.validate(context)))
 
     def test_shipped_context_is_valid_and_declares_its_phase(self):
-        """The tool dogfoods its own declaration path: this repository declares `build` itself."""
+        """The tool dogfoods its own declaration path: this repository declares a phase itself."""
         context = context_module.normalise(context_module.load(ROOT / 'autodoc.toml'))
         self.assertEqual(context_module.validate(context), [])
-        self.assertEqual(context['phase'], 'build', 'the owner declared the phase; nothing infers it')
+        phases = {phase['id'] for phase in context_module.load_model()['phases']}
+        self.assertIn(context['phase'], phases,
+                      'the owner declared the phase; nothing infers it')
         self.assertLessEqual(date.fromisoformat(context['phase_declared']), date.today(),
                              'a phase carries the date it was declared, never a future one')
         self.assertEqual(context['obligations'], [])

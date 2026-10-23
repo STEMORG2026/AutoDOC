@@ -99,12 +99,15 @@ class TriggerViewTests(unittest.TestCase):
     """The printed view is the same implementation the generated reference uses."""
 
     def test_phase_rows_state_the_declared_phase_and_where_each_severity_came_from(self):
+        context = triggers.context_module()
+        declared = context.normalise(context.load(ROOT / 'autodoc.toml'))
+        checks = context.enforcement(declared['phase'])['checks']
         rows = triggers.phase_rows()
-        self.assertEqual(rows['phase'], 'build')
+        self.assertEqual(rows['phase'], declared['phase'])
         by_family = {row['family']: row for row in rows['rows']}
-        self.assertEqual(by_family['stubs']['severity'], 'warn')
+        self.assertEqual(by_family['stubs']['severity'], checks['stubs'])
         self.assertIn('autodoc.toml', by_family['stubs']['source'])
-        self.assertEqual(by_family['drift']['severity'], 'off')
+        self.assertEqual(by_family['drift']['severity'], checks['drift'])
         self.assertIn('phase default', by_family['drift']['source'],
                       'a family with no override is attributed to the phase')
 

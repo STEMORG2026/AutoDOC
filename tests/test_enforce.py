@@ -274,8 +274,12 @@ class EndToEndTests(unittest.TestCase):
         self.assertIn('Off at this phase', text)
 
     def test_informational_findings_never_fail_the_run(self):
-        data, findings, _, _, _, summary = self.build(
-            ROOT / 'autodoc.toml', ROOT / 'autodoc-baseline.json')
+        with tempfile.TemporaryDirectory(dir=ROOT) as folder:
+            config = Path(folder) / 'autodoc.toml'
+            config.write_text('schema = 1\nphase = "build"\n'
+                              'audience = ["contributors", "external-users"]\n')
+            data, findings, _, _, _, summary = self.build(
+                config, Path(folder) / 'none.json')
         informational = [finding for finding in findings if finding['severity'] == 'report']
         self.assertTrue(informational, 'the advisory phase reports the recommended set')
         self.assertEqual(summary['exit_code'], 0)
@@ -292,14 +296,16 @@ class EndToEndTests(unittest.TestCase):
         text = enforce.report(data, [], [], [], data['enforcement'], 0)
         self.assertIn('beta-ready:', text)
 
-    def test_shipped_repository_declares_build_and_passes(self):
-        """The dogfooded declaration: build warns about the required set and fails structure only."""
+    def test_shipped_repository_declares_its_phase_and_passes(self):
+        """The dogfooded declaration passes at whatever phase the owner declared."""
         data, findings, suppressed, stale, enforcement, summary = self.build(
             ROOT / 'autodoc.toml', ROOT / 'autodoc-baseline.json')
         self.assertTrue(enforcement['declared'], 'this repository declares its own phase')
-        self.assertEqual(enforcement['label'], 'build (warn)')
+        context = context_module.normalise(context_module.load(ROOT / 'autodoc.toml'))
+        self.assertEqual(enforcement['label'],
+                         context_module.enforcement(context['phase'])['label'])
         self.assertEqual(summary['exit_code'], 0,
-                         'warnings are work to do, not a failed build')
+                         'the shipped repository passes its declared gate')
         self.assertFalse([finding for finding in findings if finding['severity'] == 'error'],
                          'the shipped repository has no failing finding')
         self.assertEqual(stale, [])
