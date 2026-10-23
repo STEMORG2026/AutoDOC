@@ -371,16 +371,46 @@ def evaluate(documents, profile_document, context, enforcement=None, placement=N
     return groups
 
 
-def score(documents, groups, enforcement):
+def invalid_decisions(documents, context, root=None):
+    """Catalog ids whose declared home cannot be verified at `root`.
+
+    A decision is only an acknowledgement when its evidence exists. Without this check the
+    readiness score could say "1/1" while the same run emits a configuration error for the
+    missing path.
+    """
+    base = Path(root) if root else ROOT
+    ids = {document['id'] for document in documents}
+    invalid = set()
+    for doc_id, path in context['instantiated'].items():
+        if doc_id in ids and not (base / path).is_file():
+            invalid.add(doc_id)
+    for doc_id, locations in context['satisfied_by'].items():
+        if doc_id not in ids:
+            continue
+        for location in locations:
+            if location.startswith(('http://', 'https://')):
+                continue
+            if not (base / location).is_file():
+                invalid.add(doc_id)
+                break
+    return invalid
+
+
+def score(documents, groups, enforcement, invalid_decisions=()):
+    invalid = set(invalid_decisions or ())
     required = [item for item in groups['required']
                 if item['severity_effective'] != 'off']
-    acknowledged = [item for item in groups['acknowledged']
-                    if item['effective_tier'] == 'core' and item['severity'] == 'acknowledged']
+    acknowledgeable = [item for item in groups['acknowledged']
+                       if item['effective_tier'] == 'core'
+                       and item['severity'] == 'acknowledged']
+    acknowledged = [item for item in acknowledgeable if item['id'] not in invalid]
+    invalid_acknowledged = [item for item in acknowledgeable if item['id'] in invalid]
     reported = [item for item in groups['reported'] if item['effective_tier'] == 'core']
-    open_items = len(required) + len(reported)
+    open_items = len(required) + len(reported) + len(invalid_acknowledged)
     return {'applicable_core_types': open_items + len(acknowledged),
             'acknowledged_core_types': len(acknowledged),
             'open_core_decisions': open_items,
+            'invalid_core_decisions': len(invalid_acknowledged),
             'core_acknowledged_percent': round(100 * len(acknowledged) / (open_items + len(acknowledged)))
             if (open_items + len(acknowledged)) else 100,
             'undetermined_types': len(groups['undetermined']),
@@ -389,7 +419,7 @@ def score(documents, groups, enforcement):
             'off_types': len(groups['off']),
             'catalog_types': len(documents), 'enforcement': enforcement['label'],
             'readiness': (f'{enforcement["phase"]}-ready: {len(acknowledged)}/'
-                          f'{len(required) + len(acknowledged)}')
+                          f'{open_items + len(acknowledged)}')
             if enforcement['declared'] else
             f'undeclared phase: advisory only ({len(reported)} applicable core types reported, '
             f'{len(acknowledged)} acknowledged)'}

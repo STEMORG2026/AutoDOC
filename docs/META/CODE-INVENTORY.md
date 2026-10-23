@@ -249,9 +249,9 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/enforce.py` | 238 | function | `summarize` | `(findings, suppressed, stale, enforcement)` | Counts and the exit code, stated once. |
 | `scripts/intelligence/enforce.py` | 253 | function | `report` | `(data, findings, suppressed, stale, enforcement, exit_code)` | Markdown: what is enforced, what is new, what the baseline hides, and what it cannot see. |
 | `scripts/intelligence/enforce.py` | 362 | function | `build` | `(args)` | Load context, resolve requirements, collect every family and apply the baseline. |
-| `scripts/intelligence/enforce.py` | 404 | function | `machine_document` | `(data, findings, suppressed, stale, enforcement, summary)` | The JSON shape: everything the terminal text says, not only the prose. |
-| `scripts/intelligence/enforce.py` | 421 | function | `run` | `(args)` | — |
-| `scripts/intelligence/enforce.py` | 457 | function | `main` | `()` | — |
+| `scripts/intelligence/enforce.py` | 407 | function | `machine_document` | `(data, findings, suppressed, stale, enforcement, summary)` | The JSON shape: everything the terminal text says, not only the prose. |
+| `scripts/intelligence/enforce.py` | 424 | function | `run` | `(args)` | — |
+| `scripts/intelligence/enforce.py` | 460 | function | `main` | `()` | — |
 | `scripts/intelligence/profile.py` | 209 | function | `fact_specs` | `()` | Every fact in the vocabulary, with its detection route. |
 | `scripts/intelligence/profile.py` | 224 | function | `tracked_files` | `(root)` | Tracked files when Git is available (honors .gitignore); otherwise a pruned walk. |
 | `scripts/intelligence/profile.py` | 242 | function | `skipped_dir` | `(relative)` | A path inside a generated, vendored or test-input directory is not project evidence. |
@@ -301,19 +301,20 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/recommend.py` | 273 | function | `enforced_reason` | `(item, enforcement)` | Why this item is or is not enforced, in the terms the decision was made in. |
 | `scripts/intelligence/recommend.py` | 302 | function | `effective_severity` | `(item, enforcement, context)` | Map a semantic level to the severity the declared phase enforces. |
 | `scripts/intelligence/recommend.py` | 322 | function | `evaluate` | `(documents, profile_document, context, enforcement=None, placement=None)` | Resolve every catalog entry into a group, with its severity and reason. |
-| `scripts/intelligence/recommend.py` | 374 | function | `score` | `(documents, groups, enforcement)` | — |
-| `scripts/intelligence/recommend.py` | 398 | function | `because` | `(item, enforcement)` | The context that caused this requirement, in one line: phase plus the predicate values. |
-| `scripts/intelligence/recommend.py` | 405 | function | `findings` | `(documents, context, groups, enforcement=None, root=None)` | Return one structured finding per problem: rule, severity, location, reason, fix, cause. |
-| `scripts/intelligence/recommend.py` | 499 | function | `check` | `(documents, context, groups, enforcement=None)` | Fail only what the declared phase says must fail; an undeclared phase never fails. |
-| `scripts/intelligence/recommend.py` | 510 | function | `explain` | `(document, profile_document, context, enforcement=None, placement=None, documents=None, groups=None)` | Return the derivation chain that explains one requirement. |
-| `scripts/intelligence/recommend.py` | 576 | function | `kind_summary` | `(profile_document, context)` | The kind situation: what is declared, what the evidence suggests, and what that means. |
-| `scripts/intelligence/recommend.py` | 598 | function | `kind_line` | `(kinds, groups)` | One line that says what is declared, what is only evidence, and what is still undetermined. |
-| `scripts/intelligence/recommend.py` | 616 | function | `trait_summary` | `(profile_document, context)` | The declared traits: the facts no detector can answer, each answered or still a question. |
-| `scripts/intelligence/recommend.py` | 635 | function | `trait_line` | `(traits, groups)` | One line: each trait's recorded answer, or the open question and what it leaves hanging. |
-| `scripts/intelligence/recommend.py` | 650 | function | `audience_line` | `(audiences)` | State the reader gate and the declaration that controls it. |
-| `scripts/intelligence/recommend.py` | 657 | function | `report` | `(data)` | — |
-| `scripts/intelligence/recommend.py` | 737 | function | `build` | `(args)` | — |
-| `scripts/intelligence/recommend.py` | 765 | function | `main` | `()` | — |
+| `scripts/intelligence/recommend.py` | 374 | function | `invalid_decisions` | `(documents, context, root=None)` | Catalog ids whose declared home cannot be verified at `root`. |
+| `scripts/intelligence/recommend.py` | 399 | function | `score` | `(documents, groups, enforcement, invalid_decisions=())` | — |
+| `scripts/intelligence/recommend.py` | 428 | function | `because` | `(item, enforcement)` | The context that caused this requirement, in one line: phase plus the predicate values. |
+| `scripts/intelligence/recommend.py` | 435 | function | `findings` | `(documents, context, groups, enforcement=None, root=None)` | Return one structured finding per problem: rule, severity, location, reason, fix, cause. |
+| `scripts/intelligence/recommend.py` | 529 | function | `check` | `(documents, context, groups, enforcement=None)` | Fail only what the declared phase says must fail; an undeclared phase never fails. |
+| `scripts/intelligence/recommend.py` | 540 | function | `explain` | `(document, profile_document, context, enforcement=None, placement=None, documents=None, groups=None)` | Return the derivation chain that explains one requirement. |
+| `scripts/intelligence/recommend.py` | 606 | function | `kind_summary` | `(profile_document, context)` | The kind situation: what is declared, what the evidence suggests, and what that means. |
+| `scripts/intelligence/recommend.py` | 628 | function | `kind_line` | `(kinds, groups)` | One line that says what is declared, what is only evidence, and what is still undetermined. |
+| `scripts/intelligence/recommend.py` | 646 | function | `trait_summary` | `(profile_document, context)` | The declared traits: the facts no detector can answer, each answered or still a question. |
+| `scripts/intelligence/recommend.py` | 665 | function | `trait_line` | `(traits, groups)` | One line: each trait's recorded answer, or the open question and what it leaves hanging. |
+| `scripts/intelligence/recommend.py` | 680 | function | `audience_line` | `(audiences)` | State the reader gate and the declaration that controls it. |
+| `scripts/intelligence/recommend.py` | 687 | function | `report` | `(data)` | — |
+| `scripts/intelligence/recommend.py` | 767 | function | `build` | `(args)` | — |
+| `scripts/intelligence/recommend.py` | 795 | function | `main` | `()` | — |
 | `scripts/intelligence/triggers.py` | 40 | function | `load` | `(path=None)` | — |
 | `scripts/intelligence/triggers.py` | 47 | function | `context_module` | `()` | — |
 | `scripts/intelligence/triggers.py` | 55 | function | `read_workflow` | `(path)` | Read the fields the model claims: workflow name, trigger keys, filters, job names. |

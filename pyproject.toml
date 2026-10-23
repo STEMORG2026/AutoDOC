@@ -29,6 +29,7 @@ autodoc = "autodoc.cli:main"
 
 [project.optional-dependencies]
 dev = ["build>=1,<2", "pytest>=8,<10", "pre-commit>=3,<5"]
+audit = ["pip-audit>=2.10,<3"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

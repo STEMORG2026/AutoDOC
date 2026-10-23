@@ -8,6 +8,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -183,6 +184,48 @@ class TargetRootTests(unittest.TestCase):
                            if finding['rule'] == 'context.config']
         self.assertEqual([], config_findings,
                          'the target repo paths exist; the tool root must not be searched')
+
+
+class RootAndReadinessTests(unittest.TestCase):
+    def empty_groups(self):
+        return {name: [] for name in ('required', 'recommended', 'contextual', 'reported',
+                                      'undetermined', 'assess', 'not_applicable',
+                                      'acknowledged', 'off')}
+
+    def test_collect_findings_without_root_uses_the_tool_checkout(self):
+        context = context_for('build')
+        groups = self.empty_groups()
+        with mock.patch.object(enforce.recommend, 'findings', return_value=[]), \
+                mock.patch.object(enforce.engine, 'generate'), \
+                mock.patch.object(enforce.engine, 'validate'), \
+                mock.patch.object(enforce.guards, 'collect', return_value=[]), \
+                mock.patch.object(enforce.stub_check, 'collect', return_value=[]):
+            findings, off = enforce.collect_findings(
+                {}, context, [], groups, context_module.enforcement('build'))
+        self.assertEqual(findings, [])
+        self.assertIn('drift', off)
+
+    def test_missing_declared_path_is_open_not_acknowledged(self):
+        groups = self.empty_groups()
+        groups['acknowledged'] = [{'id': 'DOC-A10-008', 'effective_tier': 'core',
+                                   'severity': 'acknowledged'}]
+        score = enforce.recommend.score(
+            [{'id': 'DOC-A10-008'}], groups, context_module.enforcement('beta'),
+            invalid_decisions={'DOC-A10-008'})
+        self.assertEqual(score['readiness'], 'beta-ready: 0/1')
+        self.assertEqual(score['open_core_decisions'], 1)
+        self.assertEqual(score['invalid_core_decisions'], 1)
+
+    def test_invalid_decisions_use_the_target_root(self):
+        with tempfile.TemporaryDirectory() as folder:
+            repo = Path(folder)
+            (repo / 'docs').mkdir()
+            (repo / 'docs/charter.md').write_text('# Charter\n')
+            context = {'instantiated': {'DEV-B01-001': 'docs/missing.md'},
+                       'satisfied_by': {'DEV-B01-002': ['docs/charter.md']}}
+            invalid = enforce.recommend.invalid_decisions(
+                [{'id': 'DEV-B01-001'}, {'id': 'DEV-B01-002'}], context, repo)
+        self.assertEqual(invalid, {'DEV-B01-001'})
 
 
 class EndToEndTests(unittest.TestCase):

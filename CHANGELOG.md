@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Recorded the existing `LICENSE` and `CHANGELOG.md` as the homes for the two beta-gated core
+  records (`DOC-A10-008`, `DOC-A15-003`); `autodoc promote --to beta` now previews with no
+  requirement blockers.
+- Added the optional `audit` extra and `make audit`, an operator-run `pip-audit` check for known
+  vulnerabilities in the installed environment. It opens the network and stays out of the offline
+  `make ci` gate; the runtime dependency set remains empty.
+- Stopped the readiness score from counting an `[instantiated]`/`[satisfied_by]` decision whose
+  declared path is missing, and made `enforce.collect_findings()` default its root to the tool
+  checkout instead of dereferencing `None`.
 - Fixed the installed-wheel `autodoc check` path boundary: `[instantiated]` and
   `[satisfied_by]` locations now resolve against the selected `--repo`, not the bundled tool
   root, and the check still reports genuinely missing destinations.

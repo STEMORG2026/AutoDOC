@@ -115,13 +115,13 @@ def collect_findings(profile_document, context, documents, groups, enforcement, 
     policy, not from whether a finding happened to exist, or a repo with a clean drive would
     look as if drift had been checked.
     """
-    findings = list(recommend.findings(documents, context, groups, enforcement,
-                                        root=root or ROOT))
+    root = Path(root) if root else ROOT
+    findings = list(recommend.findings(documents, context, groups, enforcement, root=root))
 
     # The delegated checkers keep their own human output for their own entry points; here their
     # findings are carried as data, so their printing is captured rather than duplicated.
     drift, freshness = [], []
-    with repo_scope(root or ROOT), \
+    with repo_scope(root), \
             contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
         engine.generate(check=True, findings=drift)
         engine.validate(freshness=True, findings=freshness)
@@ -144,7 +144,7 @@ def collect_findings(profile_document, context, documents, groups, enforcement, 
     off = [family for family in context_module.CHECK_FAMILIES
            if context_module.check_severity(context, family)[0] == 'off']
     for finding in structural:
-        finding['location'] = repo_relative(finding['location'], root or ROOT)
+        finding['location'] = repo_relative(finding['location'], root)
         rule = finding['rule']
         severity, source = context_module.check_severity(context, rule)
         if severity == 'off':
@@ -371,13 +371,16 @@ def build(args):
     documents = recommend.catalog()
     placement = recommend.profile_placement(documents, context)
     groups = recommend.evaluate(documents, profile_document, context, enforcement, placement)
+    project_root = args.repo.resolve()
+    invalid = recommend.invalid_decisions(documents, context, project_root)
     findings, off = collect_findings(profile_document, context, documents, groups, enforcement,
-                                     root=args.repo.resolve())
+                                     root=project_root)
     baseline = load_baseline(args.baseline)
     kept, suppressed, stale = apply_baseline(findings, baseline)
     data = {'version': 1, 'repo': profile_document['repo'], 'phase': context['phase'],
             'phase_age': context_module.phase_age(context), 'enforcement': enforcement,
-            'readiness': recommend.score(documents, groups, enforcement)['readiness'],
+            'readiness': recommend.score(documents, groups, enforcement,
+                                         invalid_decisions=invalid)['readiness'],
             'off_families': off, 'levels': list(LEVELS),
             'kinds': recommend.kind_summary(profile_document, context),
             'traits': recommend.trait_summary(profile_document, context),

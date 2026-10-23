@@ -94,6 +94,11 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 "DEV-B07-001" = ["docs/00-governance/ENGINE-COVERAGE.md"]
 "DEV-B10-003" = ["QUICK-START.md"]
 "DOC-A09-006" = ["CONTRIBUTING.md"]
+# Beta-release records. The canonical license text and the changelog answer the catalog
+# questions, but they are project-root records rather than controlled Markdown; record them
+# as existing homes so the beta delta is honest and the paths are checked.
+"DOC-A10-008" = ["LICENSE"]
+"DOC-A15-003" = ["CHANGELOG.md"]
 
 [instantiated]
 # catalog type id -> the controlled document that satisfies it. Derived from the adoption record
