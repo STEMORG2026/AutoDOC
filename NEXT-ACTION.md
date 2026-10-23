@@ -28,7 +28,8 @@ merged PRD2's closeout at `f8e2c76`, and post-merge `make ci` passes. The closeo
 existing `LICENSE` and `CHANGELOG.md` as the homes for the two
 beta-gated core rows (`DOC-A10-008`, `DOC-A15-003`), so the installed `autodoc promote --to beta`
 preview exits 0 with `Delta: no catalog requirement changes`. The owner then authorized the
-promotion: BETA's open PR writes `phase = "beta"` and reports `beta-ready: 17/17`. The closeout
+promotion: PR #24 wrote `phase = "beta"` and merged at `8f9c709`, and the repository reports
+`beta-ready: 17/17`. The closeout
 also adds the optional `audit` extra and
 operator-run `make audit`, fixes readiness so a missing declared path is counted as open rather
 than acknowledged, and defaults `enforce.collect_findings()` to the tool checkout. `make ci` passes
@@ -39,7 +40,7 @@ The proposed `0.3.0` and Beta classifier record no owner approval. D-007 remains
 D-009's external dogfood was executed but its formal acceptance/record remains open. D-010's
 mechanism is implemented and its first run is recorded in `state/DEBT.md`; formal closure remains
 owner-optional. Do not publish to PyPI or close any paused session by inference; the beta
-promotion PR awaits the owner's merge.
+promotion is merged, and release/tag decisions remain owner-only.
 
 D-007 (evidence signing) remains deferred and non-gating. D-009 (external dogfood) was executed
 against the installed wheel and five additional repositories; its formal owner acceptance/record
@@ -79,8 +80,8 @@ D-001 session was subsequently closed on 2026-10-21 by the owner's explicit inst
 "Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
 thread**; D-003 merged through PR #16 and its production-readiness follow-up through PR #18,
 while D-007 remains unselected and D-009's dogfood execution awaits formal acceptance. Promotion to
-`beta` is written in BETA's open promotion PR (preview showed no requirement blockers); the
-phase-write event is the owner's merge. D-004 and D-002 were the earlier
+`beta` is written and merged in PR #24 at `8f9c709` (the preview showed no requirement blockers);
+release/tag/PyPI remain separate owner decisions. D-004 and D-002 were the earlier
 owner-selected follow-up and are now merged by PR #14. One debt item closed on
 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make

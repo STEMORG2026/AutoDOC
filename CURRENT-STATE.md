@@ -91,9 +91,10 @@ passed (the PR impact step ran within the guard check; no separate impact status
 owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's production-readiness
 commands merged in PR #18 at `1361ba2`. Post-merge installed-wheel dogfood found the packaged-root
 path defect; the fixes merged in PR #19 at `06ccb0a`, and PR #20's reconciliation merged at
-`f8e2c76` through PR #21. PRD2 is merged but not closed; the beta phase write is in BETA's open
-promotion PR, the owner release and `0.3.0`/Beta verdict remain pending, and 912C and PRD1 remain
-paused because merging did not close them.
+`f8e2c76` through PR #21; PR #22 reconciled the state at `f040105`; PR #23 made the shipped-phase
+tests follow the declaration at `3fda35b`; PR #24 merged the beta promotion at `8f9c709`. PRD2,
+BETA, 912C and PRD1 are merged but not closed; the owner release and `0.3.0`/Beta verdict remain
+pending.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.

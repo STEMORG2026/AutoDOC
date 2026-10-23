@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Write the owner-authorized `beta` phase declaration on `master`, keep the enforcement pins honest, update phase-dependent documentation and state, and prove the gate stays green. |
 | Owner of the work | `BETA` (session `20261023-0612-BETA`) |
-| Status | **PAUSED — PR open; awaiting owner merge and explicit session closure** |
+| Status | **PAUSED — PR #24 merged at `8f9c709`; awaiting explicit owner closure** |
 | Opened (UTC) | 2026-10-23T06:12Z |
 
 ## Scope
@@ -43,4 +43,5 @@ external publication exists.
 - `autodoc check` reports `beta-ready: 17/17` with no failing findings.
 - `make ci` passes 307 tests + 188 subtests, package smoke and evidence verification.
 - `make audit` reports no known vulnerabilities.
-- PR opened for the owner's merge; no tag, PyPI publication or session closure.
+- PR #24 merged at `8f9c709` with all checks passing; post-merge `make ci` passes 307 tests +
+  188 subtests. No tag, PyPI publication or session closure.

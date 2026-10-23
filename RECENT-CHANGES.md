@@ -27,8 +27,9 @@ auto_generated: false
   evidence hashes, and `make audit` reports no known vulnerabilities. Removed the `stubs` and
   `freshness.review` pins because beta already sets those severities; `tribal` and
   `freshness.critical` remain deliberately stricter. Updated README, ADOPTION, CORE-LIST-REVIEW,
-  architecture, tests and state. No tag, PyPI publication, version change or session closure is
-  included.
+  architecture, tests and state. PR #24 merged at `8f9c709`; post-merge `make ci` passes 307 tests + 188 subtests and
+  `autodoc check` reports `beta-ready: 17/17`. No tag, PyPI publication, version change or
+  session closure is included.
 - Closed the remaining beta document delta on the PRD2 closeout branch: `LICENSE` and
   `CHANGELOG.md` are recorded as the homes for `DOC-A10-008` and `DOC-A15-003`, so `autodoc promote
   --to beta` previews with no requirement blockers while the declared phase stays `build`. Added
@@ -72,6 +73,8 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 8f9c709 2026-10-23 Merge pull request #24 from STEMORG2026/chore/promote-beta
+- ea31ace 2026-10-23 chore: promote declared phase to beta
 - 3fda35b 2026-10-23 Merge pull request #23 from STEMORG2026/test/phase-agnostic-shipped-checks
 - 9ae8131 2026-10-23 test: derive shipped-phase assertions from the declaration
 - f040105 2026-10-23 Merge pull request #22 from STEMORG2026/docs/post-pr21-reconciliation
@@ -90,18 +93,9 @@ auto_generated: false
 - adee921 2026-10-22 docs(state): record PR 18 checks passing
 - 67180ea 2026-10-22 docs(state): record PR 18 review handoff
 - 6a76106 2026-10-22 feat: add document instantiation and guarded phase promotion
-- a28616b 2026-10-22 Merge pull request #16 from STEMORG2026/arena/912c4060-autodoc
-- 7604cee 2026-10-22 feat: render catalog template variants on demand
 
 ## Changed paths at update time
 
-- `README.md`
-- `autodoc.toml`
-- `docs/00-governance/ADOPTION.md`
-- `docs/00-governance/CORE-LIST-REVIEW.md`
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
-- `docs/META/TEST-INVENTORY.md`
-- `docs/generated/TRIGGER-REFERENCE.md`
 - `state/ARCHITECTURE.md`
 - `state/BLOCKERS.md`
 - `state/DASHBOARD.md`
@@ -111,6 +105,4 @@ auto_generated: false
 - `state/REGISTRY.md`
 - `state/plans/agent-BETA-beta-promotion.md`
 - `state/sessions/20261023-0612-BETA-beta-promotion.md`
-- `tests/test_enforce.py`
-- `tests/test_triggers.py`
 <!-- auto:end -->

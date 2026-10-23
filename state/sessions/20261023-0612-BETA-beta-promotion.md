@@ -36,11 +36,13 @@ See `state/plans/agent-BETA-beta-promotion.md`.
 - `make ci` on the promotion branch: 307 tests + 188 subtests, wheel/sdist and clean-install
   smoke, evidence hashes verified.
 - `make audit` (pip-audit 2.10.1): `No known vulnerabilities found`.
-- PR #23 made the shipped-phase tests derive from the declaration; this session also updates the
-  pin policy test so it compares pins with the declared phase, not `build`.
+- PR #23 made the shipped-phase tests derive from the declaration; this session also updated the
+  pin policy test to compare pins with the declared phase, not `build`.
+- Post-merge `master` at `8f9c709`: `make ci` passes 307 tests + 188 subtests and `autodoc check`
+  reports `beta-ready: 17/17`.
 
 ## Outcome
 
-**PAUSED — PR open; awaiting owner merge and explicit session closure.** The beta promotion is
-owner-gated: merging the PR records the phase write. No tag, PyPI publication or session closure
-is included.
+**PAUSED — merged at `8f9c709`; awaiting explicit owner closure.** PR #24 is
+https://github.com/STEMORG2026/AutoDOC/pull/24. The phase write is recorded; no tag, PyPI
+publication or session closure is included, and merging did not close the session.
