@@ -1,6 +1,6 @@
 # BLOCKERS — active blockers and dependencies
 
-**Last reconciled:** 2026-10-23T08:57Z (no active blockers. B-003 remains cleared; PR #24 merged the beta promotion at `8f9c709`; PR #25 reconciled state at `249c2aa`; PR #26 merged `autodoc evolve` at `c0f90e0` with post-merge `make ci` passing 315 tests + 188 subtests. Release/version and session-closure decisions remain owner-gated, not blockers.)
+**Last reconciled:** 2026-10-23T10:26Z (no active blockers. B-003 remains cleared; PR #24 merged the beta promotion at `8f9c709`; PR #25 reconciled state at `249c2aa`; PR #26 merged `autodoc evolve` at `c0f90e0`; PR #27 reconciled state at `4230703`. EVOLVE's session was closed by the owner on 2026-10-23. Release/version and remaining session-closure decisions are owner-gated, not blockers.)
 
 | ID | Blocker | Blocks | Owner who can clear it | Raised |
 | --- | --- | --- | --- | --- |
