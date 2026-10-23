@@ -31,12 +31,13 @@ profiles themselves were owner-reviewed on 2026-10-01 (`owner_reviewed` in
 no backup, security approver or external auditor has been assigned.
 
 The installable Python distribution exposes this engine through `autodoc check`, `generate`,
-`adopt`, `init`, `add`, `promote` and `templates`; it keeps bundled policy/catalog assets separate
-from the project path being checked. `autodoc templates` renders catalog variants on demand into
+`adopt`, `init`, `add`, `promote`, `evolve` and `templates`; it keeps bundled policy/catalog assets
+separate from the project path being checked. `autodoc templates` renders catalog variants on demand into
 the selected project's ignored `build/TEMPLATES/` tree; rendering does not instantiate or adopt a
 document. `autodoc add` instantiates one type in the project, and `autodoc promote` previews the
 enforcement delta before changing the declared phase; neither records an owner decision on the
-owner's behalf. It
+owner's behalf. `autodoc evolve` plans safe updates and can create missing required documents as
+drafts, but it never registers, approves or counts them as compliant. It
 is a CLI, not a hosted service. The package is built and tested as wheel/sdist but is not published
 to PyPI; adoption remains an explicit configuration and review process, not an automatic claim
 that a project is governed.

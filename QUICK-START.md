@@ -33,7 +33,8 @@ autodoc generate --root /path/to/project --check
 
 Available commands are `check`, `generate`, `adopt` (read-only heuristic scan), `init` (draft
 scaffold and optional phase/profile declaration), `add` (one catalog document), `promote` (preview
-or apply a phase change), and `templates` (render catalog variants). The 3.11–3.15 CI compatibility matrix is supplemental and
+or apply a phase change), `evolve` (plan safe updates and draft gaps), and `templates` (render
+catalog variants). The 3.11–3.15 CI compatibility matrix is supplemental and
 non-blocking; the configured required gate runs full `make ci` on Python 3.11. The installed tool
 assets are separate from the selected project root. `check` honors that project's `autodoc.toml` and baseline; an undeclared phase is
 advisory unless severity is pinned. `generate` needs the target project's
@@ -91,6 +92,26 @@ and no recorded decision. Add the documents or record the decision in `autodoc.t
 `--force` permits a demotion, a backdated declaration, or a write with missing required documents;
 it never hides the remaining findings. `promote` changes only the top-level `phase` and
 `phase_declared` values and preserves the rest of the file.
+
+## Evolve an existing project
+
+`autodoc evolve --repo /existing/project` reuses the declared context, profile, catalog and
+enforcement policy to produce a read-only plan. It lists generated artifacts that are stale,
+required documents that are missing, existing documents the context does not register, and facts
+it cannot determine. Review the plan before applying anything.
+
+```sh
+autodoc evolve --repo /existing/project             # preview only
+autodoc evolve --repo /existing/project --check     # exit 1 when an action is pending
+autodoc evolve --repo /existing/project --write     # refresh generated artifacts only
+autodoc evolve --repo /existing/project --write --allow-add
+```
+
+`--write` refreshes only generated targets declared in `docs/.doc-sync-map.yaml`.
+`--allow-add` additionally creates missing required documents as `status: draft`; it never
+registers them in `[instantiated]`, approves them, or counts them as compliance. `evolve` never
+changes the phase, profile, decisions, approvals or catalog, and it never overwrites an existing
+file. The report names undetermined facts so a human can declare them instead of guessing.
 
 ## Add a deterministic extractor
 

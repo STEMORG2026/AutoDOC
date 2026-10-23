@@ -86,6 +86,7 @@ Every mapping states its generator's exactness and limits, so a reader can judge
 - `scripts/intelligence/change_analyzer.py`
 - `scripts/intelligence/context.py`
 - `scripts/intelligence/enforce.py`
+- `scripts/intelligence/evolve.py`
 - `scripts/intelligence/profile.py`
 - `scripts/intelligence/promote.py`
 - `scripts/intelligence/recommend.py`

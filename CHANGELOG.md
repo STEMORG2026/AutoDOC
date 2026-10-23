@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added `autodoc evolve`: a read-only-by-default plan for safe documentation updates on an
+  existing project, with `--write` for generated drift, `--write --allow-add` for missing required
+  documents as unregistered drafts, and `--check`/`--json` modes. It reuses the existing context,
+  profile, catalog and enforcement layers; it never registers or approves a draft, overwrites an
+  existing document, edits `autodoc.toml`, or changes the phase/profile/decisions/catalog.
 - Recorded the existing `LICENSE` and `CHANGELOG.md` as the homes for the two beta-gated core
   records (`DOC-A10-008`, `DOC-A15-003`); `autodoc promote --to beta` now previews with no
   requirement blockers.

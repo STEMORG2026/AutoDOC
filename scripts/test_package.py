@@ -69,7 +69,7 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
         raise RuntimeError(f"unexpected installed version output: {version.stdout.strip()!r}")
     help_text = run([str(cli), "--help"], cwd=work, env=environment)
     if not all(command in help_text.stdout for command in (
-            "check", "generate", "adopt", "init", "add", "promote", "templates")):
+            "check", "generate", "adopt", "init", "add", "promote", "evolve", "templates")):
         raise RuntimeError("installed CLI help omitted one or more supported commands")
     invalid = run([str(cli), "unsupported-command"], cwd=work, expected=2, env=environment)
     if "invalid choice" not in invalid.stderr:
@@ -111,6 +111,11 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
     if not isinstance(report, dict):
         raise RuntimeError("installed check command did not produce a JSON report")
 
+    evolved = run([str(cli), "evolve", "--repo", str(project), "--json"], cwd=work, env=environment)
+    plan = json.loads(evolved.stdout)
+    if plan.get("command") != "evolve" or "actions" not in plan:
+        raise RuntimeError("installed evolve command did not produce a JSON plan")
+
     (project / "config.schema.json").write_text(
         json.dumps({"properties": {"PORT": {
             "type": "integer", "default": 8080, "description": "HTTP listen port"
@@ -148,6 +153,7 @@ def main() -> int:
         runtime_prefix = f"autodoc-{PROJECT_VERSION}.data/data/share/autodoc/"
         required_runtime = (
             "scripts/intelligence/enforce.py",
+            "scripts/intelligence/evolve.py",
             "scripts/intelligence/promote.py",
             "scripts/doc-sync/engine.py",
             "scripts/doc-control/check_catalog.py",
@@ -177,7 +183,7 @@ def main() -> int:
 
         smoke_installed_cli(wheels[0], work / "installed-smoke")
 
-    print("Package check passed: wheel and sdist built; sdist rebuilt; clean wheel install exercised version/check/generate/adopt/init/add/promote/templates.")
+    print("Package check passed: wheel and sdist built; sdist rebuilt; clean wheel install exercised version/check/generate/adopt/init/add/promote/evolve/templates.")
     return 0
 
 

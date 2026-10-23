@@ -58,6 +58,14 @@ reversibility claims. A real OpenAPI contract remains deferred until the demo so
 one. Existing env/alert references are example-only; do not claim deployed monitoring. The catalog
 applicability review is done — recorded 2026-10-01 (see Owner decisions below).
 
+## In flight — `autodoc evolve`
+EVOLVE opened PR #26 for the owner-requested safe autoevolution command on
+`feat/autodoc-evolve` from `master` `249c2aa`. The command is read-only by default; `--write` refreshes generated
+drift; `--write --allow-add` creates missing required documents as unregistered drafts. It never
+registers/approves a draft, overwrites an existing document, or edits the phase/profile/decisions/
+catalog. Local pytest passes 315 tests + 188 subtests. The owner reviews and merges PR #26; no release or
+session closure is included. `autodoc evolve-catalog` remains a separate unopened scope.
+
 ## Owner decisions
 Done: the license is Apache-2.0 (owner decision, 2026-10-01): canonical text in `LICENSE`, SPDX
 expression in `pyproject.toml`, decision record in `docs/00-governance/LICENSE-DECISION.md`.

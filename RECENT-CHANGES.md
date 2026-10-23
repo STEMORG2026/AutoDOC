@@ -21,6 +21,13 @@ auto_generated: false
 ---
 # Recent changes
 
+- Started the owner-requested safe autoevolution on `feat/autodoc-evolve` from `master` `249c2aa`:
+  `autodoc evolve` plans from the same context/profile/catalog/enforcement layers, is read-only
+  by default, refreshes generated drift with `--write`, and creates missing required documents
+  only as unregistered `status: draft` instances with `--write --allow-add`. It reports
+  undetermined facts, structural findings and existing-but-unregistered documents for a human,
+  never overwrites an existing file, and never edits the phase/profile/decisions/catalog. Local
+  pytest passes 315 tests + 188 subtests; PR #26 open, no release or session closure.
 - Promoted the declared phase from `build` to `beta` on 2026-10-23 after the owner authorized the
   write and `autodoc promote --to beta` previewed no catalog requirement changes. The declaration
   reports `beta-ready: 17/17`; `make ci` passes 307 tests + 188 subtests with package smoke and
@@ -73,6 +80,9 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- 32a9cdd 2026-10-23 feat: add safe autodoc evolve command
+- 249c2aa 2026-10-23 Merge pull request #25 from STEMORG2026/docs/post-pr24-reconciliation
+- 26e73ab 2026-10-23 docs(state): reconcile PR 24 merge
 - 8f9c709 2026-10-23 Merge pull request #24 from STEMORG2026/chore/promote-beta
 - ea31ace 2026-10-23 chore: promote declared phase to beta
 - 3fda35b 2026-10-23 Merge pull request #23 from STEMORG2026/test/phase-agnostic-shipped-checks
@@ -90,9 +100,6 @@ auto_generated: false
 - 1a584d7 2026-10-22 docs(state): reconcile PR 18 merge and PR 19 dogfood
 - deec574 2026-10-22 fix: resolve packaged check paths and dogfood guards
 - 1361ba2 2026-10-22 Merge pull request #18 from STEMORG2026/arena/production-readiness-autodoc
-- adee921 2026-10-22 docs(state): record PR 18 checks passing
-- 67180ea 2026-10-22 docs(state): record PR 18 review handoff
-- 6a76106 2026-10-22 feat: add document instantiation and guarded phase promotion
 
 ## Changed paths at update time
 
@@ -103,6 +110,6 @@ auto_generated: false
 - `state/DECISIONS.md`
 - `state/INDEX.md`
 - `state/REGISTRY.md`
-- `state/plans/agent-BETA-beta-promotion.md`
-- `state/sessions/20261023-0612-BETA-beta-promotion.md`
+- `state/plans/agent-EVOLVE-evolve-command.md`
+- `state/sessions/20261023-0751-EVOLVE-evolve-command.md`
 <!-- auto:end -->

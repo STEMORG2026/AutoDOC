@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 auto_generated: false
 ---
 # Engine coverage and honest limits
@@ -161,6 +161,18 @@ A human-authored instance is checked for ownership/freshness only once created u
 path; source-change review requires an explicit map rule. There is no deterministic extractor for
 ADR rationale, risk acceptance, user guides, incident analysis, security policies or other
 judgment-heavy catalog entries. Do not treat template renderability as production documentation coverage.
+
+## Safe evolution
+`autodoc evolve` composes the context, profile, recommendation and enforcement layers into a
+read-only plan. It can refresh generated targets declared in `docs/.doc-sync-map.yaml` and, only
+with `--write --allow-add`, instantiate missing required documents as `status: draft`. Drafts are
+not registered in `[instantiated]`, are not approved, and are not counted as satisfying a
+requirement. Undetermined facts, structural findings and existing-but-unregistered documents are
+reported for a human decision. The command never edits `autodoc.toml`, the catalog, a decision
+record or an approval, and it never overwrites an existing document. Maturity signals (licence,
+changelog, CI, tests, package manifest, tags and commit count) are advisory context, not a phase
+inference. This is structural planning and bounded generation, not an assessment that the
+documentation is adequate or compliant.
 
 ## Partially supported
 The task API source is a JSON registry, **not** OpenAPI. SQL is a deliberately narrow SQLite

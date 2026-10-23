@@ -34,7 +34,7 @@ def test_version_and_help_are_available_without_a_checkout_cwd(tmp_path):
     assert version.stdout.strip() == f"autodoc {PROJECT_VERSION}"
     assert help_result.returncode == 0
     assert all(command in help_result.stdout for command in (
-        "check", "generate", "adopt", "init", "add", "promote", "templates"))
+        "check", "generate", "adopt", "init", "add", "promote", "evolve", "templates"))
 
 
 def test_generate_uses_explicit_project_root(tmp_path):
@@ -143,3 +143,29 @@ def test_add_and_promote_operate_on_selected_project(tmp_path):
     written = run_cli("promote", "--repo", project, "--to", "build", "--write", cwd=tmp_path)
     assert written.returncode == 0, written.stderr
     assert tomllib.loads((project / "autodoc.toml").read_text(encoding="utf-8"))["phase"] == "build"
+
+
+def test_evolve_plans_safe_actions_and_checks_pending_work(tmp_path):
+    project = tmp_path / "consumer"
+    project.mkdir()
+    (project / "README.md").write_text("# Consumer\n", encoding="utf-8")
+    (project / "autodoc.toml").write_text(
+        'schema = 1\nphase = "beta"\nphase_declared = "2026-10-23"\n'
+        'audience = ["contributors", "external-users"]\n',
+        encoding="utf-8",
+    )
+
+    preview = run_cli("evolve", "--repo", project, "--json", cwd=tmp_path)
+    assert preview.returncode == 0, preview.stderr
+    plan = json.loads(preview.stdout)
+    assert plan["summary"]["actions"] >= 1
+    assert plan["summary"]["written"] == 0
+    assert not (project / "docs").exists()
+
+    checked = run_cli("evolve", "--repo", project, "--check", cwd=tmp_path)
+    assert checked.returncode == 1
+    assert "create" in checked.stdout
+    assert not (project / "docs").exists()
+
+    conflict = run_cli("evolve", "--repo", project, "--check", "--write", cwd=tmp_path)
+    assert conflict.returncode == 2

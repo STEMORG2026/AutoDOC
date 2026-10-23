@@ -54,6 +54,15 @@ impact, and the structure of instantiated migration documents (required sections
 template prompts, not semantic correctness). A catalog entry represents a possible document, not a
 completed compliance obligation.
 
+The owner-requested autoevolution scope is in progress on `feat/autodoc-evolve` from `master`
+`249c2aa`: `autodoc evolve` plans safe documentation updates from the same context, profile,
+catalog and enforcement layers, refreshes generated drift only with `--write`, and creates missing
+required documents only as unregistered `draft` instances with `--write --allow-add`. It never
+registers or approves a draft, overwrites an existing document, edits `autodoc.toml`, or changes
+the phase/profile/decisions/catalog. Undetermined facts and structural findings are reports for a
+human. Local pytest passes 315 tests + 188 subtests; PR #26 is open and no release, tag, PyPI
+publication or session closure is included.
+
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 
 When AutoDOC runs is declared, not implied: one event model (`CONTROL/metadata/TRIGGERS.json`,
@@ -70,7 +79,7 @@ The release-tag workflow fails closed if `LICENSE` is missing; the owner selecte
 2026-10-01 (`LICENSE`, `pyproject.toml`, `docs/00-governance/LICENSE-DECISION.md`).
 
 The user-selected production target — an installable Python CLI/package, not a hosted service — is
-implemented: `autodoc check/generate/adopt/init/add/promote/templates`, separate bundled tool and
+implemented: `autodoc check/generate/adopt/init/add/promote/evolve/templates`, separate bundled tool and
 target-project roots, wheel/sdist build and clean-venv smoke coverage. Python 3.11–3.15 are declared; the
 supplemental CI matrix is non-blocking, while the required `AutoDOC guard / check` runs `make ci`
 on Python 3.11. Tagged workflows build temporary GitHub Actions artifacts only; the package is

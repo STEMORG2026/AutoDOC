@@ -51,7 +51,7 @@ autodoc generate --root /path/to/project --check
 The package declares Python **3.11–3.15** support and has no runtime dependencies. CI runs the test
 suite across that range in a supplemental, non-blocking matrix; the named required gate runs full
 `make ci` on Python 3.11. Its installable commands are `check`, `generate`, `adopt`, `init`, `add`,
-`promote`, and `templates`; every command operates on the selected project root, separately from
+`promote`, `evolve`, and `templates`; every command operates on the selected project root, separately from
 AutoDOC's bundled policy and catalog assets. `init` requires an existing directory, writes draft
 scaffolds, and can record an initial phase/profile declaration; `adopt` is a read-only filename
 heuristic; `add` instantiates one catalog type; `promote` previews the enforcement delta before
@@ -70,7 +70,12 @@ creates it under `docs/autodoc/`; existing files are never replaced without `--f
 `autodoc promote --repo /path/to/project --to beta` previews the requirement and enforcement
 changes; `--write` applies them only when the target-phase required documents exist or a decision
 is recorded, unless `--force` explicitly overrides that guard. A declaration is never inferred
-from repository history.
+from repository history. `autodoc evolve --repo /path/to/project` plans safe updates from the same
+context, profile, catalog and enforcement layers: it refreshes generated drift, reports
+undetermined facts and existing-but-unregistered documents, and creates missing required
+documents only as drafts when `--write --allow-add` is explicit. Drafts are never registered,
+approved or counted as compliance, and `evolve` never edits the phase, profile, decisions or
+catalog.
 
 `make docs-recommend` reports which catalog types apply to this repository, why, and which
 decisions are recorded in `autodoc.toml`; `make docs-catalog` validates the catalog rules,
