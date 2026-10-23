@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Close the remaining release-readiness gaps on `master` after PR #19: the beta document delta, operator-run vulnerability auditing, two enforcement/readiness residuals, and the records that describe them. |
 | Owner of the work | `PRD2` (session `20261022-1415-PRD2`) |
-| Status | **ACTIVE — PR #21 open; checks pass; awaiting owner merge** |
+| Status | **PAUSED — PR #21 merged at `f8e2c76`; awaiting explicit owner closure** |
 | Opened (UTC) | 2026-10-22T14:15Z |
 
 ## Scope
@@ -52,5 +52,5 @@ an optional extra), and no phase or release state is written.
 - `autodoc promote --to beta` previews no requirement blockers while `phase` stays `build`.
 - `make audit` succeeds with the audit extra installed and reports no known vulnerabilities.
 - `make ci` passes with the new tests; installed-wheel smoke and external dogfood remain green.
-- PR #21 is open with all checks passing and states that beta promotion, tag, PyPI publication
-  and session closure are still owner decisions.
+- PR #21 merged at `f8e2c76` with all checks passing. Post-merge `make ci` passes 307 tests + 190
+  subtests. Beta promotion, tag, PyPI publication and session closure remain owner decisions.

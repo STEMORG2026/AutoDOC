@@ -40,12 +40,12 @@ paths against the target root, rejects duplicate instance IDs in `add`, and corr
 empty-delta wording. Its local `make ci` gate passes (304 tests + 190 subtests, wheel/sdist and
 clean-install smoke for all seven commands, unsigned evidence-hash verification), and PR #19 merged
 at `06ccb0a`. Post-merge `master` `make ci` passes and its guard/generation-preview runs are green.
-PR #20 then merged the post-PR19 state reconciliation at `f2e8698`. PRD2's closeout branch records
-`LICENSE` and `CHANGELOG.md` as the homes for the two beta-gated core rows, so `autodoc promote
---to beta` previews with no requirement blockers; the phase is still `build` and no promotion was
-written. The branch is PR #21 and all checks pass; merging is the owner's call. It also adds an operator-run `make audit` (optional `pip-audit` extra, no runtime
-dependency, outside the offline gate) and stops readiness from counting a decision whose declared
-path is missing. The owner verdict on the proposed `0.3.0`/Beta version, the beta phase write and
+PR #20 then merged the post-PR19 state reconciliation at `f2e8698`. PRD2's closeout merged in PR
+#21 at `f8e2c76`: it records the existing `LICENSE` and `CHANGELOG.md` as the homes for the two
+beta-gated core rows, so `autodoc promote --to beta` previews with no requirement blockers; the
+phase is still `build` and no promotion was written. It also added an operator-run `make audit`
+(optional `pip-audit` extra, no runtime dependency, outside the offline gate) and stopped readiness
+from counting a decision whose declared path is missing. The owner verdict on the proposed `0.3.0`/Beta version, the beta phase write and
 any release remain. AutoDOC also has an installable CLI
 with zero runtime dependencies, wheel/sdist builds, and clean-environment install smoke coverage.
 Its checks validate controlled-document metadata, generated drift, age, source-to-human-review
@@ -90,7 +90,7 @@ passed (the PR impact step ran within the guard check; no separate impact status
 owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's production-readiness
 commands merged in PR #18 at `1361ba2`. Post-merge installed-wheel dogfood found the packaged-root
 path defect; the fixes merged in PR #19 at `06ccb0a`, and PR #20's reconciliation merged at
-`f2e8698`. PRD2 is the active closeout branch; the owner release, beta phase write and
+`f8e2c76` through PR #21. PRD2 is merged but not closed; the owner release, beta phase write and
 `0.3.0`/Beta verdict remain pending, and 912C and PRD1 remain paused because merging did not close
 them.
 

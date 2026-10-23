@@ -23,12 +23,12 @@ auto_generated: false
 
 ## Immediate focus
 PR #18 merged PRD1's production-readiness commands at `1361ba2`; PR #19 merged the installed-wheel
-dogfood fixes at `06ccb0a`; PR #20 merged the post-PR19 state reconciliation at `f2e8698`. PRD2's
-closeout branch at `a24c46a` is open as **PR #21 with all checks passing**; merging is the owner's
-call. The branch records the existing `LICENSE` and `CHANGELOG.md` as the homes for the two
+dogfood fixes at `06ccb0a`; PR #20 merged the post-PR19 state reconciliation at `f2e8698`; PR #21
+merged PRD2's closeout at `f8e2c76`, and post-merge `make ci` passes. The closeout records the
+existing `LICENSE` and `CHANGELOG.md` as the homes for the two
 beta-gated core rows (`DOC-A10-008`, `DOC-A15-003`), so the installed `autodoc promote --to beta`
 preview exits 0 with `Delta: no catalog requirement changes`. The phase is still `build`; writing
-the promotion is a deliberate owner action. The branch also adds the optional `audit` extra and
+the promotion is a deliberate owner action. The merge also adds the optional `audit` extra and
 operator-run `make audit`, fixes readiness so a missing declared path is counted as open rather
 than acknowledged, and defaults `enforce.collect_findings()` to the tool checkout. `make ci` passes
 (307 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands, unsigned
@@ -45,7 +45,7 @@ against the installed wheel and five additional repositories; its formal owner a
 remains open. D-010's operator-run scanner now exists (`make audit`); its first run found no known
 vulnerabilities, and formal closure remains owner-optional. PRD1 and 912C are merged but not
 closed; C4R7 remains paused after PR #12; B71a remains paused after PR #11; 627F remains paused
-after PR #13; 894B remains paused after PR #14; PRD2 is active on the closeout branch. Merging did
+after PR #13; 894B remains paused after PR #14; PRD2 merged in PR #21 but was not closed. Merging did
 not explicitly close those sessions.
 The release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
 unauthorized.
