@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Add a bounded `autodoc evolve` command that plans safe documentation updates for a project, refreshes generated drift, and creates missing required documents only as unregistered drafts. |
 | Owner of the work | `EVOLVE` (session `20261023-0751-EVOLVE`) |
-| Status | **ACTIVE — PR #26 open on `feat/autodoc-evolve`; awaiting owner review/merge** |
+| Status | **PAUSED — merged in PR #26 at `c0f90e0`; awaiting explicit owner closure** |
 | Opened (UTC) | 2026-10-23T07:51Z |
 
 ## Scope

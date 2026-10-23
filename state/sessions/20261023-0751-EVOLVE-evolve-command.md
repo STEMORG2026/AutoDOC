@@ -49,9 +49,10 @@ See `state/plans/agent-EVOLVE-evolve-command.md`.
 - Generated drift fixture: planned, refreshed, verified, and absent from the following plan.
 - Configuration-error fixture: exit 2, no writes.
 - `make generate` and `make ci` pass (315 tests + 188 subtests, package-check included);
-  `make audit` reports no known vulnerabilities. The PR is the remaining gate.
+  `make audit` reports no known vulnerabilities. Post-merge `master` (`c0f90e0`) passes 315 tests
+  + 188 subtests.
 
 ## Outcome
 
-**ACTIVE — PR #26 open on `feat/autodoc-evolve`; awaiting owner review/merge.** No release,
+**PAUSED — merged in PR #26 at `c0f90e0`; awaiting explicit owner closure.** No release,
 tag, PyPI publication, phase change or session closure is included.

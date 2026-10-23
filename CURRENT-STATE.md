@@ -54,14 +54,14 @@ impact, and the structure of instantiated migration documents (required sections
 template prompts, not semantic correctness). A catalog entry represents a possible document, not a
 completed compliance obligation.
 
-The owner-requested autoevolution scope is in progress on `feat/autodoc-evolve` from `master`
-`249c2aa`: `autodoc evolve` plans safe documentation updates from the same context, profile,
-catalog and enforcement layers, refreshes generated drift only with `--write`, and creates missing
-required documents only as unregistered `draft` instances with `--write --allow-add`. It never
-registers or approves a draft, overwrites an existing document, edits `autodoc.toml`, or changes
-the phase/profile/decisions/catalog. Undetermined facts and structural findings are reports for a
-human. Local pytest passes 315 tests + 188 subtests; PR #26 is open and no release, tag, PyPI
-publication or session closure is included.
+The owner-requested autoevolution scope merged on `master` at `c0f90e0` (PR #26):
+`autodoc evolve` plans safe documentation updates from the same context, profile, catalog and
+enforcement layers, refreshes generated drift only with `--write`, and creates missing required
+documents only as unregistered `draft` instances with `--write --allow-add`. It never registers or
+approves a draft, overwrites an existing document, edits `autodoc.toml`, or changes the
+phase/profile/decisions/catalog. Undetermined facts and structural findings are reports for a
+human. Post-merge `make ci` passes 315 tests + 188 subtests; EVOLVE is paused awaiting the owner’s
+explicit closure. No release, tag or PyPI publication is included.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 

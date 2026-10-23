@@ -45,10 +45,10 @@ promotion is merged, and release/tag decisions remain owner-only.
 D-007 (evidence signing) remains deferred and non-gating. D-009 (external dogfood) was executed
 against the installed wheel and five additional repositories; its formal owner acceptance/record
 remains open. D-010's operator-run scanner now exists (`make audit`); its first run found no known
-vulnerabilities, and formal closure remains owner-optional. PRD1 and 912C are merged but not
-closed; C4R7 remains paused after PR #12; B71a remains paused after PR #11; 627F remains paused
-after PR #13; 894B remains paused after PR #14; PRD2 merged in PR #21 but was not closed. Merging did
-not explicitly close those sessions.
+vulnerabilities, and formal closure remains owner-optional. PRD1, PRD2, 912C, BETA and EVOLVE
+are merged but not closed; C4R7 remains paused after PR #12; B71a remains paused after PR #11;
+627F remains paused after PR #13; 894B remains paused after PR #14. Merging did not explicitly
+close those sessions.
 The release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
 unauthorized.
 
@@ -58,13 +58,14 @@ reversibility claims. A real OpenAPI contract remains deferred until the demo so
 one. Existing env/alert references are example-only; do not claim deployed monitoring. The catalog
 applicability review is done — recorded 2026-10-01 (see Owner decisions below).
 
-## In flight — `autodoc evolve`
-EVOLVE opened PR #26 for the owner-requested safe autoevolution command on
-`feat/autodoc-evolve` from `master` `249c2aa`. The command is read-only by default; `--write` refreshes generated
-drift; `--write --allow-add` creates missing required documents as unregistered drafts. It never
-registers/approves a draft, overwrites an existing document, or edits the phase/profile/decisions/
-catalog. Local pytest passes 315 tests + 188 subtests. The owner reviews and merges PR #26; no release or
-session closure is included. `autodoc evolve-catalog` remains a separate unopened scope.
+## Landed — `autodoc evolve`
+EVOLVE's owner-requested safe autoevolution command merged in PR #26 at `c0f90e0` on
+`feat/autodoc-evolve` from `master` `249c2aa`. The command is read-only by default; `--write`
+refreshes generated drift; `--write --allow-add` creates missing required documents as
+unregistered drafts. It never registers/approves a draft, overwrites an existing document, or
+edits the phase/profile/decisions/catalog. Post-merge `make ci` passes 315 tests + 188 subtests.
+EVOLVE is paused awaiting the owner's explicit closure; no release or session closure is included.
+`autodoc evolve-catalog` remains a separate unopened scope.
 
 ## Owner decisions
 Done: the license is Apache-2.0 (owner decision, 2026-10-01): canonical text in `LICENSE`, SPDX
