@@ -28,8 +28,8 @@ auto_generated: false
   vulnerabilities in the installed development environment), stopped readiness from counting
   acknowledged decisions whose declared paths are missing, and defaulted
   `enforce.collect_findings()` to the tool checkout. `make ci` passes 307 tests + 190 subtests,
-  wheel/sdist and clean-install smoke; no phase write, release, PyPI publication or session closure
-  is included.
+  wheel/sdist and clean-install smoke; PR #21 is open with all checks passing. No phase write,
+  release, PyPI publication, merge or session closure is included.
 - Dogfooded the installed `0.3.0` wheel against AutoDOC, `Universal_Software_Auditor`,
   `ai_infrastructure`, `requests`, Flask and Express. The packaged `check --repo` path bug was
   reproduced and fixed: `[instantiated]`/`[satisfied_by]` paths now resolve against the target
@@ -64,6 +64,7 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- a24c46a 2026-10-23 feat: close production-readiness gaps
 - f2e8698 2026-10-22 Merge pull request #20 from STEMORG2026/docs/post-pr19-reconciliation
 - a97b320 2026-10-22 docs(state): reconcile PR 19 merge
 - 06ccb0a 2026-10-22 Merge pull request #19 from STEMORG2026/fix/dogfood-packaged-root
@@ -83,29 +84,13 @@ auto_generated: false
 - ed0a4d3 2026-10-22 docs(state): record PR15 review handoff
 - d9641d3 2026-10-22 chore(state): reconcile PR 14 merge
 - 7a0fd47 2026-10-22 Merge pull request #14 from STEMORG2026/arena/894b93ee-autodoc
-- bbda691 2026-10-22 docs(state): record D-004 and D-002 PR handoff
 
 ## Changed paths at update time
 
-- `CHANGELOG.md`
-- `CONTRIBUTING.md`
-- `Makefile`
-- `SECURITY.md`
-- `autodoc.toml`
-- `docs/00-governance/ENGINE-COVERAGE.md`
-- `docs/00-governance/LIMITATIONS.md`
-- `docs/05-architecture/AUTODOC-ARCHITECTURE.md`
-- `docs/META/CODE-INVENTORY.md`
-- `docs/META/DEPENDENCIES.md`
-- `docs/META/OUTLINE.md`
-- `docs/META/TEST-INVENTORY.md`
-- `pyproject.toml`
-- `scripts/intelligence/enforce.py`
-- `scripts/intelligence/recommend.py`
-- `state/ARCHITECTURE.md`
 - `state/BLOCKERS.md`
 - `state/DASHBOARD.md`
-- `state/DEBT.md`
 - `state/INDEX.md`
-- … and 5 more; use git diff --cached --name-only.
+- `state/REGISTRY.md`
+- `state/plans/agent-PRD2-production-closeout.md`
+- `state/sessions/20261022-1415-PRD2-production-closeout.md`
 <!-- auto:end -->

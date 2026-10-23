@@ -43,7 +43,7 @@ at `06ccb0a`. Post-merge `master` `make ci` passes and its guard/generation-prev
 PR #20 then merged the post-PR19 state reconciliation at `f2e8698`. PRD2's closeout branch records
 `LICENSE` and `CHANGELOG.md` as the homes for the two beta-gated core rows, so `autodoc promote
 --to beta` previews with no requirement blockers; the phase is still `build` and no promotion was
-written. It also adds an operator-run `make audit` (optional `pip-audit` extra, no runtime
+written. The branch is PR #21 and all checks pass; merging is the owner's call. It also adds an operator-run `make audit` (optional `pip-audit` extra, no runtime
 dependency, outside the offline gate) and stops readiness from counting a decision whose declared
 path is missing. The owner verdict on the proposed `0.3.0`/Beta version, the beta phase write and
 any release remain. AutoDOC also has an installable CLI

@@ -1,16 +1,17 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-22T14:20Z · **Reconciled by:** PRD2 (session `20261022-1415-PRD2`,
+**Last reconciled:** 2026-10-23T03:55Z · **Reconciled by:** PRD2 (session `20261022-1415-PRD2`,
 production-readiness closeout) · **Base tip:** `f2e8698` on `master` (PR #20 merged the post-PR19
-state reconciliation on top of PR #19's dogfood fixes); local `master` is synced. PRD1 and 912C
-remain paused pending explicit owner closure; release decisions remain owner-only.
+state reconciliation on top of PR #19's dogfood fixes); PRD2's branch is at `a24c46a` and
+**PR #21 is open with all checks passing**. PRD1 and 912C remain paused pending explicit owner
+closure; release decisions remain owner-only.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `f2e8698` (PR #20 merged the post-PR19 reconciliation on top of PR #19); `feat/production-readiness-closeout` carries the PRD2 closeout work |
+| Branch | `master` at `f2e8698` (PR #20 merged the post-PR19 reconciliation on top of PR #19); `feat/production-readiness-closeout` at `a24c46a` is open as PR #21 with all checks passing |
 | Declared phase | `build` (warn) — declared 2026-09-30, never inferred |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -23,12 +24,12 @@ remain paused pending explicit owner closure; release decisions remain owner-onl
 
 ## Active agents
 
-`PRD2` — session `20261022-1415-PRD2` (**ACTIVE — production-readiness closeout**): records
+`PRD2` — session `20261022-1415-PRD2` (**ACTIVE — PR #21 open; all checks pass**): records
 `LICENSE` and `CHANGELOG.md` as the homes for the two beta-gated core rows, adds the optional
 `audit` extra and `make audit`, stops readiness from counting declared paths that do not exist,
 and defaults the enforcement root to the tool checkout. Previewed beta promotion is now
 blocker-free, but the phase stays `build`; writing the promotion, tagging, PyPI publication and
-session closure remain owner decisions.
+session closure remain owner decisions. PR #21 awaits the owner's merge decision.
 
 `PRD1` — session `20261022-1145-PRD1` (**PAUSED — merged; awaiting explicit owner closure**):
 implemented `autodoc promote` (preview/apply phase deltas, guarded write, force-only
@@ -77,8 +78,8 @@ the operator-run audit, and fixes the invalid-decision readiness count. The owne
 decide whether to write the `beta` promotion, keep `0.3.0` / Beta, and release. 894B/627F/C4R7/B71a
 remain paused; 912C and PRD1 are merged but not explicitly closed. D-007 and PyPI publishing remain
 unauthorized; D-009's external dogfood was executed but its formal acceptance/record remains open.
-D-010's operator-run scanner now exists; its formal close still needs the owner or a recorded
-verification.
+D-010's operator-run scanner now exists and PR #21 passes all checks; its formal close still needs
+the owner or a recorded verification. PR #21 is open, not merged or closed.
 
 1. **D-001 fixed (2026-10-21).** The catalog counts are no longer remembered: eleven prose claims
    were corrected and `tests/test_catalog_counts.py` derives `265 / 209 / 56 / 24 / 49 / 192` from
@@ -154,6 +155,7 @@ verification.
    C4R7 and B71a remain paused/awaiting explicit owner closure. Only the owner closes sessions.
    Package workflows build artifacts only; PyPI/trusted publishing needs a separate owner decision;
    promotion to `beta` remains a deliberate owner write, though its preview now shows no blockers.
+   PR #21 is open with all checks passing; merging it is the owner's call.
 
 This dashboard summarizes; it never overrides `NEXT-ACTION.md` or an owner instruction. Sessions
 are closed only by the owner.

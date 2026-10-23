@@ -24,7 +24,8 @@ auto_generated: false
 ## Immediate focus
 PR #18 merged PRD1's production-readiness commands at `1361ba2`; PR #19 merged the installed-wheel
 dogfood fixes at `06ccb0a`; PR #20 merged the post-PR19 state reconciliation at `f2e8698`. PRD2's
-closeout branch records the existing `LICENSE` and `CHANGELOG.md` as the homes for the two
+closeout branch at `a24c46a` is open as **PR #21 with all checks passing**; merging is the owner's
+call. The branch records the existing `LICENSE` and `CHANGELOG.md` as the homes for the two
 beta-gated core rows (`DOC-A10-008`, `DOC-A15-003`), so the installed `autodoc promote --to beta`
 preview exits 0 with `Delta: no catalog requirement changes`. The phase is still `build`; writing
 the promotion is a deliberate owner action. The branch also adds the optional `audit` extra and

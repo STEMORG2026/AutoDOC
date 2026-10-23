@@ -50,5 +50,6 @@ See `state/plans/agent-PRD2-production-closeout.md`.
 
 ## Outcome
 
-**ACTIVE — implementation and verification complete; PR pending.** No release, phase promotion,
-PyPI publication or session closure is included.
+**ACTIVE — PR #21 open; all checks pass; awaiting the owner's merge decision.** The PR is
+https://github.com/STEMORG2026/AutoDOC/pull/21. No release, phase promotion, PyPI publication or
+session closure is included.
