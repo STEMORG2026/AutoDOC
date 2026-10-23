@@ -1,6 +1,6 @@
 # DEBT — technical debt worth acting on
 
-**Last reconciled:** 2026-10-23T06:12Z (PR #23 merged the phase-agnostic shipped checks at `3fda35b`; BETA's beta promotion PR is open. D-009 was executed but formal acceptance is pending; D-007 remains queued)
+**Last reconciled:** 2026-10-23T07:10Z (PR #24 merged the beta promotion at `8f9c709`; post-merge `make ci` passes. D-009 was executed but formal acceptance is pending; D-007 remains queued)
 
 Only debt the maintainers would actually fix; a wish list belongs elsewhere. Statuses: `open`,
 `queued (<decision>)`, `in progress (active branch; pending merge)`, `accepted (by design)`,
