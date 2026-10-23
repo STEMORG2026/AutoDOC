@@ -114,14 +114,15 @@ def test_demotion_and_backdating_need_force(tmp_path):
 
 def test_missing_declarations_are_inserted_after_schema(tmp_path):
     text = "# generated\nschema = 1\n"
-    code, result, path = run(tmp_path, target="build", write=True, text=text)
+    today = date.today().isoformat()
+    code, result, path = run(tmp_path, target="build", write=True, declared=today, text=text)
 
     assert code == 0
     assert result["written"] is True
     written = path.read_text(encoding="utf-8")
     assert written.index("schema = 1") < written.index('phase = "build"')
     assert written.index('phase = "build"') < written.index("phase_declared")
-    assert tomllib.loads(written)["phase_declared"] == date.today().isoformat()
+    assert tomllib.loads(written)["phase_declared"] == today
 
 
 def test_unknown_phase_and_future_date_are_usage_errors(tmp_path):

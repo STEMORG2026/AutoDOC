@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-22
+last_updated: 2026-10-23
 auto_generated: false
 ---
 # AutoDOC architecture
@@ -38,8 +38,10 @@ supplies catalog data only. `autodoc generate --root PATH` reads that project's 
 rejects an instance ID already declared by another controlled document unless `--instance` names a
 distinct ID; and `promote` previews the catalog delta before editing the top-level phase
 declarations. This boundary is exercised by a clean-venv install test outside the checkout.
-Runtime dependencies remain empty. The release workflow builds wheel and sdist artifacts only;
-PyPI publication and GitHub Release creation are not configured.
+Runtime dependencies remain empty. An optional `audit` extra supplies `pip-audit` for the
+operator-run `make audit`; it is never imported by shipped code and is not part of the offline
+`make ci` gate. The release workflow builds wheel and sdist artifacts only; PyPI publication and
+GitHub Release creation are not configured.
 
 ## Details and decisions
 
@@ -231,7 +233,9 @@ Catalog records / mapped source files / Markdown metadata
 - **The resolver** (`scripts/intelligence/recommend.py`) joins profile, catalog and the recorded
   decisions in `autodoc.toml` — `[instantiated]`, `[satisfied_by]` (locations that count, local
   paths verified against the selected target root and URLs recorded but never fetched) and
-  `[not_applicable]` (a reason is mandatory). A skip whose predicate is now true is reported as a
+  `[not_applicable]` (a reason is mandatory). A decision whose local path is missing is a
+  configuration error and is **not** counted as acknowledged: readiness keeps it open and exposes
+  its count separately. A skip whose predicate is now true is reported as a
   **stale decision** and re-surfaced. `--check` fails only what the declared phase says must fail, and `--explain`
   prints the derivation chain for one requirement. `assess` marks the 81 types with no detectable
   predicate, so they are never auto-recommended. The fact vocabulary is closed: `check_catalog.py`

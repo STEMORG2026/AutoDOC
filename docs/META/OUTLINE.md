@@ -172,15 +172,15 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: Engine coverage and honest limits
 - L2 line 24: How confidence is established
-- L2 line 59: Implemented and tested
-- L2 line 92: The generation contract
-- L2 line 113: The event contract
-- L2 line 126: Implemented validators
-- L2 line 151: Mapped but template-only
-- L2 line 161: Partially supported
-- L2 line 169: Explicitly not implemented
-- L2 line 179: Not supported / integration needed
-- L2 line 187: Known environment constraints
+- L2 line 63: Implemented and tested
+- L2 line 96: The generation contract
+- L2 line 117: The event contract
+- L2 line 130: Implemented validators
+- L2 line 155: Mapped but template-only
+- L2 line 165: Partially supported
+- L2 line 173: Explicitly not implemented
+- L2 line 183: Not supported / integration needed
+- L2 line 191: Known environment constraints
 
 ## `docs/00-governance/EVIDENCE-SIGNING.md`
 
@@ -226,10 +226,10 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
-- L2 line 44: Details and decisions
-- L2 line 240: Module contracts
-- L2 line 259: Verification and references
-- L2 line 270: Phase 3 trust boundaries
+- L2 line 46: Details and decisions
+- L2 line 244: Module contracts
+- L2 line 263: Verification and references
+- L2 line 274: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 

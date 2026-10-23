@@ -40,7 +40,13 @@ paths against the target root, rejects duplicate instance IDs in `add`, and corr
 empty-delta wording. Its local `make ci` gate passes (304 tests + 190 subtests, wheel/sdist and
 clean-install smoke for all seven commands, unsigned evidence-hash verification), and PR #19 merged
 at `06ccb0a`. Post-merge `master` `make ci` passes and its guard/generation-preview runs are green.
-The owner verdict on the proposed `0.3.0`/Beta version remains. AutoDOC also has an installable CLI
+PR #20 then merged the post-PR19 state reconciliation at `f2e8698`. PRD2's closeout branch records
+`LICENSE` and `CHANGELOG.md` as the homes for the two beta-gated core rows, so `autodoc promote
+--to beta` previews with no requirement blockers; the phase is still `build` and no promotion was
+written. The branch is PR #21 and all checks pass; merging is the owner's call. It also adds an operator-run `make audit` (optional `pip-audit` extra, no runtime
+dependency, outside the offline gate) and stops readiness from counting a decision whose declared
+path is missing. The owner verdict on the proposed `0.3.0`/Beta version, the beta phase write and
+any release remain. AutoDOC also has an installable CLI
 with zero runtime dependencies, wheel/sdist builds, and clean-environment install smoke coverage.
 Its checks validate controlled-document metadata, generated drift, age, source-to-human-review
 impact, and the structure of instantiated migration documents (required sections and unfilled
@@ -83,8 +89,10 @@ remains paused; merging did not close it. PR #15's post-merge state reconciliati
 passed (the PR impact step ran within the guard check; no separate impact status was listed). The
 owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's production-readiness
 commands merged in PR #18 at `1361ba2`. Post-merge installed-wheel dogfood found the packaged-root
-path defect; the fixes merged in PR #19 at `06ccb0a`. The owner release and `0.3.0`/Beta verdict
-remain pending; 912C and PRD1 remain paused because merging did not close them.
+path defect; the fixes merged in PR #19 at `06ccb0a`, and PR #20's reconciliation merged at
+`f2e8698`. PRD2 is the active closeout branch; the owner release, beta phase write and
+`0.3.0`/Beta verdict remain pending, and 912C and PRD1 remain paused because merging did not close
+them.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.
@@ -119,8 +127,9 @@ match is true, a non-match within a non-empty audience set is false/not applicab
 is unknown, and `assess`-only entries are exempt. Severity scales with phase, per column: `build`
 warns about required docs and fails structural breakage with drift and freshness off; `beta` adds
 drift and freshness as warnings; `live` and `mature` fail all four; `sunset` shrinks to the sunset
-profile. This repository declares `build` (2026-09-30) and is currently build-ready **15/15**, with 0 open
-core decisions; missing required documents warn rather than fail at this phase. Generated references are labeled too: each generator declares `exact` or
+profile. This repository declares `build` (2026-09-30) and is currently build-ready **17/17** applicable
+core types under the `oss-library` profile, with 0 open and 0 invalid core decisions; missing
+required documents warn rather than fail at this phase. Generated references are labeled too: each generator declares `exact` or
 `heuristic` and what it cannot see, the label travels with the file, and a heuristic generator
 warns by default. Per-language references integrate the language's own tool: Python uses `ast`, Go uses `go doc`,
 and the merged D-002 implementation adds JavaScript JSDoc `-X`, TypeScript TypeDoc `--json`, and

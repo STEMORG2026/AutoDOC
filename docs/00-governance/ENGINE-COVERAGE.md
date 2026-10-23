@@ -50,11 +50,15 @@ unverified. The catalog type `DEV-B07-001` Test strategy is satisfied by this do
    workflows, and scheduled network checks are warn-only by design.
 6. **Evidence records that a run happened — it is unsigned** and proves nothing about who ran it or
    whether a reviewer agreed (`docs/00-governance/EVIDENCE-SIGNING.md`).
+7. **Dependency advisories are checked on demand.** `make audit` runs `pip-audit` from the optional
+   `audit` extra against the installed environment and opens the network; it is deliberately
+   outside the offline required gate. A clean audit means no known advisory for that environment
+   at that time, not a permanent vulnerability-free claim.
 
 **What this strategy does not establish.** That prose is true, adequate or reviewed; that an
-external system behaves as documented; that a dependency is vulnerability-free (no scanner is
-installed); or that any project is compliant. The per-generator limits and the not-implemented list
-below are part of the strategy, not footnotes to it.
+external system behaves as documented; that a dependency is vulnerability-free in every
+environment or after the audit time; or that any project is compliant. The per-generator limits
+and the not-implemented list below are part of the strategy, not footnotes to it.
 
 ## Implemented and tested
 All outputs below have concrete sources in `docs/.doc-sync-map.yaml`; `make generate` writes,

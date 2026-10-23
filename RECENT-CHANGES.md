@@ -21,6 +21,15 @@ auto_generated: false
 ---
 # Recent changes
 
+- Closed the remaining beta document delta on the PRD2 closeout branch: `LICENSE` and
+  `CHANGELOG.md` are recorded as the homes for `DOC-A10-008` and `DOC-A15-003`, so `autodoc promote
+  --to beta` previews with no requirement blockers while the declared phase stays `build`. Added
+  the optional `audit` extra and operator-run `make audit` (pip-audit 2.10.1 found no known
+  vulnerabilities in the installed development environment), stopped readiness from counting
+  acknowledged decisions whose declared paths are missing, and defaulted
+  `enforce.collect_findings()` to the tool checkout. `make ci` passes 307 tests + 190 subtests,
+  wheel/sdist and clean-install smoke; PR #21 is open with all checks passing. No phase write,
+  release, PyPI publication, merge or session closure is included.
 - Dogfooded the installed `0.3.0` wheel against AutoDOC, `Universal_Software_Auditor`,
   `ai_infrastructure`, `requests`, Flask and Express. The packaged `check --repo` path bug was
   reproduced and fixed: `[instantiated]`/`[satisfied_by]` paths now resolve against the target
@@ -55,8 +64,15 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- a24c46a 2026-10-23 feat: close production-readiness gaps
+- f2e8698 2026-10-22 Merge pull request #20 from STEMORG2026/docs/post-pr19-reconciliation
+- a97b320 2026-10-22 docs(state): reconcile PR 19 merge
+- 06ccb0a 2026-10-22 Merge pull request #19 from STEMORG2026/fix/dogfood-packaged-root
+- a1ff829 2026-10-22 Merge branch 'master' into fix/dogfood-packaged-root
+- 681dca9 2026-10-22 docs(state): record PR 19 checks passing
 - 1a584d7 2026-10-22 docs(state): reconcile PR 18 merge and PR 19 dogfood
 - deec574 2026-10-22 fix: resolve packaged check paths and dogfood guards
+- 1361ba2 2026-10-22 Merge pull request #18 from STEMORG2026/arena/production-readiness-autodoc
 - adee921 2026-10-22 docs(state): record PR 18 checks passing
 - 67180ea 2026-10-22 docs(state): record PR 18 review handoff
 - 6a76106 2026-10-22 feat: add document instantiation and guarded phase promotion
@@ -68,13 +84,6 @@ auto_generated: false
 - ed0a4d3 2026-10-22 docs(state): record PR15 review handoff
 - d9641d3 2026-10-22 chore(state): reconcile PR 14 merge
 - 7a0fd47 2026-10-22 Merge pull request #14 from STEMORG2026/arena/894b93ee-autodoc
-- bbda691 2026-10-22 docs(state): record D-004 and D-002 PR handoff
-- ea03f0b 2026-10-22 feat: add audience gating and language references
-- a704752 2026-10-22 Merge pull request #13 from STEMORG2026/arena/627fcb46-autodoc
-- 83e3b21 2026-10-22 docs(state): record PR 13 handoff
-- bd44be4 2026-10-22 docs(state): reconcile PR #12 merge
-- 08229a0 2026-10-22 Merge pull request #12 from STEMORG2026/arena/072fcb8c-autodoc
-- aa375ca 2026-10-22 docs(state): refresh package readiness status
 
 ## Changed paths at update time
 
@@ -82,6 +91,6 @@ auto_generated: false
 - `state/DASHBOARD.md`
 - `state/INDEX.md`
 - `state/REGISTRY.md`
-- `state/plans/agent-PRD1-production-readiness.md`
-- `state/sessions/20261022-1145-PRD1-production-readiness.md`
+- `state/plans/agent-PRD2-production-closeout.md`
+- `state/sessions/20261022-1415-PRD2-production-closeout.md`
 <!-- auto:end -->

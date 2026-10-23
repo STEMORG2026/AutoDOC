@@ -22,30 +22,31 @@ auto_generated: false
 # Next action
 
 ## Immediate focus
-PR #18 merged PRD1's production-readiness commands at `1361ba2`: `autodoc add <catalog-id>`
-instantiates one document with a project-qualified ID and current dates; `autodoc promote --to
-<phase>` previews the catalog/enforcement delta and writes only the top-level
-`phase`/`phase_declared`, refusing a normal write while target-phase required documents are
-unresolved; `autodoc init --phase/--profile` records an initial declaration. Post-merge
-installed-wheel dogfood found that packaged `check --repo` resolved `[instantiated]` and
-`[satisfied_by]` paths against the bundled tool root rather than the target project. The fixes are
-committed as `deec574`, merged in PR #19 at `06ccb0a`; post-merge `master` `make ci` passes
-(304 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands, unsigned
-evidence hashes verified), and master guard/generation-preview runs are green.
+PR #18 merged PRD1's production-readiness commands at `1361ba2`; PR #19 merged the installed-wheel
+dogfood fixes at `06ccb0a`; PR #20 merged the post-PR19 state reconciliation at `f2e8698`. PRD2's
+closeout branch at `a24c46a` is open as **PR #21 with all checks passing**; merging is the owner's
+call. The branch records the existing `LICENSE` and `CHANGELOG.md` as the homes for the two
+beta-gated core rows (`DOC-A10-008`, `DOC-A15-003`), so the installed `autodoc promote --to beta`
+preview exits 0 with `Delta: no catalog requirement changes`. The phase is still `build`; writing
+the promotion is a deliberate owner action. The branch also adds the optional `audit` extra and
+operator-run `make audit`, fixes readiness so a missing declared path is counted as open rather
+than acknowledged, and defaults `enforce.collect_findings()` to the tool checkout. `make ci` passes
+(307 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands, unsigned
+evidence hashes verified); `make audit` with pip-audit 2.10.1 reports no known vulnerabilities.
 
-PR #19 also rejects duplicate instance IDs in `add` and corrects the `promote` empty-delta
-wording. Its first guard/impact run failed only because the living-state files had not yet been
-reconciled; the final merge checks passed. The change proposes `0.3.0` and the Beta classifier but
-records no owner approval. D-007 remains unselected; D-009's external dogfood was executed but its
-formal acceptance/record remains open. Do not publish to PyPI or close any paused session by
-inference. Promotion to `beta` remains a deliberate event with the same two-row cliff (License
-`DOC-A10-008`, Changelog `DOC-A15-003`).
+The proposed `0.3.0` and Beta classifier record no owner approval. D-007 remains unselected;
+D-009's external dogfood was executed but its formal acceptance/record remains open. D-010's
+mechanism is implemented and its first run is recorded in `state/DEBT.md`; formal closure remains
+owner-optional. Do not publish to PyPI, write the beta promotion, or close any paused session by
+inference.
 
 D-007 (evidence signing) remains deferred and non-gating. D-009 (external dogfood) was executed
 against the installed wheel and five additional repositories; its formal owner acceptance/record
-remains open. D-010 vulnerability scanning remains open/low. PRD1 and 912C are merged but not
+remains open. D-010's operator-run scanner now exists (`make audit`); its first run found no known
+vulnerabilities, and formal closure remains owner-optional. PRD1 and 912C are merged but not
 closed; C4R7 remains paused after PR #12; B71a remains paused after PR #11; 627F remains paused
-after PR #13; 894B remains paused after PR #14. Merging did not explicitly close those sessions.
+after PR #13; 894B remains paused after PR #14; PRD2 is active on the closeout branch. Merging did
+not explicitly close those sessions.
 The release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
 unauthorized.
 
@@ -62,7 +63,8 @@ Release snapshots are no longer gated on the licence; they still require a `vX.Y
 out at the same commit. Done: the core list and the five profiles are owner-reviewed
 (2026-10-01) — `owner_reviewed` is recorded in `CONTROL/metadata/CATALOG-RULES.json` and
 `PROFILES.json`, `docs/00-governance/CORE-LIST-REVIEW.md` is `approved`, and every applicable
-core decision is closed (the resolver reports 15/15 build-ready with 0 open). Remaining
+core decision is closed (the resolver reports 17/17 build-ready with 0 open and 0 invalid under
+the `oss-library` profile). Remaining
 (updated 2026-10-21, after the fix): **nothing on protection** — the owner applied P-007-A
 (ruleset `main` carries `deletion`, `non_fast_forward` and required check `AutoDOC guard /
 check` `strict: true`; the signed-commits and CodeQL rules are removed), the live rules were
@@ -76,11 +78,13 @@ D-001 session was subsequently closed on 2026-10-21 by the owner's explicit inst
 "Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
 thread**; D-003 merged through PR #16 and its production-readiness follow-up through PR #18,
 while D-007 remains unselected and D-009's dogfood execution awaits formal acceptance. Promotion to
-`beta` stays a deliberate event (cliff 2). D-004 and D-002 were the earlier
+`beta` stays a deliberate event (preview now shows no requirement blockers), pending the owner's
+write. D-004 and D-002 were the earlier
 owner-selected follow-up and are now merged by PR #14. One debt item closed on
 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
-ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner.
+ci`; D-010's operator-run scanner is now available as `make audit` and its first run found no known
+vulnerabilities.
 
 ## Shrink before detection (owner decision, 2026-10-01)
 1. Done. The approved-stub check failed on 28 title-only placeholders and they were retired;
@@ -97,7 +101,7 @@ ci`; D-010 (vulnerability scanning) remains open/low and needs a network scanner
    - Done (2026-10-01): the 24-type core list and the phasing in `CATALOG-RULES.json` are
      owner-reviewed, and all 12 applicable core decisions are recorded (`[instantiated]`,
      `[satisfied_by]`; the last one closed by declaring `has_persistent_state` false with a
-     reason) — the resolver reports 15/15 build-ready with 0 open. Three core types
+     reason) — the resolver reports 17/17 build-ready with 0 open and 0 invalid. Three core types
      (`PII inventory`, `Cardholder data flow`, `Hazard analysis`) remain gated by declared
      traits and apply only once the owner answers. The demo-only facts
      (`has_public_api_surface`, `has_http_api`, `has_persistent_state`, `has_env`, `has_ai`)

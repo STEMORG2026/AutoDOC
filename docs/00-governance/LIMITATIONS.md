@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-09-26
+last_updated: 2026-10-22
 auto_generated: false
 ---
 # AutoDOC limitations
@@ -29,7 +29,8 @@ rationale, diagram rendering, external link availability, approval or compliance
 
 The demo API uses a three-route JSON registry, **not** OpenAPI. SQL accepts only the documented
 SQLite CREATE TABLE subset; unknown statements fail. Dependencies are declared PEP 621
-requirements, not installed/transitive packages or known license information. Alerts are
+requirements, not installed/transitive packages or known license information; `make audit` is an
+operator-run network check with the optional `audit` extra, not part of the offline gate. Alerts are
 versioned example declarations, not live monitoring. The agent examples have no LLM or network.
 Cloud costs, Kubernetes state, SaaS/vendor APIs, real model behavior and signed attestations
 require independent project-owned integrations and credentials. GitHub branch protection is

@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-22 (PR #18 merged production-readiness commands at `1361ba2`; PR #19 merged installed-wheel dogfood fixes at `06ccb0a`; post-merge `make ci` and master checks pass; PRD1/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
+**Last reconciled:** 2026-10-22 (PR #20 merged the post-PR19 reconciliation at `f2e8698`; PRD2's closeout branch adds the beta document homes, operator-run audit and readiness fixes; PRD1/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -36,7 +36,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 
 ## Audit facts (Section 7 Step 1, 2026-10-01)
 
-- **Runtime:** Python 3.11–3.15 declared (`>=3.11,<3.16`), **zero runtime dependencies** (stdlib only); dev extras `build>=1,<2`, `pytest>=8,<10`, and `pre-commit>=3,<5`; build backend `setuptools>=77`. The installed CLI ships a wheel/sdist with only its runtime scripts and policy/catalog data.
+- **Runtime:** Python 3.11–3.15 declared (`>=3.11,<3.16`), **zero runtime dependencies** (stdlib only); dev extras `build>=1,<2`, `pytest>=8,<10`, and `pre-commit>=3,<5`; optional `audit = ["pip-audit>=2.10,<3"]` is operator-run and never imported by shipped code; build backend `setuptools>=77`. The installed CLI ships a wheel/sdist with only its runtime scripts and policy/catalog data.
 - **Scale:** The pre-migration snapshot on 2026-10-21 had 1039 tracked files (65 `.py`, 384 `.md`) including the 795 template variants. After the D-003 working-tree migration on 2026-10-22, the source tree contains 271 files (73 `.py`, 129 `.md`); 70 controlled Markdown documents (24 generated, 46 human-owned; 28 mapped generated targets in total, four non-Markdown); and 265 catalog types with 795 renderable outputs, none checked in. Counts exclude ignored `build/` outputs.
 - **Demo surface:** SQLite (`EXAMPLE-PROJECT/db/schema.sql`, single `tasks` table, no migrations) and a stdlib threaded HTTP server with three routes (`GET/POST /tasks`, `GET /health`), **no auth**, 1–4096-byte body cap, JSON 400/404 errors.
 - **Readers:** Python declarations via AST (exact, in-process) and Go references via `go doc -all .`; `master` now includes JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON via `cargo rustdoc`. These external references run on demand, validate tool output, and report missing tools as L0 in that run. Node v22.22.3 is present locally; JSDoc, TypeDoc, Cargo, rustc and rustdoc are absent, so the integrations are validated with fake-tool tests here.
@@ -47,6 +47,7 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 
 | Date | Change |
 | --- | --- |
+| 2026-10-22 | PRD2's closeout records `LICENSE`/`CHANGELOG.md` as beta document homes, adds the optional `audit` extra plus `make audit`, and makes readiness treat unverifiable declared paths as open; beta promotion previews clean but no phase write, release or closure is included. |
 | 2026-10-22 | PR #18 merged `autodoc add`, guarded `autodoc promote` and `init --phase/--profile` at `1361ba2`. Installed-wheel dogfood then found target-root path resolution, duplicate instance-ID and promote-wording defects; PR #19 merged the fixes at `06ccb0a`, and post-merge `make ci` plus master CI passed. No release or session closure was authorized. |
 | 2026-10-22 | Owner selected D-004 followed by D-002 after PR #13 merged at `a704752`; the audience rule and JSDoc/TypeDoc/nightly Rustdoc JSON readers merged to `master` in PR #14 at `7a0fd47`; post-merge local CI passed. No PyPI publication or session closure was authorized. |
 | 2026-10-22 | C4R7 added the installable `autodoc` CLI, isolated wheel/sdist packaging and smoke tests, separate tool/project roots, version metadata and temporary tag-run distribution artifacts; PR #12 merged at `08229a0`. PyPI publishing remains unauthorized/unconfigured; C4R7 and B71a remain paused until explicit owner closure. |

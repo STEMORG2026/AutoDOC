@@ -12,6 +12,13 @@ AutoDOC is pre-1.0 (`0.x`). There are no long-term support branches and no backp
 fixes land on the default branch (`master`) and are included in the next tagged snapshot.
 Release-tag snapshots are produced only when the `release.yml` gate passes.
 
+## Dependency vulnerability checks
+
+The required offline gate (`make ci`) does not query advisory services. Maintainers can run
+`make audit` after installing the optional audit extra (`pip install -e '.[audit]'`); it uses
+`pip-audit` against the installed development environment and opens the network. A clean run is a
+point-in-time result, not a guarantee, and the runtime package still declares zero dependencies.
+
 ## Reporting a vulnerability
 
 - **Preferred:** use GitHub's private vulnerability reporting for this repository
