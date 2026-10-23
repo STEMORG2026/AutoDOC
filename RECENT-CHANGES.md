@@ -28,8 +28,8 @@ auto_generated: false
   vulnerabilities in the installed development environment), stopped readiness from counting
   acknowledged decisions whose declared paths are missing, and defaulted
   `enforce.collect_findings()` to the tool checkout. `make ci` passes 307 tests + 190 subtests,
-  wheel/sdist and clean-install smoke; PR #21 is open with all checks passing. No phase write,
-  release, PyPI publication, merge or session closure is included.
+  wheel/sdist and clean-install smoke; PR #21 merged at `f8e2c76` and post-merge `make ci` passes.
+  No phase write, release, PyPI publication or session closure is included.
 - Dogfooded the installed `0.3.0` wheel against AutoDOC, `Universal_Software_Auditor`,
   `ai_infrastructure`, `requests`, Flask and Express. The packaged `check --repo` path bug was
   reproduced and fixed: `[instantiated]`/`[satisfied_by]` paths now resolve against the target
@@ -64,6 +64,8 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- f8e2c76 2026-10-23 Merge pull request #21 from STEMORG2026/feat/production-readiness-closeout
+- 28188c3 2026-10-23 docs(state): record PR 21 open and checks passing
 - a24c46a 2026-10-23 feat: close production-readiness gaps
 - f2e8698 2026-10-22 Merge pull request #20 from STEMORG2026/docs/post-pr19-reconciliation
 - a97b320 2026-10-22 docs(state): reconcile PR 19 merge
@@ -82,13 +84,13 @@ auto_generated: false
 - 990113b 2026-10-22 Merge pull request #15 from STEMORG2026/arena/912c4060-autodoc
 - a3bc86d 2026-10-22 docs(state): clarify PR15 impact check status
 - ed0a4d3 2026-10-22 docs(state): record PR15 review handoff
-- d9641d3 2026-10-22 chore(state): reconcile PR 14 merge
-- 7a0fd47 2026-10-22 Merge pull request #14 from STEMORG2026/arena/894b93ee-autodoc
 
 ## Changed paths at update time
 
+- `state/ARCHITECTURE.md`
 - `state/BLOCKERS.md`
 - `state/DASHBOARD.md`
+- `state/DEBT.md`
 - `state/INDEX.md`
 - `state/REGISTRY.md`
 - `state/plans/agent-PRD2-production-closeout.md`

@@ -2,8 +2,10 @@
 
 ## Owner request
 
-“19 merged, continue the work, make it production ready.” Work continues from `master` at
-`f2e8698`, after PR #19 (dogfood fixes) and PR #20 (state reconciliation) merged.
+“19 merged, continue the work, make it production ready.” Work continued from `master` at
+`f2e8698`, after PR #19 (dogfood fixes) and PR #20 (state reconciliation) merged. The owner then
+merged PR #21 at `f8e2c76` and said “merged, continue the work”; this reconciliation closes the
+state record, not the session.
 
 ## Coordination and decisions
 
@@ -47,9 +49,12 @@ See `state/plans/agent-PRD2-production-closeout.md`.
   exits 0 and `usa-declared` exits 1 on its intentionally missing required documents (declared
   beta), which is the expected enforcement result. `autodoc promote --to beta` exits 0 with no
   requirement delta.
+- PR #21 merged at `f8e2c76` on 2026-10-23. Post-merge `master` `make ci` passes 307 tests + 190
+  subtests, package smoke and evidence verification; the post-merge guard/impact and Python
+  3.11–3.15 checks passed.
 
 ## Outcome
 
-**ACTIVE — PR #21 open; all checks pass; awaiting the owner's merge decision.** The PR is
-https://github.com/STEMORG2026/AutoDOC/pull/21. No release, phase promotion, PyPI publication or
-session closure is included.
+**PAUSED — merged; awaiting explicit owner closure.** PR #21 is
+https://github.com/STEMORG2026/AutoDOC/pull/21 and merged at `f8e2c76`. No release, phase
+promotion, PyPI publication or session closure is included; merging did not close the session.
