@@ -39,24 +39,23 @@ evidence hashes verified); `make audit` with pip-audit 2.10.1 reports no known v
 The proposed `0.3.0` and Beta classifier record no owner approval. D-007 remains unselected;
 D-009's external dogfood was executed but its formal acceptance/record remains open. D-010's
 mechanism is implemented and its first run is recorded in `state/DEBT.md`; formal closure remains
-owner-optional. Do not publish to PyPI or close any paused session by inference; the beta
-promotion is merged, and release/tag decisions remain owner-only.
+owner-optional. Do not publish to PyPI or reopen a closed session without an explicit owner
+passkey; the beta promotion is merged, and release/tag decisions remain owner-only.
 
 D-007 (evidence signing) remains deferred and non-gating. D-009 (external dogfood) was executed
 against the installed wheel and five additional repositories; its formal owner acceptance/record
 remains open. D-010's operator-run scanner now exists (`make audit`); its first run found no known
-vulnerabilities, and formal closure remains owner-optional. EVOLVE was closed by the owner on
-2026-10-23 and its plan is archived; PRD1, PRD2, 912C and BETA are merged but not closed; C4R7
-remains paused after PR #12; B71a remains paused after PR #11; 627F remains paused after PR #13;
-894B remains paused after PR #14. Merging did not explicitly close those remaining sessions.
+vulnerabilities, and formal closure remains owner-optional. EVOLVE, BETA, PRD2, PRD1, 912C, 894B,
+627F, C4R7, B71a and the closing pass are **closed by the owner on 2026-10-23**; their plans are
+archived and no session is open. Reopening a closed session requires an explicit owner passkey.
 The release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
 unauthorized.
 
-PR #11 merged at `52d1b79` on 2026-10-21; this did **not** close B71a, which remains paused awaiting
-the owner's explicit close. The migration-prose checks remain structural only, not semantic or
-reversibility claims. A real OpenAPI contract remains deferred until the demo source implements
-one. Existing env/alert references are example-only; do not claim deployed monitoring. The catalog
-applicability review is done — recorded 2026-10-01 (see Owner decisions below).
+PR #11 merged at `52d1b79` on 2026-10-21; B71a is now closed by the owner. The migration-prose
+checks remain structural only, not semantic or reversibility claims. A real OpenAPI contract remains
+deferred until the demo source implements one. Existing env/alert references are example-only; do
+not claim deployed monitoring. The catalog applicability review is done — recorded 2026-10-01
+(see Owner decisions below).
 
 ## Landed — `autodoc evolve`
 EVOLVE's owner-requested safe autoevolution command merged in PR #26 at `c0f90e0` on
@@ -86,8 +85,9 @@ housekeeping that remained — closing the sessions (ADR-009) — is done: the o
 on 2026-10-21 ("continue from this here and also close the session"), their plans are archived
 under `state/archive/plans/2026-10/`, and their closing entries quote the instruction. A90c's
 D-001 session was subsequently closed on 2026-10-21 by the owner's explicit instruction
-"Close A90c, then proceed"; its plan is archived too. **Nothing is pending on the protection/D-001
-thread**; D-003 merged through PR #16 and its production-readiness follow-up through PR #18,
+"Close A90c, then proceed"; its plan is archived too. On 2026-10-23 the owner closed EVOLVE and
+then the eight remaining sessions; MACP local rule 11 records the one-session/one-branch/owner-
+closes-all/passkey lifecycle. **Nothing is pending on the protection/D-001 thread**; D-003 merged through PR #16 and its production-readiness follow-up through PR #18,
 while D-007 remains unselected and D-009's dogfood execution awaits formal acceptance. Promotion to
 `beta` is written and merged in PR #24 at `8f9c709` (the preview showed no requirement blockers);
 release/tag/PyPI remain separate owner decisions. D-004 and D-002 were the earlier

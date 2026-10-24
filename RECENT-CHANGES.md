@@ -21,6 +21,13 @@ auto_generated: false
 ---
 # Recent changes
 
+- Closed every open session on the owner’s 2026-10-23 instruction and recorded the missing session
+  lifecycle convention: one session, one bounded work unit, one branch; when the owner says “close
+  the session”, all open sessions close; the next unit of work starts a new session on a new
+  branch; and a closed session reopens only with an explicit owner passkey. EVOLVE, BETA, PRD2,
+  PRD1, 912C, 894B, 627F, C4R7, B71a and the closing pass are closed, their plans are archived,
+  and `REGISTRY`, `INDEX`, `DASHBOARD` and the living-state records are reconciled. No session is
+  open.
 - Started the owner-requested safe autoevolution on `feat/autodoc-evolve` from `master` `249c2aa`:
   `autodoc evolve` plans from the same context/profile/catalog/enforcement layers, is read-only
   by default, refreshes generated drift with `--write`, and creates missing required documents
@@ -82,6 +89,8 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
+- e556d54 2026-10-23 Merge pull request #28 from STEMORG2026/docs/close-evolve-session
+- e7f1999 2026-10-23 docs(state): close EVOLVE session
 - 4230703 2026-10-23 Merge pull request #27 from STEMORG2026/docs/post-pr26-reconciliation
 - 824b3eb 2026-10-23 docs(state): reconcile PR 26 merge
 - c0f90e0 2026-10-23 Merge pull request #26 from STEMORG2026/feat/autodoc-evolve
@@ -100,11 +109,10 @@ auto_generated: false
 - a24c46a 2026-10-23 feat: close production-readiness gaps
 - f2e8698 2026-10-22 Merge pull request #20 from STEMORG2026/docs/post-pr19-reconciliation
 - a97b320 2026-10-22 docs(state): reconcile PR 19 merge
-- 06ccb0a 2026-10-22 Merge pull request #19 from STEMORG2026/fix/dogfood-packaged-root
-- a1ff829 2026-10-22 Merge branch 'master' into fix/dogfood-packaged-root
 
 ## Changed paths at update time
 
+- `docs/00-governance/MACP.md`
 - `state/ARCHITECTURE.md`
 - `state/BLOCKERS.md`
 - `state/DASHBOARD.md`
@@ -113,6 +121,16 @@ auto_generated: false
 - `state/INDEX.md`
 - `state/REGISTRY.md`
 - `state/archive/plans/2026-10/README.md`
-- `state/archive/plans/2026-10/agent-EVOLVE-evolve-command.md`
-- `state/sessions/20261023-0751-EVOLVE-evolve-command.md`
+- `state/archive/plans/2026-10/agent-627F-post-pr12-continuation.md`
+- `state/archive/plans/2026-10/agent-894B-d004-language-readers.md`
+- `state/archive/plans/2026-10/agent-912C-pr14-post-merge-reconciliation.md`
+- `state/archive/plans/2026-10/agent-B71a-migration-prose-validation.md`
+- `state/archive/plans/2026-10/agent-BETA-beta-promotion.md`
+- `state/archive/plans/2026-10/agent-C4R7-python-package-readiness.md`
+- `state/archive/plans/2026-10/agent-CLOSE-close-all-open-sessions.md`
+- `state/archive/plans/2026-10/agent-PRD1-production-readiness.md`
+- `state/archive/plans/2026-10/agent-PRD2-production-closeout.md`
+- `state/plans/README.md`
+- `state/sessions/20261021-1459-B71a-migration-prose-validation.md`
+- … and 8 more; use git diff --cached --name-only.
 <!-- auto:end -->

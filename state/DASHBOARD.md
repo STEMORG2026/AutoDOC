@@ -1,17 +1,16 @@
 # DASHBOARD — AutoDOC
 
-**Last reconciled:** 2026-10-23T10:26Z · **Reconciled by:** EVOLVE closure pass (session
-`20261023-0751-EVOLVE`) · **Base tip:** `4230703` on `master` (PR #27 reconciled state after PR
-#26 merged the safe `autodoc evolve` command at `c0f90e0`; post-merge `make ci` passes 315 tests +
-188 subtests). EVOLVE is **CLOSED by the owner on 2026-10-23**; BETA, PRD2, PRD1 and 912C remain
-**PAUSED — merged; awaiting explicit owner closure**; release, tag and PyPI remain owner-only.
+**Last reconciled:** 2026-10-23T19:17Z · **Reconciled by:** CLOSE closing pass (session
+`20261023-1218-CLOSE`) · **Base tip:** `e556d54` on `master` (PR #28 closed EVOLVE). The eight
+remaining sessions and the closing pass are **CLOSED by the owner on 2026-10-23**; no session is
+open. Release, tag and PyPI remain owner-only.
 
 ## Project
 
 | Field | Value |
 | --- | --- |
 | Repository | `STEMORG2026/AutoDOC` — a self-updating documentation engine, not a compliance certificate |
-| Branch | `master` at `4230703` (PR #27 reconciled state after PR #26 merged the owner-requested `autodoc evolve` command); EVOLVE's session is closed |
+| Branch | `master` at `e556d54` (PR #28 closed EVOLVE); no session is open and the next work starts a new branch |
 | Declared phase | `beta` (strict) — declared 2026-10-23, never inferred; promotion merged in PR #24 |
 | Kinds / profile | `library` / `oss-library` (26 core types) |
 | Catalog | 24 core · 49 extended · 192 contextual · 265 types (209 A + 56 B) · 16 detected facts · 3 declared traits — the prose numbers are checked against the indexes by `tests/test_catalog_counts.py` (D-001 fixed) |
@@ -24,69 +23,15 @@
 
 ## Active agents
 
-`BETA` — session `20261023-0612-BETA` (**PAUSED — merged; awaiting explicit owner closure**):
-wrote the owner-authorized `beta` declaration (2026-10-23), removed severity pins that duplicated
-beta defaults, updated phase-dependent docs/tests/state, and proved `beta-ready: 17/17` with a
-green `make ci` and clean audit. PR #24 merged at `8f9c709`; no tag, PyPI publication, version
-change or session closure.
-
-`PRD2` — session `20261022-1415-PRD2` (**PAUSED — merged; awaiting explicit owner closure**):
-recorded `LICENSE` and `CHANGELOG.md` as the homes for the two beta-gated core rows, added the
-optional `audit` extra and `make audit`, stopped readiness from counting declared paths that do not
-exist, and defaulted the enforcement root to the tool checkout. The beta promotion it previewed
-was written by BETA and merged in PR #24; tagging, PyPI publication and session closure remain
-owner decisions. PR #21 merged at `f8e2c76`; merging did not close the session.
-
-`PRD1` — session `20261022-1145-PRD1` (**PAUSED — merged; awaiting explicit owner closure**):
-implemented `autodoc promote` (preview/apply phase deltas, guarded write, force-only
-demotion/backdate), `autodoc add` (one catalog document, root-bounded, preview by default) and
-`init --phase/--profile`. PR #18 merged by the owner at `1361ba2`. Installed-wheel dogfood then
-found that packaged `check` resolved `[instantiated]`/`[satisfied_by]` paths against the bundled
-tool root instead of `--repo`; the follow-up also rejects duplicate instance IDs and corrects the
-`promote` empty-delta wording. PR #19 merged at `06ccb0a`; PR #20 then merged the post-PR19 state reconciliation at `f2e8698`.
-The `0.3.0` / Beta proposal and release decision remain owner-only. Merging did not close the
-session.
-
-`912C` — session `20261022-1011-912C` (**PAUSED — merged; awaiting explicit owner closure**):
-D-003's on-demand catalog-template rendering merged in PR #16 at `a28616b`. The implementation kept
-one catalog record per type, byte-matched and removed the 795 tracked variants, and exposes Make and
-installed-CLI rendering into ignored `build/TEMPLATES/`. PR #15's reconciliation remains at
-`990113b`; merging did not close the session.
-
-`894B` — session `20261022-0445-894B` (**PAUSED (awaiting explicit owner closure)**): implemented
-D-004 audience applicability and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers; PR #14 merged at
-`7a0fd47`. The session remains paused because the owner asked to merge, not to close it.
-
-`627F` — session `20261022-0426-627F` (**PAUSED (awaiting explicit owner closure)**): reconciled
-PR #12 after merge; PR #13's state update merged at `a704752`. The owner selected D-004 then D-002;
-this is now handled by 894B. The prior merge did not explicitly close this session.
-
-`C4R7` — session `20261021-1820-C4R7` (**PAUSED (awaiting explicit owner closure)**): added the
-installable zero-runtime-dependency CLI/package, distinct tool/project roots, wheel/sdist build and
-isolated installation smoke tests. PR #12 merged into `master` at `08229a0`; local `make ci` passed
-(267 tests, 190 subtests), package smoke and artifact builds passed, and the required check, impact
-job and Python 3.11–3.15 matrix passed on GitHub. No PyPI publication was authorized; merging did
-not close the session.
-
-`B71a` — session `20261021-1459-B71a` (**PAUSED (awaiting owner)**): migration-prose validation is
-merged in PR #11 at `52d1b79`; the implementation is structural only. The session remains paused;
-merging did not constitute the owner's explicit close. A90c's D-001 session was closed by the owner
-at 14:59Z; its plan is archived. EVOLVE's `autodoc evolve` session was closed by the owner on
-2026-10-23; its plan is archived. The nine earlier sessions remain closed.
+None. The owner closed all open sessions on 2026-10-23, including the closing pass; the next unit
+of work starts a new session on a new branch.
 
 ## Alerts
 
-**Current follow-up (2026-10-23).** PR #21 merged the production-readiness closeout at
-`f8e2c76`; PR #22 reconciled the state at `f040105`; PR #23 made the shipped-phase tests follow
-the declaration at `3fda35b`; PR #24 merged the beta promotion at `8f9c709`; PR #25 reconciled
-the state at `249c2aa`; PR #26 merged the owner-requested `autodoc evolve` command at `c0f90e0`;
-PR #27 reconciled the state at `4230703`; post-merge `make ci` passes 315 tests + 188 subtests.
-The owner closed EVOLVE's session on 2026-10-23. The owner still needs to decide the `0.3.0` / Beta
-release and close the remaining sessions. 894B/627F/C4R7/B71a remain paused;
-912C, PRD1, PRD2 and BETA are merged but not explicitly closed. D-007 and PyPI publishing remain
-unauthorized; D-009's external dogfood was executed but its formal acceptance/record remains open.
-D-010's operator-run scanner now exists; its formal close still needs the owner or a recorded
-verification.
+**Current follow-up (2026-10-23).** PR #28 closed EVOLVE at `e556d54`. The owner then instructed
+this closing pass to complete and close every remaining session. BETA, PRD2, PRD1, 912C, 894B, 627F,
+C4R7 and B71a are now **CLOSED by the owner on 2026-10-23**; their plans are archived. The `0.3.0` /
+Beta release decision, tag/PyPI publication, D-007 and D-009’s formal acceptance remain owner-only.
 
 1. **D-001 fixed (2026-10-21).** The catalog counts are no longer remembered: eleven prose claims
    were corrected and `tests/test_catalog_counts.py` derives `265 / 209 / 56 / 24 / 49 / 192` from
@@ -96,8 +41,8 @@ verification.
 
 2. **Prior sessions closed (2026-10-21).** The nine sessions closed in the earlier owner round
    remain closed. A90c was closed by the owner's explicit instruction “Close A90c, then proceed”
-   at 14:59Z; its plan is archived. B71a is a new session, not a resumption, and is paused awaiting
-   owner review.
+   at 14:59Z; its plan is archived. B71a is a new session, not a resumption; the owner closed it
+   on 2026-10-23.
 
 3. **B-003 cleared (2026-10-21).** The owner applied P-007-A: ruleset `main` (id `25542481`) carries
    exactly `deletion`, `non_fast_forward` and `required_status_checks` → `AutoDOC guard / check`
@@ -125,21 +70,23 @@ verification.
 
 | Date | Work | Commits |
 | --- | --- | --- |
-| 2026-10-23 | **Post-PR24 state reconciliation merged:** records the beta merge, PR #20 correction (`f2e8698`), and paused-session status | PR #25 → `249c2aa` |
+| 2026-10-23 | **Closing pass:** all remaining sessions closed, their plans archived, state reconciled, and MACP local rule 11 added for one-session/one-branch/owner-closes-all/passkey lifecycle | this branch’s closing commit + PR |
+| 2026-10-23 | **Post-PR24 state reconciliation merged:** records the beta merge, PR #20 correction (`f2e8698`), and paused-session status (now closed) | PR #25 → `249c2aa` |
 | 2026-10-23 | **`autodoc evolve` merged:** read-only plan, generated refresh with `--write`, draft-only creation with `--allow-add`, maturity signals and JSON/check modes; post-merge `make ci` passes 315 tests + 188 subtests | PR #26 → `c0f90e0` |
 | 2026-10-23 | **Post-PR26 state reconciliation merged**, then the owner closed EVOLVE's session; its plan is archived, no release or tag | PR #27 → `4230703` |
+| 2026-10-23 | **EVOLVE session closed**; its plan was archived and the state reconciled; no release or tag | PR #28 → `e556d54` |
 | 2026-10-23 | **Beta promotion merged:** `phase = "beta"`, declaration date 2026-10-23; duplicate pins removed; beta-ready 17/17; post-merge `make ci` passes 307 tests + 188 subtests; no tag, release or closure | PR #24 → `8f9c709` |
 | 2026-10-23 | **Phase-agnostic shipped checks merged:** tests derive the declared phase, label and severity table from `autodoc.toml`; no phase or release change | PR #23 → `3fda35b` |
-| 2026-10-23 | **Post-PR21 state reconciliation merged:** records PR #21, PRD2 paused, and the post-merge gate; no phase or release change | PR #22 → `f040105` |
+| 2026-10-23 | **Post-PR21 state reconciliation merged:** records PR #21, PRD2 paused, and the post-merge gate; no phase or release change (PRD2 now closed) | PR #22 → `f040105` |
 | 2026-10-23 | **Production-readiness closeout merged:** beta document homes, operator-run `make audit`, invalid-decision readiness fix and default enforcement root; post-merge `make ci` passes 307 tests + 190 subtests; no phase write, release or closure | PR #21 → `f8e2c76` |
-| 2026-10-22 | **Post-PR19 state reconciliation merged:** PR #20 records PR #19, dogfood, and paused-session status; no release or closure | PR #20 → `f2e8698` |
+| 2026-10-22 | **Post-PR19 state reconciliation merged:** PR #20 records PR #19, dogfood, and paused-session status; no release or closure (sessions now closed) | PR #20 → `f2e8698` |
 | 2026-10-22 | **PRD1 production-readiness commands merged:** `autodoc add`, guarded `autodoc promote`, `init --phase/--profile` | PR #18 → `1361ba2` |
 | 2026-10-22 | **Installed-wheel dogfood fixes merged:** target-root path resolution for `[instantiated]`/`[satisfied_by]`, duplicate instance-ID refusal and corrected promote wording; 304 tests + 190 subtests; release still owner-gated | PR #19 → `06ccb0a` |
 | 2026-10-22 | **D-003 on-demand catalog templates merged:** 265 types render canonical/blank/example variants into ignored `build/TEMPLATES`; 795 tracked variants removed after byte-match; no session closure or PyPI publication | PR #16 → `a28616b` |
 | 2026-10-22 | **D-004 audience applicability and D-002 language readers merged:** owner-confirmed `reader` semantics; JSDoc, TypeDoc and nightly Rustdoc readers; no session closure or PyPI publication | PR #14 → `7a0fd47` |
-| 2026-10-22 | **Post-merge state reconciliation merged:** package readiness reflected after PR #12; C4R7/B71a preserved as paused; no PyPI publication | PR #13 → `a704752` |
+| 2026-10-22 | **Post-merge state reconciliation merged:** package readiness reflected after PR #12; C4R7/B71a preserved as paused; no PyPI publication (both now closed) | PR #13 → `a704752` |
 | 2026-10-22 | **Installable CLI/package merged:** zero-runtime-dependency `autodoc` CLI, wheel/sdist packaging, isolated install smoke, Python 3.11–3.15 matrix; no PyPI publish | PR #12 → `08229a0` |
-| 2026-10-21 | **Migration-prose structure checks merged:** canonical sections/prompts routed through existing enforcement families; B71a remains paused pending explicit owner closure | PR #11 → `52d1b79` |
+| 2026-10-21 | **Migration-prose structure checks merged:** canonical sections/prompts routed through existing enforcement families; B71a was paused pending explicit owner closure and is now closed | PR #11 → `52d1b79` |
 | 2026-10-21 | **D-001 session closed by owner** (“Close A90c, then proceed”); its plan was archived; PR #10 is the current master tip; new session B71a registered for the named migration-prose validation follow-up | PR #10 → `c4a9d43` |
 | 2026-10-21 | **Debt D-001 closed** (owner instruction: "continue"): eleven stale catalog-count claims corrected across eight documents (260 → 265, and one total that summed to 263), a derived-count guard added (`tests/test_catalog_counts.py`, 4 tests), D-001 → fixed, dashboard/architecture/NEXT-ACTION reconciled | `d3ebf4a` — PR #8 merged at `5bbd7d8` |
 | 2026-10-21 | **Closing pass** (owner instruction: "continue from this here and also close the session"): the eight open sessions closed on the owner's word, their plans archived (not deleted), `REGISTRY`/`INDEX`/`DASHBOARD`/`NEXT-ACTION.md` reconciled, rule-10 self-check run on a cold clone | this branch's closing commit + PR |
@@ -165,11 +112,10 @@ verification.
    formal acceptance/record remains open. D-010's `make audit` mechanism is implemented; record its
    first accepted run if the owner wants the debt formally closed. No implementation work is
    pending for the closeout scope.
-3. **Session closure and release boundaries:** EVOLVE was closed by the owner on 2026-10-23; BETA,
-   PRD2, PRD1 and 912C are merged but not closed; 894B, 627F, C4R7 and B71a remain
-   paused/awaiting explicit owner closure. Only the owner closes sessions. Package workflows build
-   artifacts only; PyPI/trusted publishing needs a separate owner decision. The beta phase write is
-   complete; it is not a release.
+3. **Session closure and release boundaries:** EVOLVE, BETA, PRD2, PRD1, 912C, 894B, 627F, C4R7,
+   B71a and the closing pass are closed by the owner; no session is open. Reopening a closed session
+   requires an explicit owner passkey. Package workflows build artifacts only; PyPI/trusted
+   publishing needs a separate owner decision. The beta phase write is complete; it is not a release.
 
 This dashboard summarizes; it never overrides `NEXT-ACTION.md` or an owner instruction. Sessions
 are closed only by the owner.

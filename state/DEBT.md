@@ -1,6 +1,6 @@
 # DEBT — technical debt worth acting on
 
-**Last reconciled:** 2026-10-23T10:26Z (master `4230703` after PR #27; EVOLVE's `autodoc evolve` session is CLOSED by the owner. D-009 was executed but formal acceptance is pending; D-007 remains queued)
+**Last reconciled:** 2026-10-23T19:17Z (master `e556d54` after PR #28; the closing pass closed the eight remaining sessions and the closing pass, archived all plans, and added MACP rule 11. No session is open. D-009 was executed but formal acceptance is pending; D-007 remains queued)
 
 Only debt the maintainers would actually fix; a wish list belongs elsewhere. Statuses: `open`,
 `queued (<decision>)`, `in progress (active branch; pending merge)`, `accepted (by design)`,

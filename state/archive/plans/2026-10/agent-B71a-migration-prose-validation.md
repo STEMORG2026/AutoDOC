@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Extend the existing structural-document check so instantiated migration design/plan/test-plan/guide docs must replace their canonical prompts with authored section content, without claiming semantic review. |
 | Owner of the work | `B71a` (session `20261021-1459-B71a`) |
-| Status | **PAUSED (awaiting owner)** |
+| Status | **CLOSED (owner's word, 2026-10-23) — PR #11 merged at `52d1b79`** |
 | Opened (UTC) | 2026-10-21T14:59Z |
 
 ## Scope

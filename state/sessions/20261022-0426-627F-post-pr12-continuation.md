@@ -47,4 +47,11 @@ See `state/plans/agent-627F-post-pr12-continuation.md`.
 
 ## Handoff
 
-The PR #12 post-merge records landed through PR #13. The owner then selected D-004 followed by D-002 and confirmed the D-004 semantics; active session `20261022-0445-894B` implements that bounded follow-up on `arena/894b93ee-autodoc`. This 627F session remains paused until explicit owner closure. Do not publish to PyPI or close C4R7/B71a by inference.
+The PR #12 post-merge records landed through PR #13. The owner then selected D-004 followed by D-002 and confirmed the D-004 semantics; that bounded follow-up was implemented and merged separately by session `20261022-0445-894B`. Session `20261022-0426-627F` is **CLOSED by the owner on 2026-10-23**. No PyPI publication was authorized.
+
+## Closure
+
+The owner instructed: “complete the works left to do in each session and close them.” Session
+`20261022-0426-627F` is now **CLOSED** by the owner’s word. Its plan is archived at
+`state/archive/plans/2026-10/agent-627F-post-pr12-continuation.md`. Reopening requires an explicit
+owner passkey.

@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Close the remaining release-readiness gaps on `master` after PR #19: the beta document delta, operator-run vulnerability auditing, two enforcement/readiness residuals, and the records that describe them. |
 | Owner of the work | `PRD2` (session `20261022-1415-PRD2`) |
-| Status | **PAUSED — PR #21 merged at `f8e2c76`; awaiting explicit owner closure** |
+| Status | **CLOSED (owner's word, 2026-10-23) — PR #21 merged at `f8e2c76`** |
 | Opened (UTC) | 2026-10-22T14:15Z |
 
 ## Scope

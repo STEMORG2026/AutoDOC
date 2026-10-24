@@ -1,6 +1,6 @@
 # ARCHITECTURE — coordination-layer view
 
-**Last reconciled:** 2026-10-23T10:26Z (master `4230703` after PR #27; EVOLVE's `autodoc evolve` session is CLOSED by the owner. BETA/PRD1/PRD2/912C await explicit owner closure; 894B/C4R7/B71a/627F remain paused)
+**Last reconciled:** 2026-10-23T19:17Z (master `e556d54` after PR #28; this closing pass closed the eight remaining sessions and the closing pass, archived all plans, and added MACP local rule 11 for one session/one branch/owner-closes-all/passkey lifecycle. No session is open.)
 
 This file is the agent's orientation map, not the authoritative design. When they disagree, the
 authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (system),
@@ -48,13 +48,14 @@ authoritative documents win: `docs/05-architecture/AUTODOC-ARCHITECTURE.md` (sys
 
 | Date | Change |
 | --- | --- |
+| 2026-10-23 | CLOSE closing pass: BETA, PRD2, PRD1, 912C, 894B, 627F, C4R7 and B71a closed on the owner’s word; their plans archived; MACP local rule 11 added for one-session/one-branch/owner-closes-all/passkey lifecycle. |
 | 2026-10-23 | EVOLVE's owner-requested `autodoc evolve` command merged in PR #26 at `c0f90e0`: read-only planning, generated refresh, draft-only missing documents, maturity/JSON/check modes; post-merge `make ci` passes 315 tests + 188 subtests. The owner closed the session on 2026-10-23; its plan is archived. No release or tag. |
 | 2026-10-23 | BETA's owner-authorized `beta` declaration (2026-10-23) merged in PR #24 at `8f9c709`; duplicate severity pins were removed and phase-dependent docs/tests/state updated. Post-merge `make ci` passes with beta-ready 17/17; no release or closure. |
 | 2026-10-23 | PR #23 made the shipped-phase tests derive from `autodoc.toml`, so a promotion no longer fails CI on hard-coded `build` assertions. |
 | 2026-10-23 | PRD2's closeout merged in PR #21 at `f8e2c76`: `LICENSE`/`CHANGELOG.md` are beta document homes, the optional `audit` extra plus `make audit` are documented, and readiness treats unverifiable declared paths as open; beta promotion previews clean but no phase write, release or closure is included. |
 | 2026-10-22 | PR #18 merged `autodoc add`, guarded `autodoc promote` and `init --phase/--profile` at `1361ba2`. Installed-wheel dogfood then found target-root path resolution, duplicate instance-ID and promote-wording defects; PR #19 merged the fixes at `06ccb0a`, and post-merge `make ci` plus master CI passed. No release or session closure was authorized. |
 | 2026-10-22 | Owner selected D-004 followed by D-002 after PR #13 merged at `a704752`; the audience rule and JSDoc/TypeDoc/nightly Rustdoc JSON readers merged to `master` in PR #14 at `7a0fd47`; post-merge local CI passed. No PyPI publication or session closure was authorized. |
-| 2026-10-22 | C4R7 added the installable `autodoc` CLI, isolated wheel/sdist packaging and smoke tests, separate tool/project roots, version metadata and temporary tag-run distribution artifacts; PR #12 merged at `08229a0`. PyPI publishing remains unauthorized/unconfigured; C4R7 and B71a remain paused until explicit owner closure. |
+| 2026-10-22 | C4R7 added the installable `autodoc` CLI, isolated wheel/sdist packaging and smoke tests, separate tool/project roots, version metadata and temporary tag-run distribution artifacts; PR #12 merged at `08229a0`. PyPI publishing remains unauthorized/unconfigured; C4R7 and B71a were later closed by the owner on 2026-10-23. |
 | 2026-10-01 | Decision 3 closed the open core decisions: new `docs/00-governance/PROJECT-CHARTER.md`, `docs/adr/` (first ADR), `SECURITY.md`, `CODE_OF_CONDUCT.md`; module contracts, test strategy, dependency setup and dependency policy now have named homes (`autodoc.toml` declarations); readiness 15/16 at commit `1a65f5d`. |
 | 2026-10-01 | Full MACP transcription landed (Sections 2–7 + REMEMBER verbatim) and the Section 7 Step 1 audit completed; `state/` files reconciled at `d26d798`. |
 | 2026-10-01 | `state/` added as the MACP coordination layer (`docs/00-governance/MACP.md`). It is deliberately outside the controlled-document set; `guards.py` still scans its Markdown for links, tribal phrases and key markers. |

@@ -5,7 +5,7 @@
 | Objective | After reconciling PR #14/#15, implement the owner's D-003 selection: keep one catalog source record per type and render canonical, blank and synthetic-example variants on demand into ignored `build/TEMPLATES/`. |
 | Owner of the work | `912C` (session `20261022-1011-912C`) |
 | Branch | `arena/912c4060-autodoc`, based at PR #15 merge `990113b5c496b833af9e855cb6e3870d816c1cb4` |
-| Status | **IN PROGRESS — implementation, `make ci`, pre-commit and staged impact passed; commit/push and review-PR handoff remain; do not merge without owner authorization** |
+| Status | **CLOSED (owner's word, 2026-10-23) — PR #15 merged and D-003 implemented/merged in PR #16 at `a28616b`** |
 | Opened (UTC) | 2026-10-22T10:39Z |
 
 ## Predecessor work
