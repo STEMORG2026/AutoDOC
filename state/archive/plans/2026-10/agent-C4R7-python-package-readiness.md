@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Turn AutoDOC's current repository-only scripts into an installable, dependency-free Python CLI with a buildable wheel/sdist and isolated-install smoke coverage. |
 | Owner of the work | `C4R7` (session `20261021-1820-C4R7`) |
-| Status | **PAUSED (awaiting explicit owner closure)** |
+| Status | **CLOSED (owner's word, 2026-10-23) — PR #12 merged at `08229a0`** |
 | Opened (UTC) | 2026-10-21T18:20Z |
 
 ## Scope

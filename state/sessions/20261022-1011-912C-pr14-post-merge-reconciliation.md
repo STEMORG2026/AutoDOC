@@ -86,9 +86,14 @@ See `state/plans/agent-912C-pr14-post-merge-reconciliation.md`.
 
 ## Handoff
 
-PR #15 is merged at `990113b`; this session is **IN PROGRESS** on owner-selected D-003, not closed.
-Implementation, full `make ci`, pre-commit and staged impact are complete on `arena/912c4060-autodoc`;
-795 prior variants matched byte-for-byte before removal, and rendering happens on demand from catalog
-records into ignored `build/TEMPLATES/`. Commit/push and opening the review PR remain. D-007, D-009,
-PyPI publication and closure of other paused sessions remain unauthorized. Do not merge the D-003
-follow-up PR without explicit owner authorization.
+PR #15 is merged at `990113b`; PR #16 merged the owner-selected D-003 implementation at `a28616b`.
+The 795 prior variants matched byte-for-byte before removal, and rendering happens on demand from
+catalog records into ignored `build/TEMPLATES/`. Implementation, tests, package smoke and state
+reconciliation are complete. This session is **CLOSED by the owner on 2026-10-23**.
+
+## Closure
+
+The owner instructed: “complete the works left to do in each session and close them.” Session
+`20261022-1011-912C` is now **CLOSED** by the owner’s word. Its plan is archived at
+`state/archive/plans/2026-10/agent-912C-pr14-post-merge-reconciliation.md`. Reopening requires an
+explicit owner passkey.

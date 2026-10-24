@@ -43,6 +43,13 @@ See `state/plans/agent-BETA-beta-promotion.md`.
 
 ## Outcome
 
-**PAUSED — merged at `8f9c709`; awaiting explicit owner closure.** PR #24 is
-https://github.com/STEMORG2026/AutoDOC/pull/24. The phase write is recorded; no tag, PyPI
-publication or session closure is included, and merging did not close the session.
+**CLOSED — merged at `8f9c709`; closed by the owner on 2026-10-23.** PR #24 is
+https://github.com/STEMORG2026/AutoDOC/pull/24. The phase write is recorded; no tag or PyPI
+publication is included.
+
+## Closure
+
+The owner instructed: “complete the works left to do in each session and close them.” Session
+`20261023-0612-BETA` is now **CLOSED** by the owner’s word. Its plan is archived at
+`state/archive/plans/2026-10/agent-BETA-beta-promotion.md`. Reopening requires an explicit owner
+passkey.

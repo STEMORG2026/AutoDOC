@@ -1,32 +1,31 @@
 # REGISTRY — who is working here and what they own
 
-**Last reconciled:** 2026-10-23T10:26Z (master `4230703` after PR #27; EVOLVE's `autodoc evolve` session is **CLOSED by the owner**. BETA, PRD2, PRD1 and 912C remain merged but await explicit owner closure; 894B/627F/C4R7/B71a remain paused)
+**Last reconciled:** 2026-10-23T19:17Z (master `e556d54` after PR #28; this closing pass closed the eight remaining sessions and archived all plans. MACP local rule 11 now records the one-session/one-branch/owner-closes-all/passkey lifecycle; no session is open.)
 
 ## Active — work in flight, or landed and awaiting the owner
 
-C4R7's package-readiness work is merged (PR #12, `08229a0`) and its session remains **PAUSED awaiting explicit owner closure**; merging did not close it. PR #13's state reconciliation is merged at `a704752`; session 627F remains paused. D-004 and D-002 were merged in PR #14 at `7a0fd47`; session 894B remains paused because merging did not close it. B71a (migration prose validation) remains paused on `arena/48a62791-autodoc`; PR #11 merging did not close it. PR #15's state reconciliation merged at `990113b` after explicit owner authorization, and 912C's D-003 implementation merged in PR #16 at `a28616b`; 912C remains paused pending explicit owner closure. PRD1's production-readiness commands merged in PR #18 at `1361ba2`; post-merge installed-wheel dogfood found the packaged-root path defect, fixed and merged in PR #19 at `06ccb0a`; PR #20 reconciled the state at `f2e8698`. PRD1's session remains paused pending explicit owner closure; merging did not close it. PRD2's closeout merged in PR #21 at `f8e2c76`; its session is paused pending explicit owner closure. It is a separate bounded session, not a reopening of PRD1. BETA's phase promotion merged in PR #24 at `8f9c709`; its session is paused pending explicit owner closure. EVOLVE's `autodoc evolve` merged in PR #26 at `c0f90e0`; the owner closed its session on 2026-10-23 and its plan is archived.
-
-| Agent ID | Model / type | Branch | Task (one line) | Started (UTC) | Claimed paths | Status |
-| --- | --- | --- | --- | --- | --- | --- |
-| `BETA` | opencode agent | `chore/promote-beta` (merged in PR #24) | Beta promotion merged at `8f9c709`: `phase = "beta"`, declaration date 2026-10-23, duplicate pins removed, phase-dependent docs/tests/state updated; post-merge `make ci` passes 307 tests + 188 subtests; no release/tag/PyPI/closure | 2026-10-23T06:12Z | `autodoc.toml`, `README.md`, `tests/test_enforce.py`, `docs/00-governance/{ADOPTION,CORE-LIST-REVIEW}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `docs/generated/TRIGGER-REFERENCE.md`, `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, `state/**` | **PAUSED (merged; awaiting explicit owner closure)** |
-| `PRD2` | opencode agent | `feat/production-readiness-closeout` (merged in PR #21) | Production-readiness closeout merged at `f8e2c76`: beta document homes, operator-run audit, readiness fixes, docs/state; post-merge `make ci` passes 307 tests + 190 subtests; no phase write/release/closure | 2026-10-22T14:15Z | `autodoc.toml`, `pyproject.toml`, `Makefile`, `scripts/intelligence/{enforce,recommend}.py`, `tests/{test_enforce,test_promote}.py`, `CONTRIBUTING.md`, `SECURITY.md`, `CHANGELOG.md`, `docs/00-governance/{ENGINE-COVERAGE,LIMITATIONS}.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, generated metadata, `state/**` | **PAUSED (merged; awaiting explicit owner closure)** |
-| `PRD1` | opencode agent | `arena/production-readiness-autodoc`; `fix/dogfood-packaged-root` (merged) | Production-readiness commands merged in PR #18 at `1361ba2`; installed-wheel dogfood fixes merged in PR #19 at `06ccb0a`; post-merge `make ci` passes 304 tests + 190 subtests | 2026-10-22T11:45Z | `autodoc/cli.py`, `scripts/intelligence/{promote,recommend,enforce}.py`, `scripts/add-document.py`, `scripts/doc-control/library.py`, `scripts/init-project.py`, `setup.py`, `Makefile`, tests, usage/release docs, `state/**` | **PAUSED (merged; awaiting explicit owner closure)** |
-| `912C` | Arena.ai Agent Mode | `arena/912c4060-autodoc` | Owner-selected D-003: catalog template variants render on demand into ignored `build/TEMPLATES`; merged in PR #16 at `a28616b` | 2026-10-22T10:11Z | `scripts/doc-control/library.py`, `autodoc/cli.py`, `setup.py`, `Makefile`, catalog validators, tests, template docs, `state/**` | **PAUSED (merged; awaiting explicit owner closure)** |
-| `894B` | Arena.ai Agent Mode | `arena/894b93ee-autodoc` | Owner-selected D-004 audience applicability followed by D-002 JSDoc, TypeDoc and nightly Rustdoc JSON readers; PR #14 merged at `7a0fd47` | 2026-10-22T04:45Z | `scripts/intelligence/recommend.py`, `scripts/doc-sync/{languages,engine}.py`, tests, toolchain fixtures, `CONTROL/metadata/**`, `autodoc.toml`, coverage/architecture docs, `docs/META/**`, living-state files, `state/**` | **PAUSED (awaiting explicit owner closure)** |
-| `627F` | Arena.ai Agent Mode | `arena/627fcb46-autodoc` | PR #13 post-merge state reconciliation; merged at `a704752`; owner selected D-004 then D-002 | 2026-10-22T04:26Z | `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, `state/**` | **PAUSED (awaiting explicit owner closure)** |
-| `C4R7` | Arena.ai Agent Mode | `arena/072fcb8c-autodoc` | Installable zero-runtime-dependency Python CLI/package; wheel/sdist and release guidance; PR #12 merged at `08229a0`; no PyPI publish | 2026-10-21T18:20Z | `pyproject.toml`, `setup.py`, `MANIFEST.in`, `autodoc/`, `scripts/doc-sync/engine.py`, CLI scripts, `Makefile`, `Taskfile.yaml`, package tests, workflows, usage/architecture docs, `state/**`, living-state files | **PAUSED (awaiting explicit owner closure)** |
-| `B71a` | Arena.ai Agent Mode | `arena/48a62791-autodoc` | Integrate structural checks for four canonical migration titles into `stub_check`; findings route through existing `placeholders`/`stubs` families | 2026-10-21T14:59Z | `state/**`, `scripts/doc-control/stub_check.py`, `scripts/intelligence/enforce.py`, `CONTROL/metadata/CONTEXT-MODEL.json`, `autodoc.toml`, `tests/test_migration_prose.py`, `Makefile`, `NEXT-ACTION.md`, `CHANGELOG.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `RECENT-CHANGES.md`, `docs/00-governance/ENGINE-COVERAGE.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `docs/META/**` | **PAUSED (awaiting owner)** |
+None. The owner closed all open sessions on 2026-10-23; the next unit of work starts a new session
+on a new branch.
 
 ## Closed by the owner
 
-Only the owner's word moves a row here (MACP local rule 8, ADR-009). The ten prior rows were
-closed by the owner's 2026-10-21 instruction; A90c was closed separately at 14:59Z by the owner's
-“Close A90c, then proceed” instruction; EVOLVE was closed on 2026-10-23 by “close the session”.
-Each session file carries its closing entry, and plans are archived under
-`state/archive/plans/2026-10/` when one existed.
+Only the owner's word moves a row here (MACP local rule 8, ADR-009). The ten rows from 2026-10-21
+were closed in the earlier owner round; A90c was closed separately on 2026-10-21; EVOLVE was closed
+on 2026-10-23 by “close the session”; the eight rows below were closed on 2026-10-23 by the owner’s
+“complete the works left to do in each session and close them” instruction. Plans are archived under
+`state/archive/plans/2026-10/`.
 
 | Agent ID | Session | Branch | Task | Closed (UTC) | Plan |
 | --- | --- | --- | --- | --- | --- |
+| `CLOSE` | `sessions/20261023-1218-CLOSE-close-all-open-sessions.md` | `docs/close-all-open-sessions` | Closing pass: audited and closed the eight remaining sessions, archived their plans, reconciled state, and added MACP rule 11 / ADR-018 | 2026-10-23T19:17Z | `agent-CLOSE-close-all-open-sessions.md` |
+| `BETA` | `sessions/20261023-0612-BETA-beta-promotion.md` | `chore/promote-beta` (merged in PR #24) | Beta promotion merged at `8f9c709`: `phase = "beta"`, duplicate pins removed, phase-dependent docs/tests/state updated; no release/tag/PyPI | 2026-10-23T17:24Z | `agent-BETA-beta-promotion.md` |
+| `PRD2` | `sessions/20261022-1415-PRD2-production-closeout.md` | `feat/production-readiness-closeout` (merged in PR #21) | Production-readiness closeout merged at `f8e2c76`: beta document homes, operator-run `make audit`, readiness fixes, docs/state; no phase write/release | 2026-10-23T17:24Z | `agent-PRD2-production-closeout.md` |
+| `PRD1` | `sessions/20261022-1145-PRD1-production-readiness.md` | `arena/production-readiness-autodoc`; `fix/dogfood-packaged-root` (merged) | Production-readiness commands merged in PR #18 at `1361ba2`; installed-wheel dogfood fixes merged in PR #19 at `06ccb0a`; post-merge `make ci` passes 304 tests + 190 subtests | 2026-10-23T17:24Z | `agent-PRD1-production-readiness.md` |
+| `912C` | `sessions/20261022-1011-912C-pr14-post-merge-reconciliation.md` | `arena/912c4060-autodoc` | D-003 on-demand catalog templates merged in PR #16 at `a28616b`; 795 prior variant outputs byte-matched and removed | 2026-10-23T17:24Z | `agent-912C-pr14-post-merge-reconciliation.md` |
+| `894B` | `sessions/20261022-0445-894B-d004-language-readers.md` | `arena/894b93ee-autodoc` | D-004 audience applicability and D-002 JSDoc/TypeDoc/nightly Rustdoc JSON readers merged in PR #14 at `7a0fd47` | 2026-10-23T17:24Z | `agent-894B-d004-language-readers.md` |
+| `627F` | `sessions/20261022-0426-627F-post-pr12-continuation.md` | `arena/627fcb46-autodoc` | PR #12 post-merge state reconciliation merged in PR #13 at `a704752`; owner then selected D-004/D-002, implemented separately by 894B | 2026-10-23T17:24Z | `agent-627F-post-pr12-continuation.md` |
+| `C4R7` | `sessions/20261021-1820-C4R7-python-package-readiness.md` | `arena/072fcb8c-autodoc` | Installable zero-runtime-dependency Python CLI/package; wheel/sdist and release guidance; PR #12 merged at `08229a0`; no PyPI publish | 2026-10-23T17:24Z | `agent-C4R7-python-package-readiness.md` |
+| `B71a` | `sessions/20261021-1459-B71a-migration-prose-validation.md` | `arena/48a62791-autodoc` | Migration-prose validation integrated into `stub_check.py`; canonical sections/prompts route through existing policy families; PR #11 merged at `52d1b79` | 2026-10-23T17:24Z | `agent-B71a-migration-prose-validation.md` |
 | `EVOLVE` | `sessions/20261023-0751-EVOLVE-evolve-command.md` | `feat/autodoc-evolve` (merged in PR #26) | Owner-requested `autodoc evolve`: read-only plan, generated refresh, draft-only missing documents, maturity/JSON/check; merged at `c0f90e0` | 2026-10-23T10:26Z | `agent-EVOLVE-evolve-command.md` |
 | `A90c` | `sessions/20261021-1318-A90c-debt-d001.md` | `arena/44b2fb68-autodoc` | Debt D-001: repair catalog-count drift and add a derived-count guard | 2026-10-21T14:59Z | `agent-A90c-debt-d001.md` |
 | `Abb7f` | `sessions/20261021-1257-Abb7f-session-close.md` | `arena/83bebb7f-autodoc` | Close the eight open sessions, archive plans, reconcile `state/` + `NEXT-ACTION.md` | 2026-10-21T13:05Z | `agent-Abb7f-session-close.md` |
@@ -36,7 +35,7 @@ Each session file carries its closing entry, and plans are archived under
 | `A476` | `sessions/20261001-1228-A476-session-lifecycle.md` | `arena/01a0f476-autodoc` | Session-lifecycle correction (ADR-009, rules 8–10) | 2026-10-21T13:00Z | `agent-A476-session-lifecycle.md` |
 | `A476` | `sessions/20261001-1219-A476-cold-clone-test.md` | `arena/01a0f476-autodoc` | Cold-clone continuity test + the P-001…P-006 dossier | 2026-10-21T13:00Z | `agent-A476-cold-clone-test.md` |
 | `A476` | `sessions/20261001-1130-A476-decision-3.md` | `arena/01a0f476-autodoc` | Decision 3: 11 of 12 core decisions closed | 2026-10-21T13:00Z | `agent-A476-decision-3.md` |
-| `A476` | `sessions/20261001-1120-A476-bootstrap-audit.md` | `arena/01a0f476-autodoc` | Full protocol transcription + Section 7 audit | 2026-10-21T13:00Z | never committed (recorded in `-1228`) |
+| `A476` | `sessions/20261001-1120-A476-bootstrap-audit.md` | `arena/01a0f476-autodoc` | Full MACP transcription + Section 7 audit | 2026-10-21T13:00Z | never committed (recorded in `-1228`) |
 | `A476` | `sessions/20261001-1110-A476-macp-adoption.md` | `arena/01a0f476-autodoc` | MACP adopted; `state/` bootstrapped | 2026-10-21T13:00Z | `agent-A476-macp-adoption.md` |
 
 ## Non-agent owner
@@ -53,6 +52,9 @@ Each session file carries its closing entry, and plans are archived under
   never only in chat.
 - **Handoff self-check** (local rule 10): before handing off, read the state as a stranger; if the
   next actions cannot be executed from state alone, fix state first.
+- **One session, one bounded work unit, one branch** (local rule 11): when the owner says “close the
+  session”, every open session closes, its plan archives, and the next work starts a new session on
+  a new branch. A closed session is immutable and reopens only with an explicit owner passkey.
 - An **active** claim wins; shared files (`Makefile`, `pyproject.toml`, workflows,
   `CONTROL/metadata/**`) need a `[COORDINATION]` note in both sessions.
 - A claim held by an agent `INACTIVE` for **>24h** may be taken over; record the takeover.

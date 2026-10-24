@@ -86,15 +86,14 @@ on Python 3.11. Tagged workflows build temporary GitHub Actions artifacts only; 
 not published to PyPI and no publication was authorized. The local full check passed (267 tests,
 190 subtests, plus wheel/sdist install smoke). PR #12 merged into `master` at `08229a0` on
 2026-10-22; its required check, impact job and supplemental Python 3.11–3.15 matrix all passed on
-GitHub. C4R7 remains paused because merging is not an explicit session-close instruction. B71a
-also remains paused after PR #11 merged.
+GitHub. C4R7 and B71a are closed; merging is not what closed them — the owner did.
 
 PR #13's post-merge reconciliation is merged at `a704752`. The owner then selected D-004 followed
 by D-002 and confirmed the audience rule recorded in ADR-014. Both implementations are now on
 `master` through PR #14, merged at `7a0fd47224751be04dfdc6275d2381028a6064fd` on 2026-10-22.
 Required, impact and Python 3.11–3.15 GitHub checks passed. A post-merge local `make ci` also passed
 on Python 3.11 (280 tests and 190 subtests); evidence hashes verify, not signatures. The 894B session
-remains paused; merging did not close it. PR #15's post-merge state reconciliation merged at
+is closed; merging did not close it — the owner did. PR #15's post-merge state reconciliation merged at
 `990113b` after the owner explicitly authorized it; its required guard and Python 3.11–3.15 matrix
 passed (the PR impact step ran within the guard check; no separate impact status was listed). The
 owner then selected D-003 (ADR-015); it merged in PR #16 at `a28616b`. PRD1's production-readiness
@@ -102,8 +101,13 @@ commands merged in PR #18 at `1361ba2`. Post-merge installed-wheel dogfood found
 path defect; the fixes merged in PR #19 at `06ccb0a`, and PR #20's reconciliation merged at
 `f8e2c76` through PR #21; PR #22 reconciled the state at `f040105`; PR #23 made the shipped-phase
 tests follow the declaration at `3fda35b`; PR #24 merged the beta promotion at `8f9c709`. PRD2,
-BETA, 912C and PRD1 are merged but not closed; the owner release and `0.3.0`/Beta verdict remain
-pending.
+BETA, 912C and PRD1 are merged and **closed by the owner on 2026-10-23**; the owner release and
+`0.3.0`/Beta verdict remain pending.
+
+No session is open. MACP local rule 11 records the session lifecycle: one session, one bounded
+work unit, one branch; when the owner says “close the session”, all open sessions close and the
+next unit of work starts a new session on a new branch; a closed session reopens only with an
+explicit owner passkey.
 
 AutoDOC now self-hosts its catalog and workflow inventories. Catalog and control-code changes
 are mapped to human adoption or architecture review; declared ownership is checked in CI.

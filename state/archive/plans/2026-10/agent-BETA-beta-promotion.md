@@ -4,7 +4,7 @@
 | --- | --- |
 | Objective | Write the owner-authorized `beta` phase declaration on `master`, keep the enforcement pins honest, update phase-dependent documentation and state, and prove the gate stays green. |
 | Owner of the work | `BETA` (session `20261023-0612-BETA`) |
-| Status | **PAUSED — PR #24 merged at `8f9c709`; awaiting explicit owner closure** |
+| Status | **CLOSED (owner's word, 2026-10-23) — PR #24 merged at `8f9c709`** |
 | Opened (UTC) | 2026-10-23T06:12Z |
 
 ## Scope

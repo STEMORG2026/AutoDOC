@@ -85,9 +85,9 @@ See `state/plans/agent-PRD1-production-readiness.md`.
 
 ## Outcome
 
-**PAUSED — PR #18 merged at `1361ba2`; installed-wheel dogfood fix merged in PR #19 at `06ccb0a`;
-post-merge `make ci` passes. Owner closure, the `0.3.0`/Beta verdict and release remain pending.**
-The session is not closed: local rule 8 reserves `COMPLETED`/`CLOSED` for the owner's word.
+**CLOSED — PR #18 merged at `1361ba2`; installed-wheel dogfood fix merged in PR #19 at `06ccb0a`;
+post-merge `make ci` passes. Closed by the owner on 2026-10-23.** The `0.3.0`/Beta verdict and
+release remain separate owner decisions.
 
 ### Accomplished
 

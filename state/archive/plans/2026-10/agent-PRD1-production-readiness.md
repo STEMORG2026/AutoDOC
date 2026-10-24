@@ -71,12 +71,11 @@ or external state is touched. Promote writes are local, atomic and validated bef
 - New tests pass; `make ci` exits 0 and the isolated wheel/sdist smoke exercises the new commands.
 - State and user docs describe the shipped behavior without claiming owner approval.
 
-## Status — 2026-10-22T13:50Z
+## Status — 2026-10-22T13:50Z; closed 2026-10-23
 
 PR #18 merged at `1361ba2`; the follow-up installed-wheel dogfood fixes merged in PR #19 at
 `06ccb0a`. The fixes cover target-root resolution, duplicate instance IDs and promote wording; 304
-tests + 190 subtests pass, package smoke exercises all seven CLI commands, and post-merge
-`make ci` exits 0. Master guard and generation-preview runs are green. The plan is complete for
-implementation; the session remains paused pending explicit owner closure and release decisions.
-The `0.3.0` / Beta version-classifier change is a proposal awaiting owner sign-off, not a recorded
-decision.
+tests + 190 subtests pass, package smoke exercises all seven CLI commands, and post-merge `make ci`
+exits 0. Master guard and generation-preview runs are green. The implementation is complete. The
+owner closed the session on 2026-10-23; the `0.3.0` / Beta version-classifier change remains an
+owner decision, not a recorded decision.

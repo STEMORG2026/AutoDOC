@@ -9,7 +9,16 @@ created and deleted between commits and has no git history — see `20261001-122
 
 | Plan | Session it belongs to | Session status |
 | --- | --- | --- |
+| `agent-CLOSE-close-all-open-sessions.md` | `20261023-1218-CLOSE` | CLOSED (owner's word, 2026-10-23) |
 | `agent-EVOLVE-evolve-command.md` | `20261023-0751-EVOLVE` | CLOSED (owner's word, 2026-10-23) |
+| `agent-BETA-beta-promotion.md` | `20261023-0612-BETA` | CLOSED (owner's word, 2026-10-23) |
+| `agent-PRD2-production-closeout.md` | `20261022-1415-PRD2` | CLOSED (owner's word, 2026-10-23) |
+| `agent-PRD1-production-readiness.md` | `20261022-1145-PRD1` | CLOSED (owner's word, 2026-10-23) |
+| `agent-912C-pr14-post-merge-reconciliation.md` | `20261022-1011-912C` | CLOSED (owner's word, 2026-10-23) |
+| `agent-894B-d004-language-readers.md` | `20261022-0445-894B` | CLOSED (owner's word, 2026-10-23) |
+| `agent-627F-post-pr12-continuation.md` | `20261022-0426-627F` | CLOSED (owner's word, 2026-10-23) |
+| `agent-C4R7-python-package-readiness.md` | `20261021-1820-C4R7` | CLOSED (owner's word, 2026-10-23) |
+| `agent-B71a-migration-prose-validation.md` | `20261021-1459-B71a` | CLOSED (owner's word, 2026-10-23) |
 | `agent-A90c-debt-d001.md` | `20261021-1318-A90c` | CLOSED (owner's word, 2026-10-21) |
 | `agent-A476-macp-adoption.md` | `20261001-1110-A476` | CLOSED (owner's word, 2026-10-21) |
 | `agent-A476-decision-3.md` | `20261001-1130-A476` | CLOSED (owner's word, 2026-10-21) |

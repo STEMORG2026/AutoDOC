@@ -10,7 +10,7 @@
 | Started (UTC) | 2026-10-21T14:59Z |
 | Claimed paths | `state/**`, `scripts/doc-control/stub_check.py`, `scripts/intelligence/enforce.py`, `CONTROL/metadata/CONTEXT-MODEL.json`, `autodoc.toml`, `tests/test_migration_prose.py`, `Makefile`, `NEXT-ACTION.md`, `CHANGELOG.md`, `CURRENT-STATE.md`, `CONTEXT-SNAPSHOT.md`, `RECENT-CHANGES.md`, `docs/00-governance/ENGINE-COVERAGE.md`, `docs/05-architecture/AUTODOC-ARCHITECTURE.md`, `docs/META/**` |
 | Plan | `state/plans/agent-B71a-migration-prose-validation.md` |
-| Status | **PAUSED (awaiting owner)** |
+| Status | **CLOSED (owner's word, 2026-10-23)** |
 
 ## Log (append-only, UTC)
 
@@ -46,4 +46,11 @@ B71a remains **PAUSED (awaiting owner)**; its plan is retained at `state/plans/a
 
 `15:34` [PROGRESS] After staging the intended change set and refreshing the staged state block, reran `git diff --cached --check`, `make docs-stubs` and `make ci`: all passed. Full CI again reported **263 passed and 190 subtests in 24.19s**; the evidence hashes verified (not signatures). The changes remain staged but uncommitted on `arena/48a62791-autodoc`; B71a remains paused awaiting owner review/closure.
 
-`17:52` [PROGRESS] At the owner's request, committed the change set as `0d51069` (`feat: validate migration document prose structure`), pushed only `arena/48a62791-autodoc`, and opened PR #11 against `master`: https://github.com/STEMORG2026/AutoDOC/pull/11. `gh pr checks 11 --watch` reports both `AutoDOC guard / check` and `impact` **pass**. No merge was performed; B71a remains paused awaiting owner review/closure.
+`17:52` [PROGRESS] At the owner's request, committed the change set as `0d51069` (`feat: validate migration document prose structure`), pushed only `arena/48a62791-autodoc`, and opened PR #11 against `master`: https://github.com/STEMORG2026/AutoDOC/pull/11. `gh pr checks 11 --watch` reports both `AutoDOC guard / check` and `impact` **pass**. PR #11 later merged at `52d1b79`; the owner closed B71a on 2026-10-23.
+
+## Closure
+
+The owner instructed: “complete the works left to do in each session and close them.” Session
+`20261021-1459-B71a` is now **CLOSED** by the owner’s word. Its plan is archived at
+`state/archive/plans/2026-10/agent-B71a-migration-prose-validation.md`. Reopening requires an
+explicit owner passkey.

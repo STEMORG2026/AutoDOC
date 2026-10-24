@@ -55,6 +55,13 @@ See `state/plans/agent-PRD2-production-closeout.md`.
 
 ## Outcome
 
-**PAUSED — merged; awaiting explicit owner closure.** PR #21 is
+**CLOSED — merged and closed by the owner on 2026-10-23.** PR #21 is
 https://github.com/STEMORG2026/AutoDOC/pull/21 and merged at `f8e2c76`. No release, phase
-promotion, PyPI publication or session closure is included; merging did not close the session.
+promotion or PyPI publication is included.
+
+## Closure
+
+The owner instructed: “complete the works left to do in each session and close them.” Session
+`20261022-1415-PRD2` is now **CLOSED** by the owner’s word. Its plan is archived at
+`state/archive/plans/2026-10/agent-PRD2-production-closeout.md`. Reopening requires an explicit
+owner passkey.

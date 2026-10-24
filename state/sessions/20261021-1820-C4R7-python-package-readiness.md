@@ -35,7 +35,14 @@ See `state/plans/agent-C4R7-python-package-readiness.md`.
 
 ## Handoff
 
-Implementation, local checks, remote compatibility matrix, and PR #12 merge are complete. This session remains **PAUSED (awaiting explicit owner closure)**; merging did not close it. Do not claim PyPI publication. B71a also remains paused; PR #11 merging did not close that session.
+Implementation, local checks, remote compatibility matrix, and PR #12 merge are complete. This session is **CLOSED by the owner on 2026-10-23**. No PyPI publication was authorized.
+
+## Closure
+
+The owner instructed: “complete the works left to do in each session and close them.” Session
+`20261021-1820-C4R7` is now **CLOSED** by the owner’s word. Its plan is archived at
+`state/archive/plans/2026-10/agent-C4R7-python-package-readiness.md`. Reopening requires an explicit
+owner passkey.
 
 ## Post-merge addendum — 2026-10-22
 

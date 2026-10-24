@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-10-01
 last_reviewed: 2026-10-01
-last_updated: 2026-10-01
+last_updated: 2026-10-23
 auto_generated: false
 ---
 # MACP — Multi-Agent Coordination Protocol
@@ -70,6 +70,12 @@ they are recorded here so no agent has to guess:
     `DECISIONS.md` § Pending as a stranger would, and confirms the next actions and pending
     decisions are executable from state alone. If they are not, the handoff is incomplete — fix
     state first; never wait for the owner to discover the gap.
+11. **One session, one bounded work unit, one branch.** A session is the record of one major piece
+    of work on one branch, with a start time, a major-work title and a link to the agent-history
+    record. When the owner says “close the session”, every open session is closed and its plan is
+    archived. The next unit of work starts a new session on a new branch. A closed session is
+    immutable and can only be reopened by an explicit owner passkey; agents never reopen, extend
+    or continue work inside a closed session.
 
 ═══════════════════════════════════════════════════════════════
                     CORE PHILOSOPHY
