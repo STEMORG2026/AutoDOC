@@ -21,6 +21,12 @@ auto_generated: false
 ---
 # Recent changes
 
+- **Debt backlog closed (2026-10-25, owner decision).** D-009 (external dogfood) accepted and
+  closed, D-010 (vulnerability scanning) accepted with the 2026-10-25 clean run recorded (scope:
+  development venv, 42 packages, point-in-time; the package ships with zero runtime dependencies),
+  and D-007 (evidence signing) explicitly deferred while the phase is `beta`. Recorded in
+  `state/DEBT.md` and reconciled into `NEXT-ACTION.md`. No open debt remains except D-008
+  (accepted by design) and D-007 (deferred by decision).
 - **MACP suspended (2026-10-25, owner decision).** `docs/00-governance/MACP.md` now carries a
   `STATUS: SUSPENDED — NOT IN FORCE` banner; `AGENTS.md`, `CLAUDE.md` and `AGENT-MEMORY.md`
   point at it and no longer direct agents to register sessions or write to `state/`. The protocol

@@ -42,17 +42,21 @@ than acknowledged, and defaults `enforce.collect_findings()` to the tool checkou
 (307 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands, unsigned
 evidence hashes verified); `make audit` with pip-audit 2.10.1 reports no known vulnerabilities.
 
-The proposed `0.3.0` and Beta classifier record no owner approval. D-007 remains unselected;
-D-009's external dogfood was executed but its formal acceptance/record remains open. D-010's
-mechanism is implemented and its first run is recorded in `state/DEBT.md`; formal closure remains
-owner-optional. Do not publish to PyPI or reopen a closed session without an explicit owner
-passkey; the beta promotion is merged, and release/tag decisions remain owner-only.
+The proposed `0.3.0` and Beta classifier record no owner approval. **D-007 (evidence signing),
+D-009 (external dogfood) and D-010 (vulnerability scanning) were all decided by the owner on
+2026-10-25** and are recorded in `state/DEBT.md`: D-009 accepted and closed, D-010 accepted with the
+2026-10-25 clean run, and D-007 explicitly deferred while the phase is `beta`. Do not publish to PyPI
+or reopen a closed session without an explicit owner passkey; the beta promotion is merged, and
+release/tag decisions remain owner-only.
 
-D-007 (evidence signing) remains deferred and non-gating. D-009 (external dogfood) was executed
-against the installed wheel and five additional repositories; its formal owner acceptance/record
-remains open. D-010's operator-run scanner now exists (`make audit`); its first run found no known
-vulnerabilities, and formal closure remains owner-optional. EVOLVE, BETA, PRD2, PRD1, 912C, 894B,
-627F, C4R7, B71a and the closing pass are **closed by the owner on 2026-10-23**; their plans are
+D-007 (evidence signing) is deferred by decision, not pending by neglect: no signing key, secret or
+trust policy exists, so the honest current claim stays "hashes verify integrity, not identity".
+D-009 (external dogfood) is accepted — the run against the installed wheel and five additional
+repositories is recorded as evidence, with its limit stated (semantic claims hold only for the
+commands actually exercised). D-010's operator-run scanner exists (`make audit`); the 2026-10-25 run
+over the development venv found no known vulnerabilities, and the item is accepted with that scope
+recorded (development venv, point-in-time, not run by CI by design). EVOLVE, BETA, PRD2, PRD1, 912C,
+894B, 627F, C4R7, B71a and the closing pass are **closed by the owner on 2026-10-23**; their plans are
 archived and no session is open. Reopening a closed session requires an explicit owner passkey.
 The release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
 unauthorized.
@@ -94,7 +98,7 @@ D-001 session was subsequently closed on 2026-10-21 by the owner's explicit inst
 "Close A90c, then proceed"; its plan is archived too. On 2026-10-23 the owner closed EVOLVE and
 then the eight remaining sessions; MACP local rule 11 records the one-session/one-branch/owner-
 closes-all/passkey lifecycle. **Nothing is pending on the protection/D-001 thread**; D-003 merged through PR #16 and its production-readiness follow-up through PR #18,
-while D-007 remains unselected and D-009's dogfood execution awaits formal acceptance. Promotion to
+while D-007 is deferred by decision and D-009 is accepted. Promotion to
 `beta` is written and merged in PR #24 at `8f9c709` (the preview showed no requirement blockers);
 release/tag/PyPI remain separate owner decisions. D-004 and D-002 were the earlier
 owner-selected follow-up and are now merged by PR #14. One debt item closed on
@@ -142,8 +146,8 @@ vulnerabilities.
    after showing its delta. D-003 template rendering merged in PR #16. Installed-wheel dogfood was
    executed against `Universal_Software_Auditor`, `ai_infrastructure`, `requests`, Flask and
    Express; it found the packaged-root path defect now fixed in PR #19. Remaining work in this
-   step: a full phase-scaled adoption/baseline workflow and formal acceptance of the D-009
-   evidence.
+   step: a full phase-scaled adoption/baseline workflow. (D-009's dogfood evidence was accepted by the
+   owner on 2026-10-25.)
 7. Done. Event triggers are declared in `CONTROL/metadata/TRIGGERS.json` and verified by
    `triggers.py --check` (in `make ci`): one blocking event, one required check, no undeclared
    workflow, no filtered required check, and no network from a gate. The scheduled workflow reports
