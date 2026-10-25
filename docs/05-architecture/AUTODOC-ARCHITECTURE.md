@@ -26,7 +26,9 @@ AutoDOC is a dependency-free Python documentation control system for this reposi
 a task API and two educational local tool-authorization examples. It indexes possible documents, generates a bounded set of factual
 references and checks source-to-document impact. It does **not** execute controls listed in a catalog.
 
-The installable distribution adds the `autodoc` console entry point over the existing scripts. The
+The installable distribution, published as `autodoc-docs` (`autodoc` is taken on PyPI by an
+unrelated project; the import package and console entry point stay `autodoc`), adds the `autodoc`
+console entry point over the existing scripts. The
 wheel contains the Python package plus only the runtime scripts, catalog indices and context
 metadata under the Python data directory (`share/autodoc`); it does not copy the full repository
 or its development state. At runtime, the CLI locates that **tool root** separately from the target
@@ -43,7 +45,7 @@ Runtime dependencies remain empty. An optional `audit` extra supplies `pip-audit
 operator-run `make audit`; it is never imported by shipped code and is not part of the offline
 `make ci` gate. The release workflow builds wheel and sdist artifacts, and a tag-triggered
 `publish` job verifies those exact files and uploads them to PyPI through OIDC trusted publishing
-under a `pypi` environment; GitHub Release creation is not configured.
+under a `pypi` environment as `autodoc-docs`; GitHub Release creation is not configured.
 
 ## Details and decisions
 
