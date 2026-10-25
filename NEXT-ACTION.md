@@ -22,6 +22,12 @@ auto_generated: false
 # Next action
 
 ## Immediate focus
+
+**MACP is suspended (owner decision, 2026-10-25).** See the notice at the top of
+`docs/00-governance/MACP.md`. While suspended: do not run the startup/shutdown sequences, do not
+register a session, and do not write to `state/`. Re-enabling is the owner's decision and means
+removing that banner. Everything else (build, tests, doc gates, `make ci`) is unaffected.
+
 PR #18 merged PRD1's production-readiness commands at `1361ba2`; PR #19 merged the installed-wheel
 dogfood fixes at `06ccb0a`; PR #20 merged the post-PR19 state reconciliation at `f2e8698`; PR #21
 merged PRD2's closeout at `f8e2c76`, and post-merge `make ci` passes. The closeout records the

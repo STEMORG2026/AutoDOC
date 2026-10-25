@@ -21,6 +21,11 @@ auto_generated: false
 ---
 # Recent changes
 
+- **MACP suspended (2026-10-25, owner decision).** `docs/00-governance/MACP.md` now carries a
+  `STATUS: SUSPENDED — NOT IN FORCE` banner; `AGENTS.md`, `CLAUDE.md` and `AGENT-MEMORY.md`
+  point at it and no longer direct agents to register sessions or write to `state/`. The protocol
+  text and the `state/` records are retained unchanged for history and re-enabling; nothing else
+  changes and `make ci` remains green. Re-enabling is the owner's decision (remove the banner).
 - Closed every open session on the owner’s 2026-10-23 instruction and recorded the missing session
   lifecycle convention: one session, one bounded work unit, one branch; when the owner says “close
   the session”, all open sessions close; the next unit of work starts a new session on a new
