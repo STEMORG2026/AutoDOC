@@ -28,6 +28,10 @@ AutoDOC is a self-updating, self-documenting documentation engine, not a complia
 0. Read [`docs/00-governance/MACP.md`](docs/00-governance/MACP.md) and follow it: it is the
    agent workflow, and it points at [`state/DASHBOARD.md`](state/DASHBOARD.md) first. Register a
    session under `state/sessions/` before starting work, and log as you go.
+   **MACP is currently SUSPENDED (owner decision, 2026-10-25)** — the notice at the top of
+   `docs/00-governance/MACP.md` governs. While suspended: do not run the startup/shutdown
+   sequences, do not register a session, and do not write to `state/`. Skip to step 1 and work
+   directly.
 1. Read `CURRENT-STATE.md`, `NEXT-ACTION.md`, `RECENT-CHANGES.md`, and `CONTEXT-SNAPSHOT.md`.
 2. Consult `docs/.doc-sync-map.yaml` for the source-to-target contract; inspect source and tests.
 3. Make the smallest source change, add tests, regenerate, and review human-owned impact.

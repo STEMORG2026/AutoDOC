@@ -21,6 +21,11 @@ auto_generated: false
 ---
 # Current state
 
+MACP is **suspended** (owner decision, 2026-10-25): `docs/00-governance/MACP.md` carries a
+`STATUS: SUSPENDED` banner and the agent-instruction files no longer direct agents to register
+sessions or write to `state/`. The protocol text and `state/` records are retained for history and
+re-enabling; `make ci` is unchanged. Re-enabling is the owner's decision.
+
 AutoDOC has a working sync map, standard-library runtime, three authoritative catalog indices,
 265 catalog types, a task API demo and two local tool-policy demonstrations without an LLM or web calls.
 D-003 merged in PR #16 at `a28616b`: each catalog record remains the single source per type, and

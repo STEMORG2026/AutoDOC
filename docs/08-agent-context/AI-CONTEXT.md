@@ -25,6 +25,11 @@ AutoDOC maps source facts to generated references; humans own judgments, policy 
 The canonical instructions are [`AGENTS.md`](../../AGENTS.md), with limits in
 [`ENGINE-COVERAGE.md`](../00-governance/ENGINE-COVERAGE.md). Python 3.11+ is required.
 
+**MACP is suspended (owner decision, 2026-10-25):** see the notice at the top of
+[`docs/00-governance/MACP.md`](../00-governance/MACP.md). While suspended, do not run the
+startup/shutdown sequences, do not register a session, and do not write to `state/`. Re-enabling
+is the owner's decision.
+
 `make setup`, `make generate`, `make check`, `make test`, `make ci` and `make evidence`
 are real commands; `make docs:verify` provides governed-doc validation. There is no separate
 `make validate` target. `task ci` exists in `Taskfile.yaml` but requires go-task and may be

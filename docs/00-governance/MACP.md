@@ -25,6 +25,13 @@ auto_generated: false
 > the agent workflow. The coordination state lives in [`state/`](../../state/DASHBOARD.md); the
 > repository's own [agent instructions](../../AGENTS.md) point here first.
 
+> **STATUS: SUSPENDED — NOT IN FORCE.** The owner paused MACP on 2026-10-25. While this notice is
+> present: do not run the startup or shutdown sequences, do not register sessions, and do not
+> write to `state/`; treat `state/` as retained history, not live coordination data. The protocol
+> text below and the `state/` records are kept unchanged so the protocol can be re-enabled. Nothing
+> else in this repository changes — the build, tests, documentation gates and `make ci` are
+> unaffected. Re-enabling is the owner's decision and means removing this notice.
+
 **Source and completeness.** The full protocol below (core philosophy, the state directory
 structure, and Sections 1–7 plus REMEMBER) is transcribed from the owner's text of 2026-10-01.
 Only the `═══` separators were converted to Markdown headings and the checkboxes kept as Markdown

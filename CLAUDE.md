@@ -25,6 +25,9 @@ Provider-specific entry point; the canonical rules are [AGENTS.md](AGENTS.md).
 
 Agent workflow protocol: [docs/00-governance/MACP.md](docs/00-governance/MACP.md) — read it before
 acting, then start from [state/DASHBOARD.md](state/DASHBOARD.md) and register a session.
+**MACP is currently SUSPENDED (owner decision, 2026-10-25)** — see the notice at the top of
+`docs/00-governance/MACP.md`. While suspended, do not run the startup/shutdown sequences, do not
+register a session, and do not write to `state/`.
 
 Current work is hardening bounded extractors and review processes. See `NEXT-ACTION.md` for the current
 human-owned priority and `CONTEXT-SNAPSHOT.md` for session recovery. Use `make generate`,
