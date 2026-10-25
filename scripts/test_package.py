@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import tarfile
@@ -21,7 +22,13 @@ from zipfile import ZipFile
 
 ROOT = Path(__file__).resolve().parents[1]
 with (ROOT / "pyproject.toml").open("rb") as project_file:
-    PROJECT_VERSION = tomllib.load(project_file)["project"]["version"]
+    _PROJECT = tomllib.load(project_file)["project"]
+PROJECT_NAME = _PROJECT["name"]
+PROJECT_VERSION = _PROJECT["version"]
+# PEP 427 filename escaping: a run of non-alphanumeric characters collapses to one underscore,
+# so the distribution "autodoc-docs" ships as "autodoc_docs-<version>". Derived from pyproject
+# rather than written out, so a rename cannot silently desynchronise the guard from the build.
+PROJECT_FILE_STEM = re.sub(r"[^A-Za-z0-9.]+", "_", PROJECT_NAME).strip("._")
 
 
 def run(command: list[str], *, cwd: Path, expected: int = 0, env: dict[str, str] | None = None):
@@ -158,8 +165,8 @@ def check_distribution_names(wheels, sdists, version=PROJECT_VERSION):
     """Refuse an artifact set that is ambiguous or does not match the declared project version."""
     if len(wheels) != 1 or len(sdists) != 1:
         raise RuntimeError("expected exactly one wheel and one source distribution")
-    expected_wheel = f"autodoc-{version}-py3-none-any.whl"
-    expected_sdist = f"autodoc-{version}.tar.gz"
+    expected_wheel = f"{PROJECT_FILE_STEM}-{version}-py3-none-any.whl"
+    expected_sdist = f"{PROJECT_FILE_STEM}-{version}.tar.gz"
     if wheels[0].name != expected_wheel or sdists[0].name != expected_sdist:
         raise RuntimeError(
             "distribution filenames do not match the declared project version "
@@ -182,11 +189,10 @@ def main() -> int:
             distributions.mkdir()
             run([sys.executable, "-m", "build", "--outdir", str(distributions)], cwd=ROOT)
 
-        wheels = list(distributions.glob("autodoc-*.whl"))
-        sdists = list(distributions.glob("autodoc-*.tar.gz"))
+        wheels = list(distributions.glob(f"{PROJECT_FILE_STEM}-*.whl"))
+        sdists = list(distributions.glob(f"{PROJECT_FILE_STEM}-*.tar.gz"))
         wheel, sdist = check_distribution_names(wheels, sdists)
 
-        runtime_prefix = f"autodoc-{PROJECT_VERSION}.data/data/share/autodoc/"
         required_runtime = (
             "scripts/intelligence/enforce.py",
             "scripts/intelligence/evolve.py",
@@ -202,6 +208,15 @@ def main() -> int:
         )
         with ZipFile(wheel) as archive:
             members = set(archive.namelist())
+        # The .data directory name depends on how the backend escapes the distribution
+        # name, so it is read out of the wheel rather than reconstructed from it.
+        data_dirs = sorted({member.split('/')[0] for member in members if '.data/' in member})
+        if len(data_dirs) != 1:
+            raise RuntimeError(
+                "wheel must contain exactly one .data directory, found "
+                + (", ".join(data_dirs) if data_dirs else "none")
+            )
+        runtime_prefix = data_dirs[0] + "/data/share/autodoc/"
         missing = [relative for relative in required_runtime if runtime_prefix + relative not in members]
         if missing:
             raise RuntimeError("wheel is missing required runtime files: " + ", ".join(missing))
@@ -214,7 +229,7 @@ def main() -> int:
         rebuilt = work / "wheel-from-sdist"
         rebuilt.mkdir()
         run([sys.executable, "-m", "build", "--wheel", "--outdir", str(rebuilt), str(source)], cwd=work)
-        if not list(rebuilt.glob("autodoc-*.whl")):
+        if not list(rebuilt.glob(f"{PROJECT_FILE_STEM}-*.whl")):
             raise RuntimeError("could not rebuild a wheel from the source distribution")
 
         smoke_installed_cli(wheel, work / "installed-smoke")

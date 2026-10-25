@@ -60,9 +60,9 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 11: What it does
 - L2 line 27: Quick start (Python 3.11+)
 - L3 line 37: Installable CLI
-- L2 line 112: Status
-- L2 line 125: Navigate
-- L2 line 143: License
+- L2 line 113: Status
+- L2 line 126: Navigate
+- L2 line 144: License
 
 ## `TEMPLATES/AGENT-CONTEXT/README.md`
 
@@ -228,10 +228,10 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
-- L2 line 48: Details and decisions
-- L2 line 246: Module contracts
-- L2 line 265: Verification and references
-- L2 line 276: Phase 3 trust boundaries
+- L2 line 50: Details and decisions
+- L2 line 248: Module contracts
+- L2 line 267: Verification and references
+- L2 line 278: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 

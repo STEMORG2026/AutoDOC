@@ -19,6 +19,13 @@ day: D-009 accepted, D-010 accepted with a clean scan, D-007 explicitly deferred
 - Publishing stays switched off until the owner registers the PyPI project, its trusted publisher
   (this repository and the `release.yml` workflow) and the `pypi` environment; no PyPI release
   exists yet.
+- Renamed the distribution from `autodoc` to **`autodoc-docs`**. `autodoc` on PyPI is already
+  taken by an unrelated project, so publishing under it was impossible (and `pip install autodoc`
+  would install someone else's package). The import package stays `autodoc` and the CLI stays
+  `autodoc`, so `import autodoc` and `autodoc --version` are unchanged; only the distribution name
+  and therefore `pip install` change. The guard in `scripts/test_package.py` now derives the
+  PEP 427 filename stem from `pyproject.toml` instead of hardcoding it, so a rename cannot
+  desynchronise the check from the build.
 
 - Added `autodoc evolve`: a read-only-by-default plan for safe documentation updates on an
   existing project, with `--write` for generated drift, `--write --allow-add` for missing required

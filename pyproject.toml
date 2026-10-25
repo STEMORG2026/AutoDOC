@@ -1,5 +1,5 @@
 [project]
-name = "autodoc"
+name = "autodoc-docs"
 version = "0.3.0"
 description = "Dependency-free documentation governance CLI and generation engine"
 readme = "README.md"

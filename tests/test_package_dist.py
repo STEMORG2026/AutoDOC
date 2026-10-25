@@ -10,18 +10,25 @@ test_package = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(test_package)
 
 VERSION = test_package.PROJECT_VERSION
+STEM = test_package.PROJECT_FILE_STEM
+
+
+def test_the_filename_stem_is_the_escaped_distribution_name():
+    # PEP 427: "autodoc-docs" ships as "autodoc_docs". The guard must agree with the build.
+    assert STEM == test_package.PROJECT_NAME.replace("-", "_")
+    assert STEM != test_package.PROJECT_NAME
 
 
 def test_matching_artifact_names_are_accepted():
-    wheel = Path(f"autodoc-{VERSION}-py3-none-any.whl")
-    sdist = Path(f"autodoc-{VERSION}.tar.gz")
+    wheel = Path(f"{STEM}-{VERSION}-py3-none-any.whl")
+    sdist = Path(f"{STEM}-{VERSION}.tar.gz")
     assert test_package.check_distribution_names([wheel], [sdist]) == (wheel, sdist)
 
 
 def test_a_version_mismatch_is_refused():
     with pytest.raises(RuntimeError, match="do not match the declared project version"):
         test_package.check_distribution_names(
-            [Path(f"autodoc-{VERSION}-py3-none-any.whl")], [Path("autodoc-9.9.9.tar.gz")]
+            [Path(f"{STEM}-{VERSION}-py3-none-any.whl")], [Path(f"{STEM}-9.9.9.tar.gz")]
         )
 
 

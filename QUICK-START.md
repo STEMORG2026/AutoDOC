@@ -25,7 +25,7 @@ release run, create an environment, and install the wheel by path:
 ```sh
 python -m venv .venv
 . .venv/bin/activate                 # Windows: .venv\\Scripts\\activate
-python -m pip install /path/to/autodoc-0.3.0-py3-none-any.whl
+python -m pip install /path/to/autodoc_docs-0.3.0-py3-none-any.whl
 autodoc --version
 autodoc check --repo /path/to/project
 autodoc generate --root /path/to/project --check

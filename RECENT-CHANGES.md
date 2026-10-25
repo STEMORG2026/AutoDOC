@@ -21,6 +21,13 @@ auto_generated: false
 ---
 # Recent changes
 
+- **Renamed the distribution to `autodoc-docs` (2026-10-26).** `autodoc` is taken on PyPI by an
+  unrelated project, so publishing under it was impossible and `pip install autodoc` would install
+  someone else's package. The distribution name is now `autodoc-docs`; the import package stays
+  `autodoc` and the CLI stays `autodoc`, so `import autodoc` and `autodoc --version` are unchanged.
+  The guard in `scripts/test_package.py` now derives the PEP 427 filename stem from `pyproject.toml`,
+  so a rename cannot desynchronise the check from the build. `pip install autodoc-docs` is the
+  install path once published.
 - **Wired PyPI publishing behind verification (2026-10-25).** The release workflow gained a
   tag-triggered `publish` job: it downloads the wheel and sdist the snapshot job built in the same
   run, verifies those exact files, and only then uploads them to PyPI through OIDC trusted

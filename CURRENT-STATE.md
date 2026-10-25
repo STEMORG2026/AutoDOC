@@ -88,7 +88,9 @@ implemented: `autodoc check/generate/adopt/init/add/promote/evolve/templates`, s
 target-project roots, wheel/sdist build and clean-venv smoke coverage. Python 3.11–3.15 are declared; the
 supplemental CI matrix is non-blocking, while the required `AutoDOC guard / check` runs `make ci`
 on Python 3.11. Tagged workflows build temporary GitHub Actions artifacts and then verify-and-upload them to PyPI
-through OIDC trusted publishing under a `pypi` environment; publication is switched off until the
+through OIDC trusted publishing under a `pypi` environment; the distribution is published as
+`autodoc-docs` (`autodoc` is taken on PyPI by an unrelated project, so the import package and CLI
+stay `autodoc` while only the distribution name changed). Publication is switched off until the
 owner registers the PyPI project, its trusted publisher and that environment, and no PyPI release
 exists yet. The local full check passed (267 tests,
 190 subtests, plus wheel/sdist install smoke). PR #12 merged into `master` at `08229a0` on

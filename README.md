@@ -42,7 +42,7 @@ the `autodoc-python-distribution` artifact of a tagged GitHub Actions release ru
 ```sh
 python -m venv .venv
 . .venv/bin/activate                 # Windows: .venv\\Scripts\\activate
-python -m pip install /path/to/autodoc-0.3.0-py3-none-any.whl
+python -m pip install /path/to/autodoc_docs-0.3.0-py3-none-any.whl
 autodoc --version
 autodoc check --repo /path/to/project
 autodoc generate --root /path/to/project --check
@@ -56,11 +56,12 @@ AutoDOC's bundled policy and catalog assets. `init` requires an existing directo
 scaffolds, and can record an initial phase/profile declaration; `adopt` is a read-only filename
 heuristic; `add` instantiates one catalog type; `promote` previews the enforcement delta before
 changing the declared phase. AutoDOC is **not
-published to PyPI yet**: the release workflow builds the wheel and sdist, and a tag-triggered
-`publish` job verifies those exact artifacts and uploads them through OIDC trusted publishing under
-a `pypi` environment. That path is wired but switched off until the PyPI project, its trusted
-publisher and the environment are registered, and no GitHub Release is created. Do not use
-`pip install autodoc` as an installation path.
+published to PyPI yet** under its distribution name **`autodoc-docs`** (the `autodoc` name is
+already taken on PyPI by an unrelated project): the release workflow builds the wheel and sdist,
+and a tag-triggered `publish` job verifies those exact artifacts and uploads them through OIDC
+trusted publishing under a `pypi` environment. That path is wired but switched off until the PyPI
+project, its trusted publisher and the environment are registered, and no GitHub Release is
+created. Do not use `pip install autodoc-docs` as an installation path.
 
 `autodoc check` applies the target project's `autodoc.toml` and baseline. With no declared phase,
 checks are advisory unless a severity is explicitly pinned. `autodoc generate` expects a
