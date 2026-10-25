@@ -8,6 +8,18 @@ installed into a clean venv and run against AutoDOC itself). The debt backlog wa
 day: D-009 accepted, D-010 accepted with a clean scan, D-007 explicitly deferred while the phase is
 `beta`. PyPI publication was deliberately not performed; the tag remains the release of record.
 
+- Added a tag-triggered `publish` job to the release workflow. It downloads the wheel and sdist the
+  snapshot job built in the same run, verifies those exact files with
+  `scripts/test_package.py --dist-dir`, and only then uploads them to PyPI through OIDC trusted
+  publishing under a `pypi` environment. A manual dispatch still builds and snapshots but never
+  publishes, and the job needs `id-token: write`.
+- Extended `scripts/test_package.py` with `--dist-dir`: it verifies an existing wheel and sdist
+  instead of rebuilding, and refuses filenames that do not match the declared project version. The
+  artifact that would be published is therefore the one that was exercised, not a rebuild.
+- Publishing stays switched off until the owner registers the PyPI project, its trusted publisher
+  (this repository and the `release.yml` workflow) and the `pypi` environment; no PyPI release
+  exists yet.
+
 - Added `autodoc evolve`: a read-only-by-default plan for safe documentation updates on an
   existing project, with `--write` for generated drift, `--write --allow-add` for missing required
   documents as unregistered drafts, and `--check`/`--json` modes. It reuses the existing context,

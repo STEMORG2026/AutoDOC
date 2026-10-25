@@ -58,8 +58,10 @@ over the development venv found no known vulnerabilities, and the item is accept
 recorded (development venv, point-in-time, not run by CI by design). EVOLVE, BETA, PRD2, PRD1, 912C,
 894B, 627F, C4R7, B71a and the closing pass are **closed by the owner on 2026-10-23**; their plans are
 archived and no session is open. Reopening a closed session requires an explicit owner passkey.
-The release workflow builds temporary GitHub Actions artifacts only; PyPI publishing remains
-unauthorized.
+The release workflow builds temporary GitHub Actions artifacts, and a tag-triggered `publish` job
+verifies those exact files and uploads them to PyPI through OIDC trusted publishing under a `pypi`
+environment. PyPI publishing remains unauthorized until the owner registers the project, its
+trusted publisher and the environment; no PyPI release exists yet.
 
 PR #11 merged at `52d1b79` on 2026-10-21; B71a is now closed by the owner. The migration-prose
 checks remain structural only, not semantic or reversibility claims. A real OpenAPI contract remains

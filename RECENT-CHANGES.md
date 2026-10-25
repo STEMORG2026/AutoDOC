@@ -21,6 +21,14 @@ auto_generated: false
 ---
 # Recent changes
 
+- **Wired PyPI publishing behind verification (2026-10-25).** The release workflow gained a
+  tag-triggered `publish` job: it downloads the wheel and sdist the snapshot job built in the same
+  run, verifies those exact files, and only then uploads them to PyPI through OIDC trusted
+  publishing under a `pypi` environment. `scripts/test_package.py` gained `--dist-dir` to verify an
+  existing artifact set instead of rebuilding, and refuses filenames that do not match the declared
+  version. A manual dispatch still builds and snapshots but never publishes. **Nothing is published
+  yet** — the job needs the owner to register the PyPI project, its trusted publisher (this
+  repository and the `release.yml` workflow) and the `pypi` environment.
 - **Tagged `v0.3.0` (2026-10-25, owner decision).** First release tag, at commit `3748d0f` (Beta
   phase, `Development Status :: 4 - Beta`). The release workflow ran green: the guard check and the
   release snapshot both succeeded, producing the wheel, the sdist and a 70-file unsigned snapshot

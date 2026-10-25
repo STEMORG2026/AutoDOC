@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-"""Build and exercise AutoDOC's wheel/sdist in a clean venv outside the checkout."""
+"""Verify AutoDOC's wheel/sdist in a clean venv outside the checkout.
+
+Without arguments it builds the wheel and sdist from the checkout. With ``--dist-dir`` it verifies
+an existing wheel and sdist instead, so the artifact that would be published is the one exercised.
+"""
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import subprocess
@@ -138,17 +143,48 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
     run([str(cli), "generate", "--root", str(project), "--check"], cwd=work, env=environment)
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--dist-dir",
+        type=Path,
+        default=None,
+        help="verify an existing wheel and sdist in this directory instead of building them",
+    )
+    return parser.parse_args()
+
+
+def check_distribution_names(wheels, sdists, version=PROJECT_VERSION):
+    """Refuse an artifact set that is ambiguous or does not match the declared project version."""
+    if len(wheels) != 1 or len(sdists) != 1:
+        raise RuntimeError("expected exactly one wheel and one source distribution")
+    expected_wheel = f"autodoc-{version}-py3-none-any.whl"
+    expected_sdist = f"autodoc-{version}.tar.gz"
+    if wheels[0].name != expected_wheel or sdists[0].name != expected_sdist:
+        raise RuntimeError(
+            "distribution filenames do not match the declared project version "
+            f"{version}: {wheels[0].name}, {sdists[0].name}"
+        )
+    return wheels[0], sdists[0]
+
+
 def main() -> int:
+    args = parse_args()
     with tempfile.TemporaryDirectory(prefix="autodoc-package-") as temporary:
         work = Path(temporary)
-        distributions = work / "dist"
-        distributions.mkdir()
-        run([sys.executable, "-m", "build", "--outdir", str(distributions)], cwd=ROOT)
+        if args.dist_dir is not None:
+            distributions = args.dist_dir
+            if not distributions.is_dir():
+                raise RuntimeError(f"distribution directory not found: {distributions}")
+            print(f"Verifying existing distribution in {distributions}")
+        else:
+            distributions = work / "dist"
+            distributions.mkdir()
+            run([sys.executable, "-m", "build", "--outdir", str(distributions)], cwd=ROOT)
 
         wheels = list(distributions.glob("autodoc-*.whl"))
         sdists = list(distributions.glob("autodoc-*.tar.gz"))
-        if len(wheels) != 1 or len(sdists) != 1:
-            raise RuntimeError("expected exactly one wheel and one source distribution")
+        wheel, sdist = check_distribution_names(wheels, sdists)
 
         runtime_prefix = f"autodoc-{PROJECT_VERSION}.data/data/share/autodoc/"
         required_runtime = (
@@ -164,7 +200,7 @@ def main() -> int:
             "CATALOG-A/INDEX.yaml",
             "CATALOG-B/INDEX.yaml",
         )
-        with ZipFile(wheels[0]) as archive:
+        with ZipFile(wheel) as archive:
             members = set(archive.namelist())
         missing = [relative for relative in required_runtime if runtime_prefix + relative not in members]
         if missing:
@@ -174,14 +210,14 @@ def main() -> int:
         if any(member == "engine/__init__.py" or member.startswith("engine/") for member in members):
             raise RuntimeError("wheel must not install AutoDOC's private engine as a generic top-level package")
 
-        source = extract_generated_sdist(sdists[0], work / "sdist-source")
+        source = extract_generated_sdist(sdist, work / "sdist-source")
         rebuilt = work / "wheel-from-sdist"
         rebuilt.mkdir()
         run([sys.executable, "-m", "build", "--wheel", "--outdir", str(rebuilt), str(source)], cwd=work)
         if not list(rebuilt.glob("autodoc-*.whl")):
             raise RuntimeError("could not rebuild a wheel from the source distribution")
 
-        smoke_installed_cli(wheels[0], work / "installed-smoke")
+        smoke_installed_cli(wheel, work / "installed-smoke")
 
     print("Package check passed: wheel and sdist built; sdist rebuilt; clean wheel install exercised version/check/generate/adopt/init/add/promote/evolve/templates.")
     return 0
