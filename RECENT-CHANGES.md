@@ -21,6 +21,15 @@ auto_generated: false
 ---
 # Recent changes
 
+- **Tagged `v0.3.0` (2026-10-25, owner decision).** First release tag, at commit `3748d0f` (Beta
+  phase, `Development Status :: 4 - Beta`). The release workflow ran green: the guard check and the
+  release snapshot both succeeded, producing the wheel, the sdist and a 70-file unsigned snapshot
+  manifest. Verification was done on the artifacts, not assumed from the workflow: every manifest
+  hash re-checked, the wheel installed into a clean venv with only `autodoc 0.3.0` + pip, and
+  `autodoc --version` plus `autodoc check` against this repo both ran correctly (exit 0). **Not
+  published to PyPI** — that step needs trusted-publishing setup and stays owner-gated. The
+  changelog entry was written after the tag, so the snapshot's `CHANGELOG.md` still reads
+  `Unreleased`; the tag itself is the code snapshot and the manifest pins the commit.
 - **Debt backlog closed (2026-10-25, owner decision).** D-009 (external dogfood) accepted and
   closed, D-010 (vulnerability scanning) accepted with the 2026-10-25 clean run recorded (scope:
   development venv, 42 packages, point-in-time; the package ships with zero runtime dependencies),

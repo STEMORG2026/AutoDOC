@@ -1,6 +1,12 @@
 # Changelog
 
-## Unreleased
+## 0.3.0 — 2026-10-25
+
+First tagged release (Beta). Tag `v0.3.0` points at commit `3748d0f`; the release snapshot and the
+wheel/sdist were built from that commit and verified (70-file manifest hashes checked, wheel
+installed into a clean venv and run against AutoDOC itself). The debt backlog was closed the same
+day: D-009 accepted, D-010 accepted with a clean scan, D-007 explicitly deferred while the phase is
+`beta`. PyPI publication was deliberately not performed; the tag remains the release of record.
 
 - Added `autodoc evolve`: a read-only-by-default plan for safe documentation updates on an
   existing project, with `--write` for generated drift, `--write --allow-add` for missing required
