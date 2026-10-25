@@ -55,8 +55,11 @@ suite across that range in a supplemental, non-blocking matrix; the named requir
 AutoDOC's bundled policy and catalog assets. `init` requires an existing directory, writes draft
 scaffolds, and can record an initial phase/profile declaration; `adopt` is a read-only filename
 heuristic; `add` instantiates one catalog type; `promote` previews the enforcement delta before
-changing the declared phase. AutoDOC is **not published to PyPI**; the release workflow builds
-temporary CI artifacts and does not publish or create a GitHub Release. Do not use
+changing the declared phase. AutoDOC is **not
+published to PyPI yet**: the release workflow builds the wheel and sdist, and a tag-triggered
+`publish` job verifies those exact artifacts and uploads them through OIDC trusted publishing under
+a `pypi` environment. That path is wired but switched off until the PyPI project, its trusted
+publisher and the environment are registered, and no GitHub Release is created. Do not use
 `pip install autodoc` as an installation path.
 
 `autodoc check` applies the target project's `autodoc.toml` and baseline. With no declared phase,
@@ -113,7 +116,7 @@ structured; it never certifies compliance.
 | ✅ Working | Installable zero-runtime-dependency CLI; wheel/sdist build and isolated-install smoke tests; 265 catalog types with declarative rules, a 24-type core tier and a detectable `applies_when` predicate per type; bounded generators; ownership/inventory/graph; pytest, Makefile, hooks and CI checks; unsigned actual-run evidence |
 | 🚧 Partial | Route registry is not OpenAPI; SQLite/manifest/alert parsers are bounded; human-review impact proves a co-change, not quality; release artifacts are temporary workflow artifacts |
 | 📋 Not implemented | Arbitrary language/SQL parsers, external link/network monitoring, LLM, semantic prose verification and signed attestations |
-| 🔒 Blocked | PyPI publishing requires owner account/trusted-publisher setup and authorization; a tagged release artifact still needs a `vX.Y.Z` tag at the same commit; branch protection settings remain repository-admin controlled |
+| 🔒 Blocked | PyPI publishing is wired (tag-triggered `publish` job, artifact verified before upload, OIDC trusted publishing under a `pypi` environment) but requires the owner to register the PyPI project, its trusted publisher and that environment; branch protection settings remain repository-admin controlled |
 
 `make ci` is canonical. The repository also includes `Taskfile.yaml` for [go-task](https://taskfile.dev/)
 users; if go-task is not installed, use the equivalent `make` targets. `make evidence` runs

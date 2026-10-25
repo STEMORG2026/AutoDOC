@@ -36,3 +36,34 @@ jobs:
         with:
           name: autodoc-python-distribution
           path: dist/
+
+  # Tag-triggered only: a manual dispatch still builds and snapshots, but never publishes.
+  # The artifact uploaded is the one the snapshot job built and uploaded in this same run, and it
+  # is verified here before it can leave. Publishing needs the PyPI project's trusted publisher
+  # (this repository + this workflow) and the `pypi` environment registered by the owner.
+  publish:
+    needs: snapshot
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install the distribution builder
+        run: python -m pip install 'build>=1,<2'
+      - name: Download the distribution the snapshot job built
+        uses: actions/download-artifact@v4
+        with:
+          name: autodoc-python-distribution
+          path: dist
+      - name: Verify the exact artifact before it can be published
+        run: python scripts/test_package.py --dist-dir dist
+      - name: Publish to PyPI with trusted publishing
+        uses: pypa/gh-action-pypi-publish@release/v1

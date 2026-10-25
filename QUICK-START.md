@@ -38,8 +38,10 @@ catalog variants). The 3.11–3.15 CI compatibility matrix is supplemental and
 non-blocking; the configured required gate runs full `make ci` on Python 3.11. The installed tool
 assets are separate from the selected project root. `check` honors that project's `autodoc.toml` and baseline; an undeclared phase is
 advisory unless severity is pinned. `generate` needs the target project's
-`docs/.doc-sync-map.yaml`. The release workflow creates temporary workflow artifacts only: AutoDOC
-is not published to PyPI and does not create a GitHub Release. These checks establish structural
+`docs/.doc-sync-map.yaml`. The release workflow builds the wheel and sdist as temporary artifacts,
+and a tag-triggered `publish` job verifies those exact files and uploads them to PyPI through OIDC
+trusted publishing under a `pypi` environment (registration pending). No GitHub Release is created.
+These checks establish structural
 facts and bounded extracted facts, not semantic correctness or regulatory compliance.
 
 ## Dependencies and versions

@@ -46,13 +46,13 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 1: Quick start
 - L2 line 20: Install the CLI
-- L2 line 45: Dependencies and versions
-- L2 line 57: Adopt an existing project
-- L2 line 65: New project and new documents
-- L2 line 80: Promote the declared phase
-- L2 line 96: Evolve an existing project
-- L2 line 116: Add a deterministic extractor
-- L2 line 123: Interpret a failure
+- L2 line 47: Dependencies and versions
+- L2 line 59: Adopt an existing project
+- L2 line 67: New project and new documents
+- L2 line 82: Promote the declared phase
+- L2 line 98: Evolve an existing project
+- L2 line 118: Add a deterministic extractor
+- L2 line 125: Interpret a failure
 
 ## `README.md`
 
@@ -60,9 +60,9 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 11: What it does
 - L2 line 27: Quick start (Python 3.11+)
 - L3 line 37: Installable CLI
-- L2 line 109: Status
-- L2 line 122: Navigate
-- L2 line 140: License
+- L2 line 112: Status
+- L2 line 125: Navigate
+- L2 line 143: License
 
 ## `TEMPLATES/AGENT-CONTEXT/README.md`
 
@@ -76,13 +76,13 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC self-adoption and applicability
 - L2 line 24: Purpose and scope
-- L2 line 45: Selected document types
-- L2 line 60: Rollout and success criteria
-- L2 line 67: Non-applicability and gaps
-- L2 line 77: Verification and references
-- L2 line 83: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 94: Applicability decisions (step 3, 2026-10-01)
-- L2 line 119: Phase 3 applicability
+- L2 line 46: Selected document types
+- L2 line 61: Rollout and success criteria
+- L2 line 68: Non-applicability and gaps
+- L2 line 78: Verification and references
+- L2 line 84: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 95: Applicability decisions (step 3, 2026-10-01)
+- L2 line 120: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -228,10 +228,10 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
-- L2 line 47: Details and decisions
-- L2 line 245: Module contracts
-- L2 line 264: Verification and references
-- L2 line 275: Phase 3 trust boundaries
+- L2 line 48: Details and decisions
+- L2 line 246: Module contracts
+- L2 line 265: Verification and references
+- L2 line 276: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 

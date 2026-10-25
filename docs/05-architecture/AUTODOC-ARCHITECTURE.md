@@ -41,8 +41,9 @@ declarations; and `evolve` plans safe generated refreshes and draft-only gap fil
 granting compliance. This boundary is exercised by a clean-venv install test outside the checkout.
 Runtime dependencies remain empty. An optional `audit` extra supplies `pip-audit` for the
 operator-run `make audit`; it is never imported by shipped code and is not part of the offline
-`make ci` gate. The release workflow builds wheel and sdist artifacts only; PyPI publication and
-GitHub Release creation are not configured.
+`make ci` gate. The release workflow builds wheel and sdist artifacts, and a tag-triggered
+`publish` job verifies those exact files and uploads them to PyPI through OIDC trusted publishing
+under a `pypi` environment; GitHub Release creation is not configured.
 
 ## Details and decisions
 
