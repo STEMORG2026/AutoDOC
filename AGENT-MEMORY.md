@@ -25,7 +25,9 @@ auto_generated: false
 - Coordination: read [`docs/00-governance/MACP.md`](docs/00-governance/MACP.md) and
   [`state/DASHBOARD.md`](state/DASHBOARD.md) before starting; register in `state/REGISTRY.md` and
   log the session under `state/sessions/` in real time. `state/**` is coordination data, outside
-  the controlled-document set.
+  the controlled-document set. **MACP is currently SUSPENDED (owner decision, 2026-10-25)** — the
+  notice at the top of `docs/00-governance/MACP.md` governs; while suspended, do not register a
+  session or write to `state/`.
 - Sources are listed in `docs/.doc-sync-map.yaml`; renderers return bytes determined by those sources.
 - Compare in memory before writing. Run `python scripts/doc-sync/generate-all.py --check` in CI.
 - Use Python AST for Python symbols; avoid regex-based parsing of arbitrary programming languages.
