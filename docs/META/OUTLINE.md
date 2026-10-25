@@ -60,9 +60,9 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 11: What it does
 - L2 line 27: Quick start (Python 3.11+)
 - L3 line 37: Installable CLI
-- L2 line 112: Status
-- L2 line 125: Navigate
-- L2 line 143: License
+- L2 line 113: Status
+- L2 line 126: Navigate
+- L2 line 144: License
 
 ## `TEMPLATES/AGENT-CONTEXT/README.md`
 

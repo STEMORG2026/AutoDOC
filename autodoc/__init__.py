@@ -5,7 +5,10 @@ from pathlib import Path
 import tomllib
 
 try:
-    __version__ = version("autodoc")
+    try:
+        __version__ = version("autodoc-docs")
+    except PackageNotFoundError:
+        __version__ = version("autodoc")
 except PackageNotFoundError:  # source checkout without installed distribution metadata
     try:
         project_file = Path(__file__).resolve().parents[1] / "pyproject.toml"

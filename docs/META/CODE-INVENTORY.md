@@ -341,10 +341,10 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/triggers.py` | 255 | function | `render` | `(model=None, rows=None, title=True)` | The reference as a Markdown body. `title=False` is for the engine, which writes its own |
 | `scripts/intelligence/triggers.py` | 305 | function | `main` | `(argv=None)` | — |
 | `scripts/intelligence/triggers.py` | 333 | function | `cli` | `(argv=None)` | The exit-code contract: 2 for a configuration problem, 3 for a tool failure, never 1. |
-| `scripts/test_package.py` | 27 | function | `run` | `(command: list[str], *, cwd: Path, expected: int=0, env: dict[str, str] | None=None)` | — |
-| `scripts/test_package.py` | 39 | function | `extract_generated_sdist` | `(archive_path: Path, destination: Path) -> Path` | Extract only ordinary files/directories from the just-built sdist, rejecting path escapes. |
-| `scripts/test_package.py` | 58 | function | `smoke_installed_cli` | `(wheel: Path, work: Path) -> None` | — |
-| `scripts/test_package.py` | 146 | function | `parse_args` | `()` | — |
-| `scripts/test_package.py` | 157 | function | `check_distribution_names` | `(wheels, sdists, version=PROJECT_VERSION)` | Refuse an artifact set that is ambiguous or does not match the declared project version. |
-| `scripts/test_package.py` | 171 | function | `main` | `() -> int` | — |
+| `scripts/test_package.py` | 34 | function | `run` | `(command: list[str], *, cwd: Path, expected: int=0, env: dict[str, str] | None=None)` | — |
+| `scripts/test_package.py` | 46 | function | `extract_generated_sdist` | `(archive_path: Path, destination: Path) -> Path` | Extract only ordinary files/directories from the just-built sdist, rejecting path escapes. |
+| `scripts/test_package.py` | 65 | function | `smoke_installed_cli` | `(wheel: Path, work: Path) -> None` | — |
+| `scripts/test_package.py` | 153 | function | `parse_args` | `()` | — |
+| `scripts/test_package.py` | 164 | function | `check_distribution_names` | `(wheels, sdists, version=PROJECT_VERSION)` | Refuse an artifact set that is ambiguous or does not match the declared project version. |
+| `scripts/test_package.py` | 178 | function | `main` | `() -> int` | — |
 | `setup.py` | 32 | function | `runtime_data_files` | `() -> list[tuple[str, tuple[str, ...]]]` | Return the executable runtime files plus the catalog/context inputs they need. |

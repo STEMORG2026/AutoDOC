@@ -204,9 +204,10 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_migration_prose.py` | 178 | `MigrationProseTests.test_check_warns_for_draft_and_fails_approved_migration_findings` |
 | `tests/test_migration_prose.py` | 193 | `MigrationProseTests.test_no_candidate_migration_documents_is_a_clean_noop` |
 | `tests/test_migration_prose.py` | 197 | `MigrationProseTests.test_scan_reads_controlled_frontmatter_and_routes_draft_findings` |
-| `tests/test_package_dist.py` | 15 | `test_matching_artifact_names_are_accepted` |
-| `tests/test_package_dist.py` | 21 | `test_a_version_mismatch_is_refused` |
-| `tests/test_package_dist.py` | 28 | `test_an_ambiguous_artifact_set_is_refused` |
+| `tests/test_package_dist.py` | 16 | `test_the_filename_stem_is_the_escaped_distribution_name` |
+| `tests/test_package_dist.py` | 22 | `test_matching_artifact_names_are_accepted` |
+| `tests/test_package_dist.py` | 28 | `test_a_version_mismatch_is_refused` |
+| `tests/test_package_dist.py` | 35 | `test_an_ambiguous_artifact_set_is_refused` |
 | `tests/test_phase2.py` | 33 | `Phase2Tests.test_catalog_views_partition_stable_ids_without_inventing_adoption` |
 | `tests/test_phase2.py` | 54 | `Phase2Tests.test_sql_unknown_ddl_fails_instead_of_partial_dictionary` |
 | `tests/test_phase2.py` | 66 | `Phase2Tests.test_route_registry_rejects_unimplemented_endpoints` |
