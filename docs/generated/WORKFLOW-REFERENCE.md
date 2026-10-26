@@ -28,8 +28,8 @@ Derived from workflow files. A listing or green check does not establish branch 
 
 | Workflow | Name | Jobs | Declared purpose | SHA-256 |
 | --- | --- | --- | --- | --- |
-| `.github/workflows/docs-generation-preview.yml` | AutoDOC generation preview | preview | No unreviewed commits are pushed by automation. Publish a diff as an artifact instead. | `11fccfcbf8db5c956575c5ea14935402361d835fe4e7f5e4cd7354a4e1e9ffca` |
-| `.github/workflows/docs-guard.yml` | AutoDOC guard | compatibility, check | Canonical repository verification is make ci; artifacts retain actual unsigned run output. | `ff8c6d7f851c63385cb30397fe5a5792e71d2cbc17825c84ab03bc83f9ed956a` |
-| `.github/workflows/docs-staleness.yml` | AutoDOC nightly freshness | freshness | Nightly and Monday triage: every check reports even if an earlier one fails, and the final step | `a96fe110764b14686e401f7e3628add513dffaacaa2b3c4b69466b4cf1b65d91` |
-| `.github/workflows/release.yml` | AutoDOC release snapshot | snapshot, publish | Apache-2.0 (LICENSE, owner decision 2026-10-01); the snapshot fails closed if that file is missing. | `0597672cadbeded57832b7243511905da7957f6ca10a926630595580b2b5f2a9` |
-| `.github/workflows/self-doc-check.yml` | AutoDOC self-documentation | impact | Dedicated self-documentation co-change check for AutoDOC implementation edits on PRs. | `897851f18fde35a7124012a19ca4f8258ec29d8f416c6d117ed6ce781a86f3fa` |
+| `.github/workflows/docs-generation-preview.yml` | AutoDOC generation preview | preview | No unreviewed commits are pushed by automation. Publish a diff as an artifact instead. | `b057f0c34429a18619c6b310ffde291dbfd117ada0247bbd40937616e73fe91b` |
+| `.github/workflows/docs-guard.yml` | AutoDOC guard | compatibility, check, audit | Canonical repository verification is make ci; artifacts retain actual unsigned run output. | `be157e5c24edb0c9b971f5ee07fd509daeec2414dca3aee35bc5ebe283d509bc` |
+| `.github/workflows/docs-staleness.yml` | AutoDOC nightly freshness | freshness | Nightly and Monday triage: every check reports even if an earlier one fails, and the final step | `f3f616fb945d309f683ac57eb45859d247a77162d4d15e84a64f30a4e41908bb` |
+| `.github/workflows/release.yml` | AutoDOC release snapshot | snapshot, publish | Apache-2.0 (LICENSE, owner decision 2026-10-01); the snapshot fails closed if that file is missing. | `5814a1f121bcead6165035119b2a864ff1f51bc2eda037a684d4bf7d38171b0e` |
+| `.github/workflows/self-doc-check.yml` | AutoDOC self-documentation | impact | Dedicated self-documentation co-change check for AutoDOC implementation edits on PRs. | `1fc6bba6245c2ebd778584aa573f297dd4c8dcc9b7baeb709998772f9cb066e6` |

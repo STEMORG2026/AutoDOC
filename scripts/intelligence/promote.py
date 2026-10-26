@@ -133,7 +133,7 @@ def write_atomic(path: Path, text: str) -> None:
             os.fsync(handle.fileno())
         os.chmod(temporary, mode)
         os.replace(temporary, path)
-    except BaseException:
+    except Exception:
         try:
             os.unlink(temporary)
         except OSError:
