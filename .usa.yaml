@@ -27,6 +27,14 @@ suppressions:
     reason: "The flagged occurrences are in `env:` blocks where GitHub Actions context expressions are the correct and only way to pass dynamic values. The run commands reference them as shell variables ($BASE), not inline ${{ }}. This is the recommended pattern per GitHub docs."
     scope: ".github/workflows/docs-guard.yml, .github/workflows/self-doc-check.yml"
 
+  # REPO-006: Not applicable — AutoDOC reads no environment variables
+  - rule: REPO-006
+    reason: "AutoDOC reads no environment variables; the only configuration file is autodoc.toml. An .env.example listing zero variables would misrepresent the configuration contract, and the owner-recorded has_env declaration in autodoc.toml (with reason) already documents that fact for the fact system."
+
+  # FND-011: Not applicable — no containerized runtime by design
+  - rule: FND-011
+    reason: "AutoDOC is a zero-dependency Python CLI distributed as a wheel; its runtime environment is any Python 3.11-3.15 interpreter and its dev environment is 'python -m venv .venv && pip install -e .[dev]' (README/QUICK-START), with .python-version pinning the interpreter. The repository deliberately ships no Dockerfile: the has_docker fact detector and the container-doc catalog type (DOC-A13-001) it gates stay inactive by owner-recorded design, and adding one would activate a catalog requirement that only the owner can decide to satisfy."
+
 reviews:
   # SUP-005: Dependency vulnerability scanning - added audit job to CI
   - rule: SUP-005

@@ -67,7 +67,10 @@ unrelated project; the import package and CLI stay `autodoc`). **Release `v0.3.1
 **USA audit (2026-10-26): score 64.7→72.8, then a second hygiene round.** Applied suppressions
 (.usa.yaml), fixed PY-004, pinned GitHub Actions (SUP-010), added pip_audit CI job (SUP-005).
 Round 2 declared coverage in pyproject.toml (fail_under 70, measured 74%, enforced only by the
-local ci-fabric stage) and added .editorconfig, .python-version, .env.example and a Dockerfile.
+local ci-fabric stage) and added .editorconfig and .python-version; a draft Dockerfile and
+.env.example were withdrawn when the repo's own has_docker detector showed the Dockerfile would
+activate the DOC-A13-001 container catalog type (an owner decision to satisfy), so REPO-006 and
+FND-011 are suppressed in .usa.yaml with those reasons.
 Reviews recorded for deferred:
 SUP-022/023/024 (SLSA/Sigstore), REPO-003 (git secrets), SUP-012 (branch protection),
 AI-003/AI-010 (agent least privilege). Remaining HIGH: SUP-022 (SLSA provenance),

@@ -40,11 +40,14 @@ Second USA audit remediation round (repository hygiene):
   `fail_under = 70`, measured 74%), and `coverage` joined the `dev` extra so the local ci-fabric
   pipeline's coverage stage works from a fresh `pip install -e '.[dev]'`. The offline `make ci`
   gate still deliberately does not run coverage. (TEST-004, TEST-005, TAS-005, FND-009)
-- Added `.editorconfig` (REPO-013), `.python-version` pinning the development interpreter to the
-  3.11 baseline the required check runs on (FND-010), and `.env.example` documenting that AutoDOC
-  reads no environment variables (REPO-006).
-- Added a root `Dockerfile` that installs the built wheel into a `python:3.11-slim` image and
-  exposes the `autodoc` CLI, making the environment reproducible from checked-in files (FND-011).
+- Added `.editorconfig` (REPO-013) and `.python-version` pinning the development interpreter to
+  the 3.11 baseline the required check runs on (FND-010).
+- A first draft also added a root `Dockerfile` and `.env.example`; both were withdrawn before
+  merge. The repository's own fact system caught them: `Dockerfile` flips the `has_docker`
+  detector, which activates the container-doc catalog type `DOC-A13-001` — a requirement only
+  the owner can decide to satisfy — and `.env.example` contradicts the owner-recorded `has_env =
+  false` declaration reason in `autodoc.toml`. REPO-006 and FND-011 are instead suppressed in
+  `.usa.yaml` with those reasons recorded.
 - Untracked `USA_AUDIT.md` (point-in-time report, regenerated on every audit run and now
   gitignored); `.usa.yaml` remains the committed, durable audit record.
 
