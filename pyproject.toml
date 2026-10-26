@@ -1,6 +1,6 @@
 [project]
 name = "autodoc-docs"
-version = "0.3.0"
+version = "0.3.1"
 description = "Dependency-free documentation governance CLI and generation engine"
 readme = "README.md"
 license = "Apache-2.0"

@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-23
+last_updated: 2026-10-26
 auto_generated: false
 ---
 # Recent changes
@@ -48,6 +48,11 @@ auto_generated: false
 - **Debt backlog closed (2026-10-25, owner decision).** D-009 (external dogfood) accepted and
   closed, D-010 (vulnerability scanning) accepted with the 2026-10-25 clean run recorded (scope:
   development venv, 42 packages, point-in-time; the package ships with zero runtime dependencies),
+- **Released `v0.3.1` as `autodoc-docs` (2026-10-26).** Distribution renamed from `autodoc` to
+  `autodoc-docs` (PyPI project name; `autodoc` is taken). Import package and CLI stay `autodoc`.
+  Release workflow snapshot + publish jobs ran green: snapshot produced wheel/sdist/manifest,
+  publish verified artifacts and uploaded to PyPI via OIDC trusted publishing. `pip install
+  autodoc-docs==0.3.1` now works. Tag `v0.3.1` at commit `f978bc8`.
   and D-007 (evidence signing) explicitly deferred while the phase is `beta`. Recorded in
   `state/DEBT.md` and reconciled into `NEXT-ACTION.md`. No open debt remains except D-008
   (accepted by design) and D-007 (deferred by decision).

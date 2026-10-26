@@ -75,7 +75,10 @@ def smoke_installed_cli(wheel: Path, work: Path) -> None:
     venv_python = scripts_dir / python_name
     cli = scripts_dir / cli_name
 
-    run([str(venv_python), "-m", "pip", "install", "--no-deps", str(wheel)], cwd=work, env=environment)
+    # wheel must be absolute because cwd changes to the temp work dir
+    wheel_abs = wheel.resolve()
+
+    run([str(venv_python), "-m", "pip", "install", "--no-deps", str(wheel_abs)], cwd=work, env=environment)
     version = run([str(cli), "--version"], cwd=work, env=environment)
     if version.stdout.strip() != f"autodoc {PROJECT_VERSION}":
         raise RuntimeError(f"unexpected installed version output: {version.stdout.strip()!r}")
