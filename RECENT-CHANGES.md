@@ -21,6 +21,16 @@ auto_generated: false
 ---
 # Recent changes
 
+- **Second USA hygiene round (2026-10-26).** Coverage is now declared in `pyproject.toml`
+  (`[tool.coverage]`, branch coverage, `fail_under = 70`, measured 74%) and `coverage` joined the
+  `dev` extra so the local ci-fabric coverage stage works from a fresh install; the offline
+  `make ci` gate still does not run coverage. Added `.editorconfig` and `.python-version` (3.11 —
+  the required-check baseline). A draft `Dockerfile` and `.env.example` were withdrawn: the repo's
+  own `has_docker` fact detector caught the Dockerfile (it activates the `DOC-A13-001` container
+  catalog type, an owner decision to satisfy), and `.env.example` contradicts the owner-recorded
+  `has_env = false` reason in `autodoc.toml`; REPO-006 and FND-011 are suppressed in `.usa.yaml`
+  with those reasons instead. `USA_AUDIT.md` is now a gitignored point-in-time report; `.usa.yaml`
+  stays the committed audit record.
 - **Renamed the distribution to `autodoc-docs` (2026-10-26).** `autodoc` is taken on PyPI by an
   unrelated project, so publishing under it was impossible and `pip install autodoc` would install
   someone else's package. The distribution name is now `autodoc-docs`; the import package stays

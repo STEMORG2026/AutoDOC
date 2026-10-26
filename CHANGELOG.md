@@ -26,9 +26,30 @@ Applied USA audit findings (Universal Software Auditor 2.28.7, score 64.7→72.8
   SUP-008 (correct ${{ }} in env: blocks).
 - Fixed `scripts/intelligence/promote.py:136`: `except BaseException` → `except Exception` (PY-004).
 - Pinned all 5 GitHub Actions to immutable commit SHAs via USA's `pin-actions.mjs` (SUP-010).
-- Added `audit` job to `docs-guard.yml` running `pip_audit --fail-on HIGH` via `[audit]` extra (SUP-005).
+- Added `audit` job to `docs-guard.yml` running `pip_audit` via the `[audit]` extra (SUP-005). The
+  runner's vulnerable `setuptools` 79.0.1 is upgraded to a fixed version first, so the scan is clean
+  on a known-good toolchain.
 - Reviews recorded for deferred items: SUP-022 (SLSA provenance), SUP-023 (VSA), SUP-024 (Sigstore),
   REPO-003 (git history secrets), SUP-012 (branch protection), AI-003/AI-010 (agent least privilege).
+
+## 0.3.1-hygiene — 2026-10-26
+
+Second USA audit remediation round (repository hygiene):
+
+- Coverage is now declared and measured: `[tool.coverage]` in `pyproject.toml` (branch coverage,
+  `fail_under = 70`, measured 74%), and `coverage` joined the `dev` extra so the local ci-fabric
+  pipeline's coverage stage works from a fresh `pip install -e '.[dev]'`. The offline `make ci`
+  gate still deliberately does not run coverage. (TEST-004, TEST-005, TAS-005, FND-009)
+- Added `.editorconfig` (REPO-013) and `.python-version` pinning the development interpreter to
+  the 3.11 baseline the required check runs on (FND-010).
+- A first draft also added a root `Dockerfile` and `.env.example`; both were withdrawn before
+  merge. The repository's own fact system caught them: `Dockerfile` flips the `has_docker`
+  detector, which activates the container-doc catalog type `DOC-A13-001` — a requirement only
+  the owner can decide to satisfy — and `.env.example` contradicts the owner-recorded `has_env =
+  false` declaration reason in `autodoc.toml`. REPO-006 and FND-011 are instead suppressed in
+  `.usa.yaml` with those reasons recorded.
+- Untracked `USA_AUDIT.md` (point-in-time report, regenerated on every audit run and now
+  gitignored); `.usa.yaml` remains the committed, durable audit record.
 
 ## 0.3.0 — 2026-10-25
 

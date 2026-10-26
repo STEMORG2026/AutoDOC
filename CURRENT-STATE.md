@@ -96,7 +96,12 @@ exact artifacts and uploaded to PyPI via OIDC trusted publishing. `pip install a
 works. The local full check passed (267 tests,
 190 subtests, plus wheel/sdist install smoke). **USA audit applied (2026-10-26): score 64.7→72.8.
 Added .usa.yaml suppressions, fixed PY-004, pinned GitHub Actions (SUP-010), added pip_audit CI
-job (SUP-005), recorded reviews for deferred items.** PR #12 merged into `master` at `08229a0` on
+job (SUP-005), recorded reviews for deferred items. A second hygiene round the same day declared
+coverage in pyproject.toml (branch coverage, fail_under 70, measured 74%), added .editorconfig and
+.python-version (3.11), and untracked the point-in-time USA_AUDIT.md report. A draft Dockerfile
+and .env.example were withdrawn when the repo's own has_docker detector showed the Dockerfile
+would activate the DOC-A13-001 container catalog type — an owner decision to satisfy — and
+REPO-006/FND-011 went into .usa.yaml as reasoned suppressions instead.** PR #12 merged into `master` at `08229a0` on
 2026-10-22; its required check, impact job and supplemental Python 3.11–3.15 matrix all passed on
 GitHub. C4R7 and B71a are closed; merging is not what closed them — the owner did.
 

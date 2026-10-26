@@ -28,11 +28,26 @@ Issues = "https://github.com/STEMORG2026/AutoDOC/issues"
 autodoc = "autodoc.cli:main"
 
 [project.optional-dependencies]
-dev = ["build>=1,<2", "pytest>=8,<10", "pre-commit>=3,<5"]
+dev = ["build>=1,<2", "pytest>=8,<10", "pre-commit>=3,<5", "coverage>=7,<8"]
 audit = ["pip-audit>=2.10,<3"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["autodoc", "engine", "scripts"]
+omit = [
+  "scripts/doc-sync/generate-all.py",
+  "scripts/doc-control/build_catalogs.py",
+]
+
+[tool.coverage.report]
+# Enforced by the local ci-fabric pipeline stage (`ci.toml`, min_percent = 70);
+# measured at 74% lines+branches on 2026-10-26 (line-only coverage was 87%).
+# The offline `make ci` gate deliberately does not run coverage.
+fail_under = 70
+show_missing = true
 
 [build-system]
 requires = ["setuptools>=77"]  # PEP 639 license expressions

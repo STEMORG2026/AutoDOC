@@ -30,5 +30,6 @@ Declared requirements only; not an installed-dependency inventory or an SBOM.
 | --- | --- | --- | --- | --- |
 | `pyproject.toml` | autodoc-docs | 0.3.1 | optional:audit | `pip-audit>=2.10,<3` |
 | `pyproject.toml` | autodoc-docs | 0.3.1 | optional:dev | `build>=1,<2` |
+| `pyproject.toml` | autodoc-docs | 0.3.1 | optional:dev | `coverage>=7,<8` |
 | `pyproject.toml` | autodoc-docs | 0.3.1 | optional:dev | `pre-commit>=3,<5` |
 | `pyproject.toml` | autodoc-docs | 0.3.1 | optional:dev | `pytest>=8,<10` |

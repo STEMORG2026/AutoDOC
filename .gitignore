@@ -6,6 +6,11 @@ dist/
 evidence/out/
 *.egg-info/
 .coverage
+.coverage.*
+
+# Point-in-time audit report (regenerated on every USA run; .usa.yaml is the
+# durable record and stays committed)
+USA_AUDIT.md
 
 # ci-fabric local state (never commit)
 .ci/
