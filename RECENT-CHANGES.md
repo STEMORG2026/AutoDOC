@@ -28,6 +28,11 @@ auto_generated: false
   The guard in `scripts/test_package.py` now derives the PEP 427 filename stem from `pyproject.toml`,
   so a rename cannot desynchronise the check from the build. `pip install autodoc-docs` is the
   install path once published.
+- **Applied USA audit findings (2026-10-26).** Universal Software Auditor 2.28.7 score improved
+  64.7→72.8. Added `.usa.yaml` with suppressions (SEC-005, SEC-025, DATA-001, SUP-001, SUP-008),
+  fixed `except BaseException` → `except Exception` (PY-004), pinned 5 GitHub Actions to SHAs
+  (SUP-010), added CI `audit` job with `pip_audit` (SUP-005), recorded reviews for deferred items
+  (SUP-022, SUP-023, SUP-024, REPO-003, SUP-012, AI-003, AI-010).
 - **Wired PyPI publishing behind verification (2026-10-25).** The release workflow gained a
   tag-triggered `publish` job: it downloads the wheel and sdist the snapshot job built in the same
   run, verifies those exact files, and only then uploads them to PyPI through OIDC trusted

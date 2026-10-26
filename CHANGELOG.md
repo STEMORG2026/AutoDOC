@@ -17,6 +17,19 @@ at commit `f978bc8`.
 - Living state files (CURRENT-STATE.md, NEXT-ACTION.md, RECENT-CHANGES.md) updated to record
   the PyPI publication.
 
+## 0.3.1-usa — 2026-10-26
+
+Applied USA audit findings (Universal Software Auditor 2.28.7, score 64.7→72.8):
+
+- Added `.usa.yaml` with suppressions for false positives: SEC-005 (markdown concat, not SQL),
+  SEC-025 (no auth system), DATA-001 (no database), SUP-001 (pyproject.toml direct deps),
+  SUP-008 (correct ${{ }} in env: blocks).
+- Fixed `scripts/intelligence/promote.py:136`: `except BaseException` → `except Exception` (PY-004).
+- Pinned all 5 GitHub Actions to immutable commit SHAs via USA's `pin-actions.mjs` (SUP-010).
+- Added `audit` job to `docs-guard.yml` running `pip_audit --fail-on HIGH` via `[audit]` extra (SUP-005).
+- Reviews recorded for deferred items: SUP-022 (SLSA provenance), SUP-023 (VSA), SUP-024 (Sigstore),
+  REPO-003 (git history secrets), SUP-012 (branch protection), AI-003/AI-010 (agent least privilege).
+
 ## 0.3.0 — 2026-10-25
 
 First tagged release (Beta). Tag `v0.3.0` points at commit `3748d0f`; the release snapshot and the

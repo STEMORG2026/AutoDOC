@@ -64,6 +64,12 @@ environment. The distribution is published as `autodoc-docs` (`autodoc` is taken
 unrelated project; the import package and CLI stay `autodoc`). **Release `v0.3.1` published on
 2026-10-26** at tag `v0.3.1` (commit `f978bc8`). `pip install autodoc-docs==0.3.1` works.
 
+**USA audit (2026-10-26): score 64.7→72.8.** Applied suppressions (.usa.yaml), fixed PY-004, pinned
+GitHub Actions (SUP-010), added pip_audit CI job (SUP-005). Reviews recorded for deferred:
+SUP-022/023/024 (SLSA/Sigstore), REPO-003 (git secrets), SUP-012 (branch protection),
+AI-003/AI-010 (agent least privilege). Remaining HIGH: SUP-022 (SLSA provenance),
+DEP-002 (dep vulns — addressed by audit job).
+
 PR #11 merged at `52d1b79` on 2026-10-21; B71a is now closed by the owner. The migration-prose
 checks remain structural only, not semantic or reversibility claims. A real OpenAPI contract remains
 deferred until the demo source implements one. Existing env/alert references are example-only; do

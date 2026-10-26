@@ -94,7 +94,9 @@ stay `autodoc` while only the distribution name changed). **Release `v0.3.1` pub
 2026-10-26**: the snapshot job produced wheel, sdist, and manifest; the publish job verified the
 exact artifacts and uploaded to PyPI via OIDC trusted publishing. `pip install autodoc-docs==0.3.1`
 works. The local full check passed (267 tests,
-190 subtests, plus wheel/sdist install smoke). PR #12 merged into `master` at `08229a0` on
+190 subtests, plus wheel/sdist install smoke). **USA audit applied (2026-10-26): score 64.7→72.8.
+Added .usa.yaml suppressions, fixed PY-004, pinned GitHub Actions (SUP-010), added pip_audit CI
+job (SUP-005), recorded reviews for deferred items.** PR #12 merged into `master` at `08229a0` on
 2026-10-22; its required check, impact job and supplemental Python 3.11–3.15 matrix all passed on
 GitHub. C4R7 and B71a are closed; merging is not what closed them — the owner did.
 
