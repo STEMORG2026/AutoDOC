@@ -90,9 +90,10 @@ supplemental CI matrix is non-blocking, while the required `AutoDOC guard / chec
 on Python 3.11. Tagged workflows build temporary GitHub Actions artifacts and then verify-and-upload them to PyPI
 through OIDC trusted publishing under a `pypi` environment; the distribution is published as
 `autodoc-docs` (`autodoc` is taken on PyPI by an unrelated project, so the import package and CLI
-stay `autodoc` while only the distribution name changed). Publication is switched off until the
-owner registers the PyPI project, its trusted publisher and that environment, and no PyPI release
-exists yet. The local full check passed (267 tests,
+stay `autodoc` while only the distribution name changed). **Release `v0.3.1` published on
+2026-10-26**: the snapshot job produced wheel, sdist, and manifest; the publish job verified the
+exact artifacts and uploaded to PyPI via OIDC trusted publishing. `pip install autodoc-docs==0.3.1`
+works. The local full check passed (267 tests,
 190 subtests, plus wheel/sdist install smoke). PR #12 merged into `master` at `08229a0` on
 2026-10-22; its required check, impact job and supplemental Python 3.11–3.15 matrix all passed on
 GitHub. C4R7 and B71a are closed; merging is not what closed them — the owner did.
