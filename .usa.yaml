@@ -1,0 +1,85 @@
+# USA suppressions and reviews for AutoDOC
+# This file records human judgement for findings that cannot be resolved by code changes.
+# Every entry needs a reason a stranger would accept.
+
+version: 1
+
+suppressions:
+  # SEC-005: False positive - string concatenation for markdown generation, not SQL
+  - rule: SEC-005
+    reason: "The flagged line (engine.py:870) concatenates strings to generate a markdown report ('## Changed paths at update time'), not SQL queries. No database is used in this code path."
+    scope: "scripts/doc-sync/engine.py:870"
+
+  # SEC-025: Not applicable - no authentication system in this CLI tool
+  - rule: SEC-025
+    reason: "AutoDOC is a documentation governance CLI tool with no user authentication, registration, or login functionality. Password hashing is not applicable."
+
+  # DATA-001: Not applicable - no database or ORM in this project
+  - rule: DATA-001
+    reason: "AutoDOC is a CLI tool for documentation governance. It has no database, ORM, or schema migrations. It operates on filesystem and git."
+
+  # SUP-001: Not applicable - Python project uses pyproject.toml with direct dependencies
+  - rule: SUP-001
+    reason: "AutoDOC uses pyproject.toml with direct dependencies (no lockfile). Dependencies are pinned in pyproject.toml and installed via pip. No package-lock.json equivalent exists for this Python packaging approach."
+
+  # SUP-008: The ${{ }} in env: block is correct usage - values passed via env and referenced as $VAR in run
+  - rule: SUP-008
+    reason: "The flagged occurrences are in `env:` blocks where GitHub Actions context expressions are the correct and only way to pass dynamic values. The run commands reference them as shell variables ($BASE), not inline ${{ }}. This is the recommended pattern per GitHub docs."
+    scope: ".github/workflows/docs-guard.yml, .github/workflows/self-doc-check.yml"
+
+reviews:
+  # SUP-005: Dependency vulnerability scanning - added audit job to CI
+  - rule: SUP-005
+    status: "addressed"
+    reviewed: "2026-10-26"
+    evidence: "Added 'audit' job to .github/workflows/docs-guard.yml that runs 'pip_audit --fail-on HIGH' via the [audit] extra. Runs on every PR and push."
+    until: "2027-04-26"
+
+  # SUP-022: SLSA provenance - not yet implemented
+  - rule: SUP-022
+    status: "deferred"
+    reviewed: "2026-10-26"
+    evidence: "SLSA provenance attestation not yet configured. Requires GitHub Artifact Attestations setup and sigstore/cosign integration in release workflow."
+    until: "2027-04-26"
+
+  # SUP-023: Verification Summary Attestation - not yet implemented
+  - rule: SUP-023
+    status: "deferred"
+    reviewed: "2026-10-26"
+    evidence: "Verification Summary Attestation requires SLSA provenance first. Deferred until SUP-022 is addressed."
+    until: "2027-04-26"
+
+  # SUP-024: Detached signature - not yet implemented
+  - rule: SUP-024
+    status: "deferred"
+    reviewed: "2026-10-26"
+    evidence: "Sigstore/cosign signing not yet configured for release artifacts."
+    until: "2027-04-26"
+
+  # REPO-003: No secrets in git history - needs gitleaks scan
+  - rule: REPO-003
+    status: "pending"
+    reviewed: "2026-10-26"
+    evidence: "No gitleaks or secret scanning configured in CI. Need to add gitleaks as pre-commit hook and CI job."
+    until: "2027-01-26"
+
+  # SUP-012: Default branch protection - needs verification
+  - rule: SUP-012
+    status: "pending"
+    reviewed: "2026-10-26"
+    evidence: "Branch protection exists but needs verification of required review, status checks, no force-push, no admin bypass."
+    until: "2027-01-26"
+
+  # AI-003: Least privilege for agents - needs documentation
+  - rule: AI-003
+    status: "pending"
+    reviewed: "2026-10-26"
+    evidence: "AutoDOC's agent instructions (AGENTS.md) need explicit forbidden commands list (destructive commands, secret reads, unreviewed pushes)."
+    until: "2027-01-26"
+
+  # AI-010: Human confirmation for consequential actions - needs documentation
+  - rule: AI-010
+    status: "pending"
+    reviewed: "2026-10-26"
+    evidence: "Agent instructions need explicit requirement for human approval on irreversible actions (deployment, deletion, outbound messages)."
+    until: "2027-01-26"
