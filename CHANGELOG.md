@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.1 — 2026-10-26
+
+Released `autodoc-docs` 0.3.1 to PyPI via OIDC trusted publishing. The distribution was renamed
+from `autodoc` to `autodoc-docs` (the `autodoc` name is taken on PyPI by an unrelated project).
+The import package and CLI stay `autodoc`; only the distribution name changes. Tag `v0.3.1`
+at commit `f978bc8`.
+
+- Distribution rename guard in `scripts/test_package.py` now derives the PEP 427 filename stem
+  from `pyproject.toml` instead of hardcoding, so a rename cannot desynchronise the check from
+  the build. Wheel builds as `autodoc_docs-0.3.1-py3-none-any.whl`.
+- Fixed `autodoc/__init__.py` version resolution to try `autodoc-docs` first, then fall back to
+  `autodoc` for source checkouts.
+- `scripts/test_package.py --dist-dir` mode resolves wheel path absolutely so verification works
+  in GitHub Actions where the working directory shifts.
+- Living state files (CURRENT-STATE.md, NEXT-ACTION.md, RECENT-CHANGES.md) updated to record
+  the PyPI publication.
+
 ## 0.3.0 — 2026-10-25
 
 First tagged release (Beta). Tag `v0.3.0` points at commit `3748d0f`; the release snapshot and the
