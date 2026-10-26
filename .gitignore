@@ -5,3 +5,7 @@ build/
 dist/
 evidence/out/
 *.egg-info/
+
+# ci-fabric local state (never commit)
+.ci/
+.localci/
