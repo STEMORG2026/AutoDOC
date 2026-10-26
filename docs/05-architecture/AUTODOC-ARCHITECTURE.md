@@ -44,7 +44,11 @@ declarations; and `evolve` plans safe generated refreshes and draft-only gap fil
 granting compliance. This boundary is exercised by a clean-venv install test outside the checkout.
 Runtime dependencies remain empty. An optional `audit` extra supplies `pip-audit` for the
 operator-run `make audit`; it is never imported by shipped code and is not part of the offline
-`make ci` gate. The release workflow builds wheel and sdist artifacts, and a tag-triggered
+`make ci` gate. The `dev` extra additionally carries `coverage` for the local ci-fabric pipeline's
+coverage stage (threshold declared in `pyproject.toml`, enforced by `ci.toml` only); the root
+`Dockerfile` builds a container image from the wheel, and `.python-version` pins the development
+interpreter to the 3.11 baseline the required check runs on. The release workflow builds wheel and
+sdist artifacts, and a tag-triggered
 `publish` job verifies those exact files and uploads them to PyPI through OIDC trusted publishing
 under a `pypi` environment as `autodoc-docs`; GitHub Release creation is not configured.
 
