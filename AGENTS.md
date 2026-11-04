@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-01
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # AutoDOC agent instructions
@@ -42,3 +42,22 @@ Never rename AutoDOC, edit generated docs by hand, fabricate evidence, or overwr
 priorities. Controlled files need metadata and ownership. See `ANTI-PATTERNS-FOR-AGENT.md`.
 `state/**` is coordination data, not a controlled document set: no generator may write there, and
 no agent may record an owner decision there or in the machine files on the owner's behalf.
+
+## Forbidden actions
+Do not take these actions unless the owner approved that specific action in the current
+conversation. Approval covers one named action, not a session or a category.
+
+- Creating or pushing tags, publishing packages or releases, or bumping a version for publication.
+- Rewriting, force-pushing or deleting branches, tags, or history (`git push --force`,
+  `git tag -d`, rebasing shared commits).
+- Deleting files or state, or running `git clean -fdx`, outside a scratch directory you created.
+- Changing branch protection, rulesets, repository settings, or the required check.
+- Reading, printing, committing, or transmitting secrets, credentials, tokens, or `.env` files.
+- Sending outbound messages, or opening, approving or merging a pull request on the owner's behalf.
+- Adding a runtime dependency; that needs an owner decision and an ADR (see `CONTRIBUTING.md`).
+
+## Human confirmation
+Ask before any action that is irreversible or leaves this machine: publishing, tagging, deleting
+history, changing protection, or sending anything outward. State what will change, where, and
+whether an undo exists. If the owner has not answered, stop. A recorded owner decision in the
+repository is evidence; an inference from silence is not.

@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-09-26
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # AutoDOC AI coding context
@@ -24,6 +24,8 @@ auto_generated: false
 AutoDOC maps source facts to generated references; humans own judgments, policy and next action.
 The canonical instructions are [`AGENTS.md`](../../AGENTS.md), with limits in
 [`ENGINE-COVERAGE.md`](../00-governance/ENGINE-COVERAGE.md). Python 3.11+ is required.
+`AGENTS.md` lists forbidden actions and requires per-action human approval for irreversible or
+outbound work; that list is authoritative and is not duplicated here.
 
 **MACP is suspended (owner decision, 2026-10-25):** see the notice at the top of
 [`docs/00-governance/MACP.md`](../00-governance/MACP.md). While suspended, do not run the

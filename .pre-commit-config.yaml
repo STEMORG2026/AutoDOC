@@ -80,3 +80,9 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
+      - id: gitleaks-history
+        name: Scan git history for secrets (manual; needs gitleaks on PATH)
+        entry: make secret-scan
+        language: system
+        pass_filenames: false
+        stages: [manual]

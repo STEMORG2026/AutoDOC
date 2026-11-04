@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-22
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # Documentation policy
@@ -62,7 +62,9 @@ resolution, security, backup success or external compliance. Packs are run artif
 committed evidence files; a tagged release requires a `vX.Y.Z` tag at the same commit and a
 present `LICENSE` (Apache-2.0 since 2026-10-01). The required `AutoDOC guard / check` runs
 `make ci` on Python 3.11; the declared Python 3.11–3.15 compatibility matrix is supplemental and
-non-blocking until deliberately made a required check.
+non-blocking until deliberately made a required check. The `Secret scan` job runs
+`make secret-scan` with pinned, checksum-verified gitleaks over the full history; it is advisory
+and not a required check.
 
 The initial 2026-09-26 metadata on human-authored starter documents is an authoring baseline,
 not owner approval. Those files are marked draft pending owner review. New unverified scaffolds
