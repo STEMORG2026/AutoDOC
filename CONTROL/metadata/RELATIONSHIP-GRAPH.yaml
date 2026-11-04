@@ -99,6 +99,61 @@
       "kind": "related"
     },
     {
+      "from": "DOC-REF-002",
+      "to": "DOC-ARC-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-002",
+      "to": "DOC-P2-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-002",
+      "to": "DOC-P3-GOV-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-002",
+      "to": "DOC-REF-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-002",
+      "to": "DOC-REF-003",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-003",
+      "to": "DOC-ARC-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-003",
+      "to": "DOC-CI-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-003",
+      "to": "DOC-P2-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-003",
+      "to": "DOC-P3-GOV-003",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-003",
+      "to": "DOC-REF-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-003",
+      "to": "DOC-REF-002",
+      "kind": "related"
+    },
+    {
       "from": "EX-AGENT-001",
       "to": "EXAMPLE-PROJECT-DOCS-ARCHITECTURE-MD",
       "kind": "related"
