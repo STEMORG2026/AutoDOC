@@ -21,11 +21,12 @@ auto_generated: false
 ---
 # Recent changes
 
-- **Release 0.4.0 preparation (2026-11-04).** `pyproject.toml` and `CHANGELOG.md` now carry `0.4.0`,
-  and `release_snapshot.py` refuses a tag that disagrees with the declared version or lacks a
-  `## <version>` changelog section. Tests cover a matching tree, a tag mismatch, a missing section,
-  an unreadable declared version, and the repository's own consistency. The tag and PyPI
-  publication remain owner decisions; neither had happened when this entry was written.
+- **Release 0.4.0 published (2026-11-04).** Tag `v0.4.0` at `56e24af`; workflow run 41789431156
+  built and verified the wheel and sdist, and PyPI serves `autodoc-docs 0.4.0` through OIDC trusted
+  publishing. The release gate refuses a tag that disagrees with the declared version or lacks a
+  `## <version>` changelog section; tests cover a matching tree, tag mismatch, missing section,
+  unreadable version, and repository consistency. PyPI's attestation for both files is a publish
+  attestation, not SLSA provenance; SUP-022 remains deferred to 2027-04-26.
 - **Phase-scaled adoption plan and baseline (2026-11-04).** `autodoc adopt` now keeps its bounded
   filename heuristic and resolves the declared context, or a `--phase`/`--profile` preview, through
   the same context/profile/catalog/enforcement layers. The plan reports the open required set,

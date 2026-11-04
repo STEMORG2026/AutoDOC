@@ -63,16 +63,18 @@ verifies those exact files and uploads them to PyPI through OIDC trusted publish
 environment. The distribution is published as `autodoc-docs` (`autodoc` is taken on PyPI by an
 unrelated project; the import package and CLI stay `autodoc`). **Release `v0.3.1` published on
 2026-10-26** at tag `v0.3.1` (commit `f978bc8`). `pip install autodoc-docs==0.3.1` works.
+**Release `v0.4.0` published on 2026-11-04** at tag `v0.4.0` (commit `56e24af`) from workflow run
+41789431156; `pip install autodoc-docs==0.4.0` installs a CLI reporting `autodoc 0.4.0`.
 
 PR #26 merged `autodoc evolve` at `c0f90e0`; PR #37 merged the second USA hygiene round at
-`0460da5`; and PR #38 merged the phase-scaled adoption plan and baseline at `b27a052`. Post-merge
-`make ci` on `master` passes 325 tests + 188 subtests, the wheel/sdist package check, and unsigned
+`0460da5`; PR #38 merged the phase-scaled adoption plan and baseline at `b27a052`; and PR #39
+merged the 0.4.0 release preparation at `56e24af`. Post-merge
+`make ci` on `master` passes 331 tests + 188 subtests, the wheel/sdist package check, and unsigned
 evidence-hash verification.
 
-Release 0.4.0 is prepared: `pyproject.toml` and `CHANGELOG.md` carry the version, and the release
-gate now refuses a tag that disagrees with the declared version or lacks a matching changelog
-section. The tag and PyPI publication remain owner decisions; no tag had been pushed when this was
-written.
+The release gate now refuses a tag that disagrees with the declared version or lacks a matching
+changelog section. SUP-022 (SLSA build provenance) stays deferred to 2027-04-26; the PyPI
+attestations for 0.4.0 are publish attestations, not SLSA provenance.
 
 **USA audit (2026-10-26): score 64.7→72.8, then a second hygiene round.** Applied suppressions
 (.usa.yaml), fixed PY-004, pinned GitHub Actions (SUP-010), added pip_audit CI job (SUP-005).
