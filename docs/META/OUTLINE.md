@@ -77,12 +77,12 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: AutoDOC self-adoption and applicability
 - L2 line 24: Purpose and scope
 - L2 line 50: Selected document types
-- L2 line 76: Rollout and success criteria
-- L2 line 83: Non-applicability and gaps
-- L2 line 97: Verification and references
-- L2 line 103: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 125: Applicability decisions (step 3, 2026-10-01)
-- L2 line 150: Phase 3 applicability
+- L2 line 77: Rollout and success criteria
+- L2 line 84: Non-applicability and gaps
+- L2 line 101: Verification and references
+- L2 line 107: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 129: Applicability decisions (step 3, 2026-10-01)
+- L2 line 154: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -219,6 +219,24 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 47: Goals and non-goals
 - L2 line 79: Scope
 - L2 line 95: Verification and references
+
+## `docs/00-governance/RELEASE-RUNBOOK.md`
+
+- L1 line 22: Release and deployment runbook
+- L2 line 24: Purpose and scope
+- L2 line 51: Details and decisions
+- L3 line 53: Authority and roles
+- L3 line 63: Step 1 — Decide the version
+- L3 line 71: Step 2 — Preflight
+- L3 line 91: Step 3 — Tag
+- L3 line 105: Step 4 — What the tag triggers
+- L3 line 151: Step 5 — What the artifact verification proves
+- L3 line 170: Step 6 — Publish to PyPI
+- L3 line 188: Step 7 — Verify the published release
+- L3 line 220: Step 8 — Correct a wrong release
+- L3 line 251: Observed failures
+- L3 line 274: Decisions
+- L2 line 293: Verification and references
 
 ## `docs/00-governance/SUPPLY-CHAIN.md`
 

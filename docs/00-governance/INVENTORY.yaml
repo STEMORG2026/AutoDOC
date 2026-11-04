@@ -301,6 +301,17 @@
       "applies_to": []
     },
     {
+      "id": "DOC-P3-GOV-010",
+      "path": "docs/00-governance/RELEASE-RUNBOOK.md",
+      "type": "PROC",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "last_reviewed": "2026-11-05",
+      "next_review": "2027-05-04",
+      "classification": "public",
+      "applies_to": []
+    },
+    {
       "id": "DOC-P3-GOV-009",
       "path": "docs/00-governance/SUPPLY-CHAIN.md",
       "type": "SPEC",
