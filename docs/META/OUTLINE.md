@@ -46,13 +46,13 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 1: Quick start
 - L2 line 20: Install the CLI
-- L2 line 47: Dependencies and versions
-- L2 line 59: Adopt an existing project
-- L2 line 67: New project and new documents
-- L2 line 82: Promote the declared phase
-- L2 line 98: Evolve an existing project
-- L2 line 118: Add a deterministic extractor
-- L2 line 125: Interpret a failure
+- L2 line 49: Dependencies and versions
+- L2 line 61: Adopt an existing project
+- L2 line 69: New project and new documents
+- L2 line 84: Promote the declared phase
+- L2 line 100: Evolve an existing project
+- L2 line 120: Add a deterministic extractor
+- L2 line 127: Interpret a failure
 
 ## `README.md`
 
@@ -60,9 +60,9 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 11: What it does
 - L2 line 27: Quick start (Python 3.11+)
 - L3 line 37: Installable CLI
-- L2 line 114: Status
-- L2 line 127: Navigate
-- L2 line 145: License
+- L2 line 116: Status
+- L2 line 129: Navigate
+- L2 line 147: License
 
 ## `TEMPLATES/AGENT-CONTEXT/README.md`
 
@@ -228,10 +228,10 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
-- L2 line 59: Details and decisions
-- L2 line 265: Module contracts
-- L2 line 284: Verification and references
-- L2 line 295: Phase 3 trust boundaries
+- L2 line 60: Details and decisions
+- L2 line 266: Module contracts
+- L2 line 285: Verification and references
+- L2 line 296: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 

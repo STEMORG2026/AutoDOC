@@ -19,13 +19,14 @@ documentation-engine failure.
 
 ## Install the CLI
 
-Download the wheel from the `autodoc-python-distribution` artifact of a tagged GitHub Actions
-release run, create an environment, and install the wheel by path:
+Install the current release from PyPI, or download the wheel from the
+`autodoc-python-distribution` artifact of a tagged GitHub Actions release run and install it by
+path:
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate                 # Windows: .venv\\Scripts\\activate
-python -m pip install /path/to/autodoc_docs-0.3.0-py3-none-any.whl
+python -m pip install autodoc-docs==0.4.0
 autodoc --version
 autodoc check --repo /path/to/project
 autodoc generate --root /path/to/project --check
@@ -40,7 +41,8 @@ assets are separate from the selected project root. `check` honors that project'
 advisory unless severity is pinned. `generate` needs the target project's
 `docs/.doc-sync-map.yaml`. The release workflow builds the wheel and sdist as temporary artifacts,
 and a tag-triggered `publish` job verifies those exact files and uploads them to PyPI through OIDC
-trusted publishing under a `pypi` environment (registration pending). No GitHub Release is created.
+trusted publishing under a `pypi` environment. `0.4.0` is the current published release; no GitHub
+Release is created.
 These checks establish structural
 facts and bounded extracted facts, not semantic correctness or regulatory compliance.
 

@@ -42,9 +42,9 @@ does not instantiate or adopt a document. `autodoc add` instantiates one type in
 `autodoc promote` previews the enforcement delta before changing the declared phase; neither
 records an owner decision on the owner's behalf. `autodoc evolve` plans safe updates and can create
 missing required documents as drafts, but it never registers, approves or counts them as
-compliant. It is a CLI, not a hosted service. The package is built and tested as wheel/sdist and can be published
-to PyPI from a tag through OIDC trusted publishing (registration pending); adoption remains an
-explicit configuration and review process, not an automatic claim
+compliant. It is a CLI, not a hosted service. The package is built and tested as wheel/sdist and is
+published to PyPI from a tag through OIDC trusted publishing (`autodoc-docs` 0.4.0 is current);
+adoption remains an explicit configuration and review process, not an automatic claim
 that a project is governed.
 
 ## Selected document types

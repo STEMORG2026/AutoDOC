@@ -51,8 +51,8 @@ beta-gated core rows, so `autodoc promote --to beta` previews with no requiremen
 owner then authorized the promotion; BETA writes `phase = "beta"` and `phase_declared =
 "2026-10-23"` and reports `beta-ready: 17/17`. The closeout also added an operator-run `make audit`
 (optional `pip-audit` extra, no runtime dependency, outside the offline gate) and stopped readiness
-from counting a decision whose declared path is missing. The owner verdict on the proposed `0.3.0`/Beta version and
-any release remain. AutoDOC also has an installable CLI
+from counting a decision whose declared path is missing. The proposed `0.3.0` was superseded by
+the published `0.3.1` and `0.4.0` releases. AutoDOC also has an installable CLI
 with zero runtime dependencies, wheel/sdist builds, and clean-environment install smoke coverage.
 Its checks validate controlled-document metadata, generated drift, age, source-to-human-review
 impact, and the structure of instantiated migration documents (required sections and unfilled
@@ -142,8 +142,8 @@ commands merged in PR #18 at `1361ba2`. Post-merge installed-wheel dogfood found
 path defect; the fixes merged in PR #19 at `06ccb0a`, and PR #20's reconciliation merged at
 `f8e2c76` through PR #21; PR #22 reconciled the state at `f040105`; PR #23 made the shipped-phase
 tests follow the declaration at `3fda35b`; PR #24 merged the beta promotion at `8f9c709`. PRD2,
-BETA, 912C and PRD1 are merged and **closed by the owner on 2026-10-23**; the owner release and
-`0.3.0`/Beta verdict remain pending.
+BETA, 912C and PRD1 are merged and **closed by the owner on 2026-10-23**; the proposed `0.3.0` was
+superseded by the published `0.3.1` (2026-10-26) and `0.4.0` (2026-11-04) releases.
 
 No session is open. MACP local rule 11 records the session lifecycle: one session, one bounded
 work unit, one branch; when the owner says “close the session”, all open sessions close and the
