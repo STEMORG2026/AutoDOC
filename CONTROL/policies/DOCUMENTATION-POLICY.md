@@ -64,7 +64,8 @@ present `LICENSE` (Apache-2.0 since 2026-10-01). The required `AutoDOC guard / c
 `make ci` on Python 3.11; the declared Python 3.11–3.15 compatibility matrix is supplemental and
 non-blocking until deliberately made a required check. The `Secret scan` job runs
 `make secret-scan` with pinned, checksum-verified gitleaks over the full history; it is advisory
-and not a required check.
+and not a required check. Tagged release runs publish `autodoc-docs` to PyPI through OIDC trusted
+publishing under the owner-registered `pypi` environment; `0.4.0` is the current release.
 
 The initial 2026-09-26 metadata on human-authored starter documents is an authoring baseline,
 not owner approval. Those files are marked draft pending owner review. New unverified scaffolds

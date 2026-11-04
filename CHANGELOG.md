@@ -8,6 +8,9 @@
   that target. The job is advisory: it is not a required check and does not block a merge.
 - `AGENTS.md` now lists forbidden actions and requires explicit per-action human approval for
   irreversible or outbound work. This records USA findings AI-003 and AI-010.
+- Installation documentation now uses the published `autodoc-docs==0.4.0` PyPI release instead of
+  the pre-publication wheel path, and the stale "not published yet"/"registration pending"
+  claims were removed from the README, quick start, adoption guide and release workflow comment.
 
 ## 0.4.0 — 2026-11-04
 

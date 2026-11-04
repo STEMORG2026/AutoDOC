@@ -54,7 +54,8 @@ on. The repository deliberately ships no Dockerfile or environment-configuration
 owner-recorded design. The release workflow builds wheel and
 sdist artifacts, and a tag-triggered
 `publish` job verifies those exact files and uploads them to PyPI through OIDC trusted publishing
-under a `pypi` environment as `autodoc-docs`; GitHub Release creation is not configured.
+under the registered `pypi` environment as `autodoc-docs`; `0.4.0` published this way, and GitHub
+Release creation is not configured.
 
 ## Details and decisions
 

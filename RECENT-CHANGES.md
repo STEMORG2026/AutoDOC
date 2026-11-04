@@ -21,6 +21,10 @@ auto_generated: false
 ---
 # Recent changes
 
+- **Publication claims reconciled (2026-11-04).** Install instructions now use the published
+  `autodoc-docs==0.4.0` PyPI release; README, QUICK-START, ADOPTION, CURRENT-STATE, NEXT-ACTION and
+  the release workflow comment no longer describe PyPI as unregistered or the `0.3.0`/Beta verdict
+  as pending. The README status row now names the owner-only actions that actually remain.
 - **USA closeout (2026-11-04).** Secret scanning now runs in CI as a `Secret scan` job with pinned,
   SHA-256-verified gitleaks 8.30.1 over the full history, plus `make secret-scan` and a manual
   pre-commit hook; the job is advisory, not a required check. `AGENTS.md` gained explicit

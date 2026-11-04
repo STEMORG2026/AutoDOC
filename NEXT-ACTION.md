@@ -42,7 +42,8 @@ than acknowledged, and defaults `enforce.collect_findings()` to the tool checkou
 (307 tests + 190 subtests, wheel/sdist and clean-install smoke for all seven commands, unsigned
 evidence hashes verified); `make audit` with pip-audit 2.10.1 reports no known vulnerabilities.
 
-The proposed `0.3.0` and Beta classifier record no owner approval. **D-007 (evidence signing),
+The proposed `0.3.0` was superseded by the published `0.3.1` and `0.4.0` releases, which ship the
+Beta classifier. **D-007 (evidence signing),
 D-009 (external dogfood) and D-010 (vulnerability scanning) were all decided by the owner on
 2026-10-25** and are recorded in `state/DEBT.md`: D-009 accepted and closed, D-010 accepted with the
 2026-10-25 clean run, and D-007 explicitly deferred while the phase is `beta`. Do not publish to PyPI

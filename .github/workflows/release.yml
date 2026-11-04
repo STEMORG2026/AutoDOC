@@ -39,8 +39,8 @@ jobs:
 
   # Tag-triggered only: a manual dispatch still builds and snapshots, but never publishes.
   # The artifact uploaded is the one the snapshot job built and uploaded in this same run, and it
-  # is verified here before it can leave. Publishing needs the PyPI project's trusted publisher
-  # (this repository + this workflow) and the `pypi` environment registered by the owner.
+  # is verified here before it can leave. Publishing uses the PyPI trusted publisher registered for
+  # this repository and workflow plus the owner-registered `pypi` environment; 0.4.0 shipped this way.
   publish:
     needs: snapshot
     if: startsWith(github.ref, 'refs/tags/v')
