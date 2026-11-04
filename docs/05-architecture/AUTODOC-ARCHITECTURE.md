@@ -28,8 +28,9 @@ references and checks source-to-document impact. It does **not** execute control
 
 The installable distribution, published as `autodoc-docs` (`autodoc` is taken on PyPI by an
 unrelated project; the import package and console entry point stay `autodoc`), adds the `autodoc`
-console entry point over the existing scripts. Current release: **`autodoc-docs 0.3.1`** (tag
-`v0.3.1`, 2026-10-26). The
+console entry point over the existing scripts. Latest published release: **`autodoc-docs 0.3.1`**
+(tag `v0.3.1`, 2026-10-26); the tree declares `0.4.0`, whose tag and publication are pending owner
+decisions. The
 wheel contains the Python package plus only the runtime scripts, catalog indices and context
 metadata under the Python data directory (`share/autodoc`); it does not copy the full repository
 or its development state. At runtime, the CLI locates that **tool root** separately from the target
@@ -98,8 +99,10 @@ Catalog records / mapped source files / Markdown metadata
   renderers reject unsupported records rather than producing a deceptively complete reference.
 - **Evidence and release:** CI runs tests and uploads an unsigned, hash-verifiable pack to a run
   artifact. No pack or timestamps are committed. The release-tag snapshot workflow fails closed
-  if `LICENSE` is missing (Apache-2.0 since 2026-10-01); snapshot artifacts are not permanent
-  external retention.
+  if `LICENSE` is missing (Apache-2.0 since 2026-10-01) and, before that, if the tag disagrees with
+  the version declared in `pyproject.toml` or has no `## <version>` `CHANGELOG.md` section, so a
+  version mistake fails before the build instead of at the PyPI upload; snapshot artifacts are not
+  permanent external retention.
 - **Metadata and ownership:** the frontmatter schema and ownership matrix validate instantiated
   controlled docs. The master index, human-owned inventory and relationship graph come from frontmatter.
   The Mermaid reference adds concrete source-to-target and catalog-to-template edges.
