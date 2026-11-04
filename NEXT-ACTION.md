@@ -134,9 +134,10 @@ then the eight remaining sessions; MACP local rule 11 records the one-session/on
 closes-all/passkey lifecycle. **Nothing is pending on the protection/D-001 thread**; D-003 merged through PR #16 and its production-readiness follow-up through PR #18,
 while D-007 is deferred by decision and D-009 is accepted. Promotion to
 `beta` is written and merged in PR #24 at `8f9c709` (the preview showed no requirement blockers);
-release/tag/PyPI remain separate owner decisions. D-004 and D-002 were the earlier
-owner-selected follow-up and are now merged by PR #14. One debt item closed on
-2026-10-21 without a decision: **D-001** (catalog count drift) — the prose numbers were corrected
+release, tag and PyPI publication were separate owner decisions, and `0.3.1` and `0.4.0` are
+published. D-004 and D-002 were the earlier owner-selected follow-up and are now merged by PR #14.
+One debt item closed on 2026-10-21 without a decision: **D-001** (catalog count drift) — the prose
+numbers were corrected
 and `tests/test_catalog_counts.py` now derives them from the indexes, so a stale count fails `make
 ci`; D-010's operator-run scanner is now available as `make audit` and its first run found no known
 vulnerabilities.
