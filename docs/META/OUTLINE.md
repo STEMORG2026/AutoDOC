@@ -77,12 +77,12 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: AutoDOC self-adoption and applicability
 - L2 line 24: Purpose and scope
 - L2 line 50: Selected document types
-- L2 line 74: Rollout and success criteria
-- L2 line 81: Non-applicability and gaps
-- L2 line 95: Verification and references
-- L2 line 101: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 123: Applicability decisions (step 3, 2026-10-01)
-- L2 line 148: Phase 3 applicability
+- L2 line 75: Rollout and success criteria
+- L2 line 82: Non-applicability and gaps
+- L2 line 96: Verification and references
+- L2 line 102: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 124: Applicability decisions (step 3, 2026-10-01)
+- L2 line 149: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -219,6 +219,18 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 47: Goals and non-goals
 - L2 line 79: Scope
 - L2 line 95: Verification and references
+
+## `docs/00-governance/TEST-PLAN.md`
+
+- L1 line 22: Test plan
+- L2 line 24: Purpose and scope
+- L2 line 38: Test layers
+- L2 line 55: Unit test specification
+- L2 line 85: Integration test specification
+- L2 line 109: Acceptance criteria
+- L2 line 131: Where results live
+- L2 line 159: Coverage, flakiness and scope limits
+- L2 line 176: Verification and references
 
 ## `docs/04-guides/HOW-AUTODOC-WORKS.md`
 

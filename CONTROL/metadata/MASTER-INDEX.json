@@ -242,6 +242,14 @@
       "last_reviewed": "2026-10-01"
     },
     {
+      "id": "DOC-TEST-002",
+      "path": "docs/00-governance/TEST-PLAN.md",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "type": "REF",
+      "last_reviewed": "2026-11-04"
+    },
+    {
       "id": "DOC-CAT-NAV-001",
       "path": "docs/01-catalogs/CATALOG-INDEX.md",
       "owner": "@Er-Sajan-PLG",
