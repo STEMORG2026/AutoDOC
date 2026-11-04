@@ -2,10 +2,12 @@
 
 ## 0.4.0 — 2026-11-04
 
-Release 0.4.0. Tag `v0.4.0` points at this commit; the tag-triggered workflow builds, verifies and
-publishes the wheel and sdist. The release gate now also refuses a tag that disagrees with the
-declared package version or has no matching changelog section, so a version mistake fails before
-the build instead of at the PyPI upload.
+Released `autodoc-docs` 0.4.0 to PyPI on 2026-11-04 via OIDC trusted publishing. Tag `v0.4.0`
+points at commit `56e24af`; workflow run
+[41789431156](https://github.com/STEMORG2026/AutoDOC/actions/runs/41789431156) built the wheel and
+sdist, verified those exact files, and published them. The release gate now also refuses a tag
+that disagrees with the declared package version or has no matching changelog section, so a
+version mistake fails before the build instead of at the PyPI upload.
 
 - `autodoc adopt` now plans a phase-scaled adoption from the declared context, or a
   `--phase`/`--profile` preview, using the same context/profile/catalog/enforcement layers as

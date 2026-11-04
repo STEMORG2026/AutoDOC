@@ -28,9 +28,8 @@ references and checks source-to-document impact. It does **not** execute control
 
 The installable distribution, published as `autodoc-docs` (`autodoc` is taken on PyPI by an
 unrelated project; the import package and console entry point stay `autodoc`), adds the `autodoc`
-console entry point over the existing scripts. Latest published release: **`autodoc-docs 0.3.1`**
-(tag `v0.3.1`, 2026-10-26); the tree declares `0.4.0`, whose tag and publication are pending owner
-decisions. The
+console entry point over the existing scripts. Latest published release: **`autodoc-docs 0.4.0`**
+(tag `v0.4.0`, 2026-11-04). The
 wheel contains the Python package plus only the runtime scripts, catalog indices and context
 metadata under the Python data directory (`share/autodoc`); it does not copy the full repository
 or its development state. At runtime, the CLI locates that **tool root** separately from the target

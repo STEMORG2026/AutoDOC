@@ -80,10 +80,11 @@ CI, hooks or branch protection. Post-merge `make ci` passes 325 tests + 188 subt
 package check, and unsigned evidence-hash verification. No release, tag or PyPI publication is
 included.
 
-Release 0.4.0 is prepared (2026-11-04): `pyproject.toml` and `CHANGELOG.md` carry the version, and
-`release_snapshot.py` now refuses a tag that disagrees with the declared package version or has no
-matching changelog section. The tag and PyPI publication remain owner decisions; neither had
-happened when this paragraph was written.
+Release 0.4.0 is published (2026-11-04): tag `v0.4.0` points at `56e24af`, workflow run 41789431156
+built and verified the wheel and sdist, and PyPI serves `autodoc-docs 0.4.0` through OIDC trusted
+publishing. PyPI's attestation for both files is a publish attestation
+(`https://docs.pypi.org/attestations/publish/v1`), not SLSA build provenance; SUP-022 remains
+deferred to 2027-04-26.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 
