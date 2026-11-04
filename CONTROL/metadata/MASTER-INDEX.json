@@ -242,6 +242,14 @@
       "last_reviewed": "2026-10-01"
     },
     {
+      "id": "DOC-P3-GOV-010",
+      "path": "docs/00-governance/RELEASE-RUNBOOK.md",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "type": "PROC",
+      "last_reviewed": "2026-11-05"
+    },
+    {
       "id": "DOC-P3-GOV-009",
       "path": "docs/00-governance/SUPPLY-CHAIN.md",
       "owner": "@Er-Sajan-PLG",

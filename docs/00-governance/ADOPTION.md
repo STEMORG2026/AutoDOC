@@ -68,6 +68,7 @@ that a project is governed.
 | `DOC-A10-007` (Quality gates) | `docs/reference/QUALITY-GATES.md` | New record of blocking, advisory and release checks |
 | `DOC-A11-002` (Test plan), `DOC-A11-003` (Unit test specification), `DOC-A11-004` (Integration test specification), `DEV-B07-002` (Acceptance criteria), `DEV-B07-003` (Test results) | `docs/00-governance/TEST-PLAN.md` | One plan covering layers, unit and integration specifications, acceptance criteria and result retention |
 | `DOC-A10-002` (SBOM), `DOC-A10-003` (Build provenance), `DOC-A10-006` (License inventory) | `docs/00-governance/SUPPLY-CHAIN.md` | One record covering the CycloneDX SBOM, the unsigned source and release records, and the license inventory of declared dependencies |
+| `DOC-A15-005` (Deployment runbook) | `docs/00-governance/RELEASE-RUNBOOK.md` | New procedure for the release path that exists: version and changelog preflight, the tag-triggered CI and trusted-publishing upload, post-publish verification, and the package-level correction path |
 
 These catalog IDs designate **types**; instance IDs identify the actual controlled files.
 Files outside the controlled Markdown paths can be useful documentation without being counted
@@ -83,9 +84,12 @@ commit and command. `make ci` passing alone does not grant regulatory or product
 ## Non-applicability and gaps
 Enterprise privacy records, DR evidence, penetration-test reports, signed provenance,
 model evaluations and vendor records cannot be inferred from local examples.
-No production service or audit cycle exists here. For the same reason the deployment-runbook type
-is not instantiated yet: deployment here is a package publication rather than a service rollout, so
-it waits for a release runbook. Test results are answered by the test plan
+No production service or audit cycle exists here. Deployment here is a package publication rather
+than a service rollout, so the deployment-runbook type is answered by the release runbook
+(`docs/00-governance/RELEASE-RUNBOOK.md`), which records the tag → CI → trusted-publishing →
+PyPI procedure and the package-level correction path. The catalog's separate rollback type stays
+not applicable, because `has_deploy` is false: there is no environment to roll back. Test results
+are answered by the test plan
 (`docs/00-governance/TEST-PLAN.md`), which records where per-run results live instead of
 committing a stale snapshot. API/config/schema references, agent
 allowlist inventories and a scoped unsigned test-run pack demonstrate the mechanism, not
