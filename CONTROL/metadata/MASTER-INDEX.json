@@ -242,6 +242,14 @@
       "last_reviewed": "2026-10-01"
     },
     {
+      "id": "DOC-P3-GOV-009",
+      "path": "docs/00-governance/SUPPLY-CHAIN.md",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "type": "SPEC",
+      "last_reviewed": "2026-11-04"
+    },
+    {
       "id": "DOC-TEST-002",
       "path": "docs/00-governance/TEST-PLAN.md",
       "owner": "@Er-Sajan-PLG",
