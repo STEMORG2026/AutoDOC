@@ -80,6 +80,31 @@
       ]
     },
     {
+      "id": "secret_scan",
+      "label": "Secret scanning",
+      "when": "every pull request, push, or manual dispatch (the scanner is downloaded and checksum-verified at setup; the scan itself is local)",
+      "posture": "report",
+      "blocking": false,
+      "network": false,
+      "bypass": null,
+      "failure": "the job is red for triage; the required check is unaffected until the owner adds it to the ruleset",
+      "runs": ["make secret-scan"],
+      "wiring": [".github/workflows/docs-guard.yml", "Makefile:secret-scan"],
+      "jobs": [
+        {
+          "name": "Secret scan",
+          "job": "secret-scan",
+          "workflow": ".github/workflows/docs-guard.yml",
+          "events": ["pull_request", "push", "workflow_dispatch"],
+          "required": false,
+          "paths_filtered": false,
+          "tag_filtered": false,
+          "branch_filtered": false,
+          "commands": ["make secret-scan"]
+        }
+      ]
+    },
+    {
       "id": "default_branch",
       "label": "After merge to the default branch",
       "when": "push to master, or manual dispatch",

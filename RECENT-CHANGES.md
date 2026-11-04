@@ -21,6 +21,11 @@ auto_generated: false
 ---
 # Recent changes
 
+- **USA closeout (2026-11-04).** Secret scanning now runs in CI as a `Secret scan` job with pinned,
+  SHA-256-verified gitleaks 8.30.1 over the full history, plus `make secret-scan` and a manual
+  pre-commit hook; the job is advisory, not a required check. `AGENTS.md` gained explicit
+  forbidden actions and human-confirmation rules. REPO-003, SUP-012, AI-003 and AI-010 are recorded
+  as addressed; SUP-022/023/024 stay deferred to 2027-04-26.
 - **Release 0.4.0 published (2026-11-04).** Tag `v0.4.0` at `56e24af`; workflow run 41789431156
   built and verified the wheel and sdist, and PyPI serves `autodoc-docs 0.4.0` through OIDC trusted
   publishing. The release gate refuses a tag that disagrees with the declared version or lacks a

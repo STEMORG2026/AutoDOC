@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Secret scanning is automated. A `Secret scan` job in `docs-guard.yml` downloads pinned
+  `gitleaks` 8.30.1, verifies the `linux_x64` tarball SHA-256, and scans the full history with
+  `--redact`. `make secret-scan` runs the same scan locally, and a manual pre-commit hook wraps
+  that target. The job is advisory: it is not a required check and does not block a merge.
+- `AGENTS.md` now lists forbidden actions and requires explicit per-action human approval for
+  irreversible or outbound work. This records USA findings AI-003 and AI-010.
+
 ## 0.4.0 — 2026-11-04
 
 Released `autodoc-docs` 0.4.0 to PyPI on 2026-11-04 via OIDC trusted publishing. Tag `v0.4.0`

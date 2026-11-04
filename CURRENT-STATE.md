@@ -86,6 +86,12 @@ publishing. PyPI's attestation for both files is a publish attestation
 (`https://docs.pypi.org/attestations/publish/v1`), not SLSA build provenance; SUP-022 remains
 deferred to 2027-04-26.
 
+Secret scanning is now automated (2026-11-04): `docs-guard.yml` runs a `Secret scan` job with
+pinned, SHA-256-verified gitleaks 8.30.1 over the full history, `make secret-scan` runs it
+locally, and a manual pre-commit hook wraps that target. The job is advisory, not a required
+check. `AGENTS.md` now lists forbidden actions and requires per-action human approval for
+irreversible work; the USA items REPO-003, SUP-012, AI-003 and AI-010 are recorded as addressed.
+
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 
 When AutoDOC runs is declared, not implied: one event model (`CONTROL/metadata/TRIGGERS.json`,

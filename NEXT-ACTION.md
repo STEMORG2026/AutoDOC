@@ -76,6 +76,12 @@ The release gate now refuses a tag that disagrees with the declared version or l
 changelog section. SUP-022 (SLSA build provenance) stays deferred to 2027-04-26; the PyPI
 attestations for 0.4.0 are publish attestations, not SLSA provenance.
 
+The pending USA backlog is closed (2026-11-04): REPO-003 (pinned, SHA-256-verified gitleaks
+8.30.1 job, `make secret-scan`, manual pre-commit hook), SUP-012 (live ruleset verified: deletion,
+non-fast-forward, strict required check, no bypass actors, no required review by design because
+GitHub forbids self-approval), and AI-003/AI-010 (`AGENTS.md` forbidden actions and
+human-confirmation rules). SUP-022/023/024 remain deferred to 2027-04-26.
+
 **USA audit (2026-10-26): score 64.7→72.8, then a second hygiene round.** Applied suppressions
 (.usa.yaml), fixed PY-004, pinned GitHub Actions (SUP-010), added pip_audit CI job (SUP-005).
 Round 2 declared coverage in pyproject.toml (fail_under 70, measured 74%, enforced only by the

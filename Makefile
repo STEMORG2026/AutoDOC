@@ -122,6 +122,11 @@ audit: ## Audit installed dependencies for known vulnerabilities (requires .[aud
 		echo "Install the audit extra first: $(PYTHON) -m pip install -e '.[audit]'"; exit 2; }
 	$(PYTHON) -m pip_audit --progress-spinner off
 
+secret-scan: ## Scan the full git history for secrets (requires gitleaks on PATH; no network)
+	@command -v gitleaks >/dev/null 2>&1 || { \
+		echo "gitleaks is not installed: https://github.com/gitleaks/gitleaks/releases"; exit 2; }
+	gitleaks detect --source . --redact --no-banner --exit-code 1
+
 ci: check docs-enforce self-doc test package-check evidence ## Run canonical docs, enforcement, impact, tests, package install smoke and unsigned evidence verification
 
 evidence: ## Run actual tests and package scoped unsigned evidence in evidence/out/

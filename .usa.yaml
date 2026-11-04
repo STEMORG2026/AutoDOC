@@ -64,30 +64,30 @@ reviews:
     evidence: "Sigstore/cosign signing not yet configured for release artifacts."
     until: "2027-04-26"
 
-  # REPO-003: No secrets in git history - needs gitleaks scan
+  # REPO-003: No secrets in git history - gitleaks scan
   - rule: REPO-003
-    status: "pending"
-    reviewed: "2026-10-26"
-    evidence: "No gitleaks or secret scanning configured in CI. Need to add gitleaks as pre-commit hook and CI job."
-    until: "2027-01-26"
+    status: "addressed"
+    reviewed: "2026-11-04"
+    evidence: "A 'Secret scan' job in .github/workflows/docs-guard.yml downloads gitleaks 8.30.1 from the pinned release, verifies the linux_x64 tarball SHA-256 (551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb), and scans the full history with 'gitleaks detect --source . --redact --no-banner --exit-code 1'. 'make secret-scan' runs the same scan locally and a manual pre-commit hook wraps it. The job is advisory, not a required check. A local gitleaks 8.30.1 scan of the full history found no leaks."
+    until: "2027-05-04"
 
-  # SUP-012: Default branch protection - needs verification
+  # SUP-012: Default branch protection - verified
   - rule: SUP-012
-    status: "pending"
-    reviewed: "2026-10-26"
-    evidence: "Branch protection exists but needs verification of required review, status checks, no force-push, no admin bypass."
-    until: "2027-01-26"
+    status: "addressed"
+    reviewed: "2026-11-04"
+    evidence: "Live ruleset 'main' verified on 2026-11-04: rules deletion, non_fast_forward and required_status_checks (context 'AutoDOC guard / check', strict_required_status_checks_policy true), with no bypass actors. No required-review rule exists: the owner is the only maintainer and GitHub does not allow self-approval, so requiring review would deadlock merges. Status checks and no-force-push are the enforced controls."
+    until: "2027-05-04"
 
-  # AI-003: Least privilege for agents - needs documentation
+  # AI-003: Least privilege for agents - documented
   - rule: AI-003
-    status: "pending"
-    reviewed: "2026-10-26"
-    evidence: "AutoDOC's agent instructions (AGENTS.md) need explicit forbidden commands list (destructive commands, secret reads, unreviewed pushes)."
-    until: "2027-01-26"
+    status: "addressed"
+    reviewed: "2026-11-04"
+    evidence: "AGENTS.md now has a 'Forbidden actions' section naming tags and publishing, force-push and history deletion, state deletion, branch-protection changes, secret access, outbound messages, PR approval on the owner's behalf, and runtime dependency additions. Each requires approval of that specific action, not a session or category."
+    until: "2027-05-04"
 
-  # AI-010: Human confirmation for consequential actions - needs documentation
+  # AI-010: Human confirmation for consequential actions - documented
   - rule: AI-010
-    status: "pending"
-    reviewed: "2026-10-26"
-    evidence: "Agent instructions need explicit requirement for human approval on irreversible actions (deployment, deletion, outbound messages)."
-    until: "2027-01-26"
+    status: "addressed"
+    reviewed: "2026-11-04"
+    evidence: "AGENTS.md now has a 'Human confirmation' section: ask before irreversible or outbound actions, state what changes and whether an undo exists, and stop if the owner has not answered. Approval covers one named action, not a session or category."
+    until: "2027-05-04"

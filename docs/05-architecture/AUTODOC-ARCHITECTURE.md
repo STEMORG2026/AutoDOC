@@ -100,8 +100,9 @@ Catalog records / mapped source files / Markdown metadata
   artifact. No pack or timestamps are committed. The release-tag snapshot workflow fails closed
   if `LICENSE` is missing (Apache-2.0 since 2026-10-01) and, before that, if the tag disagrees with
   the version declared in `pyproject.toml` or has no `## <version>` `CHANGELOG.md` section, so a
-  version mistake fails before the build instead of at the PyPI upload; snapshot artifacts are not
-  permanent external retention.
+  version mistake fails before the build instead of at the PyPI upload. A separate `Secret scan`
+  job downloads pinned, checksum-verified gitleaks and scans the full history; it is advisory, not
+  a required check. Snapshot artifacts are not permanent external retention.
 - **Metadata and ownership:** the frontmatter schema and ownership matrix validate instantiated
   controlled docs. The master index, human-owned inventory and relationship graph come from frontmatter.
   The Mermaid reference adds concrete source-to-target and catalog-to-template edges.
