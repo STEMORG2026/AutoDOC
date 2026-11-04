@@ -68,15 +68,22 @@ phase/profile/decisions/catalog. Undetermined facts and structural findings are 
 human. Post-merge `make ci` passes 315 tests + 188 subtests; the owner closed EVOLVE's session on
 2026-10-23 and its plan is archived. No release, tag or PyPI publication is included.
 
-The phase-scaled adoption workflow is implemented (2026-11-04): `autodoc adopt` keeps its bounded
-filename heuristic and now resolves the declared context, or a `--phase`/`--profile` preview,
-through the same context/profile/catalog/enforcement layers. It reports the open required set,
-documents that exist at their default path but are unregistered, declarations that still leave
-types undetermined, and the required set at every phase. The preview writes no declaration;
-`--write-baseline` is the only write and records current findings with the same schema as
-`autodoc check --write-baseline`, excluding configuration findings and `secrets.inline`. The plan
-also prints the recommended one-gate trigger model but does not install CI, hooks or branch
-protection. No release, tag or PyPI publication is included.
+The phase-scaled adoption workflow merged in PR #38 at `b27a052` (2026-11-04): `autodoc adopt`
+keeps its bounded filename heuristic and now resolves the declared context, or a
+`--phase`/`--profile` preview, through the same context/profile/catalog/enforcement layers. It
+reports the open required set, documents that exist at their default path but are unregistered,
+declarations that still leave types undetermined, and the required set at every phase. The preview
+writes no declaration; `--write-baseline` is the only write and records current findings with the
+same schema as `autodoc check --write-baseline`, excluding configuration findings and
+`secrets.inline`. The plan also prints the recommended one-gate trigger model but does not install
+CI, hooks or branch protection. Post-merge `make ci` passes 325 tests + 188 subtests, the wheel/sdist
+package check, and unsigned evidence-hash verification. No release, tag or PyPI publication is
+included.
+
+Release 0.4.0 is prepared (2026-11-04): `pyproject.toml` and `CHANGELOG.md` carry the version, and
+`release_snapshot.py` now refuses a tag that disagrees with the declared package version or has no
+matching changelog section. The tag and PyPI publication remain owner decisions; neither had
+happened when this paragraph was written.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 

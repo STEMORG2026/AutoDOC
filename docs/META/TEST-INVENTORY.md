@@ -276,6 +276,12 @@ AST-discovered Python tests, not a report of execution or coverage.
 | `tests/test_promote.py` | 108 | `test_demotion_and_backdating_need_force` |
 | `tests/test_promote.py` | 115 | `test_missing_declarations_are_inserted_after_schema` |
 | `tests/test_promote.py` | 128 | `test_unknown_phase_and_future_date_are_usage_errors` |
+| `tests/test_release_gate.py` | 22 | `test_a_matching_tag_version_and_changelog_are_accepted` |
+| `tests/test_release_gate.py` | 28 | `test_a_tag_that_disagrees_with_pyproject_is_refused` |
+| `tests/test_release_gate.py` | 35 | `test_a_missing_changelog_section_is_refused` |
+| `tests/test_release_gate.py` | 42 | `test_an_unreadable_project_version_is_a_release_error` |
+| `tests/test_release_gate.py` | 50 | `test_the_repository_tag_and_version_are_consistent` |
+| `tests/test_release_gate.py` | 56 | `test_the_snapshot_runs_the_version_gate_before_creating_anything` |
 | `tests/test_resolver.py` | 85 | `PhaseScalingTests.test_undeclared_phase_is_advisory_and_never_fails` |
 | `tests/test_resolver.py` | 95 | `PhaseScalingTests.test_prototype_reports_without_warning` |
 | `tests/test_resolver.py` | 101 | `PhaseScalingTests.test_build_warns_but_does_not_fail` |

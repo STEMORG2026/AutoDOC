@@ -156,8 +156,9 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/doc-control/library.py` | 172 | function | `checked_in_outputs` | `(root: Path=ROOT) -> list[Path]` | Return rendered variants found under the source tree; explanatory README files are allowed. |
 | `scripts/doc-control/library.py` | 184 | function | `run` | `(check: bool=False, variant: str='all', output_dir: Path | None=None, *, root: Path=ROOT) -> bool` | Validate catalog sources or render selected variants into an output tree. |
 | `scripts/doc-control/library.py` | 237 | function | `main` | `(argv: Iterable[str] | None=None) -> int` | — |
-| `scripts/doc-control/release_snapshot.py` | 15 | function | `require_license` | `(root=ROOT)` | The release gate: the license text is present, whatever the decision record says. |
-| `scripts/doc-control/release_snapshot.py` | 24 | function | `snapshot` | `(tag, output)` | — |
+| `scripts/doc-control/release_snapshot.py` | 16 | function | `require_license` | `(root=ROOT)` | The release gate: the license text is present, whatever the decision record says. |
+| `scripts/doc-control/release_snapshot.py` | 25 | function | `require_release_version` | `(tag, root=ROOT)` | Refuse a tag that disagrees with the package version or has no changelog section. |
+| `scripts/doc-control/release_snapshot.py` | 51 | function | `snapshot` | `(tag, output)` | — |
 | `scripts/doc-control/require-docs-check.py` | 18 | function | `gh` | `(*args, **kwargs)` | — |
 | `scripts/doc-control/require-docs-check.py` | 22 | function | `payload` | `(check=CHECK_NAME)` | The classic required-status-checks payload; one required check, no push restrictions. |
 | `scripts/doc-control/require-docs-check.py` | 27 | function | `main` | `()` | — |

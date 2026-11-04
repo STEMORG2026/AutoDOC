@@ -1,6 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.4.0 — 2026-11-04
+
+Release 0.4.0. Tag `v0.4.0` points at this commit; the tag-triggered workflow builds, verifies and
+publishes the wheel and sdist. The release gate now also refuses a tag that disagrees with the
+declared package version or has no matching changelog section, so a version mistake fails before
+the build instead of at the PyPI upload.
 
 - `autodoc adopt` now plans a phase-scaled adoption from the declared context, or a
   `--phase`/`--profile` preview, using the same context/profile/catalog/enforcement layers as
@@ -9,6 +14,9 @@
   The preview writes no declaration; `--write-baseline` records the adoption baseline with the
   same schema as `autodoc check --write-baseline`, excluding configuration findings and
   `secrets.inline`. The existing bounded filename heuristic is unchanged.
+- Includes the post-0.3.1 USA hygiene work recorded under `0.3.1-usa` and `0.3.1-hygiene`:
+  pinned GitHub Actions, the dependency-audit job, declared coverage, `.editorconfig`,
+  `.python-version`, and the `promote.py` exception narrowing.
 
 ## 0.3.1 — 2026-10-26
 
