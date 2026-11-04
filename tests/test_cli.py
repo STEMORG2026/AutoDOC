@@ -119,6 +119,29 @@ def test_adoption_scan_skips_dependency_and_build_trees(tmp_path):
     assert scan(project) == []
 
 
+def test_adopt_previews_phase_and_writes_baseline_through_cli(tmp_path):
+    project = tmp_path / "consumer"
+    project.mkdir()
+    (project / "pyproject.toml").write_text("[project]\nname = 'consumer'\n", encoding="utf-8")
+    (project / "autodoc.toml").write_text(
+        'schema = 1\nphase = "build"\nprofile = "oss-library"\n'
+        'audience = ["contributors"]\nkinds = ["library"]\n',
+        encoding="utf-8",
+    )
+
+    preview = run_cli("adopt", "--project-path", project, "--phase", "beta", "--json", cwd=tmp_path)
+    assert preview.returncode == 0, preview.stderr
+    plan = json.loads(preview.stdout)
+    assert plan["phase"]["declared"] == "build"
+    assert plan["phase"]["planned"] == "beta"
+    assert not (project / "autodoc-baseline.json").exists()
+
+    baseline = run_cli("adopt", "--project-path", project, "--write-baseline", "--json", cwd=tmp_path)
+    assert baseline.returncode == 0, baseline.stderr
+    assert (project / "autodoc-baseline.json").is_file()
+    assert json.loads(baseline.stdout)["baseline"]["written"] is True
+
+
 def test_add_and_promote_operate_on_selected_project(tmp_path):
     project = tmp_path / "consumer"
     project.mkdir()

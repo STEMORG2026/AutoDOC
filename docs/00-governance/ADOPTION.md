@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-23
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # AutoDOC self-adoption and applicability
@@ -32,13 +32,17 @@ no backup, security approver or external auditor has been assigned.
 
 The installable Python distribution exposes this engine through `autodoc check`, `generate`,
 `adopt`, `init`, `add`, `promote`, `evolve` and `templates`; it keeps bundled policy/catalog assets
-separate from the project path being checked. `autodoc templates` renders catalog variants on demand into
-the selected project's ignored `build/TEMPLATES/` tree; rendering does not instantiate or adopt a
-document. `autodoc add` instantiates one type in the project, and `autodoc promote` previews the
-enforcement delta before changing the declared phase; neither records an owner decision on the
-owner's behalf. `autodoc evolve` plans safe updates and can create missing required documents as
-drafts, but it never registers, approves or counts them as compliant. It
-is a CLI, not a hosted service. The package is built and tested as wheel/sdist and can be published
+separate from the project path being checked. `autodoc adopt` plans a phase-scaled adoption from
+the declared context or a `--phase`/`--profile` preview, reports open required and
+existing-but-unregistered documents, names undetermined declarations, shows the phase ladder, and
+can write the adoption baseline with `--write-baseline`; the preview writes no declaration and the
+baseline never records configuration errors or `secrets.inline`. `autodoc templates` renders
+catalog variants on demand into the selected project's ignored `build/TEMPLATES/` tree; rendering
+does not instantiate or adopt a document. `autodoc add` instantiates one type in the project, and
+`autodoc promote` previews the enforcement delta before changing the declared phase; neither
+records an owner decision on the owner's behalf. `autodoc evolve` plans safe updates and can create
+missing required documents as drafts, but it never registers, approves or counts them as
+compliant. It is a CLI, not a hosted service. The package is built and tested as wheel/sdist and can be published
 to PyPI from a tag through OIDC trusted publishing (registration pending); adoption remains an
 explicit configuration and review process, not an automatic claim
 that a project is governed.
@@ -84,13 +88,24 @@ Owner review must be recorded before changing this file from draft to approved.
 ## Enforcement decisions (step 6, 2026-10-01)
 Enforcement is now one policy applied once: `scripts/intelligence/enforce.py` resolves each check
 family's severity from `[severity]` in `autodoc.toml`, then the declared phase's block, then
-`report`. Adoption gets a baseline (`autodoc-baseline.json`, written by `make docs-baseline`) so
-an inherited repository can enforce only what is new and ratchet down as entries go stale. Exit
-codes are documented in `docs/reference/EXIT-CODES.md`: `0` success, `1` findings, `2` usage or
-configuration error. `make ci` now runs `docs-enforce`. This repository keeps its structural
+`report`. Adoption gets a baseline (`autodoc-baseline.json`, written by `autodoc check
+--write-baseline`, `autodoc adopt --write-baseline`, or `make docs-baseline`) so an inherited
+repository can enforce only what is new and ratchet down as entries go stale. Exit codes are
+documented in `docs/reference/EXIT-CODES.md`: `0` success, `1` findings, `2` usage or configuration
+error. `make ci` now runs `docs-enforce`. This repository keeps its structural
 gates at `error` through explicit `[severity]` pins on top of the declared `build` block;
 `recommend.*` is deliberately **not** pinned — every core decision is recorded (2026-10-01), so
 the phase default applies and a pin would only duplicate it.
+
+The phase-scaled adoption plan added on 2026-11-04 is a preview of that same policy, not a second
+resolver. `autodoc adopt` reports the open required set, documents that already exist at their
+default path but are not registered, declarations that still leave types undetermined, and the
+required set at every phase. `--phase`/`--profile` change only the plan; they never write
+`autodoc.toml`. `--write-baseline` writes the same schema-1 baseline as `check --write-baseline`,
+so the two entry points cannot drift, and configuration findings (exit `2`) block a write. The
+adoption plan never installs CI: it prints the same one-gate event model the repository uses
+(pull request blocking, local hook bypassable, scheduled network checks warn-only) for the adopter
+to wire in their own repository.
 
 ## Applicability decisions (step 3, 2026-10-01)
 The catalog now separates tiers: **24 hand-picked core** types (each with a recorded reason and

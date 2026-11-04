@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-26
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # AutoDOC architecture
@@ -37,11 +37,13 @@ project: `autodoc check --repo PATH` delegates to the existing enforcement polic
 the project's `[instantiated]`/`[satisfied_by]` paths against `PATH`, while the bundled tool root
 supplies catalog data only. `autodoc generate --root PATH` reads that project's sync map. `init`,
 `adopt`, `add`, `promote`, `evolve` and `templates` likewise receive an explicit existing project directory.
-`init` can write an initial phase/profile declaration; `add` instantiates one catalog type and
-rejects an instance ID already declared by another controlled document unless `--instance` names a
-distinct ID; `promote` previews the catalog delta before editing the top-level phase
-declarations; and `evolve` plans safe generated refreshes and draft-only gap filling without
-granting compliance. This boundary is exercised by a clean-venv install test outside the checkout.
+`init` can write an initial phase/profile declaration; `adopt` resolves the declared context, or a
+`--phase`/`--profile` preview, through the same context/profile/catalog/enforcement layers, reports
+open required and existing-but-unregistered documents, and writes only an optional adoption
+baseline; `add` instantiates one catalog type and rejects an instance ID already declared by another
+controlled document unless `--instance` names a distinct ID; `promote` previews the catalog delta
+before editing the top-level phase declarations; and `evolve` plans safe generated refreshes and
+draft-only gap filling without granting compliance. This boundary is exercised by a clean-venv install test outside the checkout.
 Runtime dependencies remain empty. An optional `audit` extra supplies `pip-audit` for the
 operator-run `make audit`; it is never imported by shipped code and is not part of the offline
 `make ci` gate. The `dev` extra additionally carries `coverage` for the local ci-fabric pipeline's
@@ -235,11 +237,16 @@ Catalog records / mapped source files / Markdown metadata
   `because`, `enforced` (true/false) and `enforced_reason`, and the report states the capability
   level that ran. Undetermined items are reported and never failed.
 
-- **Adoption has a baseline** (`autodoc-baseline.json`, machine-generated, schema in
-  `CONTROL/metadata/BASELINE-SCHEMA.json`). Findings recorded during adoption are suppressed and
-  counted; findings that no longer occur are listed as stale so the ratchet can be pruned with
-  `--write-baseline`. A new violation is never suppressed by an old entry, because entries are
-  keyed by rule and location.
+- **Adoption is a phase-scaled preview with an optional baseline** (`scripts/adopt.py`,
+  `autodoc-baseline.json`, machine-generated, schema in `CONTROL/metadata/BASELINE-SCHEMA.json`).
+  `autodoc adopt` keeps the bounded filename heuristic, then resolves the declared or
+  `--phase`/`--profile`-previewed context through the same layers as `check`: it reports the open
+  required set, documents that exist at their default path but are unregistered, undetermined
+  audience/kind/fact declarations, and the required set at every phase. The preview writes no
+  declaration, and `--write-baseline` is the only write. Findings recorded during adoption are
+  suppressed and counted; findings that no longer occur are listed as stale so the ratchet can be
+  pruned with `--write-baseline`. A new violation is never suppressed by an old entry, because
+  entries are keyed by rule and location, and `secrets.inline` is never recorded.
 
 - **The resolver** (`scripts/intelligence/recommend.py`) joins profile, catalog and the recorded
   decisions in `autodoc.toml` — `[instantiated]`, `[satisfied_by]` (locations that count, local

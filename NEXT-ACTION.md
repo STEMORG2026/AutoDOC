@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-23
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # Next action
@@ -156,18 +156,21 @@ vulnerabilities.
    through `cargo rustdoc`; these external references are on-demand and report missing tools as L0
    for that run. Local JSDoc, TypeDoc and Rust toolchains are absent; fake executables cover the integrations.
    The installed `autodoc init` creates ten draft foundations and can record an initial
-   phase/profile declaration; `autodoc adopt` is a read-only filename heuristic; `autodoc add`
-   instantiates one catalog type; and `autodoc promote` applies an explicit declared-phase change
-   after showing its delta. D-003 template rendering merged in PR #16. Installed-wheel dogfood was
-   executed against `Universal_Software_Auditor`, `ai_infrastructure`, `requests`, Flask and
-   Express; it found the packaged-root path defect now fixed in PR #19. Remaining work in this
-   step: a full phase-scaled adoption/baseline workflow. (D-009's dogfood evidence was accepted by the
-   owner on 2026-10-25.)
+   phase/profile declaration; `autodoc add` instantiates one catalog type; and `autodoc promote`
+   applies an explicit declared-phase change after showing its delta. `autodoc adopt` now plans the
+   phase-scaled set from the declared context or a `--phase`/`--profile` preview, reports open
+   required and existing-but-unregistered documents, names undetermined declarations, shows the
+   phase ladder, and writes the adoption baseline with `--write-baseline` (configuration findings
+   and `secrets.inline` are never recorded). The plan includes the recommended one-gate trigger
+   model; it does not install CI, hooks or branch protection. D-003 template rendering merged in
+   PR #16. Installed-wheel dogfood was executed against `Universal_Software_Auditor`,
+   `ai_infrastructure`, `requests`, Flask and Express; it found the packaged-root path defect now
+   fixed in PR #19. (D-009's dogfood evidence was accepted by the owner on 2026-10-25.)
 7. Done. Event triggers are declared in `CONTROL/metadata/TRIGGERS.json` and verified by
    `triggers.py --check` (in `make ci`): one blocking event, one required check, no undeclared
    workflow, no filtered required check, and no network from a gate. The scheduled workflow reports
    every check and summarises once; the external link check is scheduled, rate-limited and
-   warn-only. Next in this direction: adopters' repositories need their own trigger model, which is
-   part of `adopt` in step 6.
+   warn-only. `autodoc adopt` now prints the same one-gate model for an adopter to wire in their
+   own repository; it does not install workflows, hooks or branch protection.
 
 A heuristic generator may warn by default only if its output names what it cannot see.

@@ -16,11 +16,21 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-26
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # Recent changes
 
+- **Phase-scaled adoption plan and baseline (2026-11-04).** `autodoc adopt` now keeps its bounded
+  filename heuristic and resolves the declared context, or a `--phase`/`--profile` preview, through
+  the same context/profile/catalog/enforcement layers. The plan reports the open required set,
+  existing-but-unregistered documents, undetermined audience/kind/fact declarations, the phase
+  ladder, and the recommended one-gate trigger model. `--phase`/`--profile` write no declaration;
+  `--write-baseline` is the only write and uses the same schema-1 baseline as `autodoc check
+  --write-baseline`, excluding configuration findings and `secrets.inline`. Tests cover
+  preview-without-write, unregistered detection, baseline writing and secret exclusion,
+  config-error refusal, and the installed-CLI dispatch. No release, tag or PyPI publication is
+  included.
 - **Second USA hygiene round (2026-10-26).** Coverage is now declared in `pyproject.toml`
   (`[tool.coverage]`, branch coverage, `fail_under = 70`, measured 74%) and `coverage` joined the
   `dev` extra so the local ci-fabric coverage stage works from a fresh install; the offline

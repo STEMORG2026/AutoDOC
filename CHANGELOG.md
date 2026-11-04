@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- `autodoc adopt` now plans a phase-scaled adoption from the declared context, or a
+  `--phase`/`--profile` preview, using the same context/profile/catalog/enforcement layers as
+  `autodoc check`. It reports open required and existing-but-unregistered documents, undetermined
+  audience/kind/fact declarations, the phase ladder, and the recommended one-gate trigger model.
+  The preview writes no declaration; `--write-baseline` records the adoption baseline with the
+  same schema as `autodoc check --write-baseline`, excluding configuration findings and
+  `secrets.inline`. The existing bounded filename heuristic is unchanged.
+
 ## 0.3.1 — 2026-10-26
 
 Released `autodoc-docs` 0.3.1 to PyPI via OIDC trusted publishing. The distribution was renamed

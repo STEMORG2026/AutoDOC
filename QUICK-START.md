@@ -31,10 +31,10 @@ autodoc check --repo /path/to/project
 autodoc generate --root /path/to/project --check
 ```
 
-Available commands are `check`, `generate`, `adopt` (read-only heuristic scan), `init` (draft
-scaffold and optional phase/profile declaration), `add` (one catalog document), `promote` (preview
-or apply a phase change), `evolve` (plan safe updates and draft gaps), and `templates` (render
-catalog variants). The 3.11–3.15 CI compatibility matrix is supplemental and
+Available commands are `check`, `generate`, `adopt` (phase-scaled plan and optional baseline),
+`init` (draft scaffold and optional phase/profile declaration), `add` (one catalog document),
+`promote` (preview or apply a phase change), `evolve` (plan safe updates and draft gaps), and
+`templates` (render catalog variants). The 3.11–3.15 CI compatibility matrix is supplemental and
 non-blocking; the configured required gate runs full `make ci` on Python 3.11. The installed tool
 assets are separate from the selected project root. `check` honors that project's `autodoc.toml` and baseline; an undeclared phase is
 advisory unless severity is pinned. `generate` needs the target project's
@@ -58,7 +58,7 @@ dependencies — including vulnerability and licence handling — is in
 
 ## Adopt an existing project
 
-1. Run `autodoc adopt --project-path /path/to/project` (or `python scripts/adopt.py --project-path ...` in a source checkout) for **heuristic suggestions**; it does not modify the project or establish regulatory applicability. Common dependency and build caches are pruned from the scan.
+1. Run `autodoc adopt --project-path /path/to/project` (or `python scripts/adopt.py --project-path ...` in a source checkout). It keeps the bounded **filename heuristic** (common dependency and build caches are pruned) and, when a context exists or `--phase`/`--profile` previews one, resolves the catalog through the same layers as `check`: open required documents, existing-but-unregistered documents, undetermined declarations, and the phase ladder. It does not modify the project or establish regulatory applicability. `--write-baseline` records current findings, excluding configuration errors and `secrets.inline`, so enforcement can ratchet down from the current state. The plan also prints the recommended trigger model; AutoDOC does not install CI, hooks or branch protection.
 2. Browse [the 265-type catalog](docs/01-catalogs/CATALOG-INDEX.md), select relevant types,
    assign real owners and record non-applicability. Do not copy 265 empty documents.
 3. Configure the target project, choose an explicit phase/profile, and adapt a sync map to its actual sources. Generate only factual references with supported extractors, and create human-owned records for design decisions.

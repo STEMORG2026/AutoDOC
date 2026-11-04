@@ -92,8 +92,27 @@ def build_parser() -> argparse.ArgumentParser:
     generate.add_argument("--check", action="store_true", help="check for drift without writing files")
     generate.add_argument("--only", help="run one generator ID from the project's sync map")
 
-    adopt = commands.add_parser("adopt", help="read-only heuristic scan for potentially relevant catalog domains")
-    adopt.add_argument("--project-path", type=Path, default=Path.cwd(), help="project to scan (default: current directory)")
+    adopt = commands.add_parser(
+        "adopt", help="plan a phase-scaled adoption and optionally record a baseline")
+    adopt.add_argument(
+        "--project-path", type=Path, default=Path.cwd(),
+        help="project to adopt (default: current directory)",
+    )
+    adopt.add_argument(
+        "--config", type=Path,
+        help="context TOML (default: <project>/autodoc.toml; relative to the project)",
+    )
+    adopt.add_argument("--phase", help="preview a phase without declaring it")
+    adopt.add_argument("--profile", help="preview a profile without declaring it")
+    adopt.add_argument(
+        "--baseline", type=Path,
+        help="baseline JSON (default: <project>/autodoc-baseline.json; relative to the project)",
+    )
+    adopt.add_argument(
+        "--write-baseline", action="store_true",
+        help="record current findings as the adoption baseline",
+    )
+    adopt.add_argument("--json", action="store_true", help="print a machine-readable plan")
 
     init = commands.add_parser("init", help="scaffold starter documents in an existing project")
     init.add_argument("--name", required=True, help="project name")
@@ -217,7 +236,15 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "adopt":
         project = _absolute_directory(parser, args.project_path, "--project-path")
-        return _run_script(tool_root / "scripts/adopt.py", ["--project-path", str(project)])
+        command = ["--project-path", str(project)]
+        for option in ("config", "phase", "profile", "baseline"):
+            value = getattr(args, option)
+            if value is not None:
+                command.extend(("--" + option, str(value)))
+        for option in ("write_baseline", "json"):
+            if getattr(args, option):
+                command.append("--" + option.replace("_", "-"))
+        return _run_script(tool_root / "scripts/adopt.py", command)
 
     if args.command == "init":
         project = _absolute_directory(parser, args.output, "--output")

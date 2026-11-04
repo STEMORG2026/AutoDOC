@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-23
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # Current state
@@ -67,6 +67,16 @@ approves a draft, overwrites an existing document, edits `autodoc.toml`, or chan
 phase/profile/decisions/catalog. Undetermined facts and structural findings are reports for a
 human. Post-merge `make ci` passes 315 tests + 188 subtests; the owner closed EVOLVE's session on
 2026-10-23 and its plan is archived. No release, tag or PyPI publication is included.
+
+The phase-scaled adoption workflow is implemented (2026-11-04): `autodoc adopt` keeps its bounded
+filename heuristic and now resolves the declared context, or a `--phase`/`--profile` preview,
+through the same context/profile/catalog/enforcement layers. It reports the open required set,
+documents that exist at their default path but are unregistered, declarations that still leave
+types undetermined, and the required set at every phase. The preview writes no declaration;
+`--write-baseline` is the only write and records current findings with the same schema as
+`autodoc check --write-baseline`, excluding configuration findings and `secrets.inline`. The plan
+also prints the recommended one-gate trigger model but does not install CI, hooks or branch
+protection. No release, tag or PyPI publication is included.
 
 The demo includes structured agent context and CI can retain actual test-run evidence as an artifact.
 
