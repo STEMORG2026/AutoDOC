@@ -64,6 +64,16 @@ environment. The distribution is published as `autodoc-docs` (`autodoc` is taken
 unrelated project; the import package and CLI stay `autodoc`). **Release `v0.3.1` published on
 2026-10-26** at tag `v0.3.1` (commit `f978bc8`). `pip install autodoc-docs==0.3.1` works.
 
+PR #26 merged `autodoc evolve` at `c0f90e0`; PR #37 merged the second USA hygiene round at
+`0460da5`; and PR #38 merged the phase-scaled adoption plan and baseline at `b27a052`. Post-merge
+`make ci` on `master` passes 325 tests + 188 subtests, the wheel/sdist package check, and unsigned
+evidence-hash verification.
+
+Release 0.4.0 is prepared: `pyproject.toml` and `CHANGELOG.md` carry the version, and the release
+gate now refuses a tag that disagrees with the declared version or lacks a matching changelog
+section. The tag and PyPI publication remain owner decisions; no tag had been pushed when this was
+written.
+
 **USA audit (2026-10-26): score 64.7→72.8, then a second hygiene round.** Applied suppressions
 (.usa.yaml), fixed PY-004, pinned GitHub Actions (SUP-010), added pip_audit CI job (SUP-005).
 Round 2 declared coverage in pyproject.toml (fail_under 70, measured 74%, enforced only by the
@@ -131,7 +141,7 @@ vulnerabilities.
 3. Done. Context schema, phase ladder and three-valued facts: undeclared phase is advisory, so
    **nothing fails here yet by design**. `autodoc promote` now performs an explicit phase change
    with the target delta shown before writing; it does not infer a phase from history.
-4. **Owner decisions pending, in order:**
+4. **Owner decisions (closed, in order):**
    - Done: the phase is declared (`build`, 2026-09-30) and kinds too (`library`); the evidence
      for both comes from `make docs-hint` and the declaration is what counts.
    - Done (2026-10-01): the 24-type core list and the phasing in `CATALOG-RULES.json` are
@@ -151,7 +161,7 @@ vulnerabilities.
 5. Done. Enforcement is one policy: `scripts/intelligence/enforce.py` runs obligations and the
    structural families at the severity the declared phase sets, with a baseline for adoption,
    documented exit codes, a pre-push hook and a dry-run branch-protection helper. `make ci` runs it.
-6. Partly done. Per-language references: Python is extracted in-process (exact), Go uses `go doc`,
+6. Done. Per-language references: Python is extracted in-process (exact), Go uses `go doc`,
    and the merged D-002 implementation adds JSDoc `-X`, TypeDoc `--json`, and nightly Rustdoc JSON
    through `cargo rustdoc`; these external references are on-demand and report missing tools as L0
    for that run. Local JSDoc, TypeDoc and Rust toolchains are absent; fake executables cover the integrations.
@@ -161,11 +171,12 @@ vulnerabilities.
    phase-scaled set from the declared context or a `--phase`/`--profile` preview, reports open
    required and existing-but-unregistered documents, names undetermined declarations, shows the
    phase ladder, and writes the adoption baseline with `--write-baseline` (configuration findings
-   and `secrets.inline` are never recorded). The plan includes the recommended one-gate trigger
-   model; it does not install CI, hooks or branch protection. D-003 template rendering merged in
-   PR #16. Installed-wheel dogfood was executed against `Universal_Software_Auditor`,
-   `ai_infrastructure`, `requests`, Flask and Express; it found the packaged-root path defect now
-   fixed in PR #19. (D-009's dogfood evidence was accepted by the owner on 2026-10-25.)
+   and `secrets.inline` are never recorded). The implementation merged in PR #38 at `b27a052`. The
+   plan includes the recommended one-gate trigger model; it does not install CI, hooks or branch
+   protection. D-003 template rendering merged in PR #16. Installed-wheel dogfood was executed
+   against `Universal_Software_Auditor`, `ai_infrastructure`, `requests`, Flask and Express; it
+   found the packaged-root path defect now fixed in PR #19. (D-009's dogfood evidence was accepted
+   by the owner on 2026-10-25.)
 7. Done. Event triggers are declared in `CONTROL/metadata/TRIGGERS.json` and verified by
    `triggers.py --check` (in `make ci`): one blocking event, one required check, no undeclared
    workflow, no filtered required check, and no network from a gate. The scheduled workflow reports

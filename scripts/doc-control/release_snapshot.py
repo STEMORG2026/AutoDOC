@@ -5,8 +5,9 @@ import hashlib
 import json
 import re
 import subprocess
-from pathlib import Path
 import sys
+import tomllib
+from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts/doc-sync'))
 import engine
@@ -21,9 +22,36 @@ def require_license(root=ROOT):
     return path
 
 
+def require_release_version(tag, root=ROOT):
+    """Refuse a tag that disagrees with the package version or has no changelog section.
+
+    The tag is the only thing the release workflow reads, while the artifacts carry the version
+    declared in ``pyproject.toml``. Checking them here turns a late PyPI rejection (or, worse, a
+    tag whose name lies about its contents) into an immediate, readable release failure.
+    """
+    version = tag.removeprefix('v')
+    base = Path(root)
+    try:
+        data = tomllib.loads((base / 'pyproject.toml').read_text(encoding='utf-8'))
+        declared = data['project']['version']
+    except (OSError, KeyError, TypeError, tomllib.TOMLDecodeError) as error:
+        raise ValueError(f'cannot read the declared project version: {error}') from error
+    if version != declared:
+        raise ValueError(f'Tag {tag} does not match the declared project version {declared}')
+    changelog = base / 'CHANGELOG.md'
+    try:
+        text = changelog.read_text(encoding='utf-8')
+    except OSError as error:
+        raise ValueError(f'cannot read CHANGELOG.md: {error}') from error
+    if not re.search(rf'^## {re.escape(version)}(?:\s|$)', text, re.MULTILINE):
+        raise ValueError(f'CHANGELOG.md has no "## {version}" section for this release')
+    return version
+
+
 def snapshot(tag, output):
     if not re.fullmatch(r'v\d+\.\d+\.\d+', tag):
         raise ValueError('Expected a semantic version tag vX.Y.Z')
+    require_release_version(tag)
     require_license()
     commit = subprocess.check_output(['git', 'rev-parse', '--verify', tag + '^{commit}'],
                                      cwd=ROOT, text=True).strip()

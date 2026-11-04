@@ -21,6 +21,11 @@ auto_generated: false
 ---
 # Recent changes
 
+- **Release 0.4.0 preparation (2026-11-04).** `pyproject.toml` and `CHANGELOG.md` now carry `0.4.0`,
+  and `release_snapshot.py` refuses a tag that disagrees with the declared version or lacks a
+  `## <version>` changelog section. Tests cover a matching tree, a tag mismatch, a missing section,
+  an unreadable declared version, and the repository's own consistency. The tag and PyPI
+  publication remain owner decisions; neither had happened when this entry was written.
 - **Phase-scaled adoption plan and baseline (2026-11-04).** `autodoc adopt` now keeps its bounded
   filename heuristic and resolves the declared context, or a `--phase`/`--profile` preview, through
   the same context/profile/catalog/enforcement layers. The plan reports the open required set,
@@ -29,8 +34,8 @@ auto_generated: false
   `--write-baseline` is the only write and uses the same schema-1 baseline as `autodoc check
   --write-baseline`, excluding configuration findings and `secrets.inline`. Tests cover
   preview-without-write, unregistered detection, baseline writing and secret exclusion,
-  config-error refusal, and the installed-CLI dispatch. No release, tag or PyPI publication is
-  included.
+  config-error refusal, and the installed-CLI dispatch. Merged in PR #38 at `b27a052`; post-merge
+  `make ci` passes 325 tests + 188 subtests. No release, tag or PyPI publication is included.
 - **Second USA hygiene round (2026-10-26).** Coverage is now declared in `pyproject.toml`
   (`[tool.coverage]`, branch coverage, `fail_under = 70`, measured 74%) and `coverage` joined the
   `dev` extra so the local ci-fabric coverage stage works from a fresh install; the offline
