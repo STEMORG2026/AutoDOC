@@ -99,6 +99,11 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 # as existing homes so the beta delta is honest and the paths are checked.
 "DOC-A10-008" = ["LICENSE"]
 "DOC-A15-003" = ["CHANGELOG.md"]
+# Existing-home registrations (2026-11-04). These recommended types are already answered by a
+# document the repository owns; the mapping records the existing home instead of leaving the
+# adoption report to call them missing. Local paths are verified by the checker.
+"DEV-B11-002" = ["CONTROL/metadata/OWNERSHIP-MATRIX.yaml"]
+"DOC-A15-004" = ["CHANGELOG.md"]
 
 [instantiated]
 # catalog type id -> the controlled document that satisfies it. Derived from the adoption record
@@ -119,6 +124,12 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 "DEV-B04-002" = "docs/adr/0001-zero-runtime-dependencies.md"
 "DOC-A06-008" = "SECURITY.md"
 "DOC-A09-009" = "CODE_OF_CONDUCT.md"
+# Existing agent-facing and user-facing documents (2026-11-04). The catalog types are already
+# answered by files the repository maintains and reviews, so they are registered rather than
+# rewritten. Each mapping is a claim that the file really is that document.
+"DEV-B09-010" = "AGENT-MEMORY.md"
+"DEV-B09-014" = "ANTI-PATTERNS-FOR-AGENT.md"
+"DOC-A22-001" = "QUICK-START.md"
 
 [severity]
 # Override the phase default for a rule. Only rules something honours are accepted; a severity

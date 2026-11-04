@@ -57,6 +57,11 @@ that a project is governed.
 | `DEV-B04-001` (System overview) | `DOC-ARC-001` | The sync engine has trust and data-flow boundaries |
 | `DEV-B11-003` (Freshness policy) | `CONTROL/policies/FRESHNESS-SLA-POLICY.md` | Calendar review rules |
 | `DEV-B09-001` (Agent instructions) | `AGENTS.md` | Agent working context |
+| `DEV-B09-010` (Agent memory) | `AGENT-MEMORY.md` | Existing session patterns and pitfalls |
+| `DEV-B09-014` (Agent anti-patterns) | `ANTI-PATTERNS-FOR-AGENT.md` | Existing agent guardrails |
+| `DEV-B11-002` (Ownership matrix) | `CONTROL/metadata/OWNERSHIP-MATRIX.yaml` | Existing owner and path matrix |
+| `DOC-A15-004` (Release notes) | `CHANGELOG.md` | Existing release history |
+| `DOC-A22-001` (User guide) | `QUICK-START.md` | Existing install and usage guide |
 
 These catalog IDs designate **types**; instance IDs identify the actual controlled files.
 Files outside the controlled Markdown paths can be useful documentation without being counted
