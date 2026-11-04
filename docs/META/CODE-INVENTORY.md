@@ -49,10 +49,10 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `autodoc/cli.py` | 21 | function | `runtime_root` | `() -> Path` | Locate the bundled AutoDOC scripts and policy data, never the target project. |
 | `autodoc/cli.py` | 63 | function | `_add_check_arguments` | `(parser: argparse.ArgumentParser) -> None` | — |
 | `autodoc/cli.py` | 76 | function | `build_parser` | `() -> argparse.ArgumentParser` | — |
-| `autodoc/cli.py` | 165 | function | `_absolute_directory` | `(parser: argparse.ArgumentParser, value: Path, option: str) -> Path` | — |
-| `autodoc/cli.py` | 172 | function | `_absolute_file` | `(value: Path) -> Path` | — |
-| `autodoc/cli.py` | 176 | function | `_run_script` | `(script: Path, arguments: Sequence[str]) -> int` | Execute an existing script with the same interpreter and preserve its exit code. |
-| `autodoc/cli.py` | 188 | function | `main` | `(argv: Sequence[str] | None=None) -> int` | — |
+| `autodoc/cli.py` | 184 | function | `_absolute_directory` | `(parser: argparse.ArgumentParser, value: Path, option: str) -> Path` | — |
+| `autodoc/cli.py` | 191 | function | `_absolute_file` | `(value: Path) -> Path` | — |
+| `autodoc/cli.py` | 195 | function | `_run_script` | `(script: Path, arguments: Sequence[str]) -> int` | Execute an existing script with the same interpreter and preserve its exit code. |
+| `autodoc/cli.py` | 207 | function | `main` | `(argv: Sequence[str] | None=None) -> int` | — |
 | `engine/extractors/env_alerts.py` | 7 | function | `environment` | `(path: Path)` | Parse described KEY=value entries; never silently accept undocumented keys. |
 | `engine/extractors/env_alerts.py` | 35 | function | `alerts` | `(path: Path, root: Path)` | JSON-compatible YAML subset; validate actual runbook existence and mandatory fields. |
 | `engine/extractors/facts.py` | 12 | function | `headings` | `(path: Path)` | ATX headings, excluding fenced code (setext headings are not supported). |
@@ -73,8 +73,24 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/add-document.py` | 74 | function | `resolve_target` | `(root: Path, doc: dict, output: Path | None) -> Path` | — |
 | `scripts/add-document.py` | 84 | function | `add` | `(document_id: str, *, root: Path=ROOT, output: Path | None=None, variant: str='canonical', instance_id: str | None=None, force: bool=False, write: bool=False, today: date | None=None) -> dict` | — |
 | `scripts/add-document.py` | 136 | function | `main` | `(argv: list[str] | None=None) -> int` | — |
-| `scripts/adopt.py` | 24 | function | `scan` | `(project)` | — |
-| `scripts/adopt.py` | 36 | function | `main` | `()` | — |
+| `scripts/adopt.py` | 57 | function | `scan` | `(project)` | — |
+| `scripts/adopt.py` | 69 | function | `_load` | `(name, path)` | — |
+| `scripts/adopt.py` | 84 | function | `_resolve` | `(project: Path, value: Path | None, default: Path) -> Path` | Resolve an option path against the project, so ``--config`` means the same as ``--repo``. |
+| `scripts/adopt.py` | 92 | function | `_target` | `(document: dict) -> str` | — |
+| `scripts/adopt.py` | 96 | function | `_status` | `(project: Path, target: str) -> str` | — |
+| `scripts/adopt.py` | 100 | function | `_requirement` | `(project: Path, item: dict, documents: dict) -> dict` | — |
+| `scripts/adopt.py` | 112 | function | `_undetermined` | `(project: Path, item: dict, documents: dict) -> dict` | — |
+| `scripts/adopt.py` | 121 | function | `_phase_ladder` | `(documents, profile_document, context, placement, phases) -> list[dict]` | Count what each phase would require under the same declarations. |
+| `scripts/adopt.py` | 148 | function | `_unknown_count` | `(groups, prefix: str) -> int` | — |
+| `scripts/adopt.py` | 154 | function | `_declaration_gaps` | `(context: dict, groups: dict) -> list[dict]` | Name the declarations that would replace `undetermined` with a real answer. |
+| `scripts/adopt.py` | 193 | function | `_ci_files` | `(project: Path) -> list[str]` | — |
+| `scripts/adopt.py` | 202 | function | `_trigger_model` | `(project: Path) -> dict` | The event model to copy into the adopter's repository; AutoDOC does not install it. |
+| `scripts/adopt.py` | 232 | function | `_build_errors` | `(problems: list[str], project: Path, heuristics, config_path: Path) -> dict` | — |
+| `scripts/adopt.py` | 242 | function | `build_plan` | `(project: Path, config: Path | None=None, phase: str | None=None, profile: str | None=None, baseline: Path | None=None, write_baseline: bool=False) -> dict` | Build the read-only plan, writing only the optional baseline. |
+| `scripts/adopt.py` | 374 | function | `_next_steps` | `(result: dict) -> list[str]` | — |
+| `scripts/adopt.py` | 404 | function | `_render_items` | `(items, label, formatter) -> list[str]` | — |
+| `scripts/adopt.py` | 413 | function | `render` | `(result: dict) -> str` | — |
+| `scripts/adopt.py` | 532 | function | `main` | `(argv: list[str] | None=None) -> int` | — |
 | `scripts/doc-control/build_catalogs.py` | 28 | function | `phase_order` | `()` | The declared phase sequence, from the context model, not from a second list here. |
 | `scripts/doc-control/build_catalogs.py` | 33 | function | `load_rules` | `()` | — |
 | `scripts/doc-control/build_catalogs.py` | 40 | function | `kind` | `(name, domain, rules)` | — |

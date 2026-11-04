@@ -2,7 +2,15 @@
 
 ## Select, instantiate, connect
 
-1. Filter the catalogs by project phase and risk; record exclusions rather than materializing every starter.
+1. Plan the phase-scaled set before materializing anything: `autodoc adopt --project-path
+   /existing/project` keeps the bounded filename heuristic and resolves the declared context (or a
+   `--phase`/`--profile` preview, which writes no declaration) through the same layers as `check`.
+   The plan names open required and existing-but-unregistered documents, undetermined audience,
+   kind or fact declarations, and the phase ladder. `--write-baseline` records current findings
+   (never configuration errors or `secrets.inline`) so enforcement can ratchet down; it is the only
+   write. The plan also prints the recommended trigger model, but AutoDOC does not install CI,
+   hooks or branch protection.
+   Filter the catalogs by project phase and risk; record exclusions rather than materializing every starter.
    Declare an initial phase/profile with `autodoc init --phase build --profile oss-library` (or add
    the values to `autodoc.toml`). Later changes are explicit events: `autodoc promote --to beta`
    previews the newly required and newly failing types, and `--write` applies the declaration only

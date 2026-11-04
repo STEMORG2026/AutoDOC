@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-10-01
 last_reviewed: 2026-10-01
-last_updated: 2026-10-23
+last_updated: 2026-11-04
 auto_generated: false
 ---
 # Exit codes
@@ -47,6 +47,7 @@ non-`1` exit (`tests/test_enforcement_contract.py`).
 | `scripts/doc-sync/engine.py freshness` | No critical review overdue | A critical document is overdue | Missing or invalid frontmatter |
 | `scripts/doc-control/guards.py`, `stub_check.py` | Clean | Findings | — (a crash is not a code path, it is a bug) |
 | `scripts/intelligence/context.py` | Declared context and model are valid | — | Any rejected declaration |
+| `autodoc adopt` | A read-only plan was produced, or `--write-baseline` wrote the baseline | — (missing required documents are reported but do not fail; the plan is advisory) | Unknown phase/profile, invalid context, unreadable project root, or a baseline write refused because configuration findings exist |
 | `autodoc add` | Preview was produced, or the file was written | The destination exists and `--force` was not supplied | Unknown catalog id, unsafe destination, or unreadable project root |
 | `autodoc promote` | Preview or write succeeded with no blocked required document | The target phase has a required document with no document/decision, or a forced write leaves those findings | Invalid context, unknown phase, future/backdated declaration without `--force`, or a refused demotion |
 | `autodoc evolve` | A read-only plan was produced, or requested writes completed | `--check` found a pending action, or a requested refresh/create failed verification | Invalid context or baseline, unreadable project root, or usage error such as `--check --write` |
@@ -64,8 +65,10 @@ certifies compliance.
 
 ## Baseline entries
 
-`autodoc-baseline.json` records what was already broken when enforcement was switched on. Three
-events are distinct and must not be confused:
+`autodoc-baseline.json` records what was already broken when enforcement was switched on. It is
+written by `autodoc check --write-baseline`, `autodoc adopt --write-baseline`, or
+`make docs-baseline`; all three use the same schema and never record configuration findings or
+`secrets.inline`. Three events are distinct and must not be confused:
 
 | Event | What happens | Exit |
 | --- | --- | --- |

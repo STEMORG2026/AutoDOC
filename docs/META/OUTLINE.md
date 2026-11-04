@@ -39,8 +39,8 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 1: Implementation guide
 - L2 line 3: Select, instantiate, connect
-- L2 line 34: Example map rule
-- L2 line 47: Self-adoption example
+- L2 line 42: Example map rule
+- L2 line 55: Self-adoption example
 
 ## `QUICK-START.md`
 
@@ -60,9 +60,9 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 11: What it does
 - L2 line 27: Quick start (Python 3.11+)
 - L3 line 37: Installable CLI
-- L2 line 113: Status
-- L2 line 126: Navigate
-- L2 line 144: License
+- L2 line 114: Status
+- L2 line 127: Navigate
+- L2 line 145: License
 
 ## `TEMPLATES/AGENT-CONTEXT/README.md`
 
@@ -76,13 +76,13 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC self-adoption and applicability
 - L2 line 24: Purpose and scope
-- L2 line 46: Selected document types
-- L2 line 61: Rollout and success criteria
-- L2 line 68: Non-applicability and gaps
-- L2 line 78: Verification and references
-- L2 line 84: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 95: Applicability decisions (step 3, 2026-10-01)
-- L2 line 120: Phase 3 applicability
+- L2 line 50: Selected document types
+- L2 line 65: Rollout and success criteria
+- L2 line 72: Non-applicability and gaps
+- L2 line 82: Verification and references
+- L2 line 88: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 110: Applicability decisions (step 3, 2026-10-01)
+- L2 line 135: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -228,10 +228,10 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
-- L2 line 57: Details and decisions
-- L2 line 255: Module contracts
-- L2 line 274: Verification and references
-- L2 line 285: Phase 3 trust boundaries
+- L2 line 59: Details and decisions
+- L2 line 262: Module contracts
+- L2 line 281: Verification and references
+- L2 line 292: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 
@@ -278,9 +278,9 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: Exit codes
 - L2 line 40: Where each code comes from
-- L2 line 57: What a code does not say
-- L2 line 65: Baseline entries
-- L2 line 81: Hooks and gates
+- L2 line 58: What a code does not say
+- L2 line 66: Baseline entries
+- L2 line 84: Hooks and gates
 
 ## `docs/templates/adr-template.md`
 

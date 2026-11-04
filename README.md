@@ -53,9 +53,10 @@ suite across that range in a supplemental, non-blocking matrix; the named requir
 `make ci` on Python 3.11. Its installable commands are `check`, `generate`, `adopt`, `init`, `add`,
 `promote`, `evolve`, and `templates`; every command operates on the selected project root, separately from
 AutoDOC's bundled policy and catalog assets. `init` requires an existing directory, writes draft
-scaffolds, and can record an initial phase/profile declaration; `adopt` is a read-only filename
-heuristic; `add` instantiates one catalog type; `promote` previews the enforcement delta before
-changing the declared phase. AutoDOC is **not
+scaffolds, and can record an initial phase/profile declaration; `adopt` plans a phase-scaled
+adoption from the same context/profile/catalog layers, previews `--phase`/`--profile` without
+writing, and can record an adoption baseline; `add` instantiates one catalog type; `promote`
+previews the enforcement delta before changing the declared phase. AutoDOC is **not
 published to PyPI yet** under its distribution name **`autodoc-docs`** (the `autodoc` name is
 already taken on PyPI by an unrelated project): the release workflow builds the wheel and sdist,
 and a tag-triggered `publish` job verifies those exact artifacts and uploads them through OIDC
