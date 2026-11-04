@@ -112,6 +112,15 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 # The error contract (0 findings-free, 1 findings, 2 configuration, 3 tool failure) is already
 # written down per command, with the rule that a crash is never reported as a repository finding.
 "DEV-B05-003" = ["docs/reference/EXIT-CODES.md"]
+# One plan answers the testing set (2026-11-04). The catalog asks five questions — plan, unit
+# specification, integration specification, acceptance criteria and where results live — and this
+# document answers them in named sections, the same pattern the charter uses for the three
+# foundation questions.
+"DOC-A11-002" = ["docs/00-governance/TEST-PLAN.md"]
+"DOC-A11-003" = ["docs/00-governance/TEST-PLAN.md"]
+"DOC-A11-004" = ["docs/00-governance/TEST-PLAN.md"]
+"DEV-B07-002" = ["docs/00-governance/TEST-PLAN.md"]
+"DEV-B07-003" = ["docs/00-governance/TEST-PLAN.md"]
 
 [instantiated]
 # catalog type id -> the controlled document that satisfies it. Derived from the adoption record

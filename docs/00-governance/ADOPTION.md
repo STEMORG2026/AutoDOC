@@ -66,6 +66,7 @@ that a project is governed.
 | `DEV-B05-003` (Error handling) | `docs/reference/EXIT-CODES.md` | Existing exit-code and tool-failure contract |
 | `DOC-A22-005` (Troubleshooting guide) | `docs/reference/TROUBLESHOOTING.md` | New guide for CLI failures, exit codes and diagnosis |
 | `DOC-A10-007` (Quality gates) | `docs/reference/QUALITY-GATES.md` | New record of blocking, advisory and release checks |
+| `DOC-A11-002` (Test plan), `DOC-A11-003` (Unit test specification), `DOC-A11-004` (Integration test specification), `DEV-B07-002` (Acceptance criteria), `DEV-B07-003` (Test results) | `docs/00-governance/TEST-PLAN.md` | One plan covering layers, unit and integration specifications, acceptance criteria and result retention |
 
 These catalog IDs designate **types**; instance IDs identify the actual controlled files.
 Files outside the controlled Markdown paths can be useful documentation without being counted
@@ -81,11 +82,11 @@ commit and command. `make ci` passing alone does not grant regulatory or product
 ## Non-applicability and gaps
 Enterprise privacy records, DR evidence, penetration-test reports, signed provenance,
 model evaluations and vendor records cannot be inferred from local examples.
-No production service or audit cycle exists here. For the same reason the deployment-runbook and
-test-results types are not instantiated yet: deployment here is a package publication rather than a
-service rollout, and test results live in per-run CI artifacts and evidence packs rather than in a
-committed snapshot. Both wait for a real document (a release runbook; a test plan that says where
-results are retained) instead of being claimed as covered. API/config/schema references, agent
+No production service or audit cycle exists here. For the same reason the deployment-runbook type
+is not instantiated yet: deployment here is a package publication rather than a service rollout, so
+it waits for a release runbook. Test results are answered by the test plan
+(`docs/00-governance/TEST-PLAN.md`), which records where per-run results live instead of
+committing a stale snapshot. API/config/schema references, agent
 allowlist inventories and a scoped unsigned test-run pack demonstrate the mechanism, not
 certification. Release snapshots run under the owner-selected Apache-2.0 license
 (`LICENSE`, 2026-10-01). A backup reviewer and project-specific extractors remain open; the
