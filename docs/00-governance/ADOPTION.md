@@ -62,6 +62,8 @@ that a project is governed.
 | `DEV-B11-002` (Ownership matrix) | `CONTROL/metadata/OWNERSHIP-MATRIX.yaml` | Existing owner and path matrix |
 | `DOC-A15-004` (Release notes) | `CHANGELOG.md` | Existing release history |
 | `DOC-A22-001` (User guide) | `QUICK-START.md` | Existing install and usage guide |
+| `DEV-B03-003` (Risks and dependencies) | `SECURITY.md`, `CONTRIBUTING.md`, `docs/00-governance/LIMITATIONS.md`, `docs/adr/0001-zero-runtime-dependencies.md` | Existing security, dependency-policy, limitation and rationale records |
+| `DEV-B05-003` (Error handling) | `docs/reference/EXIT-CODES.md` | Existing exit-code and tool-failure contract |
 
 These catalog IDs designate **types**; instance IDs identify the actual controlled files.
 Files outside the controlled Markdown paths can be useful documentation without being counted
@@ -77,7 +79,11 @@ commit and command. `make ci` passing alone does not grant regulatory or product
 ## Non-applicability and gaps
 Enterprise privacy records, DR evidence, penetration-test reports, signed provenance,
 model evaluations and vendor records cannot be inferred from local examples.
-No production service or audit cycle exists here. API/config/schema references, agent
+No production service or audit cycle exists here. For the same reason the deployment-runbook and
+test-results types are not instantiated yet: deployment here is a package publication rather than a
+service rollout, and test results live in per-run CI artifacts and evidence packs rather than in a
+committed snapshot. Both wait for a real document (a release runbook; a test plan that says where
+results are retained) instead of being claimed as covered. API/config/schema references, agent
 allowlist inventories and a scoped unsigned test-run pack demonstrate the mechanism, not
 certification. Release snapshots run under the owner-selected Apache-2.0 license
 (`LICENSE`, 2026-10-01). A backup reviewer and project-specific extractors remain open; the

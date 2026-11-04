@@ -77,12 +77,12 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: AutoDOC self-adoption and applicability
 - L2 line 24: Purpose and scope
 - L2 line 50: Selected document types
-- L2 line 70: Rollout and success criteria
-- L2 line 77: Non-applicability and gaps
-- L2 line 87: Verification and references
-- L2 line 93: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 115: Applicability decisions (step 3, 2026-10-01)
-- L2 line 140: Phase 3 applicability
+- L2 line 72: Rollout and success criteria
+- L2 line 79: Non-applicability and gaps
+- L2 line 93: Verification and references
+- L2 line 99: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 121: Applicability decisions (step 3, 2026-10-01)
+- L2 line 146: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 

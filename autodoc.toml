@@ -104,6 +104,14 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 # adoption report to call them missing. Local paths are verified by the checker.
 "DEV-B11-002" = ["CONTROL/metadata/OWNERSHIP-MATRIX.yaml"]
 "DOC-A15-004" = ["CHANGELOG.md"]
+# The risk record is split across the documents that actually carry it: the security policy
+# (reporting, supported versions, advisory checks), the dependency policy in CONTRIBUTING, the
+# product limits, and the zero-runtime-dependency rationale in ADR-0001. No single new page would
+# say more than these four already do.
+"DEV-B03-003" = ["SECURITY.md", "CONTRIBUTING.md", "docs/00-governance/LIMITATIONS.md", "docs/adr/0001-zero-runtime-dependencies.md"]
+# The error contract (0 findings-free, 1 findings, 2 configuration, 3 tool failure) is already
+# written down per command, with the rule that a crash is never reported as a repository finding.
+"DEV-B05-003" = ["docs/reference/EXIT-CODES.md"]
 
 [instantiated]
 # catalog type id -> the controlled document that satisfies it. Derived from the adoption record
