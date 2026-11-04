@@ -138,6 +138,11 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 "DEV-B09-010" = "AGENT-MEMORY.md"
 "DEV-B09-014" = "ANTI-PATTERNS-FOR-AGENT.md"
 "DOC-A22-001" = "QUICK-START.md"
+# New controlled guides (2026-11-04). The catalog asks for a troubleshooting record and a
+# quality-gate record; both now exist as reviewed reference pages rather than as scattered
+# paragraphs in the quick start and the workflow files.
+"DOC-A22-005" = "docs/reference/TROUBLESHOOTING.md"
+"DOC-A10-007" = "docs/reference/QUALITY-GATES.md"
 
 [severity]
 # Override the phase default for a rule. Only rules something honours are accepted; a severity

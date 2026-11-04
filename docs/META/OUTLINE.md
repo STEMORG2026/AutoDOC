@@ -77,12 +77,12 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: AutoDOC self-adoption and applicability
 - L2 line 24: Purpose and scope
 - L2 line 50: Selected document types
-- L2 line 72: Rollout and success criteria
-- L2 line 79: Non-applicability and gaps
-- L2 line 93: Verification and references
-- L2 line 99: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 121: Applicability decisions (step 3, 2026-10-01)
-- L2 line 146: Phase 3 applicability
+- L2 line 74: Rollout and success criteria
+- L2 line 81: Non-applicability and gaps
+- L2 line 95: Verification and references
+- L2 line 101: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 123: Applicability decisions (step 3, 2026-10-01)
+- L2 line 148: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -281,6 +281,33 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 58: What a code does not say
 - L2 line 66: Baseline entries
 - L2 line 84: Hooks and gates
+
+## `docs/reference/QUALITY-GATES.md`
+
+- L1 line 22: Quality gates
+- L2 line 24: Purpose and scope
+- L2 line 41: The one blocking gate
+- L2 line 78: What `make ci` runs
+- L2 line 100: Advisory jobs and events
+- L2 line 119: Reproducing a gate locally
+- L2 line 135: The release gate
+- L2 line 154: Changing a gate
+- L2 line 170: Verification and references
+
+## `docs/reference/TROUBLESHOOTING.md`
+
+- L1 line 22: Troubleshooting guide
+- L2 line 24: Purpose and scope
+- L2 line 38: Start with the exit code
+- L2 line 58: Diagnose before changing anything
+- L2 line 92: Installation and environment
+- L2 line 113: Configuration errors (exit 2)
+- L2 line 144: Findings (exit 1)
+- L2 line 164: Generated-document drift
+- L2 line 182: Review and living-state checks
+- L2 line 192: Release and packaging
+- L2 line 205: When it is a tool bug (exit 3)
+- L2 line 218: Verification and references
 
 ## `docs/templates/adr-template.md`
 

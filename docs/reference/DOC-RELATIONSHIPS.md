@@ -328,9 +328,13 @@ flowchart LR
     nb9e3f471ee9dc74a["DOC-CI-001"]
     na972c343d60f71e5["DOC-GOV-001"]
     n5eec99ff7c43a312["DOC-P2-001"]
+    n347b76e77d4e0377["DOC-P3-GOV-001"]
+    n709c1b0e17557bfd["DOC-P3-GOV-003"]
     nc6f0c3344e9409e3["DOC-P3-GOV-004"]
     n78ca322b3203a62f["DOC-P3-GOV-005"]
     n9ea467f2b9e20b15["DOC-REF-001"]
+    nee22c76252df27aa["DOC-REF-002"]
+    n31b4e4fe41592a51["DOC-REF-003"]
     nf98f68363dffb94c["EX-AGENT-001"]
     n213f816e45fa8f6d["EX-API-001"]
     n58b55c06f9981c66["EX-HEALTH-RUNBOOK-001"]
@@ -2057,6 +2061,17 @@ flowchart LR
     n78ca322b3203a62f -->|related| nc6f0c3344e9409e3
     n9ea467f2b9e20b15 -->|related| n7eca7e044f557cca
     n9ea467f2b9e20b15 -->|related| na972c343d60f71e5
+    nee22c76252df27aa -->|related| n7eca7e044f557cca
+    nee22c76252df27aa -->|related| n5eec99ff7c43a312
+    nee22c76252df27aa -->|related| n347b76e77d4e0377
+    nee22c76252df27aa -->|related| n9ea467f2b9e20b15
+    nee22c76252df27aa -->|related| n31b4e4fe41592a51
+    n31b4e4fe41592a51 -->|related| n7eca7e044f557cca
+    n31b4e4fe41592a51 -->|related| nb9e3f471ee9dc74a
+    n31b4e4fe41592a51 -->|related| n5eec99ff7c43a312
+    n31b4e4fe41592a51 -->|related| n709c1b0e17557bfd
+    n31b4e4fe41592a51 -->|related| n9ea467f2b9e20b15
+    n31b4e4fe41592a51 -->|related| nee22c76252df27aa
     nf98f68363dffb94c -->|related| n936306074765c4e0
     n58b55c06f9981c66 -->|related| n213f816e45fa8f6d
     nc30a77fe3355b330 -->|generates| nd7fd453271f9da4b

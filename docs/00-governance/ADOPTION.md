@@ -64,6 +64,8 @@ that a project is governed.
 | `DOC-A22-001` (User guide) | `QUICK-START.md` | Existing install and usage guide |
 | `DEV-B03-003` (Risks and dependencies) | `SECURITY.md`, `CONTRIBUTING.md`, `docs/00-governance/LIMITATIONS.md`, `docs/adr/0001-zero-runtime-dependencies.md` | Existing security, dependency-policy, limitation and rationale records |
 | `DEV-B05-003` (Error handling) | `docs/reference/EXIT-CODES.md` | Existing exit-code and tool-failure contract |
+| `DOC-A22-005` (Troubleshooting guide) | `docs/reference/TROUBLESHOOTING.md` | New guide for CLI failures, exit codes and diagnosis |
+| `DOC-A10-007` (Quality gates) | `docs/reference/QUALITY-GATES.md` | New record of blocking, advisory and release checks |
 
 These catalog IDs designate **types**; instance IDs identify the actual controlled files.
 Files outside the controlled Markdown paths can be useful documentation without being counted

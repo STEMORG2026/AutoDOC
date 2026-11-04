@@ -474,6 +474,22 @@
       "last_reviewed": "2026-10-01"
     },
     {
+      "id": "DOC-REF-003",
+      "path": "docs/reference/QUALITY-GATES.md",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "type": "REF",
+      "last_reviewed": "2026-11-04"
+    },
+    {
+      "id": "DOC-REF-002",
+      "path": "docs/reference/TROUBLESHOOTING.md",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "type": "REF",
+      "last_reviewed": "2026-11-04"
+    },
+    {
       "id": "DOCS-TEMPLATES-ADR-TEMPLATE-MD",
       "path": "docs/templates/adr-template.md",
       "owner": "@Er-Sajan-PLG",
