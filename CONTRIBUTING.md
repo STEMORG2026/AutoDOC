@@ -19,9 +19,9 @@ AutoDOC's runtime is the Python standard library only (`dependencies = []` in
   agreement and a new ADR under `docs/adr/` that states what it buys and what it costs adopters.
   Until that exists, a runtime import from a third-party package is a defect.
 - **Development dependencies** live in `[project.optional-dependencies].dev` as bounded ranges
-  (`build>=1,<2`, `pytest>=8,<10`, `pre-commit>=3,<5`). They are installed by `make setup` and
-  never imported by shipped code. Widen or narrow a range in the same change that uses it, and
-  run `make ci`.
+  (`build>=1,<2`, `pytest>=8,<10`, `pre-commit>=3,<5`, `coverage>=7,<8`). They are installed by
+  `make setup` and never imported by shipped code. Widen or narrow a range in the same change
+  that uses it, and run `make ci`.
 - **Updating** is manual: there is no automated updater and no bot pull requests. Bump the range,
   run `make ci`, and include the reason in the commit message.
 - **Removing** a dependency means deleting it from `pyproject.toml` and from any import, then

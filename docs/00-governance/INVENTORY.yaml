@@ -301,6 +301,17 @@
       "applies_to": []
     },
     {
+      "id": "DOC-P3-GOV-009",
+      "path": "docs/00-governance/SUPPLY-CHAIN.md",
+      "type": "SPEC",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "last_reviewed": "2026-11-04",
+      "next_review": "2027-05-03",
+      "classification": "public",
+      "applies_to": []
+    },
+    {
       "id": "DOC-TEST-002",
       "path": "docs/00-governance/TEST-PLAN.md",
       "type": "REF",

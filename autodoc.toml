@@ -121,6 +121,12 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 "DOC-A11-004" = ["docs/00-governance/TEST-PLAN.md"]
 "DEV-B07-002" = ["docs/00-governance/TEST-PLAN.md"]
 "DEV-B07-003" = ["docs/00-governance/TEST-PLAN.md"]
+# One record answers the supply-chain set (2026-11-04): the CycloneDX SBOM the packer emits, the
+# unsigned source/release records, and the license inventory of declared dependencies. Registering
+# the page, not a generated artifact, keeps the claim reviewable in git.
+"DOC-A10-002" = ["docs/00-governance/SUPPLY-CHAIN.md"]
+"DOC-A10-003" = ["docs/00-governance/SUPPLY-CHAIN.md"]
+"DOC-A10-006" = ["docs/00-governance/SUPPLY-CHAIN.md"]
 
 [instantiated]
 # catalog type id -> the controlled document that satisfies it. Derived from the adoption record

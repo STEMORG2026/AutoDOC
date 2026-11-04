@@ -67,6 +67,7 @@ that a project is governed.
 | `DOC-A22-005` (Troubleshooting guide) | `docs/reference/TROUBLESHOOTING.md` | New guide for CLI failures, exit codes and diagnosis |
 | `DOC-A10-007` (Quality gates) | `docs/reference/QUALITY-GATES.md` | New record of blocking, advisory and release checks |
 | `DOC-A11-002` (Test plan), `DOC-A11-003` (Unit test specification), `DOC-A11-004` (Integration test specification), `DEV-B07-002` (Acceptance criteria), `DEV-B07-003` (Test results) | `docs/00-governance/TEST-PLAN.md` | One plan covering layers, unit and integration specifications, acceptance criteria and result retention |
+| `DOC-A10-002` (SBOM), `DOC-A10-003` (Build provenance), `DOC-A10-006` (License inventory) | `docs/00-governance/SUPPLY-CHAIN.md` | One record covering the CycloneDX SBOM, the unsigned source and release records, and the license inventory of declared dependencies |
 
 These catalog IDs designate **types**; instance IDs identify the actual controlled files.
 Files outside the controlled Markdown paths can be useful documentation without being counted
