@@ -353,11 +353,11 @@ Extracted with the interpreter's own parser. Signatures and first docstring line
 | `scripts/intelligence/triggers.py` | 112 | function | `resolve_command` | `(command)` | (True, None) when a declared command names something that exists, else (False, reason). |
 | `scripts/intelligence/triggers.py` | 133 | function | `check` | `(model=None, workflows_=None)` | Every rule the model claims, checked against the repository. Returns a list of errors. |
 | `scripts/intelligence/triggers.py` | 223 | function | `phase_rows` | `(model=None)` | The declared phase's severity per check family — what the gate actually enforces today. |
-| `scripts/intelligence/triggers.py` | 237 | function | `rate_limit_text` | `(limit)` | The limits as prose, from the numbers the link checker's defaults must equal. |
-| `scripts/intelligence/triggers.py` | 245 | function | `posture_text` | `(event)` | — |
-| `scripts/intelligence/triggers.py` | 255 | function | `render` | `(model=None, rows=None, title=True)` | The reference as a Markdown body. `title=False` is for the engine, which writes its own |
-| `scripts/intelligence/triggers.py` | 305 | function | `main` | `(argv=None)` | — |
-| `scripts/intelligence/triggers.py` | 333 | function | `cli` | `(argv=None)` | The exit-code contract: 2 for a configuration problem, 3 for a tool failure, never 1. |
+| `scripts/intelligence/triggers.py` | 237 | function | `rate_limit_text` | `(limit)` | The limits as prose. A mapping is the link checker's own defaults; a string is the |
+| `scripts/intelligence/triggers.py` | 246 | function | `posture_text` | `(event)` | — |
+| `scripts/intelligence/triggers.py` | 256 | function | `render` | `(model=None, rows=None, title=True)` | The reference as a Markdown body. `title=False` is for the engine, which writes its own |
+| `scripts/intelligence/triggers.py` | 306 | function | `main` | `(argv=None)` | — |
+| `scripts/intelligence/triggers.py` | 334 | function | `cli` | `(argv=None)` | The exit-code contract: 2 for a configuration problem, 3 for a tool failure, never 1. |
 | `scripts/test_package.py` | 34 | function | `run` | `(command: list[str], *, cwd: Path, expected: int=0, env: dict[str, str] | None=None)` | — |
 | `scripts/test_package.py` | 46 | function | `extract_generated_sdist` | `(archive_path: Path, destination: Path) -> Path` | Extract only ordinary files/directories from the just-built sdist, rejecting path escapes. |
 | `scripts/test_package.py` | 65 | function | `smoke_installed_cli` | `(wheel: Path, work: Path) -> None` | — |

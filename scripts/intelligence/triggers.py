@@ -235,7 +235,8 @@ def phase_rows(model=None):
 
 
 def rate_limit_text(limit):
-    """The limits as prose, from the numbers the link checker's defaults must equal."""
+    """The limits as prose. A mapping is the link checker's own defaults; a string is the
+    event's own bound, for an event whose network work is not a link crawl."""
     if not isinstance(limit, dict):
         return str(limit)
     return (f"one request per host every {limit['per_host_seconds']}s, at most "

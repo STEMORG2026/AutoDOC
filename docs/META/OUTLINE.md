@@ -86,7 +86,19 @@ ATX headings from configured human-owned Markdown sources.
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
-- L1 line 22: Branch protection requirements (not configured)
+- L1 line 22: Branch and tag protection (as configured)
+- L2 line 24: Purpose and scope
+- L2 line 47: Details and decisions
+- L3 line 49: The repository these settings apply to
+- L3 line 61: The branch ruleset
+- L3 line 88: The tag ruleset
+- L3 line 119: The `pypi` deployment environment
+- L3 line 144: Reading the configuration back
+- L3 line 165: CODEOWNERS is declared but not enforced
+- L3 line 176: `make docs-require-check` is superseded
+- L3 line 185: Undo paths
+- L3 line 199: Decisions
+- L2 line 215: Verification and references
 
 ## `docs/00-governance/CORE-LIST-REVIEW.md`
 
@@ -228,15 +240,15 @@ ATX headings from configured human-owned Markdown sources.
 - L3 line 53: Authority and roles
 - L3 line 63: Step 1 — Decide the version
 - L3 line 71: Step 2 — Preflight
-- L3 line 91: Step 3 — Tag
-- L3 line 105: Step 4 — What the tag triggers
-- L3 line 151: Step 5 — What the artifact verification proves
-- L3 line 170: Step 6 — Publish to PyPI
-- L3 line 188: Step 7 — Verify the published release
-- L3 line 220: Step 8 — Correct a wrong release
-- L3 line 251: Observed failures
-- L3 line 274: Decisions
-- L2 line 293: Verification and references
+- L3 line 95: Step 3 — Tag
+- L3 line 114: Step 4 — What the tag triggers
+- L3 line 160: Step 5 — What the artifact verification proves
+- L3 line 179: Step 6 — Publish to PyPI
+- L3 line 212: Step 7 — Verify the published release
+- L3 line 244: Step 8 — Correct a wrong release
+- L3 line 275: Observed failures
+- L3 line 298: Decisions
+- L2 line 319: Verification and references
 
 ## `docs/00-governance/SUPPLY-CHAIN.md`
 
@@ -271,9 +283,9 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: AutoDOC architecture
 - L2 line 24: Purpose and scope
 - L2 line 60: Details and decisions
-- L2 line 266: Module contracts
-- L2 line 285: Verification and references
-- L2 line 296: Phase 3 trust boundaries
+- L2 line 279: Module contracts
+- L2 line 298: Verification and references
+- L2 line 309: Phase 3 trust boundaries
 
 ## `docs/08-agent-context/AGENT-MEMORY.md`
 
@@ -345,10 +357,10 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 41: The one blocking gate
 - L2 line 78: What `make ci` runs
 - L2 line 100: Advisory jobs and events
-- L2 line 119: Reproducing a gate locally
-- L2 line 135: The release gate
-- L2 line 154: Changing a gate
-- L2 line 170: Verification and references
+- L2 line 121: Reproducing a gate locally
+- L2 line 137: The release gate
+- L2 line 159: Changing a gate
+- L2 line 176: Verification and references
 
 ## `docs/reference/TROUBLESHOOTING.md`
 

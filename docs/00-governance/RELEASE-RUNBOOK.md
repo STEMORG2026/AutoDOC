@@ -11,7 +11,7 @@ effective_date: 2026-11-05
 next_review: 2027-05-04
 source_of_truth: human
 supersedes: null
-related: ["DOC-P3-GOV-009", "DOC-P3-GOV-003", "DOC-P3-GOV-005", "DOC-P3-GOV-001", "DOC-REF-003", "DOC-REF-002", "DOC-TEST-002", "DOC-GOV-001", "DOC-P2-003", "DOC-CI-001", "DEV-AGENT-001"]
+related: ["DOC-P3-GOV-002", "DOC-P3-GOV-009", "DOC-P3-GOV-003", "DOC-P3-GOV-005", "DOC-P3-GOV-001", "DOC-REF-003", "DOC-REF-002", "DOC-TEST-002", "DOC-GOV-001", "DOC-P2-003", "DOC-CI-001", "DEV-AGENT-001"]
 criticality: high
 review_days: 180
 last_verified: 2026-11-05
@@ -86,6 +86,10 @@ And by eye:
   whitespace or end of line, so `## 0.4.0 — 2026-11-04` passes and `## Unreleased` does not.
 - `LICENSE` is present. The gate fails closed without it.
 - The release commit is merged into `master`, and `master` equals `origin/master`.
+- The `AutoDOC guard / check` run for that commit has succeeded. The tag ruleset requires it, so
+  the tag push is rejected without it. A squash-merge creates a new commit on `master`, and the
+  guard workflow runs on that push — wait for the `AutoDOC guard` run on `master` to finish before
+  tagging.
 - The tag will point at that exact commit.
 
 ### Step 3 — Tag
@@ -98,9 +102,14 @@ git push origin vX.Y.Z
 The tag is the release trigger. `v0.4.0` is a lightweight tag pointing directly at commit
 `56e24af` — the GitHub API reports that ref's object type as `commit`, not `tag`.
 
-There is **no tag ruleset and no tag protection rule** on this repository (checked 2026-11-04);
-the only ruleset covers the `main` branch. Pushing a `v*.*.*` tag is therefore enough to start a
-publication. Adding tag protection is an owner decision, listed below as an open gap.
+A `v*.*.*` tag is covered by the `release-tags` ruleset (id `26592865`, verified 2026-11-05). It
+requires the check `AutoDOC guard / check` to have passed on the commit the tag points at, and it
+carries `deletion` and `update` rules with no bypass actor, so a release tag can neither be
+deleted nor moved without an owner changing the ruleset first. The check is recorded on the
+*commit*, and the guard workflow runs on every push: a squash-merge creates a new commit on
+`master`, so the check appears there when that workflow finishes. Tag after that run completes,
+not before. There is no `creation` rule, so the tag itself is not blocked from being made. The
+whole configuration is in [BRANCH-PROTECTION.md](BRANCH-PROTECTION.md).
 
 ### Step 4 — What the tag triggers
 
@@ -108,7 +117,7 @@ Pushing the tag starts two workflows (observed for `v0.4.0`):
 
 | Workflow | File | Result on the tag |
 | --- | --- | --- |
-| AutoDOC release snapshot | `.github/workflows/release.yml` | Builds the snapshot and the distribution; publishes on a tag |
+| AutoDOC release snapshot | `.github/workflows/release.yml` | Builds the snapshot and the distribution; publishes on a tag, after the `pypi` approval |
 | AutoDOC guard | `.github/workflows/docs-guard.yml` | Runs the documentation check against the tagged tree |
 
 **Snapshot job.** It checks out the tagged tree at full depth, installs Python 3.11, and runs
@@ -174,10 +183,25 @@ publish job exchanges its OIDC token for a PyPI upload token through the trusted
 registered for this repository and workflow file. The publisher recorded in the 0.4.0 attestation
 is `GitHub/STEMORG2026/AutoDOC/release.yml`, environment `pypi`.
 
-The `pypi` GitHub environment exists with **no protection rules and no deployment branch policy**
-(checked 2026-11-04). There is therefore no manual approval step between the tag and the upload:
-pushing a `v*.*.*` tag publishes. The safeguards that do exist are the owner's tag discipline
-and the gate in step 4, not a second approval.
+The `pypi` GitHub environment has a **required reviewer** — the repository owner
+(`Er-Sajan-PLG`) — with `prevent_self_review: false` and `can_admins_bypass: false` (verified
+2026-11-05). A tag push therefore **no longer publishes on its own**: it starts the workflow, the
+publish job reaches the `pypi` environment, and the deployment waits until the reviewer approves
+it. One approval is enough. The owner should check that the deployment awaiting approval is the
+tag they expect before approving it.
+
+`prevent_self_review` is `false` because the owner is the only collaborator and also the person
+who creates and pushes the tag. With self-review prevention on, the one person able to approve
+would be the one person forbidden from approving, and no release could ever be published. The
+protection that survives is a real one: the upload waits for a deliberate approval rather than
+following the push automatically.
+
+The environment's `deployment_branch_policy` is `null`, so any ref may target the environment; the
+ref is constrained by the publish job's own `if: startsWith(github.ref, 'refs/tags/v')` guard and
+by the tag ruleset instead. See [BRANCH-PROTECTION.md](BRANCH-PROTECTION.md).
+
+Release 0.4.0 was published on 2026-11-04, **before** these settings existed, so that run had no
+approval step. Everything above describes what a release does now.
 
 **Manual dispatch.** `workflow_dispatch` takes a required `tag` input, described upstream as an
 "Existing version tag checked out at the same commit". The snapshot job runs and uploads its
@@ -285,10 +309,12 @@ recovery is a new version, or an owner-approved tag move.
 - **Yank, never delete.** Deletion is irreversible and frees no filename; yanking is the
   documented non-destructive alternative and can be undone.
 - **A broken release is corrected by a new version**, because PyPI forbids reusing a filename.
-- **Two gaps are left open for the owner, deliberately.** The `pypi` environment has no required
-  reviewers, so a tag push publishes without a second approval; and there is no tag ruleset, so
-  a tag can point at any commit. Both are repository settings rather than code, and both are
-  owner decisions under [AGENTS.md](../../AGENTS.md).
+- **Two governance gaps were closed on 2026-11-05.** The `pypi` environment gained a required
+  reviewer, so a tag push waits for an approval before the upload; and a `release-tags` ruleset
+  now covers `v*.*.*` tags, requiring the `AutoDOC guard / check` result on the tagged commit
+  and forbidding the tag's deletion or movement. Both are repository settings rather than code,
+  and both remain owner decisions under [AGENTS.md](../../AGENTS.md) — including their reversal,
+  which is recorded in [BRANCH-PROTECTION.md](BRANCH-PROTECTION.md).
 
 ## Verification and references
 
@@ -327,7 +353,7 @@ Related records:
 - [SECURITY.md](../../SECURITY.md) — vulnerability reporting; a security issue in a published
   release follows that path.
 - `CONTROL/metadata/TRIGGERS.json` — the trigger model. It describes the release workflow's
-  snapshot job; it does not yet describe the publish job.
+  snapshot and publish jobs, and the advisory dependency-audit job.
 
 External references consulted for this page (2026-11-05):
 

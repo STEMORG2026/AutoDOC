@@ -1,4 +1,5 @@
-# Owner paths are declared below. Required approvals still need branch protection.
+# Owner paths are declared below. No ruleset requires code-owner approval (see
+# docs/00-governance/BRANCH-PROTECTION.md): this file routes review, it does not gate a merge.
 * @Er-Sajan-PLG
 /docs/ @Er-Sajan-PLG
 /CONTROL/ @Er-Sajan-PLG

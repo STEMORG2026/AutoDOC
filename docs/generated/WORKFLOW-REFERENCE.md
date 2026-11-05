@@ -29,7 +29,7 @@ Derived from workflow files. A listing or green check does not establish branch 
 | Workflow | Name | Jobs | Declared purpose | SHA-256 |
 | --- | --- | --- | --- | --- |
 | `.github/workflows/docs-generation-preview.yml` | AutoDOC generation preview | preview | No unreviewed commits are pushed by automation. Publish a diff as an artifact instead. | `b057f0c34429a18619c6b310ffde291dbfd117ada0247bbd40937616e73fe91b` |
-| `.github/workflows/docs-guard.yml` | AutoDOC guard | compatibility, check, audit, secret-scan | Canonical repository verification is make ci; artifacts retain actual unsigned run output. | `5349703a06d5491189f2c4ac4ab0f42a194949b12e5f63dae82e5479903d8fbf` |
+| `.github/workflows/docs-guard.yml` | AutoDOC guard | compatibility, check, audit, secret-scan | Canonical repository verification is make ci; artifacts retain actual unsigned run output. | `2572988925c61307b4187f1a229990cf3d2332bb86da881d362530df8a316ca1` |
 | `.github/workflows/docs-staleness.yml` | AutoDOC nightly freshness | freshness | Nightly and Monday triage: every check reports even if an earlier one fails, and the final step | `f3f616fb945d309f683ac57eb45859d247a77162d4d15e84a64f30a4e41908bb` |
 | `.github/workflows/release.yml` | AutoDOC release snapshot | snapshot, publish | Apache-2.0 (LICENSE, owner decision 2026-10-01); the snapshot fails closed if that file is missing. | `f8f58f231723eab12b3ee5b42e2617b6d62d931d3a03f50e6aaa752b7f57f853` |
 | `.github/workflows/self-doc-check.yml` | AutoDOC self-documentation | impact | Dedicated self-documentation co-change check for AutoDOC implementation edits on PRs. | `1fc6bba6245c2ebd778584aa573f297dd4c8dcc9b7baeb709998772f9cb066e6` |

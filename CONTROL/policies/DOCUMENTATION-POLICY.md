@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Documentation policy
@@ -31,8 +31,13 @@ entries, assign owners and instance IDs, and record non-applicability with reaso
 Generation is deterministic and read-only in check mode. Do not hand-edit generated files;
 change the source then run `python scripts/doc-sync/generate-all.py`.
 For human-review mappings, update the listed target *after* reviewing the source change.
-The checker can prove co-change, not semantic correctness; CODEOWNERS and branch protection
-must be enabled by repository administrators for actual approval enforcement.
+The checker can prove co-change, not semantic correctness. Branch and tag protection are
+configured — ruleset `main` covers the default branch and ruleset `release-tags` covers `v*.*.*`
+tags — but `CODEOWNERS` approval is **not** enforced: no ruleset requires it, and a repository
+with a single collaborator cannot satisfy it, because GitHub does not count an author's own
+pull-request approval. The live configuration is recorded in
+`docs/00-governance/BRANCH-PROTECTION.md`; this policy does not assert protections that are not
+configured.
 
 The installable `autodoc` CLI keeps its bundled scripts and policy data under a tool root, separate
 from the target project root. `autodoc check --repo PATH` and `autodoc adopt --project-path PATH` inspect the selected

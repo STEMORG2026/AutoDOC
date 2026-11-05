@@ -111,10 +111,12 @@ a human, not a merge veto.
 | Generation preview | `docs-generation-preview.yml` | report after merge | It publishes a diff artifact for review; no bot commit is pushed and no pull request is affected. |
 | Nightly and Monday freshness | `docs-staleness.yml` | triage | It surfaces drift, overdue review and external link rot on a schedule. The external link check opens the network and is rate-limited and warn-only; it never blocks. |
 
-At the time of writing (2026-11-04), `Dependency audit` runs in `docs-guard.yml` but is not
-listed in `CONTROL/metadata/TRIGGERS.json`. The trigger check verifies every declared job and
-every workflow file, not every job inside an already-declared workflow, so the audit job is not
-yet visible in `make docs-triggers`. Treat it as advisory until the model lists it.
+At the time of writing (2026-11-05), every job in `docs-guard.yml` and `release.yml` is listed in
+`CONTROL/metadata/TRIGGERS.json`, so `make docs-triggers` shows the whole surface. The wiring
+check verifies every declared job and every workflow file, **not** every job inside an
+already-declared workflow: a job added to an existing workflow without a model entry is not
+detected. Add the entry anyway, and pin the jobs that matter in `tests/test_triggers.py`; the
+release `publish` job and the `Dependency audit` job were both missing until 2026-11-05.
 
 ## Reproducing a gate locally
 
@@ -145,7 +147,10 @@ dispatch builds and snapshots but **never** publishes.
 2. **Publish job.** It runs only for tag refs, downloads the distribution artifact from the same
    run, re-runs `scripts/test_package.py --dist-dir` against those exact files, and only then
    uploads them to PyPI through OIDC trusted publishing under the owner-registered `pypi`
-   environment. A manual dispatch cannot reach this job.
+   environment. A manual dispatch cannot reach this job. Since 2026-11-05 the environment has a
+   required reviewer, so the upload also waits for the owner to approve the deployment; a tag push
+   no longer publishes on its own. See
+   [BRANCH-PROTECTION.md](../00-governance/BRANCH-PROTECTION.md).
 
 PyPI records attestations for trusted-publishing uploads. Those are provenance records for the
 upload, not SLSA attestations and not signed documentation evidence; this repository makes no
@@ -156,12 +161,13 @@ stronger claim.
 - **Workflow changes must be declared.** A new workflow file must be claimed by a declared job,
   and every declared command must resolve, or `triggers.py --check` fails as part of `make ci`.
   A job added inside an already-declared workflow is not currently detected — update the model
-  anyway so `make docs-triggers` stays accurate.
+  anyway so `make docs-triggers` stays accurate, and pin it in `tests/test_triggers.py`.
 - **Keep the required check unfiltered and uniquely named.** A path or tag filter can prevent the
   required check from reporting, which blocks every pull request that skips it.
-- **Ruleset changes are owner actions.** Do not change branch protection, required checks or
-  bypass actors from a pull request. `make docs-require-check` prints the payload and changes
-  nothing without `APPLY=1`.
+- **Ruleset changes are owner actions.** The live branch and tag rulesets are recorded in
+  [BRANCH-PROTECTION.md](../00-governance/BRANCH-PROTECTION.md). Do not change branch protection,
+  required checks or bypass actors from a pull request. `make docs-require-check` targets the
+  legacy protection endpoint this repository does not use; it stays a dry-run reference.
 - **Do not weaken a check to make a change pass.** Fix the input, or record a reasoned decision
   in `autodoc.toml`; a pinned severity or a baseline is visible in the report and in review.
 - **Update this page and the trigger model together**, so the explanation and the wiring cannot

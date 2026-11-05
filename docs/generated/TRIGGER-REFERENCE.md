@@ -26,7 +26,7 @@ When AutoDOC runs, what each event is allowed to do, and what it never does. Gen
 - One gate. The required pull-request check is the only thing that stops a merge, and it never needs the network.
 - Early is a convenience, late is triage. A local hook can be bypassed; a scheduled run is read, not merged against.
 - No trigger is invisible. Every workflow file is claimed by an event here, and every declared command resolves to a file or a Make target.
-- A flaky event never blocks: anything that opens a network connection is scheduled, rate-limited and warn-only.
+- No network event blocks a merge. The required pull-request check needs no network; the events that open one are the scheduled link crawl, the advisory dependency scan and the release, and each states the bound it works within.
 
 ## Events
 
@@ -35,9 +35,10 @@ When AutoDOC runs, what each event is allowed to do, and what it never does. Gen
 | Before a commit or push | developer machine, if the hook is installed | warns locally, bypassable | no | `make docs-enforce` | the push is stopped locally; nothing is said to anyone else |
 | On every pull request | opened, updated, or reopened | blocks the merge | no | `make ci`<br>`python scripts/intelligence/change_analyzer.py --base "$BASE"` | the merge is blocked until the required check passes |
 | Secret scanning | every pull request, push, or manual dispatch (the scanner is downloaded and checksum-verified at setup; the scan itself is local) | reports, never blocks | no | `make secret-scan` | the job is red for triage; the required check is unaffected until the owner adds it to the ruleset |
+| Dependency vulnerability scan | every pull request, push, or manual dispatch | triage only, never blocks | yes — one advisory query per installed package against PyPI's advisory service, each with pip-audit's 15-second socket timeout; the job is advisory and never a required check, so a slow or unreachable advisory service leaves a red job and no blocked merge | `make audit` | the job is red for triage; the merge is not blocked, because the scan is not in the ruleset |
 | After merge to the default branch | push to master, or manual dispatch | reports, never blocks | no | `python scripts/doc-sync/generate-all.py` | the generated diff is published as an artifact for review; no bot commit is pushed |
 | Nightly, and Monday morning | cron 0 2 * * * and 0 9 * * 1, or manual dispatch | triage only, never blocks | yes — one request per host every 1.0s, at most 200 links per run, 10s timeout per request | `python scripts/doc-sync/check-doc-drift.py`<br>`python scripts/doc-control/guards.py`<br>`python scripts/doc-control/check_ownership.py`<br>`python scripts/doc-sync/engine.py freshness`<br>`python scripts/doc-control/health.py`<br>`python scripts/doc-control/check_external_links.py` | the run is red for triage; no pull request is affected |
-| On a release tag | push of a v*.*.* tag, or manual dispatch with the tag | produces the release snapshot | no | `python scripts/doc-control/release_snapshot.py --tag "$TAG"`<br>`make package` | no snapshot is produced; the release itself is not blocked by this workflow |
+| On a release tag | push of a v*.*.* tag, or manual dispatch with the tag | produces the release snapshot | yes — one PyPI upload per release tag, plus the builder install and the artifact download that precede it; the upload is the only outbound write, and it happens once per tag | `python scripts/doc-control/release_snapshot.py --tag "$TAG"`<br>`make package`<br>`python scripts/test_package.py --dist-dir dist` | the snapshot job produces no artifact and the publish job uploads nothing; a tag push no longer publishes on its own, because the `pypi` environment waits for a reviewer |
 
 ## Job wiring
 
@@ -47,9 +48,11 @@ When AutoDOC runs, what each event is allowed to do, and what it never does. Gen
 | `impact` | `.github/workflows/self-doc-check.yml` | `pull_request` | no | paths | `python scripts/intelligence/change_analyzer.py --base "$BASE"`<br>`python scripts/doc-control/check_sync_map.py`<br>`python scripts/doc-sync/check-doc-drift.py` |
 | `Python compatibility` | `.github/workflows/docs-guard.yml` | `pull_request`, `push`, `workflow_dispatch` | no | — | `make test` |
 | `Secret scan` | `.github/workflows/docs-guard.yml` | `pull_request`, `push`, `workflow_dispatch` | no | — | `make secret-scan` |
+| `Dependency audit` | `.github/workflows/docs-guard.yml` | `pull_request`, `push`, `workflow_dispatch` | no | — | `make audit` |
 | `preview` | `.github/workflows/docs-generation-preview.yml` | `push`, `workflow_dispatch` | no | branch | `python scripts/doc-sync/generate-all.py` |
 | `freshness` | `.github/workflows/docs-staleness.yml` | `schedule`, `workflow_dispatch` | no | — | `python scripts/doc-sync/check-doc-drift.py`<br>`python scripts/doc-control/guards.py`<br>`python scripts/doc-control/check_ownership.py`<br>`python scripts/doc-sync/engine.py freshness`<br>`python scripts/doc-control/health.py`<br>`python scripts/doc-control/check_external_links.py` |
 | `snapshot` | `.github/workflows/release.yml` | `push`, `workflow_dispatch` | no | tag | `python scripts/doc-control/release_snapshot.py --tag "$TAG"`<br>`make package` |
+| `publish` | `.github/workflows/release.yml` | `push`, `workflow_dispatch` | no | tag | `python scripts/test_package.py --dist-dir dist` |
 
 ## What the gate enforces at the declared phase (`beta (strict)`)
 
@@ -69,9 +72,10 @@ The pull-request gate runs the same checks as `make ci`, at the severity the dec
 
 ## Never
 
-- No network access from a blocking event: external link checks run only on the schedule, warn-only.
+- No network access from the required check: the blocking gate runs offline, and the external link crawl runs only on the schedule, warn-only.
 - No automatic issue creation and no bot commit: the generation preview publishes a diff artifact instead.
 - No scheduled run is a required check: a nightly red is triage, never a merge gate.
+- No publication without a human decision: the `pypi` environment requires a reviewer, so a tag push waits for the owner to approve the deployment.
 - No check is silently skipped: an undeclared workflow, or a required check that a path filter can prevent from reporting, fails the trigger check.
 
 The workflow reader is line-based and stdlib-only: it reads workflow names, trigger keys, per-trigger filters and job names. A job produced by a reusable workflow, or a workflow this reader cannot parse, is reported as unverified and fails `--check` — never passed.
