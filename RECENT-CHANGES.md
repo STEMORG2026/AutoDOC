@@ -21,6 +21,15 @@ auto_generated: false
 ---
 # Recent changes
 
+- **Documentation claims hardened (2026-11-05).** Corrected statements the automated gates cannot
+  detect: the README clone URL now names the `STEMORG2026` organization; the README,
+  HOW-AUTODOC-WORKS, PROJECT-CHARTER and ENGINE-COVERAGE no longer call the external-link check the
+  only network user — they describe the three declared network-bearing events (scheduled link
+  crawl, advisory dependency scan, release upload) and state that none gates a merge; protection
+  references no longer present `make docs-require-check` as the live mechanism or say branch
+  protection still needs an admin decision; `make audit` is described as both an advisory CI job
+  and an operator command; and the `CURRENT-STATE` auto block now reports 77 controlled docs
+  (24 generated, 53 human-owned) instead of 70 (24/46).
 - **Release governance hardened (2026-11-05).** Two owner-applied repository settings, both
   recorded with undo paths in `docs/00-governance/BRANCH-PROTECTION.md`: the `pypi` deployment
   environment now requires the owner's approval (`prevent_self_review: false` because the owner is
@@ -181,48 +190,42 @@ auto_generated: false
 <!-- auto:start -->
 ## Last 20 Git commits
 
-- e556d54 2026-10-23 Merge pull request #28 from STEMORG2026/docs/close-evolve-session
-- e7f1999 2026-10-23 docs(state): close EVOLVE session
-- 4230703 2026-10-23 Merge pull request #27 from STEMORG2026/docs/post-pr26-reconciliation
-- 824b3eb 2026-10-23 docs(state): reconcile PR 26 merge
-- c0f90e0 2026-10-23 Merge pull request #26 from STEMORG2026/feat/autodoc-evolve
-- e649ab1 2026-10-23 docs(state): record EVOLVE PR 26
-- 32a9cdd 2026-10-23 feat: add safe autodoc evolve command
-- 249c2aa 2026-10-23 Merge pull request #25 from STEMORG2026/docs/post-pr24-reconciliation
-- 26e73ab 2026-10-23 docs(state): reconcile PR 24 merge
-- 8f9c709 2026-10-23 Merge pull request #24 from STEMORG2026/chore/promote-beta
-- ea31ace 2026-10-23 chore: promote declared phase to beta
-- 3fda35b 2026-10-23 Merge pull request #23 from STEMORG2026/test/phase-agnostic-shipped-checks
-- 9ae8131 2026-10-23 test: derive shipped-phase assertions from the declaration
-- f040105 2026-10-23 Merge pull request #22 from STEMORG2026/docs/post-pr21-reconciliation
-- a7a8e07 2026-10-23 docs(state): reconcile PR 21 merge
-- f8e2c76 2026-10-23 Merge pull request #21 from STEMORG2026/feat/production-readiness-closeout
-- 28188c3 2026-10-23 docs(state): record PR 21 open and checks passing
-- a24c46a 2026-10-23 feat: close production-readiness gaps
-- f2e8698 2026-10-22 Merge pull request #20 from STEMORG2026/docs/post-pr19-reconciliation
-- a97b320 2026-10-22 docs(state): reconcile PR 19 merge
+- c2d0f96 2026-11-05 docs(governance): record live branch/tag protection and complete the trigger model (#50)
+- 78b237b 2026-11-05 docs(reference): add type definitions and the migration guide (#49)
+- 3c3e0da 2026-11-05 docs(governance): add the release runbook (#48)
+- ea55291 2026-11-04 docs(governance): add the supply-chain record (#47)
+- c2946df 2026-11-04 docs(governance): add the test plan (#46)
+- 6c84a53 2026-11-04 docs(reference): add troubleshooting and quality-gate guides (#45)
+- 3a07c7c 2026-11-04 docs(adoption): register risk and error-handling records (#44)
+- 6a67a3e 2026-11-04 docs(adoption): register existing documents for recommended types (#43)
+- 2179ecc 2026-11-04 docs: reconcile install and release claims with 0.4.0 (#42)
+- babad46 2026-11-04 chore(usa): add secret scanning and agent guardrails (#41)
+- f6b78be 2026-11-04 docs: record the published 0.4.0 release (#40)
+- 56e24af 2026-11-04 release: prepare 0.4.0 and gate tag/version/changelog (#39)
+- b27a052 2026-11-04 feat(adopt): plan phase-scaled adoption and write baseline (#38)
+- 0460da5 2026-10-26 chore: second USA hygiene round — coverage, editorconfig, runtime pin (#37)
+- d3f126f 2026-10-26 docs: USA audit fixes and living state (#36)
+- 68aaedd 2026-10-26 release: v0.3.1 living state fixes (#35)
+- cd26e70 2026-10-26 feat: rename distribution to autodoc-docs for PyPI availability (#34)
+- 2e97050 2026-10-26 Merge pull request #33 from STEMORG2026/feat/trusted-publishing
+- 633b969 2026-10-26 docs(state): record the wired PyPI publish path in CURRENT-STATE.md
+- 80fbd3e 2026-10-26 feat(release): verify the artifact before publishing to PyPI
 
 ## Changed paths at update time
 
-- `docs/00-governance/MACP.md`
-- `state/ARCHITECTURE.md`
-- `state/BLOCKERS.md`
-- `state/DASHBOARD.md`
-- `state/DEBT.md`
-- `state/DECISIONS.md`
-- `state/INDEX.md`
-- `state/REGISTRY.md`
-- `state/archive/plans/2026-10/README.md`
-- `state/archive/plans/2026-10/agent-627F-post-pr12-continuation.md`
-- `state/archive/plans/2026-10/agent-894B-d004-language-readers.md`
-- `state/archive/plans/2026-10/agent-912C-pr14-post-merge-reconciliation.md`
-- `state/archive/plans/2026-10/agent-B71a-migration-prose-validation.md`
-- `state/archive/plans/2026-10/agent-BETA-beta-promotion.md`
-- `state/archive/plans/2026-10/agent-C4R7-python-package-readiness.md`
-- `state/archive/plans/2026-10/agent-CLOSE-close-all-open-sessions.md`
-- `state/archive/plans/2026-10/agent-PRD1-production-readiness.md`
-- `state/archive/plans/2026-10/agent-PRD2-production-closeout.md`
-- `state/plans/README.md`
-- `state/sessions/20261021-1459-B71a-migration-prose-validation.md`
-- … and 8 more; use git diff --cached --name-only.
+- `CONTEXT-SNAPSHOT.md`
+- `CONTRIBUTING.md`
+- `CONTROL/policies/DOCUMENTATION-POLICY.md`
+- `QUICK-START.md`
+- `README.md`
+- `docs/00-governance/ADOPTION.md`
+- `docs/00-governance/DOCUMENT-CONTROL.md`
+- `docs/00-governance/ENGINE-COVERAGE.md`
+- `docs/00-governance/LIMITATIONS.md`
+- `docs/00-governance/PROJECT-CHARTER.md`
+- `docs/00-governance/TEST-PLAN.md`
+- `docs/04-guides/HOW-AUTODOC-WORKS.md`
+- `docs/reference/EXIT-CODES.md`
+- `docs/reference/QUALITY-GATES.md`
+- `docs/reference/TROUBLESHOOTING.md`
 <!-- auto:end -->

@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-09-26
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Document control
@@ -28,8 +28,10 @@ with `supersedes`, then set the prior record's status/superseded-by when schema 
 Draft does not mean approved. `last_verified` must reflect real review, not a generator run.
 
 ## Merge controls
-Require the AutoDOC guard check on the protected default branch and enable CODEOWNERS approval
-in GitHub settings. A checked-in CODEOWNERS file alone cannot enforce approvals. Generated files
+Require the AutoDOC guard check on the protected default branch and on release tags; the live
+rulesets are recorded in `docs/00-governance/BRANCH-PROTECTION.md`. A checked-in CODEOWNERS file
+alone cannot enforce approvals, and this repository does not enforce code-owner review: it has one
+collaborator, and GitHub does not count an author's own pull-request approval. Generated files
 must travel with their source changes; a CI bot never pushes over human work. Do not grant write
 permissions or release credentials to untrusted PR checks.
 

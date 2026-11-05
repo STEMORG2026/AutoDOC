@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-22
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # AutoDOC context snapshot
@@ -35,9 +35,9 @@ That prose check is structural only; it cannot judge correctness.
 No migration documents are instantiated here; the prose check runs only when one of the recognized
 migration documents exists. TypeScript, arbitrary SQL, signed build provenance, external compliance
 and LLM execution are not implemented. Root `NEXT-ACTION.md` is human-owned; a Git-derived state
-block cannot invent the next human priority. Branch protection still needs a repository-admin
-decision; the license is Apache-2.0 (`LICENSE`), so release snapshots require only a `vX.Y.Z` tag
-at the same commit.
+block cannot invent the next human priority. Branch and tag protection are configured and recorded
+in `docs/00-governance/BRANCH-PROTECTION.md`; the license is Apache-2.0 (`LICENSE`), so release
+snapshots require only a `vX.Y.Z` tag at the same commit.
 
 ## Commands
 `make generate`, `make check`, `make test`; see `docs/.doc-sync-map.yaml` and `README.md`. The

@@ -58,11 +58,11 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 1: AutoDOC
 - L2 line 11: What it does
-- L2 line 27: Quick start (Python 3.11+)
-- L3 line 37: Installable CLI
-- L2 line 116: Status
-- L2 line 129: Navigate
-- L2 line 147: License
+- L2 line 28: Quick start (Python 3.11+)
+- L3 line 38: Installable CLI
+- L2 line 119: Status
+- L2 line 132: Navigate
+- L2 line 150: License
 
 ## `TEMPLATES/AGENT-CONTEXT/README.md`
 
@@ -79,10 +79,10 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 50: Selected document types
 - L2 line 79: Rollout and success criteria
 - L2 line 86: Non-applicability and gaps
-- L2 line 103: Verification and references
-- L2 line 109: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 131: Applicability decisions (step 3, 2026-10-01)
-- L2 line 156: Phase 3 applicability
+- L2 line 104: Verification and references
+- L2 line 110: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 132: Applicability decisions (step 3, 2026-10-01)
+- L2 line 157: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -175,7 +175,7 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: Document control
 - L2 line 24: Numbering and lifecycle
 - L2 line 30: Merge controls
-- L2 line 36: Evidence and release
+- L2 line 38: Evidence and release
 
 ## `docs/00-governance/DOCUMENTATION-STRATEGY.md`
 
@@ -185,16 +185,16 @@ ATX headings from configured human-owned Markdown sources.
 
 - L1 line 22: Engine coverage and honest limits
 - L2 line 24: How confidence is established
-- L2 line 63: Implemented and tested
-- L2 line 96: The generation contract
-- L2 line 117: The event contract
-- L2 line 130: Implemented validators
-- L2 line 155: Mapped but template-only
-- L2 line 165: Safe evolution
-- L2 line 177: Partially supported
-- L2 line 185: Explicitly not implemented
-- L2 line 195: Not supported / integration needed
-- L2 line 203: Known environment constraints
+- L2 line 64: Implemented and tested
+- L2 line 97: The generation contract
+- L2 line 118: The event contract
+- L2 line 132: Implemented validators
+- L2 line 157: Mapped but template-only
+- L2 line 167: Safe evolution
+- L2 line 179: Partially supported
+- L2 line 187: Explicitly not implemented
+- L2 line 197: Not supported / integration needed
+- L2 line 206: Known environment constraints
 
 ## `docs/00-governance/EVIDENCE-SIGNING.md`
 
@@ -229,8 +229,8 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 24: Purpose and scope
 - L2 line 32: Problem statement
 - L2 line 47: Goals and non-goals
-- L2 line 79: Scope
-- L2 line 95: Verification and references
+- L2 line 80: Scope
+- L2 line 96: Verification and references
 
 ## `docs/00-governance/RELEASE-RUNBOOK.md`
 
@@ -272,7 +272,7 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 109: Acceptance criteria
 - L2 line 131: Where results live
 - L2 line 159: Coverage, flakiness and scope limits
-- L2 line 176: Verification and references
+- L2 line 177: Verification and references
 
 ## `docs/04-guides/HOW-AUTODOC-WORKS.md`
 
@@ -355,12 +355,12 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: Quality gates
 - L2 line 24: Purpose and scope
 - L2 line 41: The one blocking gate
-- L2 line 78: What `make ci` runs
-- L2 line 100: Advisory jobs and events
-- L2 line 121: Reproducing a gate locally
-- L2 line 137: The release gate
-- L2 line 159: Changing a gate
-- L2 line 176: Verification and references
+- L2 line 81: What `make ci` runs
+- L2 line 103: Advisory jobs and events
+- L2 line 124: Reproducing a gate locally
+- L2 line 140: The release gate
+- L2 line 162: Changing a gate
+- L2 line 179: Verification and references
 
 ## `docs/reference/TROUBLESHOOTING.md`
 
@@ -369,13 +369,13 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 38: Start with the exit code
 - L2 line 58: Diagnose before changing anything
 - L2 line 92: Installation and environment
-- L2 line 113: Configuration errors (exit 2)
-- L2 line 144: Findings (exit 1)
-- L2 line 164: Generated-document drift
-- L2 line 182: Review and living-state checks
-- L2 line 192: Release and packaging
-- L2 line 205: When it is a tool bug (exit 3)
-- L2 line 218: Verification and references
+- L2 line 114: Configuration errors (exit 2)
+- L2 line 145: Findings (exit 1)
+- L2 line 165: Generated-document drift
+- L2 line 183: Review and living-state checks
+- L2 line 193: Release and packaging
+- L2 line 206: When it is a tool bug (exit 3)
+- L2 line 219: Verification and references
 
 ## `docs/reference/TYPE-DEFINITIONS.md`
 

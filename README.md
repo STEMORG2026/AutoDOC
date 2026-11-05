@@ -21,15 +21,16 @@ Pre-commit ──> PR check ──> Merge preview ──> Release gate ──> N
   language's own tool rather than hand-rolling a parser: `make docs-languages` says what each
   language gets here and what stays at L0.
 - Declares when it runs instead of implying it: one trigger model (`make docs-triggers`), verified
-  against the workflows in `make ci`, where the pull request is the only gate and the one network
-  check is scheduled, rate-limited and warn-only.
+  against the workflows in `make ci`, where the pull request is the only gate and the three
+  network-bearing events — the scheduled link crawl, the advisory dependency scan and the release
+  upload — each state their own bound, and none of them gates a merge.
 
 ## Quick start (Python 3.11+)
 
 For contributing to the source checkout:
 
 ```sh
-git clone https://github.com/Er-Sajan-PLG/AutoDOC.git && cd AutoDOC
+git clone https://github.com/STEMORG2026/AutoDOC.git && cd AutoDOC
 make setup
 make ci
 ```
@@ -108,10 +109,12 @@ shrinks to the sunset profile.
 committed key markers, tribal instructions and freshness each resolve their severity from
 `[severity]` in `autodoc.toml`, then from the declared phase, then to `report`. `make docs-baseline`
 records current findings so an adopted repository enforces only what is new and can ratchet down.
-`make hooks-install` adds a bypassable pre-push hook; the required CI check is the real gate
-(`make docs-require-check` prints the branch-protection payload and changes nothing). Exit codes
-are documented in `docs/reference/EXIT-CODES.md`. AutoDOC checks that records exist and are
-structured; it never certifies compliance.
+`make hooks-install` adds a bypassable pre-push hook; the required CI check is the real gate. The
+live branch and tag rulesets are recorded in
+[docs/00-governance/BRANCH-PROTECTION.md](docs/00-governance/BRANCH-PROTECTION.md);
+`make docs-require-check` targets the legacy protection endpoint this repository does not use and
+stays a dry-run reference. Exit codes are documented in `docs/reference/EXIT-CODES.md`. AutoDOC
+checks that records exist and are structured; it never certifies compliance.
 
 ## Status
 
@@ -142,7 +145,7 @@ ignored `build/TEMPLATES/` and are not committed; they are starter material, not
 To place one type directly in a project with a real instance ID and creation date, use
 `autodoc add <catalog-id> --root <project> --write`.
 See the [license decision](docs/00-governance/LICENSE-DECISION.md) and
-[manual branch requirements](docs/00-governance/BRANCH-PROTECTION.md). AutoDOC is not renamed.
+[live branch and tag protection](docs/00-governance/BRANCH-PROTECTION.md). AutoDOC is not renamed.
 
 ## License
 

@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-23
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Engine coverage and honest limits
@@ -47,12 +47,13 @@ unverified. The catalog type `DEV-B07-001` Test strategy is satisfied by this do
    and remotely on Python 3.11. A separate Python 3.11–3.15 compatibility matrix supplies
    additional non-blocking signals; only the configured named check is required by branch
    protection. The trigger model (`CONTROL/metadata/TRIGGERS.json`) is verified against the
-   workflows, and scheduled network checks are warn-only by design.
+   workflows, and network-bearing checks are advisory or approval-gated by design.
 6. **Evidence records that a run happened — it is unsigned** and proves nothing about who ran it or
    whether a reviewer agreed (`docs/00-governance/EVIDENCE-SIGNING.md`).
-7. **Dependency advisories are checked on demand.** `make audit` runs `pip-audit` from the optional
-   `audit` extra against the installed environment and opens the network; it is deliberately
-   outside the offline required gate. A clean audit means no known advisory for that environment
+7. **Dependency advisories are checked on demand and in the advisory CI job.** `make audit` runs
+   `pip-audit` from the optional `audit` extra against the installed environment and opens the
+   network; the `Dependency audit` job runs the same command and is deliberately outside the
+   offline required gate. A clean audit means no known advisory for that environment
    at that time, not a permanent vulnerability-free claim.
 
 **What this strategy does not establish.** That prose is true, adequate or reviewed; that an
@@ -123,9 +124,10 @@ workflow file must be claimed, every declared command must resolve, exactly one 
 and a required check may not be filtered — and the rendered form is a mapped generated document,
 so editing a workflow without updating the model fails the build rather than silently changing
 when checks run. The scheduled workflow is built to match: each check reports even when an earlier
-one fails, and a single closing step makes the run red for triage. The external link check is the
-only thing that opens a network connection, it is scheduled, rate-limited and warn-only, and it is
-deliberately absent from `make ci`.
+one fails, and a single closing step makes the run red for triage. Three events open a network
+connection — the scheduled link crawl, the advisory dependency scan and the release upload — and
+none is a gate. The link crawl is scheduled, rate-limited and warn-only, and it is deliberately
+absent from `make ci`.
 
 ## Implemented validators
 Metadata (required fields, enums, unique IDs), relationship IDs and supersedes cycles,
@@ -196,8 +198,9 @@ establish runtime semantics or guarantee every dynamic symbol is represented.
 OpenAPI/AsyncAPI and CLI parsing need real contracts plus tests. Docker/Kubernetes extractors
 need project-specific parsers. Cloud cost, deployed services and vendor APIs need
 scoped credentials and owners. Signed provenance requires key management and a verification
-policy; GitHub issue creation and CODEOWNERS branch protection need owner approval. No
-semantic prose correctness, line coverage or audit certification is claimed. Scope and effort
+policy; GitHub issue creation and a code-owner approval requirement need owner approval, and the
+latter also needs a second collaborator because GitHub does not count an author's own approval.
+No semantic prose correctness, line coverage or audit certification is claimed. Scope and effort
 are project-dependent; do not quote estimates as measured facts.
 
 ## Known environment constraints

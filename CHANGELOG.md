@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Documentation accuracy pass (2026-11-05). Corrected the clone URL, the network-event description
+  (three declared network events; none gates a merge), the superseded `make docs-require-check`
+  references and the branch-protection wording, and described `make audit` as the advisory
+  `Dependency audit` CI job plus operator command. The living-state counters now report 77
+  controlled docs (24 generated, 53 human-owned).
 - Release governance hardened (2026-11-05). The `pypi` deployment environment now requires the
   repository owner's approval, so a release tag no longer publishes on its own, and a
   `release-tags` ruleset now covers `v*.*.*` tags — it requires the `AutoDOC guard / check` result

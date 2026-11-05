@@ -111,7 +111,9 @@ imply those controls have run.
 AutoDOC now maps its own catalog indices and CI workflow files into generated references;
 changes to sync or control scripts require review of `docs/05-architecture/AUTODOC-ARCHITECTURE.md`,
 and catalog edits require `docs/00-governance/ADOPTION.md` to be reviewed. The ownership
-matrix checks metadata assignments; GitHub branch protection must still be configured separately.
+matrix checks metadata assignments; branch and tag protection are GitHub repository settings
+rather than checked-in files, and their live configuration is recorded in
+`docs/00-governance/BRANCH-PROTECTION.md`.
 
 The bounded demo environment file requires per-key descriptions; declared alerts must link to
 a real repository runbook. A generated Mermaid relationship view is derived from actual

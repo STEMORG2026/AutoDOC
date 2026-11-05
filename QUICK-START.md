@@ -64,7 +64,7 @@ dependencies — including vulnerability and licence handling — is in
 2. Browse [the 265-type catalog](docs/01-catalogs/CATALOG-INDEX.md), select relevant types,
    assign real owners and record non-applicability. Do not copy 265 empty documents.
 3. Configure the target project, choose an explicit phase/profile, and adapt a sync map to its actual sources. Generate only factual references with supported extractors, and create human-owned records for design decisions.
-4. In a source checkout, run `make docs:verify`, `make test`, and `make package-check`; enable required checks/CODEOWNERS approval manually in repository settings. For an installed tool, use `autodoc check --repo /path/to/project`. AutoDOC cannot observe an unrelated project until configured there.
+4. In a source checkout, run `make docs:verify`, `make test`, and `make package-check`; enable the required check manually in repository settings. Code-owner approval also needs a second collaborator, because GitHub does not count an author's own approval. For an installed tool, use `autodoc check --repo /path/to/project`. AutoDOC cannot observe an unrelated project until configured there.
 
 ## New project and new documents
 

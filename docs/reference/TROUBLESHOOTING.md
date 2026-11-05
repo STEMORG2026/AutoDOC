@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-11-04
 last_reviewed: 2026-11-04
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Troubleshooting guide
@@ -103,7 +103,8 @@ does not run, `report` prints without failing, `warn` never fails the gate, and 
 - **`make secret-scan` exits `2` when `gitleaks` is not on `PATH`.** Install it from its signed
   release page or run the scan in CI; the target never downloads a scanner.
 - **`make audit` needs the optional `audit` extra and opens the network.** It is intentionally
-  not part of the offline `make ci` gate.
+  not part of the offline `make ci` gate. In CI it runs as the advisory `Dependency audit` job and
+  never gates a merge; a red result there is triage, not a failed required check.
 - **go-task is optional.** The `Taskfile.yaml` targets delegate to `make`; a missing `task`
   binary is not an AutoDOC failure.
 - **Missing language tools are not failures.** `make docs-languages SHOW=javascript` reports
