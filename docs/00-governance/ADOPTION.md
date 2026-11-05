@@ -69,6 +69,8 @@ that a project is governed.
 | `DOC-A11-002` (Test plan), `DOC-A11-003` (Unit test specification), `DOC-A11-004` (Integration test specification), `DEV-B07-002` (Acceptance criteria), `DEV-B07-003` (Test results) | `docs/00-governance/TEST-PLAN.md` | One plan covering layers, unit and integration specifications, acceptance criteria and result retention |
 | `DOC-A10-002` (SBOM), `DOC-A10-003` (Build provenance), `DOC-A10-006` (License inventory) | `docs/00-governance/SUPPLY-CHAIN.md` | One record covering the CycloneDX SBOM, the unsigned source and release records, and the license inventory of declared dependencies |
 | `DOC-A15-005` (Deployment runbook) | `docs/00-governance/RELEASE-RUNBOOK.md` | New procedure for the release path that exists: version and changelog preflight, the tag-triggered CI and trusted-publishing upload, post-publish verification, and the package-level correction path |
+| `DEV-B05-002` (Type definitions) | `docs/reference/TYPE-DEFINITIONS.md` | New record of the data shapes AutoDOC exchanges between its own modules, which of them a machine checks, and which are conventions |
+| `DOC-A23-003` (Migration guide) | `docs/reference/MIGRATION-GUIDE.md` | New guide for moving to the current release: the install name, the one command whose behaviour changed, and the contracts that did not |
 
 These catalog IDs designate **types**; instance IDs identify the actual controlled files.
 Files outside the controlled Markdown paths can be useful documentation without being counted

@@ -77,12 +77,12 @@ ATX headings from configured human-owned Markdown sources.
 - L1 line 22: AutoDOC self-adoption and applicability
 - L2 line 24: Purpose and scope
 - L2 line 50: Selected document types
-- L2 line 77: Rollout and success criteria
-- L2 line 84: Non-applicability and gaps
-- L2 line 101: Verification and references
-- L2 line 107: Enforcement decisions (step 6, 2026-10-01)
-- L2 line 129: Applicability decisions (step 3, 2026-10-01)
-- L2 line 154: Phase 3 applicability
+- L2 line 79: Rollout and success criteria
+- L2 line 86: Non-applicability and gaps
+- L2 line 103: Verification and references
+- L2 line 109: Enforcement decisions (step 6, 2026-10-01)
+- L2 line 131: Applicability decisions (step 3, 2026-10-01)
+- L2 line 156: Phase 3 applicability
 
 ## `docs/00-governance/BRANCH-PROTECTION.md`
 
@@ -324,6 +324,20 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 66: Baseline entries
 - L2 line 84: Hooks and gates
 
+## `docs/reference/MIGRATION-GUIDE.md`
+
+- L1 line 22: Migration guide
+- L2 line 24: Purpose and scope
+- L2 line 42: Details and decisions
+- L3 line 44: The version timeline
+- L3 line 54: Migration 1 — the install name (0.3.0 → 0.3.1)
+- L3 line 87: Migration 2 — `autodoc adopt` (0.3.1 → 0.4.0)
+- L3 line 141: Migration 3 — an adopted project (optional)
+- L3 line 157: Upgrading
+- L3 line 169: Deprecation
+- L3 line 177: Decisions
+- L2 line 192: Verification and references
+
 ## `docs/reference/QUALITY-GATES.md`
 
 - L1 line 22: Quality gates
@@ -350,6 +364,19 @@ ATX headings from configured human-owned Markdown sources.
 - L2 line 192: Release and packaging
 - L2 line 205: When it is a tool bug (exit 3)
 - L2 line 218: Verification and references
+
+## `docs/reference/TYPE-DEFINITIONS.md`
+
+- L1 line 22: Type definitions
+- L2 line 24: Purpose and scope
+- L2 line 50: Details and decisions
+- L3 line 52: The machine contracts
+- L3 line 83: The canonical finding record
+- L3 line 118: The fact record
+- L3 line 140: The context record
+- L3 line 156: The baseline entry
+- L3 line 165: Decisions
+- L2 line 178: Verification and references
 
 ## `docs/templates/adr-template.md`
 

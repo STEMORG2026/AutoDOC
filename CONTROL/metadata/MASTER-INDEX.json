@@ -498,6 +498,14 @@
       "last_reviewed": "2026-10-01"
     },
     {
+      "id": "DOC-REF-005",
+      "path": "docs/reference/MIGRATION-GUIDE.md",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "type": "SPEC",
+      "last_reviewed": "2026-11-05"
+    },
+    {
       "id": "DOC-REF-003",
       "path": "docs/reference/QUALITY-GATES.md",
       "owner": "@Er-Sajan-PLG",
@@ -512,6 +520,14 @@
       "status": "draft",
       "type": "REF",
       "last_reviewed": "2026-11-04"
+    },
+    {
+      "id": "DOC-REF-004",
+      "path": "docs/reference/TYPE-DEFINITIONS.md",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "type": "SPEC",
+      "last_reviewed": "2026-11-05"
     },
     {
       "id": "DOCS-TEMPLATES-ADR-TEMPLATE-MD",
