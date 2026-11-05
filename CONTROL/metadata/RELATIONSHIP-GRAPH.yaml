@@ -244,6 +244,56 @@
       "kind": "related"
     },
     {
+      "from": "DOC-REF-004",
+      "to": "DOC-ARC-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-004",
+      "to": "DOC-CI-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-004",
+      "to": "DOC-P2-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-004",
+      "to": "DOC-P3-GOV-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-004",
+      "to": "DOC-REF-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-005",
+      "to": "DOC-ARC-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-005",
+      "to": "DOC-GOV-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-005",
+      "to": "DOC-P3-GOV-010",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-005",
+      "to": "DOC-REF-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-REF-005",
+      "to": "DOC-TEST-002",
+      "kind": "related"
+    },
+    {
       "from": "DOC-TEST-002",
       "to": "DOC-ARC-001",
       "kind": "related"

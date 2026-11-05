@@ -162,6 +162,11 @@ safety_critical = { value = "false", reason = "AutoDOC reports documentation fin
 # rollout, so the runbook records the tag -> CI -> PyPI procedure that exists and the
 # package-level correction path, instead of a service deployment and rollback.
 "DOC-A15-005" = "docs/00-governance/RELEASE-RUNBOOK.md"
+# The last two recommended types (2026-11-05). Both are new records rather than registrations:
+# the data shapes AutoDOC exchanges between its own modules, and the upgrade path between the
+# published releases.
+"DEV-B05-002" = "docs/reference/TYPE-DEFINITIONS.md"
+"DOC-A23-003" = "docs/reference/MIGRATION-GUIDE.md"
 
 [severity]
 # Override the phase default for a rule. Only rules something honours are accepted; a severity

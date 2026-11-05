@@ -466,6 +466,17 @@
       "applies_to": []
     },
     {
+      "id": "DOC-REF-005",
+      "path": "docs/reference/MIGRATION-GUIDE.md",
+      "type": "SPEC",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "last_reviewed": "2026-11-05",
+      "next_review": "2027-05-04",
+      "classification": "public",
+      "applies_to": []
+    },
+    {
       "id": "DOC-REF-003",
       "path": "docs/reference/QUALITY-GATES.md",
       "type": "REF",
@@ -484,6 +495,17 @@
       "status": "draft",
       "last_reviewed": "2026-11-04",
       "next_review": "2027-05-03",
+      "classification": "public",
+      "applies_to": []
+    },
+    {
+      "id": "DOC-REF-004",
+      "path": "docs/reference/TYPE-DEFINITIONS.md",
+      "type": "SPEC",
+      "owner": "@Er-Sajan-PLG",
+      "status": "draft",
+      "last_reviewed": "2026-11-05",
+      "next_review": "2027-05-04",
       "classification": "public",
       "applies_to": []
     },
