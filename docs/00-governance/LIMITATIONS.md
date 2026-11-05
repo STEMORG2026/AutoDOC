@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-10-22
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # AutoDOC limitations
@@ -29,12 +29,15 @@ rationale, diagram rendering, external link availability, approval or compliance
 
 The demo API uses a three-route JSON registry, **not** OpenAPI. SQL accepts only the documented
 SQLite CREATE TABLE subset; unknown statements fail. Dependencies are declared PEP 621
-requirements, not installed/transitive packages or known license information; `make audit` is an
-operator-run network check with the optional `audit` extra, not part of the offline gate. Alerts are
+requirements, not installed/transitive packages or known license information; `make audit` uses
+the optional `audit` extra and opens the network — it runs as the advisory `Dependency audit` CI
+job and as an operator command, never as part of the offline gate. Alerts are
 versioned example declarations, not live monitoring. The agent examples have no LLM or network.
 Cloud costs, Kubernetes state, SaaS/vendor APIs, real model behavior and signed attestations
-require independent project-owned integrations and credentials. GitHub branch protection is
-not configured by a checked-in file; the license is Apache-2.0 (2026-10-01), and release-tag snapshots additionally require a `vX.Y.Z` tag checked out at the same commit.
+require independent project-owned integrations and credentials. GitHub branch and tag protection
+are repository settings, not checked-in files; their live state is recorded in
+`docs/00-governance/BRANCH-PROTECTION.md`. The license is Apache-2.0 (2026-10-01), and release-tag
+snapshots additionally require a `vX.Y.Z` tag checked out at the same commit.
 Generated graph edges are factual references, not proof of architecture semantics.
 
 Enforcement is only as strong as the declared phase. While no phase is declared every finding

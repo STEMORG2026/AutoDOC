@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-10-01
 last_reviewed: 2026-10-01
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Exit codes
@@ -86,7 +86,8 @@ so an entry must not be able to hide it.
 The pre-push hook (`make hooks-install`, from `scripts/hooks/pre-push`) runs `make docs-enforce`
 for convenience. It is bypassable with `git push --no-verify`, so it is not a gate. The
 required CI check (`AutoDOC guard / check`, wired to `make ci`) is the gate that cannot be
-skipped; see `docs/00-governance/BRANCH-PROTECTION.md` and `make docs-require-check`. Which event
+skipped; see `docs/00-governance/BRANCH-PROTECTION.md` for the live rulesets. Which event
 runs what, and what may block, is declared in `CONTROL/metadata/TRIGGERS.json` and verified by
-`triggers.py --check`; the scheduled workflow is triage only, and the external link check is the
-one command that uses the network — scheduled, rate-limited, warn-only, and absent from `make ci`.
+`triggers.py --check`; the scheduled workflow is triage only, and three events use the network —
+the scheduled link crawl, the advisory dependency scan and the release upload — none of which is
+a merge gate.

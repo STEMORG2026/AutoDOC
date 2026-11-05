@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-11-04
 last_reviewed: 2026-11-04
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Quality gates
@@ -61,8 +61,11 @@ gh api repos/STEMORG2026/AutoDOC/rulesets
 gh api repos/STEMORG2026/AutoDOC/rulesets/<id>
 ```
 
-The dry-run payload that `make docs-require-check` prints states the same requirement;
-`APPLY=1` changes repository settings and is an owner action, not a contributor step.
+The live ruleset recorded in
+[BRANCH-PROTECTION.md](../00-governance/BRANCH-PROTECTION.md) is the source of truth.
+`make docs-require-check` targets the legacy protection endpoint this repository does not use, so
+its payload is a dry-run reference rather than a description of the live gate; `APPLY=1` would
+change legacy repository settings and is an owner action, not a contributor step.
 
 The `check` job runs `make ci` on Python 3.11 and then, on pull requests, compares the branch
 with its base commit:

@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-10-01
 last_reviewed: 2026-10-01
-last_updated: 2026-10-01
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Project charter — problem, goals and scope
@@ -69,8 +69,9 @@ tool's own output — of what was checked, what was skipped, and what cannot be 
    so in every report, and never let a green run be presented as more than it is.
 2. **Not a judge of prose.** Semantic correctness, adequacy and architecture rationale are human
    review, only ever detected as *missing co-changes*, never proven.
-3. **Not a hosted service and not a network tool by default.** No accounts, no telemetry; the one
-   network check is scheduled, rate-limited and warn-only.
+3. **Not a hosted service and not a network tool by default.** No accounts, no telemetry; network
+   use is limited to a scheduled link crawl, an advisory dependency scan and the release upload,
+   and none of them gates a merge.
 4. **Not an inference engine for intent.** Phase, kinds, obligations, profiles and sensitive-data
    traits are declarations; evidence is a hint the owner may accept or reject.
 5. **Not a replacement for a project's own governance.** Ownership, approvals and branch protection

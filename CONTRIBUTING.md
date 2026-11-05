@@ -27,11 +27,12 @@ AutoDOC's runtime is the Python standard library only (`dependencies = []` in
 - **Removing** a dependency means deleting it from `pyproject.toml` and from any import, then
   running `make generate && make ci`. Nothing else records it, so the manifest is the source of
   truth.
-- **Vulnerabilities** are handled through [SECURITY.md](SECURITY.md). The operator-run
-  `make audit` target uses the optional `audit` extra (`pip-audit`) and opens the network; it is
-  intentionally not part of the offline `make ci` gate because the runtime set is empty and CI
-  must not depend on a live advisory service. If a scanner is added to CI, its schedule belongs
-  in the trigger model rather than in an implied policy.
+- **Vulnerabilities** are handled through [SECURITY.md](SECURITY.md). The `make audit` target
+  uses the optional `audit` extra (`pip-audit`) and opens the network. It runs as the advisory
+  `Dependency audit` CI job and as an operator command; it is intentionally not part of the offline
+  `make ci` gate or the required check, because the runtime set is empty and a transient advisory
+  service failure must not block an unrelated change. Its trigger is declared in
+  `CONTROL/metadata/TRIGGERS.json`, not implied by the workflow.
 - **Licences**: this project is Apache-2.0. A dependency whose licence is incompatible with
   redistribution under Apache-2.0 must not be added at all, and one that requires attribution
   must be recorded where that attribution is visible.

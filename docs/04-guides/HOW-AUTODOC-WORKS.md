@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-09-26
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # How AutoDOC works
@@ -36,8 +36,9 @@ auto_generated: false
 The event model behind those five stages is declared once in `CONTROL/metadata/TRIGGERS.json`,
 rendered into `docs/generated/TRIGGER-REFERENCE.md`, printed by `make docs-triggers`, and verified
 against the workflows, the hook and the Makefile by `triggers.py --check` (part of `make ci`). The
-pull request is the only event that blocks a merge; the external link check is the only check that
-opens the network, and it is scheduled, rate-limited and warn-only.
+pull request is the only event that blocks a merge; the events that open a network connection are
+the scheduled link crawl, the advisory dependency scan and the release upload, and each states the
+bound it works within.
 
 `docs/.doc-sync-map.yaml` is the single authoritative mapping. Its JSON syntax is valid YAML.
 See `docs/00-governance/ENGINE-COVERAGE.md` for supported input formats and honest gaps.

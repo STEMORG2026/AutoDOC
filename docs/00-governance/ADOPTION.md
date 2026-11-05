@@ -16,7 +16,7 @@ criticality: high
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # AutoDOC self-adoption and applicability
@@ -96,9 +96,10 @@ are answered by the test plan
 committing a stale snapshot. API/config/schema references, agent
 allowlist inventories and a scoped unsigned test-run pack demonstrate the mechanism, not
 certification. Release snapshots run under the owner-selected Apache-2.0 license
-(`LICENSE`, 2026-10-01). A backup reviewer and project-specific extractors remain open; the
-required branch-protection check is owner-run (`make docs-require-check` prints the payload,
-`APPLY=1` applies it).
+(`LICENSE`, 2026-10-01). A backup reviewer and project-specific extractors remain open. The
+required branch and tag protection is a repository setting, not a checked-in file; the live
+rulesets are recorded in `docs/00-governance/BRANCH-PROTECTION.md`, and `make docs-require-check`
+is a dry-run reference for the legacy protection endpoint this repository does not use.
 
 ## Verification and references
 Check `docs/generated/CATALOG-REFERENCE.md` for the catalog inventory, and

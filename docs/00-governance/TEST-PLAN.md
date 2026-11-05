@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-11-04
 last_reviewed: 2026-11-04
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Test plan
@@ -165,7 +165,8 @@ table. The table records that a full run was actually verified when this page wa
 - **No flaky retries.** A test that fails intermittently is a defect. Retrying until green hides
   the defect and is not an acceptance path.
 - **The suite is offline.** Blocking tests do not resolve DNS or open sockets. The external-link
-  check is scheduled, rate-limited and warn-only; `make audit` is an operator-run network check.
+  check is scheduled, rate-limited and warn-only; `make audit` opens the network and runs as the
+  advisory `Dependency audit` CI job and as an operator command, never as part of the offline gate.
 - **Unsupported inputs must be honest.** An ecosystem without a reader, a toolchain that is not
   installed, or a format with no extractor is reported as L0 or as an error, never silently
   treated as passing. The suite pins that behaviour for the supported languages.
