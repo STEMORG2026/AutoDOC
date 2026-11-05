@@ -16,11 +16,23 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Recent changes
 
+- **Release governance hardened (2026-11-05).** Two owner-applied repository settings, both
+  recorded with undo paths in `docs/00-governance/BRANCH-PROTECTION.md`: the `pypi` deployment
+  environment now requires the owner's approval (`prevent_self_review: false` because the owner is
+  the only collaborator), so a tag push waits instead of publishing; and a `release-tags` ruleset
+  now covers `v*.*.*` tags, requiring `AutoDOC guard / check` on the tagged commit and forbidding
+  the tag's deletion or movement, with no bypass actor. `BRANCH-PROTECTION.md` was rewritten from
+  a "(not configured)" wish list into a read-back record of what is live, including why
+  `GET /branches/master/protection` returns 404 while `master` is covered by a ruleset, and why
+  code-owner review is declared in `CODEOWNERS` but not enforced. The trigger model now declares
+  the release `publish` job and the advisory `Dependency audit` job; the audit job runs
+  `make audit`, so the CI step and the operator command are the same command. No tag, release or
+  package was published by this change.
 - **Publication claims reconciled (2026-11-04).** Install instructions now use the published
   `autodoc-docs==0.4.0` PyPI release; README, QUICK-START, ADOPTION, CURRENT-STATE, NEXT-ACTION and
   the release workflow comment no longer describe PyPI as unregistered or the `0.3.0`/Beta verdict

@@ -5,7 +5,7 @@
     "One gate. The required pull-request check is the only thing that stops a merge, and it never needs the network.",
     "Early is a convenience, late is triage. A local hook can be bypassed; a scheduled run is read, not merged against.",
     "No trigger is invisible. Every workflow file is claimed by an event here, and every declared command resolves to a file or a Make target.",
-    "A flaky event never blocks: anything that opens a network connection is scheduled, rate-limited and warn-only."
+    "No network event blocks a merge. The required pull-request check needs no network; the events that open one are the scheduled link crawl, the advisory dependency scan and the release, and each states the bound it works within."
   ],
   "events": [
     {
@@ -105,6 +105,33 @@
       ]
     },
     {
+      "id": "dependency_audit",
+      "label": "Dependency vulnerability scan",
+      "when": "every pull request, push, or manual dispatch",
+      "posture": "advisory",
+      "blocking": false,
+      "network": true,
+      "rate_limit": "one advisory query per installed package against PyPI's advisory service, each with pip-audit's 15-second socket timeout; the job is advisory and never a required check, so a slow or unreachable advisory service leaves a red job and no blocked merge",
+      "bypass": null,
+      "failure": "the job is red for triage; the merge is not blocked, because the scan is not in the ruleset",
+      "runs": ["make audit"],
+      "wiring": [".github/workflows/docs-guard.yml", "Makefile:audit"],
+      "jobs": [
+        {
+          "name": "Dependency audit",
+          "job": "audit",
+          "workflow": ".github/workflows/docs-guard.yml",
+          "events": ["pull_request", "push", "workflow_dispatch"],
+          "required": false,
+          "paths_filtered": false,
+          "tag_filtered": false,
+          "branch_filtered": false,
+          "network": true,
+          "commands": ["make audit"]
+        }
+      ]
+    },
+    {
       "id": "default_branch",
       "label": "After merge to the default branch",
       "when": "push to master, or manual dispatch",
@@ -180,12 +207,14 @@
       "when": "push of a v*.*.* tag, or manual dispatch with the tag",
       "posture": "release",
       "blocking": false,
-      "network": false,
+      "network": true,
+      "rate_limit": "one PyPI upload per release tag, plus the builder install and the artifact download that precede it; the upload is the only outbound write, and it happens once per tag",
       "bypass": null,
-      "failure": "no snapshot is produced; the release itself is not blocked by this workflow",
+      "failure": "the snapshot job produces no artifact and the publish job uploads nothing; a tag push no longer publishes on its own, because the `pypi` environment waits for a reviewer",
       "runs": [
         "python scripts/doc-control/release_snapshot.py --tag \"$TAG\"",
-        "make package"
+        "make package",
+        "python scripts/test_package.py --dist-dir dist"
       ],
       "wiring": [".github/workflows/release.yml"],
       "jobs": [
@@ -202,14 +231,27 @@
             "python scripts/doc-control/release_snapshot.py --tag \"$TAG\"",
             "make package"
           ]
+        },
+        {
+          "name": "publish",
+          "job": "publish",
+          "workflow": ".github/workflows/release.yml",
+          "events": ["push", "workflow_dispatch"],
+          "required": false,
+          "paths_filtered": false,
+          "tag_filtered": true,
+          "branch_filtered": false,
+          "network": true,
+          "commands": ["python scripts/test_package.py --dist-dir dist"]
         }
       ]
     }
   ],
   "never": [
-    "No network access from a blocking event: external link checks run only on the schedule, warn-only.",
+    "No network access from the required check: the blocking gate runs offline, and the external link crawl runs only on the schedule, warn-only.",
     "No automatic issue creation and no bot commit: the generation preview publishes a diff artifact instead.",
     "No scheduled run is a required check: a nightly red is triage, never a merge gate.",
+    "No publication without a human decision: the `pypi` environment requires a reviewer, so a tag push waits for the owner to approve the deployment.",
     "No check is silently skipped: an undeclared workflow, or a required check that a path filter can prevent from reporting, fails the trigger check."
   ]
 }

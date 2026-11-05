@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Release governance hardened (2026-11-05). The `pypi` deployment environment now requires the
+  repository owner's approval, so a release tag no longer publishes on its own, and a
+  `release-tags` ruleset now covers `v*.*.*` tags — it requires the `AutoDOC guard / check` result
+  on the tagged commit and forbids the tag's deletion or movement, with no bypass actor. Both are
+  repository settings, not code; `docs/00-governance/BRANCH-PROTECTION.md` now records the live
+  configuration, including why the legacy branch-protection endpoint reports "not protected" and
+  why `CODEOWNERS` approval is declared but not enforced. The trigger model now declares the
+  release workflow's `publish` job and the advisory `Dependency audit` job, and the audit job runs
+  `make audit`, so the CI step and the documented operator command are the same command.
 - Secret scanning is automated. A `Secret scan` job in `docs-guard.yml` downloads pinned
   `gitleaks` 8.30.1, verifies the `linux_x64` tarball SHA-256, and scans the full history with
   `--redact`. `make secret-scan` runs the same scan locally, and a manual pre-commit hook wraps

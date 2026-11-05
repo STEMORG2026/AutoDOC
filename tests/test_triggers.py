@@ -94,6 +94,26 @@ class TriggerModelTests(unittest.TestCase):
         self.assertTrue(any('exactly one blocking event' in error for error in errors), errors)
         self.assertTrue(any('exactly one required check' in error for error in errors), errors)
 
+    def test_the_publish_and_dependency_audit_jobs_are_declared(self):
+        """The wiring check cannot see a job added inside an already-declared workflow, so the
+        two jobs it once missed are pinned here."""
+        jobs = {job['name']: job for event in self.model['events']
+                for job in event.get('jobs', [])}
+        self.assertEqual(jobs['publish']['workflow'], '.github/workflows/release.yml')
+        self.assertEqual(jobs['publish']['commands'],
+                         ['python scripts/test_package.py --dist-dir dist'])
+        self.assertEqual(jobs['Dependency audit']['workflow'], '.github/workflows/docs-guard.yml')
+        self.assertEqual(jobs['Dependency audit']['commands'], ['make audit'])
+
+    def test_the_events_that_open_the_network_are_the_ones_that_do(self):
+        by_id = {event['id']: event for event in self.model['events']}
+        self.assertTrue(by_id['release']['network'],
+                        'the release installs from PyPI and uploads to it')
+        self.assertTrue(by_id['dependency_audit']['network'],
+                        'the advisory scan queries a live advisory service')
+        self.assertFalse(by_id['pull_request']['network'],
+                         'the required check runs offline')
+
 
 class TriggerViewTests(unittest.TestCase):
     """The printed view is the same implementation the generated reference uses."""
@@ -121,6 +141,14 @@ class TriggerViewTests(unittest.TestCase):
                       '10s timeout per request', text)
         self.assertIn('never passed', text, 'an unreadable workflow is unverified, not fine')
         self.assertIn('## Never', text)
+
+    def test_a_rate_limit_may_be_the_event_own_prose(self):
+        """A link crawl has numbers to state; a release or an advisory scan has a bound in
+        words, and the view must print that bound rather than invent numbers for it."""
+        self.assertEqual(triggers.rate_limit_text('one upload per release'),
+                         'one upload per release')
+        self.assertIn('links per run', triggers.rate_limit_text(
+            {'per_host_seconds': 1.0, 'max_links': 200, 'timeout_seconds': 10}))
 
     def test_the_cli_exits_two_on_a_model_that_does_not_match_the_wiring(self):
         model = triggers.load()

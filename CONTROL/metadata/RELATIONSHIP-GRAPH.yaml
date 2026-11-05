@@ -79,6 +79,36 @@
       "kind": "related"
     },
     {
+      "from": "DOC-P3-GOV-002",
+      "to": "DOC-CI-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-P3-GOV-002",
+      "to": "DOC-GOV-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-P3-GOV-002",
+      "to": "DOC-P3-GOV-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-P3-GOV-002",
+      "to": "DOC-P3-GOV-009",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-P3-GOV-002",
+      "to": "DOC-P3-GOV-010",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-P3-GOV-002",
+      "to": "DOC-REF-003",
+      "kind": "related"
+    },
+    {
       "from": "DOC-P3-GOV-004",
       "to": "DOC-P3-GOV-005",
       "kind": "related"
@@ -146,6 +176,11 @@
     {
       "from": "DOC-P3-GOV-010",
       "to": "DOC-P3-GOV-001",
+      "kind": "related"
+    },
+    {
+      "from": "DOC-P3-GOV-010",
+      "to": "DOC-P3-GOV-002",
       "kind": "related"
     },
     {

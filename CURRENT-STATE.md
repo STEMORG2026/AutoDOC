@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Current state
@@ -96,9 +96,20 @@ The demo includes structured agent context and CI can retain actual test-run evi
 
 When AutoDOC runs is declared, not implied: one event model (`CONTROL/metadata/TRIGGERS.json`,
 rendered into `docs/generated/TRIGGER-REFERENCE.md`) names the local hook, the pull request, the
-default branch, the schedule and a release tag, and `triggers.py --check` holds it to the workflows
-in `make ci`. The pull request is the only blocking event; the one check that opens the network is
-scheduled, rate-limited and warn-only.
+secret scan, the dependency audit, the default branch, the schedule and a release tag, and
+`triggers.py --check` holds it to the workflows in `make ci`. The pull request is the only blocking
+event and its required check runs offline; the three events that open the network — the scheduled
+link crawl, the advisory dependency scan and the release — each state their own bound, and none of
+them is a required check.
+
+Release governance was hardened on 2026-11-05 by two owner-applied repository settings, recorded
+with their undo paths in `docs/00-governance/BRANCH-PROTECTION.md`: the `pypi` deployment
+environment now requires the owner's approval before a deployment proceeds, so a tag push no longer
+publishes on its own; and a `release-tags` ruleset now covers `v*.*.*` tags, requiring
+`AutoDOC guard / check` on the tagged commit and forbidding the tag's deletion or movement, with no
+bypass actor. The branch ruleset's required check is unchanged. Neither setting touched code, and
+neither makes the repository enforce code-owner review — it does not, because it has one
+collaborator and GitHub does not count an author's own approval.
 
 A health command measures canonical/blank/example renderability from catalog records, instantiated docs,
 deadlines and drift; it does not write template outputs.

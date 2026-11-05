@@ -83,7 +83,7 @@ jobs:
       - name: Install audit dependencies
         run: python -m pip install -e '.[audit]'
       - name: Run dependency vulnerability scan
-        run: python -m pip_audit --progress-spinner off
+        run: make audit
   secret-scan:
     name: Secret scan
     runs-on: ubuntu-latest

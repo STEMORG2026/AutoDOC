@@ -198,19 +198,32 @@ Catalog records / mapped source files / Markdown metadata
 - **Triggers are declared and verified, never implied** (`CONTROL/metadata/TRIGGERS.json`,
   `scripts/intelligence/triggers.py`, `docs/generated/TRIGGER-REFERENCE.md`). One model states
   which event runs what, what may stop a merge, what is only triage, and what never happens: no
-  network access from a blocking event, no bot commit, no scheduled run as a required check.
+  network access from the required check, no bot commit, no scheduled run as a required check.
   `triggers.py --check` is part of `make ci`, so the model cannot drift from the repository: every
   workflow must be claimed by a declared job, every declared command must resolve to a file or a
   Make target, and a required check may not be path-, tag- or branch-filtered (a filtered required
   check can stay pending forever). The scheduled workflow consequently runs every check even when
   an earlier one fails, turns red once at the end for a human to read, and is never merged against.
 
-- **The one network-touching check is scheduled, rate-limited and warn-only**
+- **Every network event states its own bound** (`CONTROL/metadata/TRIGGERS.json`). The model
+  distinguishes a structured limit — the scheduled link crawl's per-host delay and link cap — from
+  a prose bound, which is what the advisory dependency scan and the release carry: the scan makes
+  one advisory query per installed package with pip-audit's socket timeout, and the release makes
+  one PyPI upload per tag. Both are declared as their own events so a network job cannot hide
+  inside an event already claimed by an offline one, and neither is a required check.
+
+- **The link crawl is scheduled, rate-limited and warn-only**
   (`scripts/doc-control/check_external_links.py`, `make docs-links-external`). It is deliberately
   absent from `make ci`: a third-party host may not fail a pull request. It opens one connection at
   a time with a per-host delay and a hard cap, treats auth and rate-limit answers as reachable, and
   skips local or reserved example hosts because those document a local endpoint rather than a
   dependency. It exits 0 by default and 1 only when an owner opts into `--strict`.
+
+- **The other two network jobs never gate a merge.** The `Dependency audit` job queries a live
+  advisory service on every push and is not in the ruleset, so a transient outage leaves a red job
+  and no blocked merge. The release `publish` job installs the builder from PyPI and uploads one
+  wheel and one sdist, and only after the `pypi` environment's required reviewer approves the
+  deployment.
 
 - **The catalog states what it can and cannot verify** (`CATALOG-SCHEMA.json`, `CATALOG-RULES.json`).
   Each type carries the reader question it answers, who reads it, the lifecycle events that make

@@ -16,7 +16,7 @@ criticality: medium
 review_days: 180
 last_verified: 2026-09-26
 last_reviewed: 2026-09-26
-last_updated: 2026-11-04
+last_updated: 2026-11-05
 auto_generated: false
 ---
 # Next action
@@ -82,6 +82,15 @@ The pending USA backlog is closed (2026-11-04): REPO-003 (pinned, SHA-256-verifi
 non-fast-forward, strict required check, no bypass actors, no required review by design because
 GitHub forbids self-approval), and AI-003/AI-010 (`AGENTS.md` forbidden actions and
 human-confirmation rules). SUP-022/023/024 remain deferred to 2027-04-26.
+
+Release protection was extended on 2026-11-05 by two owner-applied repository settings, recorded
+with their undo paths in `docs/00-governance/BRANCH-PROTECTION.md`: the `pypi` deployment
+environment now requires the owner's approval, so a tag push waits for an approval instead of
+publishing; and a `release-tags` ruleset now covers `v*.*.*` tags — required check on the tagged
+commit, no deletion, no move, no bypass actor. The trigger model now declares the release
+`publish` job and the advisory `Dependency audit` job, and the audit job runs `make audit`, so CI
+and the operator command are one command. No tag, release or package was published by this change,
+and no session was registered: MACP remains suspended.
 
 **USA audit (2026-10-26): score 64.7→72.8, then a second hygiene round.** Applied suppressions
 (.usa.yaml), fixed PY-004, pinned GitHub Actions (SUP-010), added pip_audit CI job (SUP-005).
